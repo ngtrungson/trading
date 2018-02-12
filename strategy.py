@@ -62,8 +62,7 @@ def ninja_trading(ticker, start, end, realtime = False):
     n_slow = 26
     nema = 9
     df['MACD_12_26'], df['MACDSign9'], df['MACDDiff'] = compute_MACD(df, n_fast, n_slow, nema)
-      
-    
+          
     df['18_LONG']= (swing_high(df) & check_crossover(df, high = 'Close', low = 'EMA18'))    
 #    & (df['Close'] > df['EMA18']) & (df['C_1d'] > df['EMA18_1d']) & (df['C_2d'] < df['EMA18_2d']))
     
@@ -150,7 +149,7 @@ def ninja_trading(ticker, start, end, realtime = False):
     df['L6_50'] = (df['6_50_LONG'] &  df['MACD_UP'])
     df['L18_50'] = (df['18_50_LONG'] &  df['MACD_UP'])
     df['L3_6_18'] = (df['3_6_18_LONG'] &  df['MACD_UP'])    
-    df['L_MACD_SIGNAL']=  (df['MACD_SIGNAL_LONG'] &  df['EMA_UP'])
+    df['L_MACD_SIGNAL']=  (df['MACD_SIGNAL_LONG'] &  df['MACD_UP'])
     df['L_MACD_ZERO']=  (df['MACD_ZERO_LONG'] &   df['MACD_UP'])
     
     
@@ -162,7 +161,7 @@ def ninja_trading(ticker, start, end, realtime = False):
     df['S6_50'] = (df['6_50_SHORT'] & df['MACD_DOWN'])
     df['S18_50'] = (df['18_50_SHORT'] &  df['MACD_DOWN'])
     df['S3_6_18'] = (df['3_6_18_SHORT'] &  df['MACD_DOWN'])    
-    df['S_MACD_SIGNAL']=  (df['MACD_SIGNAL_SHORT'] &  df['EMA_DOWN'])
+    df['S_MACD_SIGNAL']=  (df['MACD_SIGNAL_SHORT'] &  df['MACD_DOWN'])
     df['S_MACD_ZERO']=  (df['MACD_ZERO_SHORT'] &  df['MACD_DOWN'])
     
     # 3 days checking: SH + 2 pullbacks
@@ -185,16 +184,10 @@ def ninja_trading(ticker, start, end, realtime = False):
         | (df['L6_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
         | (df['L18_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
         | (df['L3_6_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))):
-
-
             print(" Advanced ninja trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
-#            print(" Open : ", df['Open'].iloc[-i], " Close: ", df['Close'].iloc[-i])
-#            print(" Low: ", df['Low'].iloc[-i], " EMA 18 :", df['EMA18'].iloc[-i] )
        
     df['Signal'] = 1*(df['L18'] | df['L3_18'] | df['L3_6'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'])  +\
      -1*(df['S18'] | df['S3_18'] | df['S3_6'] | df['S6_18'] | df['S3_50'] | df['S6_50'] | df['S18_50'] |  df['S3_6_18'] | df['S_MACD_SIGNAL'] | df['S_MACD_ZERO']) 
-        
-    
     
     return df
 

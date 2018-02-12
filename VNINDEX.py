@@ -146,7 +146,7 @@ def test_runVNINDEX():
 #        get_data_from_cophieu68_openwebsite(symbolsVNI)
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-2-8"
+    end_date = "2018-2-12"
     start_date = "2017-1-1"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
@@ -224,7 +224,7 @@ def test_run_HNX():
                   'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-2-8"
+    end_date = "2018-2-12"
     start_date = "2017-1-1"
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsHNX, dates, benchmark ='^HASTC')  # get data for each symbol
