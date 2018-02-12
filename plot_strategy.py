@@ -152,7 +152,7 @@ def plot_ninja_trading(ticker, df, realtime = False):
 #    df['MACDSign9'] = MACDsign
 #    df['MACDDiff'] = MACDdiff
     
-    ax2.plot(df_ohlc['Date'], df['MACD_12_26'].values, color='blue', lw=1)
+    ax2.plot(df_ohlc['Date'], df['MACD_12_26'].values, color='green', lw=1)
     ax2.plot(df_ohlc['Date'], df['MACDSign9'].values, color='red', lw=1)
     ax2.fill_between(df_ohlc['Date'], df['MACDDiff'].values, 0, alpha=0.5, facecolor=fillcolor, edgecolor=fillcolor)
 
@@ -350,7 +350,7 @@ def plot_trading_weekly(ticker, df, realtime = False):
     EMA18_week = df['EMA18'].resample('5D').mean()
     
     fig, ax = plt.subplots(facecolor='w')
-    candlestick_ohlc(ax, df_ohlc.values, width=.8, colorup='#53c156', colordown='#ff1717')         
+    candlestick_ohlc(ax, df_ohlc.values, width=1.5, colorup='#53c156', colordown='#ff1717')         
 
     ax.plot(df_ohlc['Date'], EMA18_week.values, linewidth=1,label = 'EMA18', color = 'blue')
     
