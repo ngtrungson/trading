@@ -289,19 +289,19 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data, VNI_trading  = test_runVNINDEX()
 #    HNX_result, HNX_data, HNX_trading = test_run_HNX()
     
-#    ticker = 'SJS'    
-#    end_date = "2018-2-12"
-#    start_date = "2017-1-2"
-#    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = True)    
-#    plot_hedgefund_trading(ticker, hedgefund, realtime = True)
-#    
-#    ninja = ninja_trading(ticker, start_date, end_date, realtime = True)    
-#    plot_ninja_trading(ticker, ninja, realtime = True)
+    ticker = 'SJD'    
+    end_date = "2018-2-13"
+    start_date = "2017-1-2"
+    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = True)    
+    plot_hedgefund_trading(ticker, hedgefund, realtime = True)
+    
+    ninja = ninja_trading(ticker, start_date, end_date, realtime = True)    
+    plot_ninja_trading(ticker, ninja, realtime = True)
 #    
 #    plot_trading_weekly(ticker, hedgefund, realtime = True)
 #    
     
-    analysis_stocks(start = "2017-1-25" , end = "2018-2-12")
+#    analysis_stocks(start = "2017-1-25" , end = "2018-2-13")
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-6")
