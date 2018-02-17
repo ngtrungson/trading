@@ -333,7 +333,7 @@ def plot_hedgefund_trading(ticker, df, realtime = False):
     ax.yaxis.set_major_locator(mticker.MaxNLocator(nbins=5, prune='upper'))
     for label in ax.xaxis.get_ticklabels():
         label.set_rotation(30)
-    plt.title(ticker.upper())
+    plt.title(ticker.upper() + " daily")
     
     plt.show()
 def plot_trading_weekly(ticker, df, realtime = False):
