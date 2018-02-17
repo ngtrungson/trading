@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import talib
 import datetime
-from datetime import date
+
 
 def ninja_trading(ticker, start, end, realtime = False):
        
@@ -95,8 +95,7 @@ def ninja_trading(ticker, start, end, realtime = False):
     
     df['6_50_LONG']= (swing_high(df) & check_crossover(df, high = 'EMA6', low = 'EMA50'))
 #    & (df['EMA6'] > df['EMA50']) & (df['EMA6_1d'] > df['EMA50_1d']) & (df['EMA6_2d'] < df['EMA50_2d']))
-    
-    
+  
     df['6_50_SHORT']= (swing_low(df)  & check_crossover(df, high = 'EMA50', low = 'EMA6'))
 #    & (df['EMA6'] < df['EMA50']) & (df['EMA6_1d'] < df['EMA50_1d']) & (df['EMA6_2d'] > df['EMA50_2d']))
     
@@ -105,7 +104,6 @@ def ninja_trading(ticker, start, end, realtime = False):
     
     df['18_50_SHORT']= (swing_low(df) & check_crossover(df, high = 'EMA50', low = 'EMA18'))
 #    & (df['EMA18'] < df['EMA50']) & (df['EMA18_1d'] < df['EMA50_1d']) & (df['EMA18_2d'] > df['EMA50_2d']))
-
 
     df['3_6_18_LONG']= (swing_high(df) & check_crossover(df, high = 'EMA3', low = 'EMA6')
         & check_crossover(df, high = 'Close', low = 'EMA18'))

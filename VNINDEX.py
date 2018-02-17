@@ -46,7 +46,15 @@ def analysis_stocks(start, end):
                    'TVB','TVN','TVS','VDS','VGT','VIB',
                   'VIG','VIP','VIX','VMC','VNG','VPH']
     
-    symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother
+    high_cpm = ['ACV', 'ALV', 'AMD', 'ANV', 'APC', 'ART', 'ATB', 'BCC', 'C47', 'C69',
+       'CCL', 'CDO', 'CMG', 'CVN', 'DHM', 'DIG', 'DST', 'EVG', 'FIT', 'HAI',
+       'HAR', 'HCM', 'HID', 'HII', 'HKB', 'HPG', 'HPI', 'HTT', 'HVA', 'HVN',
+       'IDI', 'KDM', 'KHB', 'KLF', 'KSA', 'LDG', 'MBB', 'MBS', 'MSR', 'MST',
+       'NHP', 'NS3', 'NTB', 'NVB', 'NVT', 'OCH', 'OGC', 'PDR', 'PIV', 'PND',
+       'PPI', 'PVO', 'QBS', 'QCG', 'ROS', 'SBS', 'SDI', 'SHB', 'SHS', 'SPI',
+       'TSC', 'TVB', 'VHG', 'VIG', 'VJC', 'VKC', 'VND', 'VOS']
+    
+    symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
  
 #    symbols = symbolsVNI 
     
@@ -98,8 +106,18 @@ def get_csv_data():
                    'TDH','TIS','TNT','TTB','TTF',
                    'TVB','TVN','TVS','VDS','VGT','VIB',
                   'VIG','VIP','VIX','VMC','VNG','VPH']
+    
+    high_cpm = ['ACV', 'ALV', 'AMD', 'ANV', 'APC', 'ART', 'ATB', 'BCC', 'C47', 'C69',
+       'CCL', 'CDO', 'CMG', 'CVN', 'DHM', 'DIG', 'DST', 'EVG', 'FIT', 'HAI',
+       'HAR', 'HCM', 'HID', 'HII', 'HKB', 'HPG', 'HPI', 'HTT', 'HVA', 'HVN',
+       'IDI', 'KDM', 'KHB', 'KLF', 'KSA', 'LDG', 'MBB', 'MBS', 'MSR', 'MST',
+       'NHP', 'NS3', 'NTB', 'NVB', 'NVT', 'OCH', 'OGC', 'PDR', 'PIV', 'PND',
+       'PPI', 'PVO', 'QBS', 'QCG', 'ROS', 'SBS', 'SDI', 'SHB', 'SHS', 'SPI',
+       'TSC', 'TVB', 'VHG', 'VIG', 'VJC', 'VKC', 'VND', 'VOS']
+    
+    symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
 #    symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother
-    symbols =  symbolother
+    symbols =  high_cpm
     symbols = pd.unique(symbols).tolist()
     get_data_from_cophieu68_openwebsite(symbols)
     return symbols
@@ -318,7 +336,7 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data, VNI_trading  = test_runVNINDEX()
 #    HNX_result, HNX_data, HNX_trading = test_run_HNX()
     
-    ticker = 'CHP'    
+    ticker = 'VND'    
     end_date = "2018-2-13"
     start_date = "2017-2-2"
     hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False)    
@@ -326,8 +344,8 @@ if __name__ == "__main__":
     
     ninja = ninja_trading(ticker, start_date, end_date, realtime = False)    
     plot_ninja_trading(ticker, ninja, realtime = False)
-#    
-#    plot_trading_weekly(ticker, hedgefund, realtime = True)
+    
+    plot_trading_weekly(ticker, hedgefund, realtime = False)
 #    
     investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
