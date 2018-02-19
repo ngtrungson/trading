@@ -14,8 +14,7 @@ import requests
 import webbrowser
 import datetime as dt
 import scipy.optimize as spo
-import cvxopt as opt
-from cvxopt import blas, solvers
+
 
 
 # Create Pandas data frame for backtrader
@@ -37,7 +36,7 @@ def get_data_trading(symbol, start, end):
 
 ################################# Get data from website ################################################
 
-def save_vnindex_tickers():
+def save_and_analyse_vnindex_tickers():
     resp = requests.get('http://www.cophieu68.vn/export.php')
     soup = bs.BeautifulSoup(resp.text, 'lxml')
     table = soup.find('table', {'width': '100%','cellpadding' : '4', 'border' : '0'})
@@ -47,10 +46,23 @@ def save_vnindex_tickers():
         tickers.append(ticker)
         
     tickers.remove('ALL DATA (HOSE & HNX)')
-    tickers.remove('000001.SS')
+#    tickers.remove('000001.SS')
+#    tickers.remove('^XAYDUNG')
+#    tickers.remove('VNINDEX')
+#    tickers.remove('HNX')
+#    tickers.remove('^VNINDEX')
+#    tickers.remove('^VNINDEX2')
+#    tickers.remove('AGD')
+#    tickers.remove('AGC')
+#    tickers.remove('ALP')
     with open("vnindextickers.pickle","wb") as f:
         pickle.dump(tickers,f)
+    
         
+    data = fundemental_analysis(tickers)
+    data.to_csv('fundemental_stocks_all.csv')
+    
+    
     return tickers
 
 def isfloat(value):
@@ -62,9 +74,15 @@ def isfloat(value):
 
 def fundemental_analysis(tickers):
     df = pd.DataFrame()
-    for ticker in tickers:
-        df_temp = get_info_stock(ticker)
-        df = df.append(df_temp)
+    for ticker in tickers:        
+        print(ticker)
+        try:
+            df_temp = get_info_stock(ticker)
+            df = df.append(df_temp)
+        except Exception as e:
+            print(" Error in symbol : ", ticker) 
+            print(e)
+            pass
     df = df.set_index('Ticker')
     return df
     
@@ -140,7 +158,14 @@ def get_data_from_cophieu68_openwebsite(tickers):
     file_url = 'http://www.cophieu68.vn/export/excelfull.php?id='
     for ticker in tickers:
        webbrowser.open(file_url+ticker)
+       
 
+def get_data_from_SSI_website(tickers):       
+    file_url = 'http://ivt.ssi.com.vn/Handlers/DownloadHandler.ashx?Download=1&Ticker='
+    for ticker in tickers:
+       webbrowser.open(file_url+ticker)
+   
+    
 def symbol_to_path(symbol, base_dir="stock_vn"):
     """Return CSV file path given ticker symbol."""
     return os.path.join(base_dir, "excel_{}.csv".format(str(symbol)))
@@ -304,42 +329,6 @@ def optimize_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
 
 
 
-
-# Turn off progress printing 
-#solvers.options['show_progress'] = False
-def optimal_portfolio(returns):
-    n = len(returns)
-    returns = np.asmatrix(returns)
-    
-    N = n
-    mus = [10**(5.0 * t/N - 1.0) for t in range(N)]
-    
-    # Convert to cvxopt matrices
-    S = opt.matrix(np.cov(returns))
-    pbar = opt.matrix(np.mean(returns, axis=1))
-    
-    # Create constraint matrices
-    G = -opt.matrix(np.eye(n))   # negative n x n identity matrix
-    h = opt.matrix(0.0, (n ,1))
-    A = opt.matrix(1.0, (1, n))
-    b = opt.matrix(1.0)
-    
-    # Calculate efficient frontier weights using quadratic programming
-    portfolios = [solvers.qp(mu*S, -pbar, G, h, A, b)['x'] 
-                  for mu in mus]
-    ## CALCULATE RISKS AND RETURNS FOR FRONTIER
-    returns = [blas.dot(pbar, x) for x in portfolios]
-    risks = [np.sqrt(blas.dot(x, S*x)) for x in portfolios]
-    ## CALCULATE THE 2ND DEGREE POLYNOMIAL OF THE FRONTIER CURVE
-    m1 = np.polyfit(returns, risks, 2)
-    x1 = np.sqrt(m1[2] / m1[0])
-    # CALCULATE THE OPTIMAL PORTFOLIO
-    wt = solvers.qp(opt.matrix(x1 * S), -pbar, G, h, A, b)['x']
-    return np.asarray(wt), returns, risks
-
-
-
-
 def optimize_porfolio_markowitz(maindf, symbols):
         
     data = maindf[symbols]
@@ -399,31 +388,40 @@ def optimize_porfolio_markowitz(maindf, symbols):
     return results_frame, max_sharpe_port, min_vol_port 
 
 if __name__ == "__main__":
-    symbolsHNX = ['TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", "KLF", "VE9", 
-                  'ACB', 'BCC', 'CEO', 'DBC', 'DCS', 'HHG', 'HUT',
-                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',
-                  'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
+#    symbolsHNX = ['TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", "KLF", "VE9", 
+#                  'ACB', 'BCC', 'CEO', 'DBC', 'DCS', 'HHG', 'HUT',
+#                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',
+#                  'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
+#    
+#    symbolsVNI = [ "ASM", "BFC", "BID", "BMI", "BMP", "BVH",
+#              "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG",  
+#           "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 
+#           "ELC", "EVE","FCN","FIT","FLC","FPT", "GAS", "GMD", "GTN", 
+#           "HAG", "HHS", "HNG", "HQC", "HT1", "HVG",
+#           "HSG", "HDG", "HCM", "HPG", "HBC", 
+#           "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
+#           "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
+#            "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC",
+#            "QCG", "REE",  "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
+#                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,
+#                'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'GEX','VCI',
+#                'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR',
+#                'EIB','BHN','VPB','VRE','ROS',"VND", "HDB","NVT","VHG", "SMC", "C32","CVT"]
+#    
+#    symbolsUPCOM = ["SBS", "SWC", "NTC","DVN"]
+#    
+#    symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
+# 
+#    data = fundemental_analysis(symbols)
+#    
+#    data.to_csv('fundemental_stocksVN.cvs')
     
-    symbolsVNI = [ "ASM", "BFC", "BID", "BMI", "BMP", "BVH",
-              "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG",  
-           "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 
-           "ELC", "EVE","FCN","FIT","FLC","FPT", "GAS", "GMD", "GTN", 
-           "HAG", "HHS", "HNG", "HQC", "HT1", "HVG",
-           "HSG", "HDG", "HCM", "HPG", "HBC", 
-           "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
-           "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
-            "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC",
-            "QCG", "REE",  "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,
-                'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'GEX','VCI',
-                'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR',
-                'EIB','BHN','VPB','VRE','ROS',"VND", "HDB","NVT","VHG", "SMC", "C32","CVT"]
+#    tickers = save_vnindex_tickers()
     
-    symbolsUPCOM = ["SBS", "SWC", "NTC","DVN"]
-    
-    symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
- 
-    data = fundemental_analysis(symbols)
-    
-    data.to_csv('fundemental_stocksVN.cvs')
+     data = pd.read_csv('fundemental_stocks_all.cvs', parse_dates=True, index_col=0)
+     df = data.query("MeanVol_10W > 50000")
+     df = df.query("CPM > 2.5")
+     df.to_csv('investment_stock.csv')
+     print(df.index)
+     
 

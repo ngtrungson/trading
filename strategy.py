@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import talib
 import datetime
-from datetime import date
+
 
 def ninja_trading(ticker, start, end, realtime = False):
        
@@ -95,8 +95,7 @@ def ninja_trading(ticker, start, end, realtime = False):
     
     df['6_50_LONG']= (swing_high(df) & check_crossover(df, high = 'EMA6', low = 'EMA50'))
 #    & (df['EMA6'] > df['EMA50']) & (df['EMA6_1d'] > df['EMA50_1d']) & (df['EMA6_2d'] < df['EMA50_2d']))
-    
-    
+  
     df['6_50_SHORT']= (swing_low(df)  & check_crossover(df, high = 'EMA50', low = 'EMA6'))
 #    & (df['EMA6'] < df['EMA50']) & (df['EMA6_1d'] < df['EMA50_1d']) & (df['EMA6_2d'] > df['EMA50_2d']))
     
@@ -105,7 +104,6 @@ def ninja_trading(ticker, start, end, realtime = False):
     
     df['18_50_SHORT']= (swing_low(df) & check_crossover(df, high = 'EMA50', low = 'EMA18'))
 #    & (df['EMA18'] < df['EMA50']) & (df['EMA18_1d'] < df['EMA50_1d']) & (df['EMA18_2d'] > df['EMA50_2d']))
-
 
     df['3_6_18_LONG']= (swing_high(df) & check_crossover(df, high = 'EMA3', low = 'EMA6')
         & check_crossover(df, high = 'Close', low = 'EMA18'))
@@ -173,6 +171,7 @@ def ninja_trading(ticker, start, end, realtime = False):
             | df['L_MACD_SIGNAL'].iloc[-i]
             | df['L_MACD_ZERO'].iloc[-i]):
             print(" Time for ninja trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+            print(" Price at that day : ", df.iloc[-i][0:4])
 
             
     for i in range(1,hm_days+1):
@@ -257,6 +256,11 @@ def hedgefund_trading(ticker, start, end, realtime = False):
     nema = 9 
     df['MACD_50_100'], df['MACDSign9'], df['MACDDiff501009'] = compute_MACD(df, n_fast, n_slow, nema)
     
+    n_fast = 12
+    n_slow = 26
+    nema = 9
+    df['MACD_12_26'], df['MACDSign9_1226'], df['MACDDiff12260'] =  compute_MACD(df, n_fast, n_slow, nema)
+       
 
     # TREND TREND LONG
     df['TT_LONG']= ((df['Close'] > df['EMA18']) 
@@ -360,6 +364,7 @@ def hedgefund_trading(ticker, start, end, realtime = False):
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] | df['LCTT'].iloc[-i]):
             print(" Time for slingshot trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+            print(" Price at that day : ", df.iloc[-i][0:4])
         if (df['LTT_A'].iloc[-i] | df['LCTT_A'].iloc[-i]):
             print(" Advanced slingshot trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
         

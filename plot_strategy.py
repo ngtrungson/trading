@@ -310,7 +310,8 @@ def plot_hedgefund_trading(ticker, df, realtime = False):
     plt.subplots_adjust(left=.09, bottom=.14, right=.94, top=.95, wspace=.20, hspace=0)
     
  
-    fig2, ax = plt.subplots()
+    fig2 = plt.figure()
+    ax = fig2.add_subplot(1, 1, 1)
     candlestick_ohlc(ax, df_ohlc.values, width=.6, colorup='#53c156', colordown='#ff1717')         
 
     ax.plot(df_ohlc['Date'],df_ohlc['EMA18'].values, linewidth=1,label = 'EMA18', color = 'blue')
@@ -318,6 +319,23 @@ def plot_hedgefund_trading(ticker, df, realtime = False):
     maLeg = plt.legend(loc=2, ncol=2, prop={'size':9},
                fancybox=True, borderaxespad=0.)
   
+    
+#    
+#    axv = fig2.add_subplot(2, 1, 2)   
+#    axv.plot(df_ohlc['Date'], df['MACD_12_26'].values, color='green', lw=1)
+#    axv.plot(df_ohlc['Date'], df['MACDSign9_1226'].values, color='red', lw=1)   
+#    axv.axhline(0, color = 'gray', linewidth=1, linestyle = '--') 
+#    axv.axes.yaxis.set_ticklabels([])
+#    axv.grid(False)      
+#    axv.spines['bottom'].set_color("#5998ff")
+#    axv.spines['top'].set_color("#5998ff")
+#    axv.spines['left'].set_color("#5998ff")
+#    axv.spines['right'].set_color("#5998ff")
+#    axv.tick_params(axis='x')
+#    axv.tick_params(axis='y')
+    
+    
+    
 #    ax1.grid(True, color ='gray',linestyle = '--')
     ax.xaxis.set_major_locator(mticker.MaxNLocator(10))
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
@@ -333,7 +351,11 @@ def plot_hedgefund_trading(ticker, df, realtime = False):
     ax.yaxis.set_major_locator(mticker.MaxNLocator(nbins=5, prune='upper'))
     for label in ax.xaxis.get_ticklabels():
         label.set_rotation(30)
-    plt.title(ticker.upper())
+    plt.title(ticker.upper() + " daily")
+    
+    
+    
+    
     
     plt.show()
 def plot_trading_weekly(ticker, df, realtime = False):
