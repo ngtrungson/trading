@@ -171,6 +171,7 @@ def ninja_trading(ticker, start, end, realtime = False):
             | df['L_MACD_SIGNAL'].iloc[-i]
             | df['L_MACD_ZERO'].iloc[-i]):
             print(" Time for ninja trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+            print(" Price at that day : ", df.iloc[-i][0:4])
 
             
     for i in range(1,hm_days+1):
@@ -255,6 +256,11 @@ def hedgefund_trading(ticker, start, end, realtime = False):
     nema = 9 
     df['MACD_50_100'], df['MACDSign9'], df['MACDDiff501009'] = compute_MACD(df, n_fast, n_slow, nema)
     
+    n_fast = 12
+    n_slow = 26
+    nema = 9
+    df['MACD_12_26'], df['MACDSign9_1226'], df['MACDDiff12260'] =  compute_MACD(df, n_fast, n_slow, nema)
+       
 
     # TREND TREND LONG
     df['TT_LONG']= ((df['Close'] > df['EMA18']) 
@@ -358,6 +364,7 @@ def hedgefund_trading(ticker, start, end, realtime = False):
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] | df['LCTT'].iloc[-i]):
             print(" Time for slingshot trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+            print(" Price at that day : ", df.iloc[-i][0:4])
         if (df['LTT_A'].iloc[-i] | df['LCTT_A'].iloc[-i]):
             print(" Advanced slingshot trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
         

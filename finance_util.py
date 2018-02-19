@@ -158,7 +158,14 @@ def get_data_from_cophieu68_openwebsite(tickers):
     file_url = 'http://www.cophieu68.vn/export/excelfull.php?id='
     for ticker in tickers:
        webbrowser.open(file_url+ticker)
+       
 
+def get_data_from_SSI_website(tickers):       
+    file_url = 'http://ivt.ssi.com.vn/Handlers/DownloadHandler.ashx?Download=1&Ticker='
+    for ticker in tickers:
+       webbrowser.open(file_url+ticker)
+   
+    
 def symbol_to_path(symbol, base_dir="stock_vn"):
     """Return CSV file path given ticker symbol."""
     return os.path.join(base_dir, "excel_{}.csv".format(str(symbol)))
