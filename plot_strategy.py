@@ -46,7 +46,8 @@ def plot_ninja_trading(ticker, df, realtime = False):
     if realtime:
       df_ohlc = df_ohlc.rename(columns = {'index': 'Date'})  
     else:
-        df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
+#        df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
+        df_ohlc = df_ohlc.rename(columns = {'DATE': 'Date'})
 
 
 #Converting dates column to float values
@@ -185,7 +186,8 @@ def plot_hedgefund_trading(ticker, df, realtime = False):
     if realtime:
       df_ohlc = df_ohlc.rename(columns = {'index': 'Date'})  
     else:
-        df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
+#        df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
+        df_ohlc = df_ohlc.rename(columns = {'DATE': 'Date'})
 
 #    return df_ohlc
     #Converting dates column to float values
@@ -366,7 +368,8 @@ def plot_trading_weekly(ticker, df, realtime = False):
     if realtime:
       df_ohlc = df_ohlc.rename(columns = {'index': 'Date'})  
     else:
-        df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
+#        df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
+        df_ohlc = df_ohlc.rename(columns = {'DATE': 'Date'})
         
     df_ohlc['Date'] = df_ohlc['Date'].map(mdates.date2num)
     EMA18_week = df['EMA18'].resample('5D').mean()

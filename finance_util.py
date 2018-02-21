@@ -170,6 +170,10 @@ def symbol_to_path(symbol, base_dir="stock_vn"):
     """Return CSV file path given ticker symbol."""
     return os.path.join(base_dir, "excel_{}.csv".format(str(symbol)))
 
+def symbol_to_path_ssi(symbol, base_dir="ssi"):
+    """Return CSV file path given ticker symbol."""
+    return os.path.join(base_dir, "Historical_Price_{}.csv".format(str(symbol)))
+
 #def get_data(symbols, dates, addVNINDEX=True, colname = '<CloseFixed>'):
 #    """Read stock data (adjusted close) for given symbols from CSV files."""
 #    df_final = pd.DataFrame(index=dates)

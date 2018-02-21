@@ -4,20 +4,27 @@ Created on Sun Feb 11 08:47:17 2018
 
 @author: sonng
 """
-from finance_util import symbol_to_path, get_info_stock
+from finance_util import symbol_to_path, get_info_stock, symbol_to_path_ssi
 import numpy as np
 import pandas as pd
 import talib
 import datetime
 
 
+
 def ninja_trading(ticker, start, end, realtime = False):
        
-    file_path = symbol_to_path(ticker)
-    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
-    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+#    file_path = symbol_to_path(ticker)
+#    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
+#                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+#    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
+#                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+    
+    file_path = symbol_to_path_ssi(ticker)
+    df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
+                 usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
+    df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
+                              'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
   
     # columns order for backtrader type
     columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
@@ -171,7 +178,7 @@ def ninja_trading(ticker, start, end, realtime = False):
             | df['L_MACD_SIGNAL'].iloc[-i]
             | df['L_MACD_ZERO'].iloc[-i]):
             print(" Time for ninja trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
-            print(" Price at that day : ", df.iloc[-i][0:4])
+#            print(" Price at that day : ", df.iloc[-i][0:4])
 
             
     for i in range(1,hm_days+1):
@@ -215,11 +222,18 @@ def check_below_zero(df, column = 'MACD_12_26'):
 
 def hedgefund_trading(ticker, start, end, realtime = False):
        
-    file_path = symbol_to_path(ticker)
-    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
-    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+#    file_path = symbol_to_path(ticker)
+#    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
+#                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+#    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
+#                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+    
+    
+    file_path = symbol_to_path_ssi(ticker)
+    df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True, dayfirst=True,
+                 usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
+    df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
+                              'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
     
     # columns order for backtrader type
     columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
@@ -364,7 +378,7 @@ def hedgefund_trading(ticker, start, end, realtime = False):
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] | df['LCTT'].iloc[-i]):
             print(" Time for slingshot trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
-            print(" Price at that day : ", df.iloc[-i][0:4])
+#            print(" Price at that day : ", df.iloc[-i][0:4])
         if (df['LTT_A'].iloc[-i] | df['LCTT_A'].iloc[-i]):
             print(" Advanced slingshot trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
         

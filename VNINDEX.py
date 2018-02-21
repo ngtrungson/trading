@@ -166,7 +166,7 @@ def get_csv_dataSSI():
     
     symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
 #    symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother
-    symbols =  high_cpm
+    symbols =  benchmark
     symbols = pd.unique(symbols).tolist()
     get_data_from_SSI_website(symbols)
     return symbols    
@@ -384,34 +384,23 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data, VNI_trading  = test_runVNINDEX()
 #    HNX_result, HNX_data, HNX_trading = test_run_HNX()
     
-<<<<<<< HEAD
-#    ticker = 'CHP'    
-=======
-#    ticker = 'HPG'    
->>>>>>> 7a42a52016bb30b754adbb498ff2adc9d5461f0d
-#    end_date = "2018-2-13"
-#    start_date = "2017-2-2"
-#    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False)    
-#    plot_hedgefund_trading(ticker, hedgefund, realtime = False)
-<<<<<<< HEAD
-#    
-#    ninja = ninja_trading(ticker, start_date, end_date, realtime = False)    
-#    plot_ninja_trading(ticker, ninja, realtime = False)
-#    
-#    plot_trading_weekly(ticker, hedgefund, realtime = True)
+
+    ticker = 'HPG'    
+
+    end_date = "2018-2-13"
+    start_date = "2017-2-2"
+    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False)    
+    plot_hedgefund_trading(ticker, hedgefund, realtime = False)
+
+    
+    ninja = ninja_trading(ticker, start_date, end_date, realtime = False)    
+    plot_ninja_trading(ticker, ninja, realtime = False)
+    
+    plot_trading_weekly(ticker, hedgefund, realtime = False)
 #    
     investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
-=======
-##    
-###    ninja = ninja_trading(ticker, start_date, end_date, realtime = False)    
-###    plot_ninja_trading(ticker, ninja, realtime = False)
-##    
-#    plot_trading_weekly(ticker, hedgefund, realtime = False)
-###    
-#    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
->>>>>>> 7a42a52016bb30b754adbb498ff2adc9d5461f0d
     
-    analysis_stocks(start = "2017-1-25" , end = "2018-2-13")
+#    analysis_stocks(start = "2017-1-25" , end = "2018-2-13")
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-6")
