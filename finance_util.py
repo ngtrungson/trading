@@ -166,7 +166,7 @@ def get_data_from_SSI_website(tickers):
        webbrowser.open(file_url+ticker)
    
     
-def symbol_to_path(symbol, base_dir="stock_vn"):
+def symbol_to_path(symbol, base_dir="cp68"):
     """Return CSV file path given ticker symbol."""
     return os.path.join(base_dir, "excel_{}.csv".format(str(symbol)))
 

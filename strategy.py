@@ -12,20 +12,21 @@ import datetime
 
 
 
-def ninja_trading(ticker, start, end, realtime = False):
+def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
        
-#    file_path = symbol_to_path(ticker)
-#    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-#                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
-#    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-#                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
-    
-    file_path = symbol_to_path_ssi(ticker)
-    df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
-                 usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
-    df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
-                              'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
-  
+    if source == "ssi":
+        file_path = symbol_to_path_ssi(ticker)
+        df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
+                     usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
+        df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
+                                  'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
+    else:
+        file_path = symbol_to_path(ticker)
+        df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
+                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+        df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
+                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+      
     # columns order for backtrader type
     columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
     # change the index by new index
@@ -220,20 +221,20 @@ def check_below_zero(df, column = 'MACD_12_26'):
     return ((df[column] < 0) & (df[column].shift(1) < 0) & (df[column].shift(2) > 0)) 
 
 
-def hedgefund_trading(ticker, start, end, realtime = False):
+def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
        
-#    file_path = symbol_to_path(ticker)
-#    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-#                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
-#    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-#                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
-    
-    
-    file_path = symbol_to_path_ssi(ticker)
-    df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True, dayfirst=True,
-                 usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
-    df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
-                              'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
+    if source == "ssi":
+        file_path = symbol_to_path_ssi(ticker)
+        df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
+                     usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
+        df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
+                                  'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
+    else:
+        file_path = symbol_to_path(ticker)
+        df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
+                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+        df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
+                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
     
     # columns order for backtrader type
     columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]

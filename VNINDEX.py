@@ -11,7 +11,7 @@ from strategy import ninja_trading, hedgefund_trading
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly
 from machine_learning import price_predictions
 
-def analysis_stocks(start, end):
+def analysis_stocks(start, end, source = "ssi"):
     
     symbolsHNX = ['APS','ALV', 'TNG','BVS','PVX',"KDM","ASA","HKB","HVA","KLF", "VE9", 
                   'ACB','BCC','CEO','DBC','DCS','HHG','HUT',
@@ -63,8 +63,8 @@ def analysis_stocks(start, end):
     
     for ticker in tickers:
         print("Analysing ...", ticker)
-        ninja_trading(ticker, start, end, realtime = False)
-        hedgefund_trading(ticker, start, end, realtime = False)
+        ninja_trading(ticker, start, end, realtime = False, source = source)
+        hedgefund_trading(ticker, start, end, realtime = False, source = source)
     
     
 def analysis_trading(tickers, start, end):
@@ -73,7 +73,7 @@ def analysis_trading(tickers, start, end):
         ninja_trading(ticker, start, end)
         hedgefund_trading(ticker, start, end)
                
-def get_csv_data():
+def get_csv_data(source = "cp68"):
     benchmark = ["^VNINDEX", "^HASTC", "^UPCOM"]
     symbolsHNX = ['TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", "KLF", "VE9", 
                   'ACB', 'BCC', 'CEO', 'DBC', 'DCS', 'HHG', 'HUT',
@@ -115,62 +115,16 @@ def get_csv_data():
        'PPI', 'PVO', 'QBS', 'QCG', 'ROS', 'SBS', 'SDI', 'SHB', 'SHS', 'SPI',
        'TSC', 'TVB', 'VHG', 'VIG', 'VJC', 'VKC', 'VND', 'VOS']
     
-    symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
-#    symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother
-    symbols =  high_cpm
+#    symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
+    symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
+#    symbols =  high_cpm
     symbols = pd.unique(symbols).tolist()
-    get_data_from_cophieu68_openwebsite(symbols)
+    if source == "cp68":
+        get_data_from_cophieu68_openwebsite(symbols)
+    else:
+       get_data_from_SSI_website(symbols) 
     return symbols
  
-def get_csv_dataSSI():
-    benchmark = ["^VNINDEX", "^HASTC", "^UPCOM"]
-    symbolsHNX = ['TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", "KLF", "VE9", 
-                  'ACB', 'BCC', 'CEO', 'DBC', 'DCS', 'HHG', 'HUT',
-                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',
-                  'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
-    symbolsVNI = [ "ASM", "BFC", "BID", "BMI", "BMP", "BVH",
-                  "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG",  
-               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 
-               "ELC", "EVE","FCN","FIT","FLC","FPT", "GAS", "GMD", "GTN", 
-               "HAG", "HHS", "HNG", "HQC", "HT1", "HVG",
-               "HSG", "HDG", "HCM", "HPG", "HBC", 
-               "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
-               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
-                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC",
-                "QCG", "REE",  "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,
-                    'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'GEX','VCI',
-                    'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR',
-                    'EIB','BHN','VPB','VRE','ROS',"VND", "HDB","NVT","VHG", "SMC", "C32","CVT"]
-    symbolsUPCOM = ["SBS", "SWC", "NTC","DVN", 'HVN', 'IDC']
-    
-    symbolother = ['ALV','ANV','APC','APG','APS','ASP','ATG',
-                   'BCG','CCL','CHP',
-                   'CTI','CTS','CVN','DGW','DHA','DHC',
-                   'FMC','FTS','HAI','IDI',
-                   'KSD','KVC','LCG','LDG','LGL', 'MSR','NS3',
-                   'NVB','PFL','PHC',
-                   'POM','PV2','PVE','PVG','PVV','PXL','QBS',
-                   'SD9','SDI','SFG','SPI',
-                   'TDH','TIS','TNT','TTB','TTF',
-                   'TVB','TVN','TVS','VDS','VGT','VIB',
-                  'VIG','VIP','VIX','VMC','VNG','VPH']
-    
-    high_cpm = ['ACV', 'ALV', 'AMD', 'ANV', 'APC', 'ART', 'ATB', 'BCC', 'C47', 'C69',
-       'CCL', 'CDO', 'CMG', 'CVN', 'DHM', 'DIG', 'DST', 'EVG', 'FIT', 'HAI',
-       'HAR', 'HCM', 'HID', 'HII', 'HKB', 'HPG', 'HPI', 'HTT', 'HVA', 'HVN',
-       'IDI', 'KDM', 'KHB', 'KLF', 'KSA', 'LDG', 'MBB', 'MBS', 'MSR', 'MST',
-       'NHP', 'NS3', 'NTB', 'NVB', 'NVT', 'OCH', 'OGC', 'PDR', 'PIV', 'PND',
-       'PPI', 'PVO', 'QBS', 'QCG', 'ROS', 'SBS', 'SDI', 'SHB', 'SHS', 'SPI',
-       'TSC', 'TVB', 'VHG', 'VIG', 'VJC', 'VKC', 'VND', 'VOS']
-    
-    symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
-#    symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother
-    symbols =  benchmark
-    symbols = pd.unique(symbols).tolist()
-    get_data_from_SSI_website(symbols)
-    return symbols    
-    
 
             
 def predict_stocks(tickers, start, end):
@@ -379,7 +333,7 @@ def test_run_HNX():
 
     
 if __name__ == "__main__":
-    symbols = get_csv_dataSSI()
+#    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    VNI_result, VNI_data, VNI_trading  = test_runVNINDEX()
 #    HNX_result, HNX_data, HNX_trading = test_run_HNX()
@@ -389,18 +343,18 @@ if __name__ == "__main__":
 
     end_date = "2018-2-13"
     start_date = "2017-2-2"
-    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False)    
-    plot_hedgefund_trading(ticker, hedgefund, realtime = False)
+    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="ssi")    
+    plot_hedgefund_trading(ticker, hedgefund, realtime = False,  source ="ssi")
 
     
-    ninja = ninja_trading(ticker, start_date, end_date, realtime = False)    
-    plot_ninja_trading(ticker, ninja, realtime = False)
+    ninja = ninja_trading(ticker, start_date, end_date, realtime = False,  source ="ssi")    
+    plot_ninja_trading(ticker, ninja, realtime = False,  source ="ssi")
     
-    plot_trading_weekly(ticker, hedgefund, realtime = False)
+    plot_trading_weekly(ticker, hedgefund, realtime = False, source = "ssi")
 #    
     investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
-#    analysis_stocks(start = "2017-1-25" , end = "2018-2-13")
+#    analysis_stocks(start = "2017-2-22" , end = "2018-2-22", source ="ssi")
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-6")

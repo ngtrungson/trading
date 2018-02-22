@@ -38,7 +38,7 @@ def plotVline(order):
         plt.axvline(date, color = 'r', linewidth=1,)
 
  
-def plot_ninja_trading(ticker, df, realtime = False):
+def plot_ninja_trading(ticker, df, realtime = False, source ="cp68"):
    
     df_ohlc = df.copy()
     df_ohlc = df.reset_index()
@@ -46,8 +46,10 @@ def plot_ninja_trading(ticker, df, realtime = False):
     if realtime:
       df_ohlc = df_ohlc.rename(columns = {'index': 'Date'})  
     else:
-#        df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
-        df_ohlc = df_ohlc.rename(columns = {'DATE': 'Date'})
+        if source == "ssi":
+            df_ohlc = df_ohlc.rename(columns = {'DATE': 'Date'})
+        else:
+            df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
 
 
 #Converting dates column to float values
@@ -179,7 +181,7 @@ def plot_ninja_trading(ticker, df, realtime = False):
     plt.show()
 #        fig.savefig('example.png',facecolor=fig.get_facecolor())
 
-def plot_hedgefund_trading(ticker, df, realtime = False):
+def plot_hedgefund_trading(ticker, df, realtime = False, source ="cp68"):
    
     df_ohlc = df.copy()
     df_ohlc = df.reset_index()
@@ -187,7 +189,10 @@ def plot_hedgefund_trading(ticker, df, realtime = False):
       df_ohlc = df_ohlc.rename(columns = {'index': 'Date'})  
     else:
 #        df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
-        df_ohlc = df_ohlc.rename(columns = {'DATE': 'Date'})
+        if source == "ssi":
+            df_ohlc = df_ohlc.rename(columns = {'DATE': 'Date'})
+        else:
+            df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
 
 #    return df_ohlc
     #Converting dates column to float values
@@ -360,7 +365,7 @@ def plot_hedgefund_trading(ticker, df, realtime = False):
     
     
     plt.show()
-def plot_trading_weekly(ticker, df, realtime = False):
+def plot_trading_weekly(ticker, df, realtime = False,  source ="ssi"):
    
     df_ohlc = df['Close'].resample('5D').ohlc()   
     
@@ -369,7 +374,11 @@ def plot_trading_weekly(ticker, df, realtime = False):
       df_ohlc = df_ohlc.rename(columns = {'index': 'Date'})  
     else:
 #        df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
-        df_ohlc = df_ohlc.rename(columns = {'DATE': 'Date'})
+       if source == "ssi":
+            df_ohlc = df_ohlc.rename(columns = {'DATE': 'Date'})
+       else:
+            df_ohlc = df_ohlc.rename(columns = {'<DTYYYYMMDD>': 'Date'})
+
         
     df_ohlc['Date'] = df_ohlc['Date'].map(mdates.date2num)
     EMA18_week = df['EMA18'].resample('5D').mean()
