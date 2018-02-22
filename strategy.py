@@ -171,7 +171,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['S_MACD_ZERO']=  (df['MACD_ZERO_SHORT'] &  df['MACD_DOWN'])
     
     # 3 days checking: SH + 2 pullbacks
-    hm_days = 10
+    hm_days = 5
     for i in range(1,hm_days+1):
         if (df['L18'].iloc[-i] | df['L3_18'].iloc[-i] | df['L3_6'].iloc[-i] 
             | df['L6_18'].iloc[-i] | df['L3_50'].iloc[-i]
@@ -375,7 +375,7 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['MACD_DOWN'] = (MACD < MACDsign)
     
     
-    hm_days = 10
+    hm_days = 5
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] | df['LCTT'].iloc[-i]):
             print(" Time for slingshot trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
@@ -388,10 +388,12 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
 
 
 def compute_MACD(df, n_fast, n_slow, nema = 9):  
-    EMAfast = pd.Series(pd.Series.ewm(df['Close'], span = n_fast, min_periods = n_fast - 1).mean())  
-    EMAslow = pd.Series(pd.Series.ewm(df['Close'], span = n_slow, min_periods = n_slow - 1).mean())  
-    MACD = pd.Series(EMAfast - EMAslow, name = 'MACD_' + str(n_fast) + '_' + str(n_slow))  
-    MACDsign = pd.Series(pd.Series.ewm(MACD, span = nema, min_periods = nema-1).mean(), name = 'MACDsign_' + str(n_fast) + '_' + str(n_slow))  
-    MACDdiff = pd.Series(MACD - MACDsign, name = 'MACDdiff_' + str(n_fast) + '_' + str(n_slow))  
+#    EMAfast = pd.Series(pd.Series.ewm(df['Close'], span = n_fast, min_periods = n_fast - 1).mean())  
+#    EMAslow = pd.Series(pd.Series.ewm(df['Close'], span = n_slow, min_periods = n_slow - 1).mean())  
+#    MACD = pd.Series(EMAfast - EMAslow, name = 'MACD_' + str(n_fast) + '_' + str(n_slow))  
+#    MACDsign = pd.Series(pd.Series.ewm(MACD, span = nema, min_periods = nema-1).mean(), name = 'MACDsign_' + str(n_fast) + '_' + str(n_slow))  
+#    MACDdiff = pd.Series(MACD - MACDsign, name = 'MACDdiff_' + str(n_fast) + '_' + str(n_slow))  
+    
+    MACD, MACDsign, MACDdiff = talib.MACD(df['Close'].values, fastperiod=n_fast, slowperiod= n_slow, signalperiod=nema)
     return MACD, MACDsign, MACDdiff
 

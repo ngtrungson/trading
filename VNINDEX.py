@@ -62,7 +62,7 @@ def analysis_stocks(start, end, source = "ssi"):
     tickers = sorted(tickers)
     
     for ticker in tickers:
-        print("Analysing ...", ticker)
+#        print("Analysing ...", ticker)
         ninja_trading(ticker, start, end, realtime = False, source = source)
         hedgefund_trading(ticker, start, end, realtime = False, source = source)
     
@@ -195,7 +195,7 @@ def test_runVNINDEX():
 #        get_data_from_cophieu68_openwebsite(symbolsVNI)
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-2-12"
+    end_date = "2018-2-22"
     start_date = "2017-1-1"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
@@ -273,7 +273,7 @@ def test_run_HNX():
                   'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-2-12"
+    end_date = "2018-2-22"
     start_date = "2017-1-1"
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsHNX, dates, benchmark ='^HASTC')  # get data for each symbol
@@ -333,28 +333,28 @@ def test_run_HNX():
 
     
 if __name__ == "__main__":
-#    symbols = get_csv_data(source = "cp68")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    VNI_result, VNI_data, VNI_trading  = test_runVNINDEX()
 #    HNX_result, HNX_data, HNX_trading = test_run_HNX()
     
 
-    ticker = 'HPG'    
-
-    end_date = "2018-2-13"
-    start_date = "2017-2-2"
-    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="ssi")    
-    plot_hedgefund_trading(ticker, hedgefund, realtime = False,  source ="ssi")
-
-    
-    ninja = ninja_trading(ticker, start_date, end_date, realtime = False,  source ="ssi")    
-    plot_ninja_trading(ticker, ninja, realtime = False,  source ="ssi")
-    
-    plot_trading_weekly(ticker, hedgefund, realtime = False, source = "ssi")
+#    ticker = 'KDH'    
+#
+#    end_date = "2018-2-22"
+#    start_date = "2017-2-2"
+#    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = True, source ="ssi")    
+#    plot_hedgefund_trading(ticker, hedgefund, realtime = True,  source ="ssi")
+#
 #    
-    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
+#    ninja = ninja_trading(ticker, start_date, end_date, realtime = True,  source ="ssi")    
+#    plot_ninja_trading(ticker, ninja, realtime = True,  source ="ssi")
+#    
+#    plot_trading_weekly(ticker, hedgefund, realtime = True, source = "ssi")
+##    
+#    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
-#    analysis_stocks(start = "2017-2-22" , end = "2018-2-22", source ="ssi")
+    analysis_stocks(start = "2017-2-22" , end = "2018-2-22", source ="ssi")
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-6")

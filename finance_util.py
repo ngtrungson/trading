@@ -16,7 +16,6 @@ import datetime as dt
 import scipy.optimize as spo
 
 
-
 # Create Pandas data frame for backtrader
 def get_data_trading(symbol, start, end): 
     # columns order for backtrader type
@@ -25,13 +24,23 @@ def get_data_trading(symbol, start, end):
     if  isinstance(symbol, list):
         symbol = ''.join(symbol)
     # obtain data from csv file    
-    dataframe = pd.read_csv(symbol_to_path(symbol), parse_dates=True, index_col=0) 
+    file_path = symbol_to_path(symbol)
+    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
+                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
+                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+  
+    # columns order for backtrader type
+    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]     
     # change the index by new index
-    dataframe = dataframe.reindex(columns = columnsOrder)   
+    df = df.reindex(columns = columnsOrder)   
     # change date index to increasing order
-    dataframe = dataframe.sort_index()
+    df = df.sort_index()
     # might be wrong and contain NA values ????    
-    df = dataframe.loc[start:end]
+    df = df.loc[start:end]   
+    
+     
+        
     return df
 
 ################################# Get data from website ################################################
