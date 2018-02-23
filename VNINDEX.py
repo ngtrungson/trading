@@ -11,7 +11,7 @@ from strategy import ninja_trading, hedgefund_trading
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly
 from machine_learning import price_predictions
 
-def analysis_stocks(start, end, source = "ssi"):
+def analysis_stocks(start, end, update = False, source = "ssi"):
     
     symbolsHNX = ['APS','ALV', 'TNG','BVS','PVX',"KDM","ASA","HKB","HVA","KLF", "VE9", 
                   'ACB','BCC','CEO','DBC','DCS','HHG','HUT',
@@ -63,8 +63,8 @@ def analysis_stocks(start, end, source = "ssi"):
     
     for ticker in tickers:
 #        print("Analysing ...", ticker)
-        ninja_trading(ticker, start, end, realtime = False, source = source)
-        hedgefund_trading(ticker, start, end, realtime = False, source = source)
+        ninja_trading(ticker, start, end, realtime = update, source = source)
+        hedgefund_trading(ticker, start, end, realtime = update, source = source)
     
     
 def analysis_trading(tickers, start, end):
@@ -354,7 +354,7 @@ if __name__ == "__main__":
 ##    
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
-    analysis_stocks(start = "2017-2-22" , end = "2018-2-22", source ="ssi")
+    analysis_stocks(start = "2017-2-22" , end = "2018-2-23", update = False,  source ="ssi")
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-6")
