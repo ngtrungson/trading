@@ -431,10 +431,13 @@ if __name__ == "__main__":
     
 #    tickers = save_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all.cvs', parse_dates=True, index_col=0)
-     df = data.query("MeanVol_10W > 50000")
-     df = df.query("CPM > 2.5")
-     df.to_csv('investment_stock.csv')
+     data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
+     df = data.query("MeanVol_10W > 150000")
+     df = df.query("FVQ > 0")
+     df = df.query("CPM > 1.4")
+     df.to_csv('investment_stock3.csv')
      print(df.index)
+     
+     
      
 

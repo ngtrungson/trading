@@ -388,12 +388,12 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
 
 
 def compute_MACD(df, n_fast, n_slow, nema = 9):  
-#    EMAfast = pd.Series(pd.Series.ewm(df['Close'], span = n_fast, min_periods = n_fast - 1).mean())  
-#    EMAslow = pd.Series(pd.Series.ewm(df['Close'], span = n_slow, min_periods = n_slow - 1).mean())  
-#    MACD = pd.Series(EMAfast - EMAslow, name = 'MACD_' + str(n_fast) + '_' + str(n_slow))  
-#    MACDsign = pd.Series(pd.Series.ewm(MACD, span = nema, min_periods = nema-1).mean(), name = 'MACDsign_' + str(n_fast) + '_' + str(n_slow))  
-#    MACDdiff = pd.Series(MACD - MACDsign, name = 'MACDdiff_' + str(n_fast) + '_' + str(n_slow))  
+    EMAfast = pd.Series(pd.Series.ewm(df['Close'], span = n_fast, min_periods = n_fast - 1).mean())  
+    EMAslow = pd.Series(pd.Series.ewm(df['Close'], span = n_slow, min_periods = n_slow - 1).mean())  
+    MACD = pd.Series(EMAfast - EMAslow, name = 'MACD_' + str(n_fast) + '_' + str(n_slow))  
+    MACDsign = pd.Series(pd.Series.ewm(MACD, span = nema, min_periods = nema-1).mean(), name = 'MACDsign_' + str(n_fast) + '_' + str(n_slow))  
+    MACDdiff = pd.Series(MACD - MACDsign, name = 'MACDdiff_' + str(n_fast) + '_' + str(n_slow))  
     
-    MACD, MACDsign, MACDdiff = talib.MACD(df['Close'].values, fastperiod=n_fast, slowperiod= n_slow, signalperiod=nema)
+#    MACD, MACDsign, MACDdiff = talib.MACD(df['Close'].values, fastperiod=n_fast, slowperiod= n_slow, signalperiod=nema)
     return MACD, MACDsign, MACDdiff
 
