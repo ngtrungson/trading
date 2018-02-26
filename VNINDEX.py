@@ -7,7 +7,7 @@ Created on Fri Dec  8 14:35:57 2017
 import pandas as pd
 from finance_util import get_data, fill_missing_values, optimize_portfolio, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website
-from strategy import ninja_trading, hedgefund_trading
+from strategy import ninja_trading, hedgefund_trading, bollinger_bands
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly
 from machine_learning import price_predictions
 
@@ -65,6 +65,7 @@ def analysis_stocks(start, end, update = False, source = "ssi"):
 #        print("Analysing ...", ticker)
         ninja_trading(ticker, start, end, realtime = update, source = source)
         hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#        bollinger_bands(ticker, start, end, realtime = update, source = source)
     
     
 def analysis_trading(tickers, start, end):
@@ -341,16 +342,16 @@ if __name__ == "__main__":
 
 #    ticker = 'KDH'    
 #
-#    end_date = "2018-2-22"
+#    end_date = "2018-2-23"
 #    start_date = "2017-2-2"
-#    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = True, source ="ssi")    
-#    plot_hedgefund_trading(ticker, hedgefund, realtime = True,  source ="ssi")
-#
+#    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="ssi")    
+#    plot_hedgefund_trading(ticker, hedgefund, realtime = False,  source ="ssi")
+
 #    
 #    ninja = ninja_trading(ticker, start_date, end_date, realtime = True,  source ="ssi")    
 #    plot_ninja_trading(ticker, ninja, realtime = True,  source ="ssi")
 #    
-#    plot_trading_weekly(ticker, hedgefund, realtime = True, source = "ssi")
+#    plot_trading_weekly(ticker, hedgefund, realtime = False, source = "ssi")
 ##    
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     

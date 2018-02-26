@@ -385,7 +385,63 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
         
     return df
 
-
+def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
+    
+    if source == "ssi":
+        file_path = symbol_to_path_ssi(ticker)
+        df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
+                     usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
+        df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
+                                  'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
+    else:
+        file_path = symbol_to_path(ticker)
+        df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
+                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+        df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
+                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+    
+    # columns order for backtrader type
+    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
+    # change the index by new index
+    df = df.reindex(columns = columnsOrder)  
+    # change date index to increasing order
+    df = df.sort_index()   
+    # take a part of dataframe
+    df = df.loc[start:end]
+    
+    if realtime:
+        actual_price = get_info_stock(ticker)
+        today = datetime.datetime.today()
+        next_date = today
+        df.loc[next_date] = ({ 'Open' : actual_price['Open'].iloc[-1],
+                        'High' : actual_price['High'].iloc[-1], 
+                        'Low' : actual_price['Low'].iloc[-1],
+                        'Close' : actual_price['Close'].iloc[-1],
+                        'Volume' : actual_price['Volume'].iloc[-1],
+                        'OpenInterest': np.nan})
+    
+    
+    
+    period = 20
+    nstd = 2
+    rolling_mean = df['Close'].rolling(window=period,center=False).mean()
+    rolling_std = df['Close'].rolling(window=period,center=False).mean()
+    
+    df['Bollinger High'] = rolling_mean + (rolling_std * nstd)
+    df['Bollinger Low'] = rolling_mean - (rolling_std * nstd)
+    df['Signal'] = -1*((df['Close'] > df['Bollinger High']) & (df['Close'].shift(1) < df['Bollinger High'].shift(1))) + \
+                   1 *((df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)))
+            
+    
+    hmdays = 5
+    for row in range(1,hmdays+1):    
+        if (df['Close'].iloc[-row] > df['Bollinger High'].iloc[-row]) and (df['Close'].iloc[-row-1] < df['Bollinger High'].iloc[-row-1]):
+            print(" Time for bollinger trading sell ", str(row), " days before ", df.iloc[-row].name ,  ticker)
+        
+        if (df['Close'].iloc[-row] < df['Bollinger Low'].iloc[-row]) and (df['Close'].iloc[-row-1] > df['Bollinger Low'].iloc[-row-1]):
+            print(" Time for bollinger trading buy ", str(row), " days before ", df.iloc[-row].name ,  ticker)
+            
+    return df
 
 def compute_MACD(df, n_fast, n_slow, nema = 9):  
 #    EMAfast = pd.Series(pd.Series.ewm(df['Close'], span = n_fast, min_periods = n_fast - 1).mean())  
