@@ -11,6 +11,30 @@ from strategy import ninja_trading, hedgefund_trading, bollinger_bands
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly
 from machine_learning import price_predictions
 
+
+def get_stocks_highcpm(start, end, source = "ssi"):
+
+    data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
+    df = data.query("MeanVol_10W > 150000")
+    df = df.query("FVQ > 0")
+    df = df.query("CPM > 1.4")
+    
+    tickers  = df.index
+    
+#    if source == "cp68":
+#        get_data_from_cophieu68_openwebsite(tickers)
+#    else:
+#       get_data_from_SSI_website(tickers) 
+       
+#    return tickers
+    for ticker in tickers:
+        print(" Analysing ..." , ticker)
+        try:
+            ninja_trading(ticker, start, end, realtime = True, source = source)
+            hedgefund_trading(ticker, start, end, realtime = True, source = source)
+        except Exception as e:
+            print (e)
+            pass
 def analysis_stocks(start, end, update = False, source = "ssi"):
     
     symbolsHNX = ['APS','ALV', 'TNG','BVS','PVX',"KDM","ASA","HKB","HVA","KLF", "VE9", 
@@ -63,9 +87,14 @@ def analysis_stocks(start, end, update = False, source = "ssi"):
     
     for ticker in tickers:
 #        print("Analysing ...", ticker)
+
         ninja_trading(ticker, start, end, realtime = update, source = source)
         hedgefund_trading(ticker, start, end, realtime = update, source = source)
+<<<<<<< HEAD
 #        bollinger_bands(ticker, start, end, realtime = update, source = source)
+=======
+
+>>>>>>> 47932bd1ac0740df4c9e1d844d2b69aa66a7d7b8
     
     
 def analysis_trading(tickers, start, end):
@@ -336,6 +365,7 @@ def test_run_HNX():
 if __name__ == "__main__":
 #    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
+    symbols = get_stocks_highcpm(start = "2017-2-22" , end = "2018-2-26", source ="ssi")
 #    VNI_result, VNI_data, VNI_trading  = test_runVNINDEX()
 #    HNX_result, HNX_data, HNX_trading = test_run_HNX()
     
@@ -355,7 +385,9 @@ if __name__ == "__main__":
 ##    
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
-    analysis_stocks(start = "2017-2-22" , end = "2018-2-23", update = False,  source ="ssi")
+
+#    analysis_stocks(start = "2017-2-22" , end = "2018-2-26", update = True,  source ="ssi")
+
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-6")
