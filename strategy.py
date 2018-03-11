@@ -147,28 +147,28 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['MACD_DOWN'] = ((df['MACD_12_26'] < df['MACDSign9']))
     
     
-    df['L18'] = (df['18_LONG'] & df['MACD_UP'])
-    df['L3_18'] = (df['3_18_LONG'] & df['MACD_UP'])
-    df['L3_6'] = (df['3_6_LONG'] &  df['MACD_UP'])
-    df['L6_18'] = (df['6_18_LONG'] &  df['MACD_UP'])
-    df['L3_50'] = (df['3_50_LONG'] & df['MACD_UP'])
-    df['L6_50'] = (df['6_50_LONG'] &  df['MACD_UP'])
-    df['L18_50'] = (df['18_50_LONG'] &  df['MACD_UP'])
-    df['L3_6_18'] = (df['3_6_18_LONG'] &  df['MACD_UP'])    
-    df['L_MACD_SIGNAL']=  (df['MACD_SIGNAL_LONG'] &  df['MACD_UP'])
-    df['L_MACD_ZERO']=  (df['MACD_ZERO_LONG'] &   df['MACD_UP'])
+    df['L18'] = (df['18_LONG'] & df['MACD_UP']) & df['EMA_UP']
+    df['L3_18'] = (df['3_18_LONG'] & df['MACD_UP']) & df['EMA_UP']
+    df['L3_6'] = (df['3_6_LONG'] &  df['MACD_UP']) & df['EMA_UP']
+    df['L6_18'] = (df['6_18_LONG'] &  df['MACD_UP']) & df['EMA_UP']
+    df['L3_50'] = (df['3_50_LONG'] & df['MACD_UP']) & df['EMA_UP']
+    df['L6_50'] = (df['6_50_LONG'] &  df['MACD_UP']) & df['EMA_UP']
+    df['L18_50'] = (df['18_50_LONG'] &  df['MACD_UP']) & df['EMA_UP']
+    df['L3_6_18'] = (df['3_6_18_LONG'] &  df['MACD_UP']) & df['EMA_UP']    
+    df['L_MACD_SIGNAL']=  (df['MACD_SIGNAL_LONG'] &  df['MACD_UP']) & df['EMA_UP']
+    df['L_MACD_ZERO']=  (df['MACD_ZERO_LONG'] &   df['MACD_UP']) & df['EMA_UP']
     
     
-    df['S18'] = (df['18_SHORT'] &  df['MACD_DOWN'])
-    df['S3_18'] = (df['3_18_SHORT'] & df['MACD_DOWN'])
-    df['S3_6'] = (df['3_6_SHORT'] &  df['MACD_DOWN'])
-    df['S6_18'] = (df['6_18_SHORT'] &  df['MACD_DOWN'])
-    df['S3_50'] = (df['3_50_SHORT'] &  df['MACD_DOWN'])
-    df['S6_50'] = (df['6_50_SHORT'] & df['MACD_DOWN'])
-    df['S18_50'] = (df['18_50_SHORT'] &  df['MACD_DOWN'])
-    df['S3_6_18'] = (df['3_6_18_SHORT'] &  df['MACD_DOWN'])    
-    df['S_MACD_SIGNAL']=  (df['MACD_SIGNAL_SHORT'] &  df['MACD_DOWN'])
-    df['S_MACD_ZERO']=  (df['MACD_ZERO_SHORT'] &  df['MACD_DOWN'])
+    df['S18'] = (df['18_SHORT'] &  df['MACD_DOWN']) & df['EMA_DOWN']
+    df['S3_18'] = (df['3_18_SHORT'] & df['MACD_DOWN'])  & df['EMA_DOWN']
+    df['S3_6'] = (df['3_6_SHORT'] &  df['MACD_DOWN'])  & df['EMA_DOWN']
+    df['S6_18'] = (df['6_18_SHORT'] &  df['MACD_DOWN'])  & df['EMA_DOWN']
+    df['S3_50'] = (df['3_50_SHORT'] &  df['MACD_DOWN'])  & df['EMA_DOWN']
+    df['S6_50'] = (df['6_50_SHORT'] & df['MACD_DOWN'])  & df['EMA_DOWN']
+    df['S18_50'] = (df['18_50_SHORT'] &  df['MACD_DOWN'])  & df['EMA_DOWN']
+    df['S3_6_18'] = (df['3_6_18_SHORT'] &  df['MACD_DOWN']) & df['EMA_DOWN'] 
+    df['S_MACD_SIGNAL']=  (df['MACD_SIGNAL_SHORT'] &  df['MACD_DOWN'])  & df['EMA_DOWN']
+    df['S_MACD_ZERO']=  (df['MACD_ZERO_SHORT'] &  df['MACD_DOWN'])  & df['EMA_DOWN']
     
     # 3 days checking: SH + 2 pullbacks
     hm_days = 5

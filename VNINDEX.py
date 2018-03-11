@@ -12,7 +12,7 @@ from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_tradi
 from machine_learning import price_predictions
 
 
-def get_stocks_highcpm(start, end, source = "ssi"):
+def get_stocks_highcpm(download = True, source = "ssi"):
 
     data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
     df = data.query("MeanVol_10W > 150000")
@@ -20,21 +20,15 @@ def get_stocks_highcpm(start, end, source = "ssi"):
     df = df.query("CPM > 1.4")
     
     tickers  = df.index
-    
-#    if source == "cp68":
-#        get_data_from_cophieu68_openwebsite(tickers)
-#    else:
-#       get_data_from_SSI_website(tickers) 
+   
+    if download:
+        if source == "cp68":
+            get_data_from_cophieu68_openwebsite(tickers)
+        else:
+           get_data_from_SSI_website(tickers) 
        
-#    return tickers
-    for ticker in tickers:
-        print(" Analysing ..." , ticker)
-        try:
-            ninja_trading(ticker, start, end, realtime = True, source = source)
-            hedgefund_trading(ticker, start, end, realtime = True, source = source)
-        except Exception as e:
-            print (e)
-            pass
+    return tickers
+    
 def analysis_stocks(start, end, update = False, source = "ssi"):
     
     symbolsHNX = ['APS','ALV', 'TNG','BVS','PVX',"KDM","ASA","HKB","HVA","KLF", "VE9", 
@@ -90,18 +84,19 @@ def analysis_stocks(start, end, update = False, source = "ssi"):
 
         ninja_trading(ticker, start, end, realtime = update, source = source)
         hedgefund_trading(ticker, start, end, realtime = update, source = source)
-<<<<<<< HEAD
-#        bollinger_bands(ticker, start, end, realtime = update, source = source)
-=======
 
->>>>>>> 47932bd1ac0740df4c9e1d844d2b69aa66a7d7b8
     
     
-def analysis_trading(tickers, start, end):
+def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     for ticker in tickers:
-        print("Analysing ...", ticker)
-        ninja_trading(ticker, start, end)
-        hedgefund_trading(ticker, start, end)
+#        print(" Analysing ..." , ticker)
+        try:
+            ninja_trading(ticker, start, end, realtime = update, source = source)
+            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+        except Exception as e:
+            print (e)
+            print("Error in reading symbol: ", ticker)
+            pass
                
 def get_csv_data(source = "cp68"):
     benchmark = ["^VNINDEX", "^HASTC", "^UPCOM"]
@@ -225,8 +220,8 @@ def test_runVNINDEX():
 #        get_data_from_cophieu68_openwebsite(symbolsVNI)
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-2-22"
-    start_date = "2017-1-1"
+    end_date = "2018-2-28"
+    start_date = "2017-2-22"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsVNI, dates, benchmark = '^VNINDEX')  # get data for each symbol
@@ -277,7 +272,7 @@ def test_runVNINDEX():
     
 
     
-    analysis_trading(symbolsVNI, start_date, end_date)
+#    analysis_trading(symbolsVNI, start_date, end_date)
 #    investing = ['SHB', 'PVS', 'NDN', 'DVN', 'BMI']
 #    analysis_stock(symbolsVNI, df_data, start_date, end_date)
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-5")
@@ -303,8 +298,8 @@ def test_run_HNX():
                   'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-2-22"
-    start_date = "2017-1-1"
+    end_date = "2018-2-28"
+    start_date = "2017-2-28"
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsHNX, dates, benchmark ='^HASTC')  # get data for each symbol
 
@@ -363,30 +358,33 @@ def test_run_HNX():
 
     
 if __name__ == "__main__":
-#    symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
-    symbols = get_stocks_highcpm(start = "2017-2-22" , end = "2018-2-26", source ="ssi")
+    symbols = get_stocks_highcpm(download = False, source ="ssi")
+#    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
+    analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-9", update = False, source = "ssi")
+    
 #    VNI_result, VNI_data, VNI_trading  = test_runVNINDEX()
 #    HNX_result, HNX_data, HNX_trading = test_run_HNX()
     
 
-#    ticker = 'KDH'    
+#    ticker = 'HAR'    
 #
-#    end_date = "2018-2-23"
-#    start_date = "2017-2-2"
+#    end_date = "2018-3-8"
+#    start_date = "2017-3-1"
 #    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="ssi")    
 #    plot_hedgefund_trading(ticker, hedgefund, realtime = False,  source ="ssi")
-
-#    
-#    ninja = ninja_trading(ticker, start_date, end_date, realtime = True,  source ="ssi")    
-#    plot_ninja_trading(ticker, ninja, realtime = True,  source ="ssi")
-#    
-#    plot_trading_weekly(ticker, hedgefund, realtime = False, source = "ssi")
+#
 ##    
+#    ninja = ninja_trading(ticker, start_date, end_date, realtime = False,  source ="ssi")    
+#    plot_ninja_trading(ticker, ninja, realtime = False,  source ="ssi")
+##    
+#    plot_trading_weekly(ticker, hedgefund, realtime = False, source = "ssi")
+#    
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-2-22" , end = "2018-2-26", update = True,  source ="ssi")
+#    analysis_stocks(start = "2017-2-22" , end = "2018-2-28", update = False,  source ="cp68")
 
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
