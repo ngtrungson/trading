@@ -1,0 +1,27 @@
+ Time for ninja trading  3  days before  2018-03-08 00:00:00 AGR
+ Advanced ninja trading  3  days before  2018-03-08 00:00:00 AGR
+ Time for slingshot trading  5  days before  2018-03-06 00:00:00 BID
+ Time for slingshot trading  3  days before  2018-03-08 00:00:00 BVH
+ Advanced slingshot trading  3  days before  2018-03-08 00:00:00 BVH
+ Time for slingshot trading  5  days before  2018-03-06 00:00:00 CCL
+ Advanced slingshot trading  5  days before  2018-03-06 00:00:00 CCL
+ Time for slingshot trading  5  days before  2018-03-06 00:00:00 HCM
+ Time for slingshot trading  5  days before  2018-03-06 00:00:00 HPG
+ Advanced slingshot trading  5  days before  2018-03-06 00:00:00 HPG
+ Time for ninja trading  2  days before  2018-03-09 00:00:00 JVC
+ Time for ninja trading  5  days before  2018-03-06 00:00:00 NLG
+ Advanced ninja trading  5  days before  2018-03-06 00:00:00 NLG
+ Time for slingshot trading  2  days before  2018-03-09 00:00:00 PXL
+ Time for slingshot trading  5  days before  2018-03-06 00:00:00 SHB
+ Advanced slingshot trading  5  days before  2018-03-06 00:00:00 SHB
+ Time for ninja trading  4  days before  2018-03-07 00:00:00 TCH
+ Advanced ninja trading  4  days before  2018-03-07 00:00:00 TCH
+ Time for slingshot trading  4  days before  2018-03-07 00:00:00 TDG
+ Advanced slingshot trading  4  days before  2018-03-07 00:00:00 TDG
+ Time for slingshot trading  3  days before  2018-03-08 00:00:00 TNG
+ Time for slingshot trading  5  days before  2018-03-06 00:00:00 TNG
+ Time for slingshot trading  3  days before  2018-03-08 00:00:00 VCG
+ Time for ninja trading  5  days before  2018-03-06 00:00:00 VIX
+ Time for ninja trading  3  days before  2018-03-08 00:00:00 VNM
+ Time for ninja trading  5  days before  2018-03-06 00:00:00 VNM
+ Advanced ninja trading  5  days before  2018-03-06 00:00:00 VNM
