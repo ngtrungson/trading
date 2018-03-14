@@ -220,8 +220,8 @@ def test_runVNINDEX():
 #        get_data_from_cophieu68_openwebsite(symbolsVNI)
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-2-28"
-    start_date = "2017-2-22"
+    end_date = "2018-3-12"
+    start_date = "2017-3-12"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsVNI, dates, benchmark = '^VNINDEX')  # get data for each symbol
@@ -264,19 +264,19 @@ def test_runVNINDEX():
 #    df_result['MinL'] = min_low
     df_result['CPM'] = cpm
     
-    ticker = 'STB'
+#    ticker = 'STB'
+##    
+#    trading = ninja_trading(ticker, start_date, end_date)
+##    
+#    plot_ninja_trading(ticker, trading)
 #    
-    trading = ninja_trading(ticker, start_date, end_date)
-#    
-    plot_ninja_trading(ticker, trading)
-    
 
     
 #    analysis_trading(symbolsVNI, start_date, end_date)
 #    investing = ['SHB', 'PVS', 'NDN', 'DVN', 'BMI']
 #    analysis_stock(symbolsVNI, df_data, start_date, end_date)
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-5")
-    return df_result, df_data, trading
+    return df_result, df_data
 
   
 def test_run_HNX():
@@ -298,8 +298,8 @@ def test_run_HNX():
                   'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-2-28"
-    start_date = "2017-2-28"
+    end_date = "2018-3-12"
+    start_date = "2017-3-12"
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsHNX, dates, benchmark ='^HASTC')  # get data for each symbol
 
@@ -346,26 +346,26 @@ def test_run_HNX():
 #    trading = ninja_trading(ticker, start_date, end_date)
 #    plot_ninja_trading(ticker, trading)
     
-    ticker = 'ACB'
-    
-    trading = hedgefund_trading(ticker, start_date, end_date)
-    plot_hedgefund_trading(ticker, trading)
+#    ticker = 'ACB'
+#    
+#    trading = hedgefund_trading(ticker, start_date, end_date)
+#    plot_hedgefund_trading(ticker, trading)
     
 
     
-    return df_result, df_data, trading
+    return df_result, df_data
 
 
     
 if __name__ == "__main__":
-#    symbols = get_csv_data(source = "cp68")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
     symbols = get_stocks_highcpm(download = False, source ="ssi")
 #    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
-    analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-12", update = False, source = "ssi")
+    analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-14", update = False, source = "ssi")
     
-#    VNI_result, VNI_data, VNI_trading  = test_runVNINDEX()
-#    HNX_result, HNX_data, HNX_trading = test_run_HNX()
+#    VNI_result, VNI_data  = test_runVNINDEX()
+#    HNX_result, HNX_data = test_run_HNX()
     
 
 #    ticker = 'HAR'    
@@ -384,7 +384,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-2-22" , end = "2018-3-9", update = False,  source ="ssi")
+#    analysis_stocks(start = "2017-3-14" , end = "2018-3-14", update = False,  source ="ssi")
 
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
