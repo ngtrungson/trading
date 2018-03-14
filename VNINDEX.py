@@ -15,18 +15,19 @@ from machine_learning import price_predictions
 def get_stocks_highcpm(download = True, source = "ssi"):
 
     data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
-    df = data.query("MeanVol_10W > 150000")
+    df = data.query("MeanVol_10W > 100000")
     df = df.query("FVQ > 0")
     df = df.query("CPM > 1.4")
     
     tickers  = df.index
-   
+    
     if download:
         if source == "cp68":
             get_data_from_cophieu68_openwebsite(tickers)
         else:
            get_data_from_SSI_website(tickers) 
-       
+    
+    
     return tickers
     
 def analysis_stocks(start, end, update = False, source = "ssi"):
@@ -361,12 +362,11 @@ if __name__ == "__main__":
 #    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
     symbols = get_stocks_highcpm(download = False, source ="ssi")
+    
 #    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
-<<<<<<< HEAD
+
     analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-14", update = False, source = "ssi")
-=======
-    analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-13", update = False, source = "ssi")
->>>>>>> 3112e29d39d3021d876d28ab0b6ae89aaf946c9b
+
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
 #    HNX_result, HNX_data = test_run_HNX()
@@ -393,4 +393,6 @@ if __name__ == "__main__":
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-6")
+    
+    tickers = pd.Series(symbols)
     
