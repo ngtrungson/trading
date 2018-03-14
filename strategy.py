@@ -375,7 +375,11 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['MACD_DOWN'] = (MACD < MACDsign)
     
     
+<<<<<<< HEAD
     hm_days = 3
+=======
+    hm_days = 7
+>>>>>>> 3112e29d39d3021d876d28ab0b6ae89aaf946c9b
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] | df['LCTT'].iloc[-i]):
             print(" Time for slingshot trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
