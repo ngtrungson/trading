@@ -91,7 +91,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-            ninja_trading(ticker, start, end, realtime = update, source = source)
+#            ninja_trading(ticker, start, end, realtime = update, source = source)
             hedgefund_trading(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
@@ -362,7 +362,7 @@ if __name__ == "__main__":
 #    symbols = get_csv_data()
     symbols = get_stocks_highcpm(download = False, source ="ssi")
 #    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
-    analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-12", update = False, source = "ssi")
+    analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-13", update = False, source = "ssi")
     
 #    VNI_result, VNI_data, VNI_trading  = test_runVNINDEX()
 #    HNX_result, HNX_data, HNX_trading = test_run_HNX()
