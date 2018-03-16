@@ -222,8 +222,8 @@ def test_runVNINDEX():
 #        get_data_from_cophieu68_openwebsite(symbolsVNI)
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-3-12"
-    start_date = "2017-3-12"
+    end_date = "2018-3-15"
+    start_date = "2018-1-2"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsVNI, dates, benchmark = '^VNINDEX')  # get data for each symbol
@@ -300,8 +300,8 @@ def test_run_HNX():
                   'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-3-12"
-    start_date = "2017-3-12"
+    end_date = "2018-3-15"
+    start_date = "2018-1-2"
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsHNX, dates, benchmark ='^HASTC')  # get data for each symbol
 
@@ -360,13 +360,13 @@ def test_run_HNX():
 
     
 if __name__ == "__main__":
-#    symbols = get_csv_data(source = "cp68")
+    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
-    symbols = get_stocks_highcpm(download = False, source ="ssi")
+#    symbols = get_stocks_highcpm(download = False, source ="ssi")
     
 #    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
 
-    analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-15", update = False, source = "ssi")
+#    analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-16", update = False, source = "ssi")
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
@@ -389,7 +389,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-3-14" , end = "2018-3-15", update = False,  source ="cp68")
+    analysis_stocks(start = "2017-3-14" , end = "2018-3-16", update = False,  source ="ssi")
 
     
 #    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
