@@ -424,7 +424,7 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
     
     
     
-    period = 18
+    period = 21
     nstd = 1
     rolling_mean = df['Close'].rolling(window=period,center=False).mean()
     rolling_std = df['Close'].rolling(window=period,center=False).mean()
