@@ -367,7 +367,7 @@ if __name__ == "__main__":
     
 #    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
 
-    analysis_trading(symbols, start = "2017-2-22" , end = "2018-3-16", update = False, source = "ssi")
+    analysis_trading(symbols, start = "2017-3-19" , end = "2018-3-21", update = False, source = "ssi")
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
@@ -393,8 +393,8 @@ if __name__ == "__main__":
 #    analysis_stocks(start = "2017-3-14" , end = "2018-3-16", update = False,  source ="ssi")
 
     
-#    investing = ['BMI', 'SHB', 'DVN', 'PVS', 'NDN']
-#    predict_stocks(investing, start ="2010-2-5", end = "2018-2-6")
+#    investing = ['HAR', 'SHB', 'TVN', 'PVS', 'DVN', 'VIX']
+#    predict_stocks(investing, start ="2010-3-18", end = "2018-3-18")
     
     tickers = pd.Series(symbols)
     
