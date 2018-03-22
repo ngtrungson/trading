@@ -7,8 +7,8 @@ Created on Fri Dec  8 14:35:57 2017
 import pandas as pd
 from finance_util import get_data, fill_missing_values, optimize_portfolio, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website
-from strategy import ninja_trading, hedgefund_trading, bollinger_bands
-from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly
+from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling
+from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading
 from machine_learning import price_predictions
 
 
@@ -86,6 +86,7 @@ def analysis_stocks(start, end, update = False, source = "ssi"):
         ninja_trading(ticker, start, end, realtime = update, source = source)
         hedgefund_trading(ticker, start, end, realtime = update, source = source)
         bollinger_bands(ticker, start, end, realtime = update, source = source)
+        short_selling(ticker, start, end, realtime = update, source = source)
 
     
     
@@ -96,6 +97,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
             ninja_trading(ticker, start, end, realtime = update, source = source)
             hedgefund_trading(ticker, start, end, realtime = update, source = source)
             bollinger_bands(ticker, start, end, realtime = update, source = source)
+            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -223,8 +225,8 @@ def test_runVNINDEX():
 #        get_data_from_cophieu68_openwebsite(symbolsVNI)
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-3-16"
-    start_date = "2018-1-2"
+    end_date = "2018-3-21"
+    start_date = "2018-1-22"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsVNI, dates, benchmark = '^VNINDEX')  # get data for each symbol
@@ -301,8 +303,8 @@ def test_run_HNX():
                   'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-3-16"
-    start_date = "2018-1-2"
+    end_date = "2018-3-21"
+    start_date = "2018-1-22"
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsHNX, dates, benchmark ='^HASTC')  # get data for each symbol
 
@@ -361,25 +363,29 @@ def test_run_HNX():
 
     
 if __name__ == "__main__":
-#    symbols = get_csv_data(source = "cp68")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
-    symbols = get_stocks_highcpm(download = False, source ="ssi")
+#    symbols = get_stocks_highcpm(download = False, source ="ssi")
     
 #    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
 
-    analysis_trading(symbols, start = "2017-3-19" , end = "2018-3-21", update = False, source = "ssi")
+#    analysis_trading(symbols, start = "2017-3-19" , end = "2018-3-21", update = False, source = "ssi")
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
 #    HNX_result, HNX_data = test_run_HNX()
-    
+#    
 
-#    ticker = 'HAR'    
-#
-#    end_date = "2018-3-16"
-#    start_date = "2017-3-1"
+    ticker = 'HAR'    
+
+    end_date = "2018-3-21"
+    start_date = "2017-3-1"
 #    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="ssi")    
 #    plot_hedgefund_trading(ticker, hedgefund, realtime = False,  source ="ssi")
+    
+    shortsell = short_selling(ticker, start_date, end_date, realtime = False, source ="ssi")    
+    plot_shortselling_trading(ticker, shortsell, realtime = False,  source ="ssi")
+    
 ##
 ##    
 #    ninja = ninja_trading(ticker, start_date, end_date, realtime = False,  source ="ssi")    
@@ -390,11 +396,11 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-3-14" , end = "2018-3-16", update = False,  source ="ssi")
+#    analysis_stocks(start = "2017-3-14" , end = "2018-3-21", update = False,  source ="ssi")
 
     
 #    investing = ['HAR', 'SHB', 'TVN', 'PVS', 'DVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-3-18")
     
-    tickers = pd.Series(symbols)
+#    tickers = pd.Series(symbols)
     
