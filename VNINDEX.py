@@ -83,10 +83,10 @@ def analysis_stocks(start, end, update = False, source = "ssi"):
     for ticker in tickers:
 #        print("Analysing ...", ticker)
 
-        ninja_trading(ticker, start, end, realtime = update, source = source)
-        hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#        ninja_trading(ticker, start, end, realtime = update, source = source)
+#        hedgefund_trading(ticker, start, end, realtime = update, source = source)
         bollinger_bands(ticker, start, end, realtime = update, source = source)
-        short_selling(ticker, start, end, realtime = update, source = source)
+#        short_selling(ticker, start, end, realtime = update, source = source)
 
     
     
@@ -97,7 +97,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
             ninja_trading(ticker, start, end, realtime = update, source = source)
             hedgefund_trading(ticker, start, end, realtime = update, source = source)
             bollinger_bands(ticker, start, end, realtime = update, source = source)
-            short_selling(ticker, start, end, realtime = update, source = source)
+#            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -369,23 +369,23 @@ if __name__ == "__main__":
     
 #    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
 
-#    analysis_trading(symbols, start = "2017-3-19" , end = "2018-3-21", update = False, source = "ssi")
+#    analysis_trading(symbols, start = "2017-3-19" , end = "2018-3-23", update = False, source = "ssi")
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
 #    HNX_result, HNX_data = test_run_HNX()
 #    
-
-    ticker = 'HAR'    
-
-    end_date = "2018-3-21"
-    start_date = "2017-3-1"
-#    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="ssi")    
-#    plot_hedgefund_trading(ticker, hedgefund, realtime = False,  source ="ssi")
-    
-    shortsell = short_selling(ticker, start_date, end_date, realtime = False, source ="ssi")    
-    plot_shortselling_trading(ticker, shortsell, realtime = False,  source ="ssi")
-    
+#
+#    ticker = 'SHB'    
+#
+#    end_date = "2018-3-21"
+#    start_date = "2015-3-1"
+##    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="ssi")    
+##    plot_hedgefund_trading(ticker, hedgefund, realtime = False,  source ="ssi")
+#    
+##    shortsell = short_selling(ticker, start_date, end_date, realtime = False, source ="ssi")    
+##    plot_shortselling_trading(ticker, shortsell, realtime = False,  source ="ssi")
+##    
 ##
 ##    
 #    ninja = ninja_trading(ticker, start_date, end_date, realtime = False,  source ="ssi")    
@@ -396,7 +396,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-3-14" , end = "2018-3-21", update = False,  source ="ssi")
+    analysis_stocks(start = "2017-3-14" , end = "2018-3-23", update = False,  source ="ssi")
 
     
 #    investing = ['HAR', 'SHB', 'TVN', 'PVS', 'DVN', 'VIX']

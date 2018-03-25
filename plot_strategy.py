@@ -156,7 +156,7 @@ def plot_ninja_trading(ticker, df, realtime = False, source ="cp68"):
 #    df['MACDDiff'] = MACDdiff
     
     ax2.plot(df_ohlc['Date'], df['MACD_12_26'].values, color='green', lw=1)
-    ax2.plot(df_ohlc['Date'], df['MACDSign12269'].values, color='red', lw=1)
+    ax2.plot(df_ohlc['Date'], df['MACDSign9'].values, color='red', lw=1)
 #    ax2.fill_between(df_ohlc['Date'], df['MACDDiff'].values, 0, alpha=0.5, facecolor=fillcolor, edgecolor=fillcolor)
     ax2.axhline(0, color = 'gray', linewidth=1, linestyle = '--')
 #    ax2.grid(True, color ='gray', linestyle = '--')
