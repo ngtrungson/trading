@@ -84,8 +84,8 @@ def analysis_stocks(start, end, update = False, source = "ssi"):
 #        print("Analysing ...", ticker)
 
 #        ninja_trading(ticker, start, end, realtime = update, source = source)
-#        hedgefund_trading(ticker, start, end, realtime = update, source = source)
-        bollinger_bands(ticker, start, end, realtime = update, source = source)
+        hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#        bollinger_bands(ticker, start, end, realtime = update, source = source)
 #        short_selling(ticker, start, end, realtime = update, source = source)
 
     
@@ -94,10 +94,10 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-            ninja_trading(ticker, start, end, realtime = update, source = source)
-            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            bollinger_bands(ticker, start, end, realtime = update, source = source)
-#            short_selling(ticker, start, end, realtime = update, source = source)
+#            ninja_trading(ticker, start, end, realtime = update, source = source)
+#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#            bollinger_bands(ticker, start, end, realtime = update, source = source)
+            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -363,13 +363,13 @@ def test_run_HNX():
 
     
 if __name__ == "__main__":
-#    symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
-#    symbols = get_stocks_highcpm(download = False, source ="ssi")
+#    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
 #    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
 
-#    analysis_trading(symbols, start = "2017-3-19" , end = "2018-3-23", update = False, source = "ssi")
+#    analysis_trading(symbols, start = "2017-3-19" , end = "2018-3-28", update = False, source = "cp68")
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
@@ -396,7 +396,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-    analysis_stocks(start = "2017-3-14" , end = "2018-3-23", update = False,  source ="ssi")
+    analysis_stocks(start = "2017-3-26" , end = "2018-3-28", update = False,  source ="cp68")
 
     
 #    investing = ['HAR', 'SHB', 'TVN', 'PVS', 'DVN', 'VIX']

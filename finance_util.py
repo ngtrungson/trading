@@ -436,7 +436,7 @@ if __name__ == "__main__":
      df = data.query("MeanVol_10W > 100000")
      df = df.query("FVQ > 0")
      df = df.query("CPM > 1.4")
-     df = df.query("Diff_Price < 0")
+#     df = df.query("Diff_Price < 0")
 #     df.to_csv('investment_stock3.csv')
 #     print(df.index)
      
