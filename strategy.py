@@ -186,10 +186,10 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['3_18_SHORT']= (swing_low(df) & check_crossover(df, high = 'EMA18', low = 'EMA3'))
 #    & (df['EMA3'] < df['EMA18']) & (df['EMA3_1d'] < df['EMA18_1d']) & (df['EMA3_2d'] > df['EMA18_2d']))    
     
-    df['3_6_LONG']= (swing_high(df) & check_crossover(df, high = 'EMA3', low = 'EMA6'))
+#    df['3_6_LONG']= (swing_high(df) & check_crossover(df, high = 'EMA3', low = 'EMA6'))
 #    & (df['EMA3'] > df['EMA6']) & (df['EMA3_1d'] > df['EMA6_1d']) & (df['EMA3_2d'] < df['EMA6_2d']))
     
-    df['3_6_SHORT']= (swing_low(df) & check_crossover(df, high = 'EMA6', low = 'EMA3'))
+#    df['3_6_SHORT']= (swing_low(df) & check_crossover(df, high = 'EMA6', low = 'EMA3'))
 #    & (df['EMA3'] < df['EMA6']) & (df['EMA3_1d'] < df['EMA6_1d']) & (df['EMA3_2d'] > df['EMA6_2d']))    
     
     df['6_18_LONG']= (swing_high(df) & check_crossover(df, high = 'EMA6', low = 'EMA18'))
@@ -252,7 +252,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     
     df['L18'] = (df['18_LONG'] & df['MACD_UP']) & df['EMA_UP']
     df['L3_18'] = (df['3_18_LONG'] & df['MACD_UP']) & df['EMA_UP']
-    df['L3_6'] = (df['3_6_LONG'] &  df['MACD_UP'])  & df['EMA_UP']
+#    df['L3_6'] = (df['3_6_LONG'] &  df['MACD_UP'])  & df['EMA_UP']
     df['L6_18'] = (df['6_18_LONG'] &  df['MACD_UP']) & df['EMA_UP']
     df['L3_50'] = (df['3_50_LONG'] & df['MACD_UP']) & df['EMA_UP']
     df['L6_50'] = (df['6_50_LONG'] &  df['MACD_UP']) & df['EMA_UP']
@@ -265,7 +265,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     
     df['S18'] = (df['18_SHORT'] &  df['MACD_DOWN']) & df['EMA_DOWN']
     df['S3_18'] = (df['3_18_SHORT'] & df['MACD_DOWN'])  & df['EMA_DOWN']
-    df['S3_6'] = (df['3_6_SHORT'] &  df['MACD_DOWN']) & df['EMA_DOWN'] 
+#    df['S3_6'] = (df['3_6_SHORT'] &  df['MACD_DOWN']) & df['EMA_DOWN'] 
     df['S6_18'] = (df['6_18_SHORT'] &  df['MACD_DOWN']) & df['EMA_DOWN'] 
     df['S3_50'] = (df['3_50_SHORT'] &  df['MACD_DOWN']) & df['EMA_DOWN']
     df['S6_50'] = (df['6_50_SHORT'] & df['MACD_DOWN']) & df['EMA_DOWN'] 
@@ -276,9 +276,10 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     
     df['S_EMA_FAN'] = (swing_low(df)) & (df['MACD_DOWN'] & df['EMA_DOWN'])
     # 3 days checking: SH + 2 pullbacks or SH + IB + 2 pullbacks
-    hm_days = 5
+    hm_days = 10
     for i in range(1,hm_days+1):
-        if (df['L18'].iloc[-i] | df['L3_18'].iloc[-i] | df['L3_6'].iloc[-i] 
+        if (df['L18'].iloc[-i] | df['L3_18'].iloc[-i] 
+#            | df['L3_6'].iloc[-i] 
             | df['L6_18'].iloc[-i] | df['L3_50'].iloc[-i]
             | df['L6_50'].iloc[-i] | df['L18_50'].iloc[-i] | df['L3_6_18'].iloc[-i] 
             | df['L_MACD_SIGNAL'].iloc[-i]
@@ -296,7 +297,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     for i in range(1,hm_days+1):
      if ((df['L18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))
         | (df['L3_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))
-        | (df['L3_6'].iloc[-i] & check_bounce(df, ind = i, nema = 6))
+#        | (df['L3_6'].iloc[-i] & check_bounce(df, ind = i, nema = 6))
         | (df['L6_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))
         | (df['L3_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
         | (df['L6_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
@@ -319,8 +320,8 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
 #                print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
 #                print(" Risk ", df['Risk'].iloc[-i])
 #            
-    df['Signal'] = 1*(df['L18'] | df['L3_18'] | df['L3_6'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  +\
-     -1*(df['S18'] | df['S3_18'] | df['S3_6'] | df['S6_18'] | df['S3_50'] | df['S6_50'] | df['S18_50'] |  df['S3_6_18'] | df['S_MACD_SIGNAL'] | df['S_MACD_ZERO'] | df['S_EMA_FAN']) 
+    df['Signal'] = 1*(df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  +\
+     -1*(df['S18'] | df['S3_18'] | df['S6_18'] | df['S3_50'] | df['S6_50'] | df['S18_50'] |  df['S3_6_18'] | df['S_MACD_SIGNAL'] | df['S_MACD_ZERO'] | df['S_EMA_FAN']) 
     
     return df
 
@@ -563,7 +564,7 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
                    1 *((df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)))
             
     
-    hmdays = 5
+    hmdays = 3
     for row in range(1,hmdays+1):    
 #        if (df['Close'].iloc[-row] > df['Bollinger High'].iloc[-row]) & (df['Close'].iloc[-row-1] < df['Bollinger High'].iloc[-row-1]):
 #            print(" Time for bollinger trading sell ", str(row), " days before ", df.iloc[-row].name ,  ticker)
