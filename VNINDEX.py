@@ -83,8 +83,8 @@ def analysis_stocks(start, end, update = False, source = "ssi"):
     for ticker in tickers:
 #        print("Analysing ...", ticker)
 
-#        ninja_trading(ticker, start, end, realtime = update, source = source)
-        hedgefund_trading(ticker, start, end, realtime = update, source = source)
+        ninja_trading(ticker, start, end, realtime = update, source = source)
+#        hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #        bollinger_bands(ticker, start, end, realtime = update, source = source)
 #        short_selling(ticker, start, end, realtime = update, source = source)
 
@@ -94,8 +94,8 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-            ninja_trading(ticker, start, end, realtime = update, source = source)
-#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#            ninja_trading(ticker, start, end, realtime = update, source = source)
+            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -226,7 +226,7 @@ def test_runVNINDEX():
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
     end_date = "2018-3-28"
-    start_date = "2018-1-22"
+    start_date = "2018-1-28"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsVNI, dates, benchmark = '^VNINDEX')  # get data for each symbol
@@ -303,8 +303,8 @@ def test_run_HNX():
                   'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-3-21"
-    start_date = "2018-1-22"
+    end_date = "2018-3-28"
+    start_date = "2018-1-28"
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsHNX, dates, benchmark ='^HASTC')  # get data for each symbol
 
@@ -369,7 +369,7 @@ if __name__ == "__main__":
     
 #    symbols = symbols + ['EIB', 'TVN', 'DVN', 'FPT', 'VCB', 'PVS', 'SHB', 'HAR']
 
-#    analysis_trading(symbols, start = "2017-3-19" , end = "2018-3-29", update = False, source = "cp68")
+#    analysis_trading(symbols, start = "2017-3-19" , end = "2018-3-29", update = True, source = "cp68")
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
@@ -396,7 +396,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-    analysis_stocks(start = "2017-3-26" , end = "2018-3-29", update = False,  source ="cp68")
+    analysis_stocks(start = "2017-3-26" , end = "2018-3-30", update = False,  source ="cp68")
 
     
 #    investing = ['HAR', 'TVN', 'PVS', 'DVN', 'VIX']

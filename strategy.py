@@ -105,7 +105,7 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
     for i in range(1,hm_days+1):
         if (df['SHORT_SELL'].iloc[-i]):
 #            if (df['Close'].iloc[-i] < df['Open'].iloc[-i]):
-                print(" Time for short selling ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+                print(" Short selling", str(i), " days before ", df.iloc[-i].name ,  ticker)
 #                print(" Risk ", df['Risk'].iloc[-i])
 #                print(" Price divergence ", df['PRICE_D'].iloc[-i])
        
@@ -286,7 +286,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
             | df['L_MACD_ZERO'].iloc[-i]):
 #            | df['L_EMA_FAN'].iloc[-i]):
 #            if (df['Close'].iloc[-i] > df['Open'].iloc[-i]):
-                print(" Time for ninja trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+                print(" Ninja trading", str(i), " days before", df.iloc[-i].name ,  ticker)
 #                print(" Target sell", df['Target_SELL'].iloc[-i])
 #                print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
 #                print(" Risk ", df['Risk'].iloc[-i])
@@ -304,7 +304,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
         | (df['L18_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
         | (df['L3_6_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))):
 #         if (df['Close'].iloc[-i] > df['Open'].iloc[-i]):
-            print(" Advanced ninja trading ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+            print(" Advanced ninja trading", str(i), "days before", df.iloc[-i].name ,  ticker)
 #            print(" Target sell", df['Target_SELL'].iloc[-i])
 #            print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
 #            print(" Risk ", df['Risk'].iloc[-i])
@@ -315,7 +315,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     for i in range(1,hm_days+1):
         if (df['L_EMA_FAN'].iloc[-i]):
 #            if (df['Close'].iloc[-i] > df['Open'].iloc[-i]):
-                print(" Time for ninja trading EMA FAN ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+                print(" Ninja trading EMA FAN", str(i), "days before", df.iloc[-i].name ,  ticker)
 #                print(" Target sell", df['Target_SELL'].iloc[-i])
 #                print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
 #                print(" Risk ", df['Risk'].iloc[-i])
@@ -506,13 +506,13 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
 
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] ):
-                print(" Time for slingshot trading trend trend", str(i), " days before ", df.iloc[-i].name ,  ticker)                   
+                print(" Slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)                   
         if (df['LCTT'].iloc[-i] ):
-                print(" Time for slingshot trading trend counter trend ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+                print(" Slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
         if (df['LTT_A'].iloc[-i] ):
-                print(" Advanced slingshot trading trend trend ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+                print(" Advanced slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)
         if (df['LCTT_A'].iloc[-i]):
-                print(" Advanced slingshot trading trend counter trend ", str(i), " days before ", df.iloc[-i].name ,  ticker)
+                print(" Advanced slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
         
     return df
 
@@ -567,10 +567,10 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
     hmdays = 3
     for row in range(1,hmdays+1):    
 #        if (df['Close'].iloc[-row] > df['Bollinger High'].iloc[-row]) & (df['Close'].iloc[-row-1] < df['Bollinger High'].iloc[-row-1]):
-#            print(" Time for bollinger trading sell ", str(row), " days before ", df.iloc[-row].name ,  ticker)
+#            print(" Bollinger trading sell", str(row), " days before", df.iloc[-row].name ,  ticker)
 #        
         if (df['Close'].iloc[-row] < df['Bollinger Low'].iloc[-row]) & (df['Close'].iloc[-row-1] > df['Bollinger Low'].iloc[-row-1]):
-            print(" Time for bollinger trading buy ", str(row), " days before ", df.iloc[-row].name ,  ticker)
+            print(" Bollinger trading buy", str(row), "days before", df.iloc[-row].name ,  ticker)
             
     return df
 
