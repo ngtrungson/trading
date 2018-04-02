@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import talib
 import datetime
+from collections import Counter
 
 
 
@@ -320,8 +321,26 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
 #                print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
 #                print(" Risk ", df['Risk'].iloc[-i])
 #            
-    df['Signal'] = 1*(df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  +\
-     -1*(df['S18'] | df['S3_18'] | df['S6_18'] | df['S3_50'] | df['S6_50'] | df['S18_50'] |  df['S3_6_18'] | df['S_MACD_SIGNAL'] | df['S_MACD_ZERO'] | df['S_EMA_FAN']) 
+#    df['Signal'] = 1*(df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  +\
+#     -1*(df['S18'] | df['S3_18'] | df['S6_18'] | df['S3_50'] | df['S6_50'] | df['S18_50'] |  df['S3_6_18'] | df['S_MACD_SIGNAL'] | df['S_MACD_ZERO'] | df['S_EMA_FAN']) 
+#    
+    df['Signal'] = 1*(df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  
+#    vals = df['Signal'] .values.tolist()
+#    str_vals = [str(i) for i in vals]
+#    print('Data spread signal:', Counter(str_vals))
+#    
+    df['Buy'] = (df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])
+    if df['Buy'].any() == True:
+        back_test = True
+    else:
+        back_test = False
+    if back_test:
+        df['10Days'] = df['Close'].shift(-10)
+        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close'])) + -1* (df['Buy'] & (df['10Days'] < df['Close']))        
+        vals = df['Back_test'] .values.tolist()
+        str_vals = [str(i) for i in vals]
+        print('Back test:', Counter(str_vals), 'symbol: ', ticker)
+    
     
     return df
 
@@ -502,6 +521,7 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['MACD_DOWN'] = (MACD < MACDsign)
         
 
+
     hm_days = 5
 
     for i in range(1,hm_days+1):
@@ -513,7 +533,17 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
                 print(" Advanced slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)
         if (df['LCTT_A'].iloc[-i]):
                 print(" Advanced slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
-        
+      
+    df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A'])
+#    print(ticker, " sum Buy :", df['Buy'].sum())
+    back_test = df['Buy'].sum() > 0   
+    
+    if back_test:
+        df['10Days'] = df['Close'].shift(-10)
+        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close'])) + -1* (df['Buy'] & (df['10Days'] <= df['Close']))        
+        vals = df['Back_test'] .values.tolist()
+        str_vals = [str(i) for i in vals]
+        print('Back test:', Counter(str_vals), 'symbol: ', ticker)
     return df
 
 def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
