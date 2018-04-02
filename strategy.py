@@ -277,7 +277,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     
     df['S_EMA_FAN'] = (swing_low(df)) & (df['MACD_DOWN'] & df['EMA_DOWN'])
     # 3 days checking: SH + 2 pullbacks or SH + IB + 2 pullbacks
-    hm_days = 10
+    hm_days = 5
     for i in range(1,hm_days+1):
         if (df['L18'].iloc[-i] | df['L3_18'].iloc[-i] 
 #            | df['L3_6'].iloc[-i] 
@@ -321,26 +321,52 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
 #                print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
 #                print(" Risk ", df['Risk'].iloc[-i])
 #            
-#    df['Signal'] = 1*(df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  +\
-#     -1*(df['S18'] | df['S3_18'] | df['S6_18'] | df['S3_50'] | df['S6_50'] | df['S18_50'] |  df['S3_6_18'] | df['S_MACD_SIGNAL'] | df['S_MACD_ZERO'] | df['S_EMA_FAN']) 
-#    
-    df['Signal'] = 1*(df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  
-#    vals = df['Signal'] .values.tolist()
-#    str_vals = [str(i) for i in vals]
-#    print('Data spread signal:', Counter(str_vals))
-#    
-    df['Buy'] = (df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])
-    if df['Buy'].any() == True:
-        back_test = True
-    else:
-        back_test = False
-    if back_test:
-        df['10Days'] = df['Close'].shift(-10)
-        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close'])) + -1* (df['Buy'] & (df['10Days'] < df['Close']))        
-        vals = df['Back_test'] .values.tolist()
-        str_vals = [str(i) for i in vals]
-        print('Back test:', Counter(str_vals), 'symbol: ', ticker)
+    df['Signal'] = 1*(df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  +\
+     -1*(df['S18'] | df['S3_18'] | df['S6_18'] | df['S3_50'] | df['S6_50'] | df['S18_50'] |  df['S3_6_18'] | df['S_MACD_SIGNAL'] | df['S_MACD_ZERO'] | df['S_EMA_FAN']) 
+       
+#    df['Buy'] = (df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN']) & (df['Close'].shift(-1) > df['Open'].shift(-1)) & (df['Close'] > df['Open'])
     
+    df['1PB_RG'] = ((df['Close'] < df['Open']) & (df['Close'].shift(-1) > df['Open'].shift(-1))  & (df['Close'].shift(-2) > df['Open'].shift(-2))  )
+    df['2PBIB_RRG'] = ((df['Close'] < df['Open']) & 
+      (df['Close'].shift(-1) < df['Open'].shift(-1)) & 
+      (df['Close'].shift(-2) > df['Open'].shift(-2)) &
+      (df['Close'].shift(-3) > df['Open'].shift(-3)))
+    
+    df['1IB2PB_RRRG'] = (((df['High'] < df['High'].shift(1)) & df['Low'] > df['Low'].shift(1)) & 
+    (df['Close'].shift(-1) < df['Open'].shift(-1)) &
+    (df['Close'].shift(-2) < df['Open'].shift(-2)) & 
+    (df['Close'].shift(-3) > df['Open'].shift(-3)) &
+    (df['Close'].shift(-4) > df['Open'].shift(-4)))
+    
+    df['2PBIB_RRRG'] = ((df['Close'] < df['Open']) & 
+      (df['Close'].shift(-1) < df['Open'].shift(-1)) & 
+      (((df['High'].shift(-1) < df['High'].shift(-2)) & df['Low'].shift(-1) > df['Low'].shift(-2))) & 
+      (df['Close'].shift(-3) > df['Open'].shift(-3)) &
+      (df['Close'].shift(-4) > df['Open'].shift(-4)))
+   
+    df['PBIBPB_RRRG'] = ((df['Close'] < df['Open'])  & 
+      ((df['High'] < df['High'].shift(-1)) & (df['Low'] > df['Low'].shift(-1)))  & 
+        (df['Close'].shift(-2) < df['Open'].shift(-2)) &
+        (df['Close'].shift(-3) > df['Open'].shift(-3)) &
+        (df['Close'].shift(-4) > df['Open'].shift(-4)))
+    
+    df['IBPBIB_RRRG'] = (((df['High'] < df['High'].shift(1)) & df['Low'] > df['Low'].shift(1)) & 
+      (df['Close'].shift(-1) < df['Open'].shift(-1)) & 
+      ((df['High'].shift(-1) < df['High'].shift(-2)) & (df['Low'].shift(-1) > df['Low'].shift(-2)))  &        
+        (df['Close'].shift(-3) > df['Open'].shift(-3)) &
+        (df['Close'].shift(-4) > df['Open'].shift(-4)))
+    
+    df['Buy'] = (df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  & (df['1PB_RG'] | df['2PBIB_RRG'] | df['1IB2PB_RRRG'] | df['2PBIB_RRRG'] |  df['PBIBPB_RRRG'] | df['IBPBIB_RRRG'] )
+    
+#    back_test = df['Buy'].sum() > 0 
+#    if back_test:        
+#        df['5Days'] = df['Close'].shift(-5)
+#        df['10Days'] = df['Close'].shift(-10)
+#        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
+#        vals = df['Back_test'] .values.tolist()
+#        str_vals = [str(i) for i in vals]
+#        print('Back test ninja trading:', Counter(str_vals), 'symbol: ', ticker)
+#    
     
     return df
 
@@ -534,16 +560,19 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
         if (df['LCTT_A'].iloc[-i]):
                 print(" Advanced slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
       
-    df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A'])
-#    print(ticker, " sum Buy :", df['Buy'].sum())
-    back_test = df['Buy'].sum() > 0   
+    df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A']) & (df['Close'].shift(-1) > df['Open'].shift(-1)) & (df['Close'] > df['Open'])
+# Signal validation : 2 days consecutive GREEN !!!!!!
     
-    if back_test:
-        df['10Days'] = df['Close'].shift(-10)
-        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close'])) + -1* (df['Buy'] & (df['10Days'] <= df['Close']))        
-        vals = df['Back_test'] .values.tolist()
-        str_vals = [str(i) for i in vals]
-        print('Back test:', Counter(str_vals), 'symbol: ', ticker)
+    
+
+#    back_test = df['Buy'].sum() > 0 
+#    if back_test:        
+#        df['5Days'] = df['Close'].shift(-5)
+#        df['10Days'] = df['Close'].shift(-10)
+#        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
+#        vals = df['Back_test'] .values.tolist()
+#        str_vals = [str(i) for i in vals]
+#        print('Back test hedge fund:', Counter(str_vals), 'symbol: ', ticker)
     return df
 
 def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
@@ -590,18 +619,31 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
     
     df['Bollinger High'] = rolling_mean + (rolling_std * nstd)
     df['Bollinger Low'] = rolling_mean - (rolling_std * nstd)
-    df['Signal'] = -1*((df['Close'] > df['Bollinger High']) & (df['Close'].shift(1)< df['Bollinger High'].shift(1))) + \
-                   1 *((df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)))
+    
+   
+    
+    df['Signal'] = -1*((df['Close'] > df['Bollinger High']) & (df['Close'].shift(1)< df['Bollinger High'].shift(1))  ) + \
+                   1 *((df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1))  )
             
     
     hmdays = 3
     for row in range(1,hmdays+1):    
-#        if (df['Close'].iloc[-row] > df['Bollinger High'].iloc[-row]) & (df['Close'].iloc[-row-1] < df['Bollinger High'].iloc[-row-1]):
-#            print(" Bollinger trading sell", str(row), " days before", df.iloc[-row].name ,  ticker)
-#        
+        if (df['Close'].iloc[-row] > df['Bollinger High'].iloc[-row]) & (df['Close'].iloc[-row-1] < df['Bollinger High'].iloc[-row-1]):
+            print(" Bollinger trading sell", str(row), " days before", df.iloc[-row].name ,  ticker)
+        
         if (df['Close'].iloc[-row] < df['Bollinger Low'].iloc[-row]) & (df['Close'].iloc[-row-1] > df['Bollinger Low'].iloc[-row-1]):
             print(" Bollinger trading buy", str(row), "days before", df.iloc[-row].name ,  ticker)
             
+    df['Buy'] =  (df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)) & (df['Close'].shift(-1) > df['Open'].shift(-1))
+    back_test = df['Buy'].sum() > 0 
+    if back_test:        
+        df['5Days'] = df['Close'].shift(-5)
+        df['10Days'] = df['Close'].shift(-10)
+        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
+        vals = df['Back_test'] .values.tolist()
+        str_vals = [str(i) for i in vals]
+        print('Back test bollinger bands:', Counter(str_vals), 'symbol: ', ticker)
+    
     return df
 
 def compute_MACD(df, n_fast, n_slow, nema = 9):  
