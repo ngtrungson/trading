@@ -358,15 +358,15 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     
     df['Buy'] = (df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  & (df['1PB_RG'] | df['2PBIB_RRG'] | df['1IB2PB_RRRG'] | df['2PBIB_RRRG'] |  df['PBIBPB_RRRG'] | df['IBPBIB_RRRG'] )
     
-#    back_test = df['Buy'].sum() > 0 
-#    if back_test:        
-#        df['5Days'] = df['Close'].shift(-5)
-#        df['10Days'] = df['Close'].shift(-10)
-#        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
-#        vals = df['Back_test'] .values.tolist()
-#        str_vals = [str(i) for i in vals]
-#        print('Back test ninja trading:', Counter(str_vals), 'symbol: ', ticker)
-#    
+    back_test = df['Buy'].sum() > 0 
+    if back_test:        
+        df['5Days'] = df['Close'].shift(-5)
+        df['10Days'] = df['Close'].shift(-10)
+        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
+        vals = df['Back_test'] .values.tolist()
+        str_vals = [str(i) for i in vals]
+        print('Back test ninja trading:', Counter(str_vals), 'symbol: ', ticker)
+    
     
     return df
 
@@ -628,21 +628,21 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
     
     hmdays = 3
     for row in range(1,hmdays+1):    
-        if (df['Close'].iloc[-row] > df['Bollinger High'].iloc[-row]) & (df['Close'].iloc[-row-1] < df['Bollinger High'].iloc[-row-1]):
-            print(" Bollinger trading sell", str(row), " days before", df.iloc[-row].name ,  ticker)
+#        if (df['Close'].iloc[-row] > df['Bollinger High'].iloc[-row]) & (df['Close'].iloc[-row-1] < df['Bollinger High'].iloc[-row-1]):
+#            print(" Bollinger trading sell", str(row), " days before", df.iloc[-row].name ,  ticker)
         
         if (df['Close'].iloc[-row] < df['Bollinger Low'].iloc[-row]) & (df['Close'].iloc[-row-1] > df['Bollinger Low'].iloc[-row-1]):
             print(" Bollinger trading buy", str(row), "days before", df.iloc[-row].name ,  ticker)
             
-    df['Buy'] =  (df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)) & (df['Close'].shift(-1) > df['Open'].shift(-1))
-    back_test = df['Buy'].sum() > 0 
-    if back_test:        
-        df['5Days'] = df['Close'].shift(-5)
-        df['10Days'] = df['Close'].shift(-10)
-        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
-        vals = df['Back_test'] .values.tolist()
-        str_vals = [str(i) for i in vals]
-        print('Back test bollinger bands:', Counter(str_vals), 'symbol: ', ticker)
+#    df['Buy'] =  (df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)) & (df['Close'].shift(-1) > df['Open'].shift(-1))
+#    back_test = df['Buy'].sum() > 0 
+#    if back_test:        
+#        df['5Days'] = df['Close'].shift(-5)
+#        df['10Days'] = df['Close'].shift(-10)
+#        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
+#        vals = df['Back_test'] .values.tolist()
+#        str_vals = [str(i) for i in vals]
+#        print('Back test bollinger bands:', Counter(str_vals), 'symbol: ', ticker)
     
     return df
 

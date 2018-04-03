@@ -94,9 +94,9 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-#            ninja_trading(ticker, start, end, realtime = update, source = source)
+            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            bollinger_bands(ticker, start, end, realtime = update, source = source)
+#            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
@@ -365,11 +365,11 @@ def test_run_HNX():
 if __name__ == "__main__":
 #    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
-#    symbols = get_stocks_highcpm(download = False, source ="cp68")
+    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
 #    symbols =  ['FTS', 'PVI', 'VNE']
 
-#    analysis_trading(symbols, start = "2017-3-19" , end = "2018-4-2", update = False, source = "cp68")
+    analysis_trading(symbols, start = "2017-3-1" , end = "2018-4-3", update = False, source = "cp68")
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
@@ -398,7 +398,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-    analysis_stocks(start = "2017-3-26" , end = "2018-4-2", update = False,  source ="cp68")
+#    analysis_stocks(start = "2017-3-26" , end = "2018-4-3", update = False,  source ="cp68")
 
     
 #    investing = ['HAR', 'TVN', 'PVS', 'DVN', 'VIX']
