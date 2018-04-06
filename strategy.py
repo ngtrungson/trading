@@ -355,18 +355,18 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
       ((df['High'].shift(-1) < df['High'].shift(-2)) & (df['Low'].shift(-1) > df['Low'].shift(-2)))  &        
         (df['Close'].shift(-3) > df['Open'].shift(-3)) &
         (df['Close'].shift(-4) > df['Open'].shift(-4)))
-    
-    df['Buy'] = (df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  & (df['1PB_RG'] | df['2PBIB_RRG'] | df['1IB2PB_RRRG'] | df['2PBIB_RRRG'] |  df['PBIBPB_RRRG'] | df['IBPBIB_RRRG'] )
-    
-    back_test = df['Buy'].sum() > 0 
-    if back_test:        
-        df['5Days'] = df['Close'].shift(-5)
-        df['10Days'] = df['Close'].shift(-10)
-        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
-        vals = df['Back_test'] .values.tolist()
-        str_vals = [str(i) for i in vals]
-        print('Back test ninja trading:', Counter(str_vals), 'symbol: ', ticker)
-    
+#    
+#    df['Buy'] = (df['L18'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  & (df['1PB_RG'] | df['2PBIB_RRG'] | df['1IB2PB_RRRG'] | df['2PBIB_RRRG'] |  df['PBIBPB_RRRG'] | df['IBPBIB_RRRG'] )
+#    
+#    back_test = df['Buy'].sum() > 0 
+#    if back_test:        
+#        df['5Days'] = df['Close'].shift(-5)
+#        df['10Days'] = df['Close'].shift(-10)
+#        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
+#        vals = df['Back_test'] .values.tolist()
+#        str_vals = [str(i) for i in vals]
+#        print('Back test ninja trading:', Counter(str_vals), 'symbol: ', ticker)
+#    
     
     return df
 
@@ -643,7 +643,7 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
 #        vals = df['Back_test'] .values.tolist()
 #        str_vals = [str(i) for i in vals]
 #        print('Back test bollinger bands:', Counter(str_vals), 'symbol: ', ticker)
-    
+#    
     return df
 
 def compute_MACD(df, n_fast, n_slow, nema = 9):  

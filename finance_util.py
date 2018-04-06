@@ -427,7 +427,7 @@ if __name__ == "__main__":
 # 
 #    data = fundemental_analysis(symbols)
 #    
-#    data.to_csv('fundemental_stocksVN.cvs')
+#    data.to_csv('fundemental_stocksVN.csv')
     
 #    tickers = save_and_analyse_vnindex_tickers()
     
@@ -438,7 +438,7 @@ if __name__ == "__main__":
      df = df.query("FVQ > 0")
      df = df.query("CPM > 1.4")
      df = df.query("EPS > 0")
-#     df = df.query("Diff_Price < 0")
+     df = df.query("Diff_Price < 0")
 #     df.to_csv('investment_stock3.csv')
 #     print(df.index)
      
