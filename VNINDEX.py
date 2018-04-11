@@ -369,7 +369,7 @@ if __name__ == "__main__":
     
 #    symbols =  ['FTS', 'PVI', 'VNE']
 
-#    analysis_trading(symbols, start = "2017-3-1" , end = "2018-4-6", update = False, source = "cp68")
+    analysis_trading(symbols, start = "2017-3-1" , end = "2018-4-10", update = False, source = "cp68")
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
