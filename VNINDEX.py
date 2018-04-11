@@ -94,8 +94,8 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-            ninja_trading(ticker, start, end, realtime = update, source = source)
-#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#            ninja_trading(ticker, start, end, realtime = update, source = source)
+            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -369,7 +369,7 @@ if __name__ == "__main__":
     
 #    symbols =  ['FTS', 'PVI', 'VNE']
 
-#    analysis_trading(symbols, start = "2017-3-1" , end = "2018-4-6", update = False, source = "cp68")
+    analysis_trading(symbols, start = "2017-3-1" , end = "2018-4-11", update = False, source = "cp68")
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()

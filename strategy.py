@@ -277,7 +277,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     
     df['S_EMA_FAN'] = (swing_low(df)) & (df['MACD_DOWN'] & df['EMA_DOWN'])
     # 3 days checking: SH + 2 pullbacks or SH + IB + 2 pullbacks
-    hm_days = 5
+    hm_days = 10
     for i in range(1,hm_days+1):
         if (df['L18'].iloc[-i] | df['L3_18'].iloc[-i] 
 #            | df['L3_6'].iloc[-i] 
