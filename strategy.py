@@ -295,7 +295,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
 ##                print(" Reward ", df['Reward'].iloc[-i])
 ##            print(" Price at that day : ", df.i[loc[-i][0:4])
 
-            
+#            
     for i in range(1,hm_days+1):
      if ((df['L18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))
         | (df['L3_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))
@@ -305,7 +305,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
         | (df['L6_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
         | (df['L18_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
         | (df['L3_6_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))):
-         if (df['Close'].iloc[-i] > df['Open'].iloc[-i]):
+         if (df['Close'].iloc[-i] > df['Open'].iloc[-i]) :
             print(" Advanced ninja trading", str(i), "days before", df.iloc[-i].name ,  ticker)
 ##            print(" Target sell", df['Target_SELL'].iloc[-i])
 ##            print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])

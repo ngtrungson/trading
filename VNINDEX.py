@@ -32,49 +32,33 @@ def get_stocks_highcpm(download = True, source = "ssi"):
     
 def analysis_stocks(start, end, update = False, source = "ssi"):
     
-    symbolsHNX = ['APS','ALV', 'TNG','BVS','PVX',"KDM","ASA","HKB","HVA","KLF", "VE9", 
-                  'ACB','BCC','CEO','DBC','DCS','HHG','HUT',
-                  'LAS', 'MBS', 'NDN', 'PGS', 'PVC', 'PVI',
-                  'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
-    symbolsVNI = [ 'BCG','ATG','ASP','APG', 'ANV', 'APC', 
-                  "ASM", "BFC", "BID", "BMI", "BMP", "BVH",
-                  "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG",  
-               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 
-               "ELC", "EVE","FCN","FIT","FLC","FPT", "GAS", "GMD", "GTN", 
-               "HAG", "HHS", "HNG", "HQC", "HT1", "HVG",
-               "HSG", "HDG", "HCM", "HPG", "HBC", 
-               "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
+    symbolsHNX = ['APS', 'ALV', 'C69', 'TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", 'NVB', "KLF", 'KVC', "VE9", 
+                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9',
+                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG',
+                  'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'VIG','VKC']
+    
+    symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", 
+                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
+               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC',
+               'DHM', 
+               "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
+               "HAG", "HHS", "HNG", "HQC", "HT1", "HVG", 'HAI', 'HAR', 'HID', 'HII', 'HTT',
+               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL',
+               'IDI', "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
-                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC",
+                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC", 'QBS', 
                 "QCG", "REE",  "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,
-                    'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'GEX','VCI',
-                    'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR',
-                    'EIB','BHN','VPB','VRE','ROS',"VND", "HDB","NVT","VHG", "SMC", "C32","CVT"]
-    symbolsUPCOM = ["SBS", "SWC", "NTC","DVN", 'HVN', 'IDC']
+                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS',
+                    'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI',
+                    'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 
+                    'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
+    
+    symbolsUPCOM = ['ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
     
     
-    symbolother = ['CCL','CHP', 
-                   'CTI','CTS','CVN','DGW','DHA','DHC',
-                   'FMC','FTS','HAI','IDI',
-                   'KSD','KVC','LCG','LDG','LGL', 'MSR','NS3',
-                   'NVB','PFL','PHC',
-                   'POM','PV2','PVE','PVG','PVV','PXL','QBS',
-                   'SD9','SDI','SFG','SPI',
-                   'TDH','TIS','TNT','TTB','TTF',
-                   'TVB','TVN','TVS','VDS','VGT','VIB',
-                  'VIG','VIP','VIX','VMC','VNG','VPH']
-    
-    high_cpm = ['ACV', 'ALV', 'AMD', 'ANV', 'APC', 'ART', 'ATB', 'BCC', 'C47', 'C69',
-       'CCL', 'CDO', 'CMG', 'CVN', 'DHM', 'DIG', 'DST', 'EVG', 'FIT', 'HAI',
-       'HAR', 'HCM', 'HID', 'HII', 'HKB', 'HPG', 'HPI', 'HTT', 'HVA', 'HVN',
-       'IDI', 'KDM', 'KHB', 'KLF', 'KSA', 'LDG', 'MBB', 'MBS', 'MSR', 'MST',
-       'NHP', 'NS3', 'NTB', 'NVB', 'NVT', 'OCH', 'OGC', 'PDR', 'PIV', 'PND',
-       'PPI', 'PVO', 'QBS', 'QCG', 'ROS', 'SBS', 'SDI', 'SHB', 'SHS', 'SPI',
-       'TSC', 'TVB', 'VHG', 'VIG', 'VJC', 'VKC', 'VND', 'VOS']
-    
-    symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
+    symbols = symbolsVNI + symbolsHNX + symbolsUPCOM 
  
+   
 #    symbols = symbolsVNI 
     
     tickers  = pd.unique(symbols).tolist()
@@ -94,8 +78,8 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-#            ninja_trading(ticker, start, end, realtime = update, source = source)
-            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+            ninja_trading(ticker, start, end, realtime = update, source = source)
+#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -105,50 +89,37 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
                
 def get_csv_data(source = "cp68"):
     benchmark = ["^VNINDEX", "^HASTC", "^UPCOM"]
-    symbolsHNX = ['TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", "KLF", "VE9", 
-                  'ACB', 'BCC', 'CEO', 'DBC', 'DCS', 'HHG', 'HUT',
-                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',
-                  'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
-    symbolsVNI = [ "ASM", "BFC", "BID", "BMI", "BMP", "BVH",
-                  "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG",  
-               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 
-               "ELC", "EVE","FCN","FIT","FLC","FPT", "GAS", "GMD", "GTN", 
-               "HAG", "HHS", "HNG", "HQC", "HT1", "HVG",
-               "HSG", "HDG", "HCM", "HPG", "HBC", 
-               "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
+    symbolsHNX = ['APS', 'ALV', 'C69', 'TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", 'NVB', "KLF", 'KVC', "VE9", 
+                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9',
+                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG',
+                  'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'VIG','VKC']
+    
+    symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", 
+                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO', 'CMG', 
+                  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
+               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC',
+               'DHM', 
+               "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
+               "HAG", "HHS", "HNG", "HQC", "HT1", "HVG", 'HAI', 'HAR', 'HID', 'HII', 'HTT',
+               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL',
+               'IDI', "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
-                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC",
+                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC", 'QBS', 
                 "QCG", "REE",  "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,
-                    'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'GEX','VCI',
-                    'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR',
-                    'EIB','BHN','VPB','VRE','ROS',"VND", "HDB","NVT","VHG", "SMC", "C32","CVT"]
-    symbolsUPCOM = ["SBS", "SWC", "NTC","DVN", 'HVN', 'IDC']
+                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS',
+                    'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI',
+                    'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 
+                    'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
     
-    symbolother = ['ALV','ANV','APC','APG','APS','ASP','ATG',
-                   'BCG','CCL','CHP',
-                   'CTI','CTS','CVN','DGW','DHA','DHC',
-                   'FMC','FTS','HAI','IDI',
-                   'KSD','KVC','LCG','LDG','LGL', 'MSR','NS3',
-                   'NVB','PFL','PHC',
-                   'POM','PV2','PVE','PVG','PVV','PXL','QBS',
-                   'SD9','SDI','SFG','SPI',
-                   'TDH','TIS','TNT','TTB','TTF',
-                   'TVB','TVN','TVS','VDS','VGT','VIB',
-                  'VIG','VIP','VIX','VMC','VNG','VPH']
+    symbolsUPCOM = ['ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
     
-    high_cpm = ['ACV', 'ALV', 'AMD', 'ANV', 'APC', 'ART', 'ATB', 'BCC', 'C47', 'C69',
-       'CCL', 'CDO', 'CMG', 'CVN', 'DHM', 'DIG', 'DST', 'EVG', 'FIT', 'HAI',
-       'HAR', 'HCM', 'HID', 'HII', 'HKB', 'HPG', 'HPI', 'HTT', 'HVA', 'HVN',
-       'IDI', 'KDM', 'KHB', 'KLF', 'KSA', 'LDG', 'MBB', 'MBS', 'MSR', 'MST',
-       'NHP', 'NS3', 'NTB', 'NVB', 'NVT', 'OCH', 'OGC', 'PDR', 'PIV', 'PND',
-       'PPI', 'PVO', 'QBS', 'QCG', 'ROS', 'SBS', 'SDI', 'SHB', 'SHS', 'SPI',
-       'TSC', 'TVB', 'VHG', 'VIG', 'VJC', 'VKC', 'VND', 'VOS']
-    
+   
+           
 #    symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
-    symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + symbolother + high_cpm
+    symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM 
 #    symbols =  high_cpm
     symbols = pd.unique(symbols).tolist()
+     
     if source == "cp68":
         get_data_from_cophieu68_openwebsite(symbols)
     else:
@@ -204,20 +175,22 @@ def test_runVNINDEX():
 #                "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
 #                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ]
     
-    symbolsVNI = [ "ASM", "BFC", "BID", "BMI", "BMP", "BVH",
-                  "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG",  
-               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 
-               "ELC", "EVE","FCN","FIT","FLC","FPT", "GAS", "GMD", "GTN", 
-               "HAG", "HHS", "HNG", "HQC", "HT1", "HVG",
-               "HSG", "HDG", "HCM", "HPG", "HBC", 
-               "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
+    symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", 
+                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO', 
+                  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
+               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC',
+               'DHM', 
+               "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
+               "HAG", "HHS", "HNG", "HQC", "HT1", "HVG", 'HAI', 'HAR', 'HID', 'HII', 'HTT',
+               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL',
+               'IDI', "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
-                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC",
+                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC", 'QBS', 
                 "QCG", "REE",  "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,
-                    'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'GEX','VCI',
-                    'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR',
-                    'EIB','BHN','VPB','VRE','ROS',"VND", "HDB","NVT","VHG", "SMC", "C32","CVT"]
+                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS',
+                    'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI',
+                    'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 
+                    'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
 
 #    update = False
 #    # Read data
@@ -225,8 +198,8 @@ def test_runVNINDEX():
 #        get_data_from_cophieu68_openwebsite(symbolsVNI)
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-3-28"
-    start_date = "2018-1-28"
+    end_date = "2018-4-12"
+    start_date = "2017-10-12"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsVNI, dates, benchmark = '^VNINDEX')  # get data for each symbol
@@ -259,7 +232,7 @@ def test_runVNINDEX():
     print ("Average Daily Return:", adr)
     print ("Cumulative Return:", cr)
     
-    investment = 5000000
+    investment = 50000000
     df_result = pd.DataFrame(index = symbolsVNI)    
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
@@ -283,8 +256,80 @@ def test_runVNINDEX():
 #    predict_stocks(investing, start ="2010-2-5", end = "2018-2-5")
     return df_result, df_data
 
+
+def test_runUPCOM():
+
+ 
+    
+    symbolsUPCOM = ['ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 'HVN', 'HPI','IDC', 
+                     'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
+    
+    
+#    update = False
+#    # Read data
+#    if update:
+#        get_data_from_cophieu68_openwebsite(symbolsVNI)
+    
+#    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
+    end_date = "2018-4-6"
+    start_date = "2017-12-6"
+
+    dates = pd.date_range(start_date, end_date)  # date range as index
+    df_data = get_data(symbolsUPCOM, dates, benchmark = '^UPCOM')  # get data for each symbol
+    
+    df_volume = get_data(symbolsUPCOM, dates, benchmark = None, colname = '<Volume>')  # get data for each symbol
+    df_high = get_data(symbolsUPCOM, dates, benchmark = None, colname = '<High>')
+    df_low = get_data(symbolsUPCOM, dates, benchmark = None, colname = '<Low>')
+    
+    
+    vol_mean = pd.Series(df_volume.mean(),name = 'Volume')
+    max_high = pd.Series(df_high.max(), name = 'MaxHigh')
+    min_low = pd.Series(df_low.min(), name = 'MinLow')
+    cpm = pd.Series(max_high/min_low, name = 'CPM')
+    # Fill missing values
+    fill_missing_values(df_data)
+
+    
+    # Assess the portfolio
+    
+    allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start_date, ed = end_date,
+        syms = symbolsUPCOM,  benchmark = '^UPCOM', gen_plot = True)
+
+     # Print statistics
+    print ("Start Date:", start_date)
+    print ("End Date:", end_date)
+    print ("Symbols:", symbolsUPCOM)
+    print ("Optimal allocations:", allocations)
+    print ("Sharpe Ratio:", sr)
+    print ("Volatility (stdev of daily returns):", sddr)
+    print ("Average Daily Return:", adr)
+    print ("Cumulative Return:", cr)
+    
+    investment = 5000000
+    df_result = pd.DataFrame(index = symbolsUPCOM)    
+    df_result['Opt allocs'] = allocations
+    df_result['Cash'] = allocations * investment
+    df_result['Volume'] = vol_mean
+    df_result['Close'] = df_data[symbolsUPCOM].iloc[-1,:].values
+    #    df_result['MaxH'] = max_high
+#    df_result['MinL'] = min_low
+    df_result['CPM'] = cpm
+    
+#    ticker = 'STB'
+##    
+#    trading = ninja_trading(ticker, start_date, end_date)
+##    
+#    plot_ninja_trading(ticker, trading)
+#    
+
+    
+#    analysis_trading(symbolsVNI, start_date, end_date)
+#    investing = ['SHB', 'PVS', 'NDN', 'DVN', 'BMI']
+#    analysis_stock(symbolsVNI, df_data, start_date, end_date)
+#    predict_stocks(investing, start ="2010-2-5", end = "2018-2-5")
+    return df_result, df_data
   
-def test_run_HNX():
+def test_runHNX():
    
 #    
 #    symbolsHNX = ['ACB', 'BCC', 'BVS', 'CEO', 'DBC', 'DCS', 'DGC', 'HHG', 'HUT',
@@ -297,14 +342,14 @@ def test_run_HNX():
 #                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',
 #                  'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
 #    
-    symbolsHNX = ['TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", "KLF", "VE9", 
-                  'ACB', 'BCC', 'CEO', 'DBC', 'DCS', 'HHG', 'HUT',
-                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',
-                  'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
+    symbolsHNX = ['APS', 'ALV', 'C69', 'TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", 'NVB', "KLF", 'KVC', "VE9", 
+                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9',
+                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG',
+                  'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'VIG','VKC']
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-3-28"
-    start_date = "2018-1-28"
+    end_date = "2018-4-12"
+    start_date = "2017-10-12"
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsHNX, dates, benchmark ='^HASTC')  # get data for each symbol
 
@@ -338,7 +383,7 @@ def test_run_HNX():
     
     investment = 50000000
     df_result = pd.DataFrame(index = symbolsHNX)  
-    df_result['Allocs'] = allocations
+    df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
     df_result['Volume'] = vol_mean
     df_result['Close'] = df_data[symbolsHNX].iloc[-1,:].values
@@ -365,16 +410,17 @@ def test_run_HNX():
 if __name__ == "__main__":
 #    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
-    symbols = get_stocks_highcpm(download = False, source ="cp68")
+#    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
 #    symbols =  ['FTS', 'PVI', 'VNE']
 
-    analysis_trading(symbols, start = "2017-3-1" , end = "2018-4-11", update = False, source = "cp68")
+#    analysis_trading(symbols, start = "2017-3-1" , end = "2018-4-11", update = False, source = "cp68")
 
 
     
 #    VNI_result, VNI_data  = test_runVNINDEX()
-#    HNX_result, HNX_data = test_run_HNX()
+    HNX_result, HNX_data = test_runHNX()
+#    UPCOM_result, UPCOM_data = test_runUPCOM()
 #    
 
 #    ticker = 'VGC'    
@@ -399,11 +445,11 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-3-26" , end = "2018-4-3", update = False,  source ="cp68")
+#    analysis_stocks(start = "2017-3-26" , end = "2018-4-12", update = False,  source ="cp68")
 
     
 #    investing = ['HAR', 'TVN', 'PVS', 'DVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-3-28")
     
-    tickers = pd.Series(symbols)
+#    tickers = pd.Series(symbols)
     
