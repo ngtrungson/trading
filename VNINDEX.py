@@ -278,7 +278,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     print ("Cumulative Return:", cr)
     print(" -----------------------------------------------------")
     start_date_list = ["2017-1-3", "2017-7-3",  "2018-1-3"]
-    end_date_list = ["2017-7-2",  "2018-1-2", "2018-4-12"]
+    end_date_list = ["2017-7-2",  "2018-1-2", "2018-4-13"]
     for start, end in zip(start_date_list, end_date_list):    
         
         cr, adr, sddr, sr  = compute_portfolio(sd = start, ed = end,
@@ -299,15 +299,15 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     df_result['Cash'] = allocations * investment
     
     
-    end_date = "2018-4-12"
+    end_date = "2018-4-13"
     start_date = "2018-2-1"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
-    df_data = get_data(symbolsVNI, dates, benchmark = bench)  # get data for each symbol
+    df_data = get_data(symbols, dates, benchmark = bench)  # get data for each symbol
     
    
-    df_high = get_data(symbolsVNI, dates, benchmark = None, colname = '<High>')
-    df_low = get_data(symbolsVNI, dates, benchmark = None, colname = '<Low>')
+    df_high = get_data(symbols, dates, benchmark = None, colname = '<High>')
+    df_low = get_data(symbols, dates, benchmark = None, colname = '<Low>')
     
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
     min_low = pd.Series(df_low.min(), name = 'MinLow')
@@ -316,9 +316,9 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     fill_missing_values(df_data)
     
     
-    df_result['Close'] = df_data[symbolsVNI].iloc[-1,:].values    
+    df_result['Close'] = df_data[symbols].iloc[-1,:].values    
     df_result['CPM'] = cpm
-    df_result['Shares'] = df_result['Cash']/df_result['Close'].values
+    df_result['Shares'] = df_result['Cash']/df_result['Close'].values/1000
 
     return df_result
     
@@ -415,7 +415,7 @@ def test_runHNX():
                   'VIG','VKC']
     
 #    symbols = ["VCG", "VCB", "VSC", "FCN"]  # list of symbols
-    end_date = "2018-4-12"
+    end_date = "2018-4-13"
     start_date = "2018-2-1"
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbolsHNX, dates, benchmark ='^HASTC')  # get data for each symbol
@@ -512,7 +512,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-3-26" , end = "2018-4-12", update = True,  source ="cp68")
+    analysis_stocks(start = "2017-3-26" , end = "2018-4-13", update = False,  source ="cp68")
     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                   'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
                "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
@@ -529,9 +529,15 @@ if __name__ == "__main__":
                 'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI', 'VIS',
                 'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 'TDG', 'VRC', 'JVC', 'SRC',
                 'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
+    
+    symbolsHNX = ['APS', 'ALV', 'C69', 'TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", 'NVB', "KLF", 'KVC', "VE9", 
+                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9', 'HLD', 'NSH', 'DPS','DS3',
+                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG', 'PVB',
+                  'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC',  'TIG', 'SPP',
+                  'VIG','VKC']
 
 
-    VNI_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
+#    VNI_opt = rebalancing_porfolio(symbols = symbolsHNX, bench = '^HASTC')
     
 #    investing = ['HAR', 'TVN', 'PVS', 'DVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-3-28")
