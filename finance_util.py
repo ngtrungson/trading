@@ -342,6 +342,30 @@ def optimize_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
 
 
 
+def compute_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
+    syms=['GOOG','AAPL','GLD','XOM'], allocs = [0.2, 0.2, 0.3, 0.3, 0.0], benchmark = '^VNINDEX', gen_plot=False):
+    
+    # Read in adjusted closing prices for given symbols, date range
+    dates = pd.date_range(sd, ed)
+    prices_all = get_data(syms, dates, benchmark = benchmark)  # automatically adds SPY
+    prices = prices_all[syms]  # only portfolio symbols
+    prices_benchmark = prices_all[benchmark]  # only VNINDEX, for comparison later
+        
+    port_val = get_portfolio_value(prices, allocs)
+    cr, adr, sddr, sr = get_portfolio_stats(port_val)   
+
+    # Compare daily portfolio value with SPY using a normalized plot
+    if gen_plot:
+        # add code to plot here
+        df_temp = pd.concat([port_val, prices_benchmark], keys=['Portfolio', benchmark], axis=1)
+        plot_normalized_data(df_temp, title= " Daily porfolio value and benchmark ", xlabel="Date", ylabel= " Normalized price ")
+        pass
+
+    
+    return cr, adr, sddr, sr
+
+
+
 def optimize_porfolio_markowitz(maindf, symbols):
         
     data = maindf[symbols]
@@ -401,29 +425,38 @@ def optimize_porfolio_markowitz(maindf, symbols):
     return results_frame, max_sharpe_port, min_vol_port 
 
 if __name__ == "__main__":
-#    symbolsHNX = ['TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", "KLF", "VE9", 
-#                  'ACB', 'BCC', 'CEO', 'DBC', 'DCS', 'HHG', 'HUT',
-#                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',
-#                  'PVS', 'S99','SHB', 'SHS', 'VC3', 'VCG','VCS', 'VGC']
-#    
-#    symbolsVNI = [ "ASM", "BFC", "BID", "BMI", "BMP", "BVH",
-#              "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG",  
-#           "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 
-#           "ELC", "EVE","FCN","FIT","FLC","FPT", "GAS", "GMD", "GTN", 
-#           "HAG", "HHS", "HNG", "HQC", "HT1", "HVG",
-#           "HSG", "HDG", "HCM", "HPG", "HBC", 
-#           "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
-#           "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
-#            "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC",
-#            "QCG", "REE",  "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-#                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,
-#                'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'GEX','VCI',
-#                'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR',
-#                'EIB','BHN','VPB','VRE','ROS',"VND", "HDB","NVT","VHG", "SMC", "C32","CVT"]
-#    
-#    symbolsUPCOM = ["SBS", "SWC", "NTC","DVN"]
-#    
-#    symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
+     symbolsHNX = ['APS', 'ALV', 'C69', 'TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", 'NVB', "KLF", 'KVC', "VE9", 
+                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9',
+                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG',
+                  'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'VIG','VKC']
+    
+     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", 
+                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO', 'CMG', 
+                  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
+               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC',
+               'DHM', 
+               "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
+               "HAG", "HHS", "HNG", "HQC", "HT1", "HVG", 'HAI', 'HAR', 'HID', 'HII', 'HTT',
+               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL',
+               'IDI', "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
+               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
+                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC", 'QBS', 
+                "QCG", "REE",  "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
+                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS',
+                    'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI',
+                    'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 
+                    'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
+    
+     symbolsUPCOM = ['ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
+    
+     symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
+     
+     symbols = pd.unique(symbols).tolist()
+     
+#     listA = symbols
+#     listB = df.index.tolist()
+#     common = list(set(listA) & set(listB))
+#     listC = list(set(listB).difference(set(listA)))
 # 
 #    data = fundemental_analysis(symbols)
 #    
@@ -436,12 +469,14 @@ if __name__ == "__main__":
      data['EPS_Price'] = data['EPS']/data['Close']/1000
      df = data.query("MeanVol_10W > 100000")
      df = df.query("FVQ > 0")
-     df = df.query("CPM > 1.4")
+     df = df.query("CPM > 1.2")
      df = df.query("EPS > 0")
+     df = df.query("Beta < 0.4")
+     df = df.query("Beta > 0")
 #     df = df.query("Diff_Price < 0")
 #     df.to_csv('investment_stock3.csv')
 #     print(df.index)
-     
+    
      
      
 
