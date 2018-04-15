@@ -146,9 +146,9 @@ def price_predictions(ticker, start, end, forecast_out):
     
     df['HL_PCT'] = (df['High'] - df['Low']) / df['Close'] * 100.0
     df['PCT_change'] = (df['Close'] - df['Open']) / df['Open'] * 100.0
-    bbwindow = 18
-    vlwindow = 6
-    mmtum = 5
+    bbwindow = 21
+    vlwindow = 10
+    mmtum = 10
     df['BB_Value'] = compute_indicator_bb(df, window = bbwindow)
     df['Volatility'] = compute_indicator_volatility(df, timeperiod = vlwindow)
     df['Momentum'] = talib.MOM(df['Close'].values, timeperiod = mmtum)

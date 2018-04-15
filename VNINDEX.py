@@ -536,11 +536,13 @@ if __name__ == "__main__":
                   'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC',  'TIG', 'SPP',
                   'VIG','VKC']
 
+    symbolsUPCOM = ['TOP', 'TBD', 'LPB', 'QNS', 'RCC', 'ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 
+                   'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
 
-#    VNI_opt = rebalancing_porfolio(symbols = symbolsHNX, bench = '^HASTC')
+#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsUPCOM, bench = '^UPCOM')
     
-#    investing = ['HAR', 'TVN', 'PVS', 'DVN', 'VIX']
-#    predict_stocks(investing, start ="2010-3-18", end = "2018-3-28")
+#    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
+#    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")
     
 #    tickers = pd.Series(symbols)
     

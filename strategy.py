@@ -547,19 +547,23 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['MACD_UP'] = (MACD > MACDsign)
     df['MACD_DOWN'] = (MACD < MACDsign)
         
-
-
-    hm_days = 5
+    volatility = df['Close'].rolling(window=5,center=False).std()
+    sddr = df['Close'].pct_change().std()
+    hm_days = 50
 
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] ):
-                print(" Slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)                   
+                print(" Slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print(' Volatility last 5 days: ', volatility[-i], " Volatility all: ", sddr)                
         if (df['LCTT'].iloc[-i] ):
                 print(" Slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
+                print(' Volatility last 5 days: ', volatility[-i], " Volatility all: ", sddr)    
         if (df['LTT_A'].iloc[-i] ):
                 print(" Advanced slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)
+                print(' Volatility last 5 days: ', volatility[-i], " Volatility all: ", sddr)    
         if (df['LCTT_A'].iloc[-i]):
                 print(" Advanced slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
+                print(' Volatility last 5 days: ', volatility[-i], " Volatility all: ", sddr)    
       
     df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A']) & (df['Close'].shift(-1) > df['Open'].shift(-1)) & (df['Close'] > df['Open'])
 # Signal validation : 2 days consecutive GREEN !!!!!!
