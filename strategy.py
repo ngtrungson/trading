@@ -549,21 +549,21 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
         
     volatility = df['Close'].rolling(window=5,center=False).std()
     sddr = df['Close'].pct_change().std()
-    hm_days = 50
+    hm_days = 5
 
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] ):
                 print(" Slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print(' Volatility last 5 days: ', volatility[-i], " Volatility all: ", sddr)                
+                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)                
         if (df['LCTT'].iloc[-i] ):
                 print(" Slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
-                print(' Volatility last 5 days: ', volatility[-i], " Volatility all: ", sddr)    
+                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)                
         if (df['LTT_A'].iloc[-i] ):
                 print(" Advanced slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)
-                print(' Volatility last 5 days: ', volatility[-i], " Volatility all: ", sddr)    
+                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)                 
         if (df['LCTT_A'].iloc[-i]):
                 print(" Advanced slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
-                print(' Volatility last 5 days: ', volatility[-i], " Volatility all: ", sddr)    
+                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)                 
       
     df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A']) & (df['Close'].shift(-1) > df['Open'].shift(-1)) & (df['Close'] > df['Open'])
 # Signal validation : 2 days consecutive GREEN !!!!!!
@@ -618,7 +618,7 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
     
     
     period = 20
-    nstd = 2
+    nstd = 2.5
     rolling_mean = df['Close'].rolling(window=period,center=False).mean()
     rolling_std = df['Close'].rolling(window=period,center=False).std()
     

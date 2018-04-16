@@ -264,9 +264,6 @@ def test_runVNINDEX():
 def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
    
-   
-
-
     start0 = "2015-1-2"
     end0 = "2017-1-2"
     allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start0, ed = end0,
@@ -278,7 +275,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     print ("Cumulative Return:", cr)
     print(" -----------------------------------------------------")
     start_date_list = ["2017-1-3", "2017-7-3",  "2018-1-3"]
-    end_date_list = ["2017-7-2",  "2018-1-2", "2018-4-13"]
+    end_date_list = ["2017-7-2",  "2018-1-2", "2018-4-16"]
     for start, end in zip(start_date_list, end_date_list):    
         
         cr, adr, sddr, sr  = compute_portfolio(sd = start, ed = end,
@@ -291,6 +288,10 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
         print(" -----------------------------------------------------")
         allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start, ed = end,
             syms = symbols,  benchmark = bench, gen_plot = False)
+        print ("Optimize volatility (stdev of daily returns):", sddr)
+        print ("Optimize average Daily Return:", adr)
+        print ("Optimize cumulative Return:", cr)
+        print(" -----------------------------------------------------")
         
         # Assess the portfolio
     investment = 50000000
@@ -299,8 +300,8 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     df_result['Cash'] = allocations * investment
     
     
-    end_date = "2018-4-13"
-    start_date = "2018-2-1"
+    end_date = "2018-4-16"
+    start_date = "2018-1-2"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbols, dates, benchmark = bench)  # get data for each symbol
@@ -312,13 +313,15 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
     min_low = pd.Series(df_low.min(), name = 'MinLow')
     cpm = pd.Series(max_high/min_low, name = 'CPM')
+    volatility = df_data[symbols].pct_change().std()  
     # Fill missing values
     fill_missing_values(df_data)
     
     
     df_result['Close'] = df_data[symbols].iloc[-1,:].values    
     df_result['CPM'] = cpm
-    df_result['Shares'] = df_result['Cash']/df_result['Close'].values/1000
+    df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
+    df_result ['Volatility'] = volatility
 
     return df_result
     
@@ -512,7 +515,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-    analysis_stocks(start = "2017-3-26" , end = "2018-4-13", update = False,  source ="cp68")
+#    analysis_stocks(start = "2017-3-26" , end = "2018-4-16", update = False,  source ="cp68")
     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                   'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
                "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
@@ -539,7 +542,8 @@ if __name__ == "__main__":
     symbolsUPCOM = ['TOP', 'TBD', 'LPB', 'QNS', 'RCC', 'ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 
                    'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
 
-#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsUPCOM, bench = '^UPCOM')
+    symbolsALL = symbolsVNI + symbolsHNX
+    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")

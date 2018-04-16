@@ -214,7 +214,9 @@ def get_data(symbols, dates, benchmark = '^VNINDEX', colname = '<CloseFixed>'):
         df_final = df_final.join(df_temp)
         if symbol == benchmark:  # drop dates SPY did not trade
             df_final = df_final.dropna(subset=[benchmark])
-
+            
+#    fill_missing_values(df_final)
+    
     return df_final
 
 
