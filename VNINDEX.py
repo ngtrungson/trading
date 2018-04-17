@@ -275,7 +275,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     print ("Cumulative Return:", cr)
     print(" -----------------------------------------------------")
     start_date_list = ["2017-1-3", "2017-7-3",  "2018-1-3"]
-    end_date_list = ["2017-7-2",  "2018-1-2", "2018-4-16"]
+    end_date_list = ["2017-7-2",  "2018-1-2", "2018-4-17"]
     for start, end in zip(start_date_list, end_date_list):    
         
         cr, adr, sddr, sr  = compute_portfolio(sd = start, ed = end,
@@ -300,7 +300,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     df_result['Cash'] = allocations * investment
     
     
-    end_date = "2018-4-16"
+    end_date = "2018-4-17"
     start_date = "2018-1-2"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
@@ -515,7 +515,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-3-26" , end = "2018-4-16", update = False,  source ="cp68")
+#    analysis_stocks(start = "2017-3-26" , end = "2018-4-17", update = False,  source ="cp68")
     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                   'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
                "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
@@ -542,7 +542,7 @@ if __name__ == "__main__":
     symbolsUPCOM = ['TOP', 'TBD', 'LPB', 'QNS', 'RCC', 'ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 
                    'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
 
-    symbolsALL = symbolsVNI + symbolsHNX
+    
     ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
