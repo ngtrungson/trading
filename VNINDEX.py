@@ -70,8 +70,8 @@ def analysis_stocks(start, end, update = False, source = "ssi"):
     for ticker in tickers:
 #        print("Analysing ...", ticker)
 
-#        ninja_trading(ticker, start, end, realtime = update, source = source)
-        hedgefund_trading(ticker, start, end, realtime = update, source = source)
+        ninja_trading(ticker, start, end, realtime = update, source = source)
+#        hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #        bollinger_bands(ticker, start, end, realtime = update, source = source)
 #        short_selling(ticker, start, end, realtime = update, source = source)
 
@@ -268,14 +268,14 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     end0 = "2017-1-2"
     allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start0, ed = end0,
             syms = symbols,  benchmark = bench, gen_plot = True)
-    print ("Start Date:", start0)
-    print ("End Date:", end0) 
-    print ("Volatility (stdev of daily returns):", sddr)
-    print ("Average Daily Return:", adr)
-    print ("Cumulative Return:", cr)
+    print ("Optimize start Date:", start0)
+    print ("Optimize end Date:", end0) 
+    print ("Optimize volatility (stdev of daily returns):", sddr)
+    print ("Optimize average Daily Return:", adr)
+    print ("Optimize cumulative Return:", cr)
     print(" -----------------------------------------------------")
-    start_date_list = ["2017-1-3", "2017-7-3",  "2018-1-3"]
-    end_date_list = ["2017-7-2",  "2018-1-2", "2018-4-17"]
+    start_date_list = ["2017-1-3", "2017-7-3"]
+    end_date_list = ["2017-7-2",  "2018-4-1"]
     for start, end in zip(start_date_list, end_date_list):    
         
         cr, adr, sddr, sr  = compute_portfolio(sd = start, ed = end,
@@ -293,15 +293,28 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
         print ("Optimize cumulative Return:", cr)
         print(" -----------------------------------------------------")
         
-        # Assess the portfolio
-    investment = 50000000
+    
+    
+    
+    
+    # Out of sample testing optimisation algorithm
+    
+    end_date = "2018-4-18"
+    start_date = "2018-4-2"
+    
+    cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
+            syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
+    print("....................... Out of sample performance .................")
+    print ("Start Date:", start_date)
+    print ("End Date:", end_date) 
+    print ("Volatility (stdev of daily returns):", sddr)
+    print ("Average Daily Return:", adr)
+    print ("Cumulative Return:", cr)  
+    # Assess the portfolio
+    investment = 60000000
     df_result = pd.DataFrame(index = symbols)    
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
-    
-    
-    end_date = "2018-4-17"
-    start_date = "2018-1-2"
 
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbols, dates, benchmark = bench)  # get data for each symbol
@@ -315,9 +328,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     cpm = pd.Series(max_high/min_low, name = 'CPM')
     volatility = df_data[symbols].pct_change().std()  
     # Fill missing values
-    fill_missing_values(df_data)
-    
-    
+            
     df_result['Close'] = df_data[symbols].iloc[-1,:].values    
     df_result['CPM'] = cpm
     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
@@ -515,7 +526,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-3-26" , end = "2018-4-17", update = False,  source ="cp68")
+#    analysis_stocks(start = "2017-3-26" , end = "2018-4-18", update = False,  source ="cp68")
     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                   'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
                "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
