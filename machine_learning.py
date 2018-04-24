@@ -18,6 +18,12 @@ from sklearn.ensemble import (BaggingRegressor, RandomForestRegressor, AdaBoostR
 from sklearn.tree import DecisionTreeRegressor
 from sklearn import preprocessing
 from sklearn.linear_model import LinearRegression
+from sklearn import mixture as mix
+import seaborn as sns 
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+from sklearn.svm import SVC
+import matplotlib.dates as mdates
 
 ###################################### Machine learning ###################################
 def process_data_for_labels(df, ticker):
@@ -251,4 +257,125 @@ def price_predictions(ticker, start, end, forecast_out):
     forecast_set = adaboost.predict(X_lately)
     print('Price for next {} days'.format(forecast_out), forecast_set)
  
+def ML_strategy(ticker, start, end):
+    file_path = symbol_to_path(ticker)
+    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
+                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+    df = df.reset_index()
+    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
+                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+    df = df.set_index('Date')
     
+    # columns order for backtrader type
+    columnsOrder=["Open","High","Low","Close"]
+    # change the index by new index
+    df = df.reindex(columns = columnsOrder)  
+    # change date index to increasing order
+    df = df.sort_index()   
+    # take a part of dataframe
+    df = df.loc[start:end]
+    
+    
+
+    n = 20
+    t = 0.8
+    split =int(t*len(df))
+    
+    df['high']= df['High'].shift(1)
+    df['low']= df['Low'].shift(1)
+    df['close']=df['Close'].shift(1)
+    
+    
+    df['RSI'] = talib.RSI(np.array(df['close']), timeperiod=n)
+    df['SMA'] = df['close'].rolling(window=n).mean()
+    df['Corr'] = df['SMA'].rolling(window=n).corr(df['close'])
+    df['SAR'] = talib.SAR(np.array(df['high']),np.array(df['low']),\
+                      0.2,0.2)
+    df['ADX'] = talib.ADX(np.array(df['high']),np.array(df['low']),\
+                      np.array(df['close']), timeperiod =n)
+    df['Corr'][df.Corr>1]=1
+    df['Corr'][df.Corr<-1]=-1 
+    df['Return']= np.log(df['Open']/df['Open'].shift(1))
+    
+    
+    
+    df = df.dropna()
+    
+#    return df
+    
+    ss= StandardScaler()
+    unsup = mix.GaussianMixture(n_components=4, 
+                                covariance_type="spherical", 
+                                n_init=100, 
+                                random_state=42)
+    df = df.drop(['High','Low','Close'],axis=1)
+   
+    print(df.head())
+#    return df
+   
+    unsup.fit(np.reshape(ss.fit_transform(df[:split]),(-1,df.shape[1])))
+    regime = unsup.predict(np.reshape(ss.fit_transform(df[split:]),\
+                                                       (-1,df.shape[1])))
+    
+    Regimes=pd.DataFrame(regime,columns=['Regime'],index=df[split:].index)\
+                         .join(df[split:], how='inner')\
+                              .assign(market_cu_return=df[split:]\
+                                      .Return.cumsum())\
+                                      .reset_index(drop=False)\
+                                      .rename(columns={'index':'Date'})
+    
+    order=[0,1,2,3]
+    fig = sns.FacetGrid(data=Regimes,hue='Regime',hue_order=order,aspect=2,size= 4)
+    fig.map(plt.scatter,'Date','market_cu_return', s=4).add_legend()
+    plt.show()
+    
+    for i in order:
+        print('Mean for regime %i: '%i,unsup.means_[i][0])
+        print('Co-Variance for regime %i: '%i,(unsup.covariances_[i]))
+    
+    print(Regimes.head())
+    
+    ss1 =StandardScaler()
+    columns =Regimes.columns.drop(['Regime','Date'])    
+    Regimes[columns]= ss1.fit_transform(Regimes[columns])
+    Regimes['Signal']=0
+    Regimes.loc[Regimes['Return']>0,'Signal']=1
+    Regimes.loc[Regimes['Return']<0,'Signal']=-1
+    Regimes['return'] = Regimes['Return'].shift(1)
+    Regimes=Regimes.dropna()
+           
+    cls= SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+        decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
+        max_iter=-1, probability=False, random_state=None, shrinking=True,
+        tol=0.001, verbose=False)
+    
+    split2= int(.8*len(Regimes))
+    
+    X = Regimes.drop(['Signal','Return','market_cu_return','Date'], axis=1)
+    y= Regimes['Signal']
+    
+    cls.fit(X[:split2],y[:split2])
+    
+    p_data=len(X)-split2
+    
+    df['Pred_Signal']=0
+    df.iloc[-p_data:,df.columns.get_loc('Pred_Signal')]=cls.predict(X[split2:])
+    
+    print(df['Pred_Signal'][-p_data:])
+    
+    df['str_ret'] =df['Pred_Signal']*df['Return'].shift(-1)
+    
+    df['strategy_cu_return']=0.
+    df['market_cu_return']=0.
+    df.iloc[-p_data:,df.columns.get_loc('strategy_cu_return')] \
+           = np.nancumsum(df['str_ret'][-p_data:])
+    df.iloc[-p_data:,df.columns.get_loc('market_cu_return')] \
+           = np.nancumsum(df['Return'][-p_data:])
+    Sharpe = (df['strategy_cu_return'][-1]-df['market_cu_return'][-1])\
+               /np.nanstd(df['strategy_cu_return'][-p_data:])
+    fig = plt.figure()
+    plt.plot(df['strategy_cu_return'][-p_data:],color='g',label='Strategy Returns')
+    plt.plot(df['market_cu_return'][-p_data:],color='r',label='Market Returns')
+    plt.figtext(0.14,0.9,s='Sharpe ratio: %.2f'%Sharpe)
+    plt.legend(loc='best')
+    plt.show()

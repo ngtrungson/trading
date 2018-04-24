@@ -313,12 +313,12 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
 ##            print(" Reward ", df['Reward'].iloc[-i])
       
         
-    
-    for i in range(1,hm_days+1):
-        if (df['L_EMA_FAN'].iloc[-i] & check_bounce(df, ind = i, nema = 6)):
-            if (df['Close'].iloc[-i] > df['Open'].iloc[-i]):
-                print(" Ninja trading EMA FAN", str(i), "days before", df.iloc[-i].name ,  ticker)
-#                print(" Target sell", df['Target_SELL'].iloc[-i])
+#    
+#    for i in range(1,hm_days+1):
+#        if (df['L_EMA_FAN'].iloc[-i] & check_bounce(df, ind = i, nema = 6)):
+#            if (df['Close'].iloc[-i] > df['Open'].iloc[-i]):
+#                print(" Ninja trading EMA FAN", str(i), "days before", df.iloc[-i].name ,  ticker)
+##                print(" Target sell", df['Target_SELL'].iloc[-i])
 #                print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
 #                print(" Risk ", df['Risk'].iloc[-i])
 #            
@@ -588,12 +588,14 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
                      usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
         df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
                                   'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
+    
     else:
         file_path = symbol_to_path(ticker)
         df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
                      usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
         df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
                                   '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+    
     
     # columns order for backtrader type
     columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
@@ -614,6 +616,7 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
                         'Close' : actual_price['Close'].iloc[-1],
                         'Volume' : actual_price['Volume'].iloc[-1],
                         'OpenInterest': np.nan})
+        
     
     
     

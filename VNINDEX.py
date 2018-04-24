@@ -9,7 +9,7 @@ from finance_util import get_data, fill_missing_values, optimize_portfolio, comp
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website
 from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading
-from machine_learning import price_predictions
+from machine_learning import price_predictions, ML_strategy
 
 
 def get_stocks_highcpm(download = True, source = "ssi"):
@@ -71,7 +71,7 @@ def analysis_stocks(start, end, update = False, source = "ssi"):
 #        print("Analysing ...", ticker)
 
         ninja_trading(ticker, start, end, realtime = update, source = source)
-#        hedgefund_trading(ticker, start, end, realtime = update, source = source)
+        hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #        bollinger_bands(ticker, start, end, realtime = update, source = source)
 #        short_selling(ticker, start, end, realtime = update, source = source)
 
@@ -81,9 +81,9 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-            ninja_trading(ticker, start, end, realtime = update, source = source)
+#            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-#            bollinger_bands(ticker, start, end, realtime = update, source = source)
+            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
@@ -299,7 +299,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-4-18"
+    end_date = "2018-4-23"
     start_date = "2018-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
@@ -489,7 +489,7 @@ def test_runHNX():
 
     
 if __name__ == "__main__":
-#    symbols = get_csv_data(source = "cp68")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -526,7 +526,7 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_stocks(start = "2017-3-26" , end = "2018-4-18", update = False,  source ="cp68")
+    analysis_stocks(start = "2017-3-26" , end = "2018-4-24", update = False,  source ="ssi")
     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                   'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
                "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
@@ -554,10 +554,11 @@ if __name__ == "__main__":
                    'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
 
     
-    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
+#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")
-    
+   
+#    df = ML_strategy('MBS', start ="2016-1-2", end = "2018-4-23")
 #    tickers = pd.Series(symbols)
     

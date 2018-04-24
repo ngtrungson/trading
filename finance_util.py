@@ -428,56 +428,60 @@ def optimize_porfolio_markowitz(maindf, symbols):
 
 if __name__ == "__main__":
      symbolsHNX = ['APS', 'ALV', 'C69', 'TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", 'NVB', "KLF", 'KVC', "VE9", 
-                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9',
-                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG',
-                  'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'VIG','VKC']
+                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9', 'HLD', 'NSH', 'DPS','DS3',
+                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG', 'PVB',
+                  'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC',  'TIG', 'SPP',
+                  'VIG','VKC']
     
-     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", 
-                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO', 'CMG', 
-                  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
-               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC',
+     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
+                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
+               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
                'DHM', 
                "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
-               "HAG", "HHS", "HNG", "HQC", "HT1", "HVG", 'HAI', 'HAR', 'HID', 'HII', 'HTT',
-               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL',
-               'IDI', "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 
+                'HAX', "HAG", "HHS", "HNG", "HQC", "HT1", "HVG", 'HAI', 'HAR', 'HID', 'HII', 'HTT',
+               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
+               'IDI', "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 'KSH',
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
-                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PPC", "PAC", 'QBS', 
-                "QCG", "REE",  "SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-                    "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS',
-                    'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI',
-                    'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 
-                    'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
+                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
+                "PPC", "PAC", 'QBS', "QCG", "REE",  
+                'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
+                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI',
+                'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI', 'VIS',
+                'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 'TDG', 'VRC', 'JVC', 'SRC',
+                'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
     
-     symbolsUPCOM = ['ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
+     symbolsUPCOM = ['TOP', 'TBD', 'LPB', 'QNS', 'RCC', 'ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
     
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
      
      symbols = pd.unique(symbols).tolist()
      
-#     listA = symbols
-#     listB = df.index.tolist()
-#     common = list(set(listA) & set(listB))
-#     listC = list(set(listB).difference(set(listA)))
+   
 # 
 #    data = fundemental_analysis(symbols)
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
-#    tickers = save_and_analyse_vnindex_tickers()
+#     tickers = save_and_analyse_vnindex_tickers()
     
      data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
      data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
      data['EPS_Price'] = data['EPS']/data['Close']/1000
      df = data.query("MeanVol_10W > 100000")
      df = df.query("FVQ > 0")
-     df = df.query("CPM > 1.2")
+     df = df.query("CPM > 1.4")
      df = df.query("EPS > 0")
-     df = df.query("Beta < 0.4")
-     df = df.query("Beta > 0")
+#     df = df.query("Close < 12")
+#     df = df.query("Beta < 0.4")
+#     df = df.query("Beta > 0")
 #     df = df.query("Diff_Price < 0")
 #     df.to_csv('investment_stock3.csv')
 #     print(df.index)
+     
+     listA = symbols
+     listB = df.index.tolist()
+     common = list(set(listA) & set(listB))
+     listC = list(set(listB).difference(set(listA)))
     
      
      
