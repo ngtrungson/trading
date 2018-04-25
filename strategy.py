@@ -15,38 +15,7 @@ from collections import Counter
 
 def short_selling(ticker, start, end, realtime = False, source = "cp68"):
        
-    if source == "ssi":
-        file_path = symbol_to_path_ssi(ticker)
-        df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
-                     usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
-        df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
-                                  'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
-    else:
-        file_path = symbol_to_path(ticker)
-        df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
-        df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
-      
-    # columns order for backtrader type
-    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
-    # change the index by new index
-    df = df.reindex(columns = columnsOrder)  
-    # change date index to increasing order
-    df = df.sort_index()   
-    # take a part of dataframe
-    df = df.loc[start:end]
-    
-    if realtime:
-        actual_price = get_info_stock(ticker)
-        today = datetime.datetime.today()
-        next_date = today
-        df.loc[next_date] = ({ 'Open' : actual_price['Open'].iloc[-1],
-                        'High' : actual_price['High'].iloc[-1], 
-                        'Low' : actual_price['Low'].iloc[-1],
-                        'Close' : actual_price['Close'].iloc[-1],
-                        'Volume' : actual_price['Volume'].iloc[-1],
-                        'OpenInterest': np.nan})
+    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
        
     df['EMA3'] = pd.Series(pd.Series.ewm(df['Close'], span = 3, min_periods = 3-1).mean()) 
@@ -114,23 +83,26 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
 
     return df    
                 
-def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
-       
+def process_data(ticker, start, end, realtime = False, source = "cp68"):
+    
     if source == "ssi":
         file_path = symbol_to_path_ssi(ticker)
         df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
                      usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
+        df = df.reset_index()
         df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
                                   'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
+        df = df.set_index('Date')
     else:
         file_path = symbol_to_path(ticker)
         df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>", "<VolumeFB>", "<VolumeFS>"], na_values = "nan")
+        df = df.reset_index()
         df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
-      
+                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume', '<VolumeFB>': 'FB', '<VolumeFS>': 'FS'})
+        df = df.set_index('Date')
     # columns order for backtrader type
-    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
+    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest", "FB", "FS"]
     # change the index by new index
     df = df.reindex(columns = columnsOrder)  
     # change date index to increasing order
@@ -147,7 +119,18 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
                         'Low' : actual_price['Low'].iloc[-1],
                         'Close' : actual_price['Close'].iloc[-1],
                         'Volume' : actual_price['Volume'].iloc[-1],
-                        'OpenInterest': np.nan})
+                        'OpenInterest': np.nan,
+                        'FB': np.nan,
+                        'FS': np.nan})
+        df = df.reset_index()
+        df = df.rename(columns = {'index': 'Date'}) 
+        df = df.set_index('Date')
+    
+    return df
+
+def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
+       
+    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
     df['R'] = (df['High'] - df['Low'] + 0.04)
     df['Target_SELL'] = df['R']*3 + df['Close']
@@ -396,40 +379,7 @@ def check_below_zero(df, column = 'MACD_12_26'):
 
 def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
        
-    if source == "ssi":
-        file_path = symbol_to_path_ssi(ticker)
-        df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
-                     usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
-        df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
-                                  'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
-    else:
-        file_path = symbol_to_path(ticker)
-        df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
-        df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
-    
-    # columns order for backtrader type
-    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
-    # change the index by new index
-    df = df.reindex(columns = columnsOrder)  
-    # change date index to increasing order
-    df = df.sort_index()   
-    # take a part of dataframe
-    df = df.loc[start:end]
-    
-    if realtime:
-        actual_price = get_info_stock(ticker)
-        today = datetime.datetime.today()
-        next_date = today
-        df.loc[next_date] = ({ 'Open' : actual_price['Open'].iloc[-1],
-                        'High' : actual_price['High'].iloc[-1], 
-                        'Low' : actual_price['Low'].iloc[-1],
-                        'Close' : actual_price['Close'].iloc[-1],
-                        'Volume' : actual_price['Volume'].iloc[-1],
-                        'OpenInterest': np.nan})
-#        df = df.rename(columns = {'index': '<DTYYYYMMDD>'})
-#    return df
+    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
     df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
     
@@ -548,23 +498,27 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['MACD_DOWN'] = (MACD < MACDsign)
         
     volatility = df['Close'].rolling(window=5,center=False).std()
+    foreign_buy = df['FB'].rolling(window = 5, center = False).mean()
     sddr = df['Close'].pct_change().std()
     hm_days = 5
 
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] ):
                 print(" Slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)                
+                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr) 
+                print(' Foreign buy last 5 days: ', foreign_buy[-i], "that day: ", df['FB'].iloc[-i])
         if (df['LCTT'].iloc[-i] ):
                 print(" Slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
-                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)                
+                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)
+                print(' Foreign buy last 5 days: ', foreign_buy[-i], "that day: ", df['FB'].iloc[-i])
         if (df['LTT_A'].iloc[-i] ):
                 print(" Advanced slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)
-                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)                 
+                print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)
+                print(' Foreign buy last 5 days: ', foreign_buy[-i], "that day: ", df['FB'].iloc[-i])                 
         if (df['LCTT_A'].iloc[-i]):
                 print(" Advanced slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
                 print(' Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)                 
-      
+                print(' Foreign buy last 5 days: ', foreign_buy[-i], "that day: ", df['FB'].iloc[-i])
     df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A']) & (df['Close'].shift(-1) > df['Open'].shift(-1)) & (df['Close'] > df['Open'])
 # Signal validation : 2 days consecutive GREEN !!!!!!
     
@@ -582,43 +536,7 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
 
 def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
     
-    if source == "ssi":
-        file_path = symbol_to_path_ssi(ticker)
-        df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
-                     usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN"], na_values = "nan")
-        df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
-                                  'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume'})
-    
-    else:
-        file_path = symbol_to_path(ticker)
-        df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
-        df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
-    
-    
-    # columns order for backtrader type
-    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
-    # change the index by new index
-    df = df.reindex(columns = columnsOrder)  
-    # change date index to increasing order
-    df = df.sort_index()   
-    # take a part of dataframe
-    df = df.loc[start:end]
-    
-    if realtime:
-        actual_price = get_info_stock(ticker)
-        today = datetime.datetime.today()
-        next_date = today
-        df.loc[next_date] = ({ 'Open' : actual_price['Open'].iloc[-1],
-                        'High' : actual_price['High'].iloc[-1], 
-                        'Low' : actual_price['Low'].iloc[-1],
-                        'Close' : actual_price['Close'].iloc[-1],
-                        'Volume' : actual_price['Volume'].iloc[-1],
-                        'OpenInterest': np.nan})
-        
-    
-    
+    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
     period = 20
     nstd = 2.5
