@@ -9,7 +9,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 import pylab
-from matplotlib.finance import candlestick_ohlc
+from mpl_finance import candlestick_ohlc
 import matplotlib.dates as mdates
 
 import matplotlib.ticker as mticker

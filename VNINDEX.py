@@ -280,12 +280,12 @@ if __name__ == "__main__":
     
     
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
-    symbolsHNX = getliststocks(typestock = "^HASTC")
+#    symbolsHNX = getliststocks(typestock = "^HASTC")
     ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")
    
-#    df = ML_strategy('ACB', start ="2016-1-2", end = "2018-4-24")
+#    ML_strategy('ACB', start ="2008-1-2", end = "2018-4-26")
 #    tickers = pd.Series(symbols)
     
