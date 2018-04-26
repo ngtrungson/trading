@@ -310,7 +310,7 @@ def ML_strategy(ticker, start, end):
                                 random_state=42)
     df = df.drop(['High','Low','Close'],axis=1)
    
-    print(df.head())
+#    print(df.head())
 #    return df
    
     unsup.fit(np.reshape(ss.fit_transform(df[:split]),(-1,df.shape[1])))
@@ -333,7 +333,7 @@ def ML_strategy(ticker, start, end):
         print('Mean for regime %i: '%i,unsup.means_[i][0])
         print('Co-Variance for regime %i: '%i,(unsup.covariances_[i]))
     
-    print(Regimes.head())
+#    print(Regimes.head())
     
     ss1 =StandardScaler()
     columns =Regimes.columns.drop(['Regime','Date'])    

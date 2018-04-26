@@ -83,11 +83,12 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     
     if tickers == None:
         tickers = getliststocks(typestock = "TICKER")
+        
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-#            ninja_trading(ticker, start, end, realtime = update, source = source)
-            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+            ninja_trading(ticker, start, end, realtime = update, source = source)
+#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -113,13 +114,10 @@ def predict_stocks(tickers, start, end):
         price_predictions(ticker, start, end, forecast_out = 5)
         print(' End of prediction ticker ...................', ticker)
 
-def passive_strategy(market = "^VNINDEX"):
+def passive_strategy(start_date, end_date, market = "^VNINDEX"):
 
-    
     symbols = getliststocks(typestock = market)
-    end_date = "2018-4-12"
-    start_date = "2018-2-1"
-
+    
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbols, dates, benchmark = market)  # get data for each symbol
     
@@ -152,11 +150,11 @@ def passive_strategy(market = "^VNINDEX"):
     print ("Cumulative Return:", cr)
     
     investment = 50000000
-    df_result = pd.DataFrame(index = symbolsVNI)    
+    df_result = pd.DataFrame(index = symbols)    
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
     df_result['Volume'] = vol_mean
-    df_result['Close'] = df_data[symbolsVNI].iloc[-1,:].values
+    df_result['Close'] = df_data[symbols].iloc[-1,:].values
     #    df_result['MaxH'] = max_high
 #    df_result['MinL'] = min_low
     df_result['CPM'] = cpm
@@ -203,7 +201,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-4-23"
+    end_date = "2018-4-26"
     start_date = "2018-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
@@ -243,7 +241,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
     
 if __name__ == "__main__":
-#    symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -253,7 +251,7 @@ if __name__ == "__main__":
 
 
     
-#    VNI_result, VNI_data  = passive_strategy(market= "^VNINDEX")
+#    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
     
 
 #    ticker = 'VGC'    
@@ -278,16 +276,16 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-4-24", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-4-26", update = False,  source ="cp68")
     
     
-#    symbolsVNI = getliststocks(typestock = "^VNINDEX")
-    
-#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
+    symbolsVNI = getliststocks(typestock = "^VNINDEX")
+    symbolsHNX = getliststocks(typestock = "^HASTC")
+    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")
    
-#    df = ML_strategy('MBS', start ="2016-1-2", end = "2018-4-23")
+#    df = ML_strategy('ACB', start ="2016-1-2", end = "2018-4-24")
 #    tickers = pd.Series(symbols)
     
