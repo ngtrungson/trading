@@ -264,6 +264,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     volatility = df['Close'].rolling(window=5,center=False).std()
     foreign_buy = df['FB'].rolling(window = 5, center = False).mean()
     foreign_sell = df['FS'].rolling(window = 5, center = False).mean()
+    volume_mean = df['Volume'].rolling(window = 30, center = False).mean()
     sddr = df['Close'].pct_change().std()
     
     hm_days = 5
@@ -295,8 +296,10 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
         | (df['L3_6_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))):
 #         if (df['Close'].iloc[-i] > df['Open'].iloc[-i]) :
             print(" Advanced ninja trading", str(i), "days before", df.iloc[-i].name ,  ticker)
-            print('  Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr) 
+            print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
             print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
+            print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+            print('-----------------------------------------------------------------------------------------')
 ##            print(" Target sell", df['Target_SELL'].iloc[-i])
 ##            print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
 ##            print(" Risk ", df['Risk'].iloc[-i])
@@ -507,26 +510,35 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     volatility = df['Close'].rolling(window=5,center=False).std()
     foreign_buy = df['FB'].rolling(window = 5, center = False).mean()
     foreign_sell = df['FS'].rolling(window = 5, center = False).mean()
+    volume_mean = df['Volume'].rolling(window = 30, center = False).mean()
     sddr = df['Close'].pct_change().std()
-    hm_days = 5
+    hm_days = 30
 
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] ):
                 print(" Slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print('  Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr) 
+                print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
                 print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
+                print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+                print('-----------------------------------------------------------------------------------------')
         if (df['LCTT'].iloc[-i] ):
                 print(" Slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
-                print('  Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)
+                print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
                 print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
+                print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+                print('-----------------------------------------------------------------------------------------')
         if (df['LTT_A'].iloc[-i] ):
                 print(" Advanced slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)
-                print('  Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)
+                print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
                 print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
+                print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+                print('-----------------------------------------------------------------------------------------')
         if (df['LCTT_A'].iloc[-i]):
                 print(" Advanced slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
-                print('  Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr)                 
+                print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2))              
                 print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
+                print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+                print('-----------------------------------------------------------------------------------------')
     df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A']) & (df['Close'].shift(-1) > df['Open'].shift(-1)) & (df['Close'] > df['Open'])
 # Signal validation : 2 days consecutive GREEN !!!!!!
     
@@ -553,10 +565,12 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
     
     df['Bollinger High'] = rolling_mean + (rolling_std * nstd)
     df['Bollinger Low'] = rolling_mean - (rolling_std * nstd)
+    df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 5)
     
     volatility = df['Close'].rolling(window=5,center = False).std()
     foreign_buy = df['FB'].rolling(window = 5, center = False).mean()
     foreign_sell = df['FS'].rolling(window = 5, center = False).mean()
+    volume_mean = df['Volume'].rolling(window = 30, center = False).mean()
     sddr = df['Close'].pct_change().std()
     
     df['Signal'] = -1*((df['Close'] > df['Bollinger High']) & (df['Close'].shift(1)< df['Bollinger High'].shift(1))  ) + \
@@ -568,10 +582,13 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
 #        if (df['Close'].iloc[-i] > df['Bollinger High'].iloc[-i]) & (df['Close'].iloc[-i-1] < df['Bollinger High'].iloc[-i-1]):
 #            print(" Bollinger trading sell", str(i), " days before", df.iloc[-i].name ,  ticker)
         
-        if (df['Close'].iloc[-i] < df['Bollinger Low'].iloc[-i]) & (df['Close'].iloc[-i-1] > df['Bollinger Low'].iloc[-i-1]):
+        if (df['Close'].iloc[-i] < df['Bollinger Low'].iloc[-i]) & (df['Close'].iloc[-i-1] > df['Bollinger Low'].iloc[-i-1]) & (df['ROC'].iloc[-i] < -15):
             print(" Bollinger trading buy", str(i), "days before", df.iloc[-i].name ,  ticker)
-            print('  Volatility last 5 days: ', volatility[-i], "over all: ", sddr, "ratio  :", volatility[-i]/sddr) 
+            print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2))  
             print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
+            print('  Momentum ', df['ROC'].iloc[-i])
+            print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+            print('-----------------------------------------------------------------------------------------')
 #    df['Buy'] =  (df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)) & (df['Close'].shift(-1) > df['Open'].shift(-1))
 #    back_test = df['Buy'].sum() > 0 
 #    if back_test:        

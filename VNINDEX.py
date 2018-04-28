@@ -87,8 +87,8 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-            ninja_trading(ticker, start, end, realtime = update, source = source)
-#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#            ninja_trading(ticker, start, end, realtime = update, source = source)
+            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -201,7 +201,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-4-26"
+    end_date = "2018-4-27"
     start_date = "2018-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
@@ -276,12 +276,12 @@ if __name__ == "__main__":
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
 
-#    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-4-26", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-4-27", update = False,  source ="cp68")
     
     
-    symbolsVNI = getliststocks(typestock = "^VNINDEX")
+#    symbolsVNI = getliststocks(typestock = "^VNINDEX")
 #    symbolsHNX = getliststocks(typestock = "^HASTC")
-    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
+#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")

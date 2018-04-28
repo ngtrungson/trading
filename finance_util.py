@@ -462,15 +462,16 @@ if __name__ == "__main__":
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
-#     tickers = save_and_analyse_vnindex_tickers()
+     tickers = save_and_analyse_vnindex_tickers()
     
      data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
      data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
      data['EPS_Price'] = data['EPS']/data['Close']/1000
-     df = data.query("MeanVol_10W > 100000")
-     df = df.query("FVQ > 0")
-     df = df.query("CPM > 1.4")
-     df = df.query("EPS > 0")
+     df = data.query("MeanVol_10W > 50000")
+#     df = df.query("FVQ > 0")
+#     df = df.query("CPM > 1.4")
+     df = df.query("EPS > 1000")
+     df = df.query("ROE > 15")
 #     df = df.query("Close < 12")
 #     df = df.query("Beta < 0.4")
 #     df = df.query("Beta > 0")
