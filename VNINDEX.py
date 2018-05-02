@@ -7,8 +7,8 @@ Created on Fri Dec  8 14:35:57 2017
 import pandas as pd
 from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website
-from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling
-from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading
+from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim
+from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
 
 
@@ -18,7 +18,7 @@ def getliststocks(typestock = "^VNINDEX"):
                   'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9', 'HLD', 'NSH', 'DPS','DS3',
                   'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG', 'PVB',
                   'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC',  'TIG', 'SPP',
-                  'VIG','VKC']
+                  'VIG','VKC', 'VPI']
     
     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                   'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
@@ -32,7 +32,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
                 "PPC", "PAC", 'QBS', "QCG", "REE",  
                 'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI',
+                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
                 'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI', 'VIS',
                 'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 'TDG', 'VRC', 'JVC', 'SRC',
                 'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
@@ -84,11 +84,24 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     if tickers == None:
         tickers = getliststocks(typestock = "TICKER")
         
+#    data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
+#    data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
+#    data['EPS_Price'] = data['EPS']/data['Close']/1000
+#    df = data.query("MeanVol_10W > 80000")
+#    df = data.query("MeanVol_13W > 80000")
+#    df = df.query("EPS > 1000")
+#    df = df.query("ROE > 15")
+#       
+#    canslim_symbol = df.index.tolist()
+#    
+#    tickers = canslim_symbol
+    
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
-            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+            hung_canslim(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -254,20 +267,20 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
     
 
-#    ticker = 'VGC'    
+#    ticker = 'VCS'    
 #
-#    end_date = "2018-4-5"
-#    start_date = "2016-4-5"
-###    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
-##    
-#    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
-#    plot_hedgefund_trading(ticker, hedgefund)
+#    end_date = "2018-4-27"
+#    start_date = "2017-4-5"
+####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ###    
-###    shortsell = short_selling(ticker, start_date, end_date, realtime = False, source ="ssi")    
-###    plot_shortselling_trading(ticker, shortsell)
-###    
-###
-###    
+##    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
+##    plot_hedgefund_trading(ticker, hedgefund)
+####    
+####    shortsell = short_selling(ticker, start_date, end_date, realtime = False, source ="ssi")    
+####    plot_shortselling_trading(ticker, shortsell)
+####    
+####
+####    
 #    ninja = ninja_trading(ticker, start_date, end_date, realtime = False,  source ="cp68")    
 #    plot_ninja_trading(ticker, ninja)
     
@@ -275,8 +288,10 @@ if __name__ == "__main__":
 #    
 #    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
     
+#    canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68") 
+#    plot_canslim_trading(ticker, canslim)
 
-    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-4-27", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-5-2", update = False,  source ="cp68")
     
     
 #    symbolsVNI = getliststocks(typestock = "^VNINDEX")

@@ -13,11 +13,59 @@ from collections import Counter
 
 
 
+def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
+    
+    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
+    
+    df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
+    df['SMA15'] = df['Close'].rolling(window=15).mean()
+    df['SMA30'] = df['Close'].rolling(window=30).mean()
+    df['VolMA30'] = df['Volume'].rolling(window = 30, center = False).mean()
+    n_fast = 12
+    n_slow = 26
+    nema = 9
+    df['MACD_12_26'], df['MACDSign9'], df['MACDDiff'] = compute_MACD(df, n_fast, n_slow, nema)
+    
+    max_120 = max(df['Close'][-120:])
+#    print('Max 120 days :', max_120)
+    
+    df['Canslim'] = ((df['MACD_12_26'] > df['MACDSign9']) & (df['RSI'] >=60) & \
+                 (df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
+                 (df['Close']*df['Volume'] > 2000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
+                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & (df['High']> max_120))
+    
+    df['Signal'] = 1* ((df['MACD_12_26'] > df['MACDSign9']) & (df['RSI'] >=60) & \
+                 (df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
+                 (df['Close']*df['Volume'] > 2000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
+                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & (df['High']> max_120))
+    
+    volatility = df['Close'].rolling(window=5,center=False).std()
+    foreign_buy = df['FB'].rolling(window = 5, center = False).mean()
+    foreign_sell = df['FS'].rolling(window = 5, center = False).mean()
+    volume_mean = df['Volume'].rolling(window = 30, center = False).mean()
+    sddr = df['Close'].pct_change().std()
+    
+    hm_days = 20
+
+    for i in range(1,hm_days+1):
+        if (df['Canslim'].iloc[-i] ):
+                print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
+                print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
+                print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+                print('  RSI indicator that day: ', df['RSI'].iloc[-i])
+                print('-----------------------------------------------------------------------------------------')
+       
+    
+    return df
+
 def short_selling(ticker, start, end, realtime = False, source = "cp68"):
        
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
        
+    df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
+    
     df['EMA3'] = pd.Series(pd.Series.ewm(df['Close'], span = 3, min_periods = 3-1).mean()) 
     df['EMA6'] = pd.Series(pd.Series.ewm(df['Close'], span = 6, min_periods = 6-1).mean()) 
     df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
@@ -151,7 +199,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
 #    MACDsign = pd.Series(signal,  index = df.index, name = 'MACDSign9')  
 #    # Histo = diff from (EMA12-EMA26) - EMA9(EMA12- EMA26)
 #    MACDdiff = pd.Series(hist,  index = df.index, name = 'MACDDiff')
-    df['MFI'] = talib.MFI(df['High'].values, df['Low'].values,df['Close'].values, df['Volume'].values.astype(np.float64), timeperiod=14)
+    df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
     
     n_fast = 12
     n_slow = 26
@@ -299,6 +347,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
             print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
             print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
             print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+            print('  RSI indicator that day: ', df['RSI'].iloc[-i])
             print('-----------------------------------------------------------------------------------------')
 ##            print(" Target sell", df['Target_SELL'].iloc[-i])
 ##            print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
@@ -390,6 +439,8 @@ def check_below_zero(df, column = 'MACD_12_26'):
 def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
        
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
+    
+    df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
     
     df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
     
@@ -512,7 +563,7 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     foreign_sell = df['FS'].rolling(window = 5, center = False).mean()
     volume_mean = df['Volume'].rolling(window = 30, center = False).mean()
     sddr = df['Close'].pct_change().std()
-    hm_days = 30
+    hm_days = 5
 
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] ):
@@ -520,24 +571,28 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
                 print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
                 print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
                 print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+                print('  RSI indicator that day: ', df['RSI'].iloc[-i])
                 print('-----------------------------------------------------------------------------------------')
         if (df['LCTT'].iloc[-i] ):
                 print(" Slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
                 print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
                 print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
                 print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+                print('  RSI indicator that day: ', df['RSI'].iloc[-i])
                 print('-----------------------------------------------------------------------------------------')
         if (df['LTT_A'].iloc[-i] ):
                 print(" Advanced slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)
                 print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
                 print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
                 print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+                print('  RSI indicator that day: ', df['RSI'].iloc[-i])
                 print('-----------------------------------------------------------------------------------------')
         if (df['LCTT_A'].iloc[-i]):
                 print(" Advanced slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
                 print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2))              
                 print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
                 print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+                print('  RSI indicator that day: ', df['RSI'].iloc[-i])
                 print('-----------------------------------------------------------------------------------------')
     df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A']) & (df['Close'].shift(-1) > df['Open'].shift(-1)) & (df['Close'] > df['Open'])
 # Signal validation : 2 days consecutive GREEN !!!!!!
@@ -588,6 +643,7 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
             print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
             print('  Momentum ', df['ROC'].iloc[-i])
             print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+            print('  RSI indicator that day: ', df['RSI'].iloc[-i])
             print('-----------------------------------------------------------------------------------------')
 #    df['Buy'] =  (df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)) & (df['Close'].shift(-1) > df['Open'].shift(-1))
 #    back_test = df['Buy'].sum() > 0 
