@@ -26,18 +26,19 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     nema = 9
     df['MACD_12_26'], df['MACDSign9'], df['MACDDiff'] = compute_MACD(df, n_fast, n_slow, nema)
     
-    max_120 = max(df['Close'][-120:])
+    df['Max6M'] = df['High'].shift(1).rolling(window = 120).max()
+    
 #    print('Max 120 days :', max_120)
     
     df['Canslim'] = ((df['MACD_12_26'] > df['MACDSign9']) & (df['RSI'] >=60) & \
                  (df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
-                 (df['Close']*df['Volume'] > 2000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
-                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & (df['High']> max_120))
+                 (df['Close']*df['Volume'] > 1000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
+                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & (df['Close']> df['Max6M']))
     
     df['Signal'] = 1* ((df['MACD_12_26'] > df['MACDSign9']) & (df['RSI'] >=60) & \
                  (df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
-                 (df['Close']*df['Volume'] > 2000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
-                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & (df['High']> max_120))
+                 (df['Close']*df['Volume'] > 1000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
+                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & (df['Close']> df['Max6M']))
     
     volatility = df['Close'].rolling(window=5,center=False).std()
     foreign_buy = df['FB'].rolling(window = 5, center = False).mean()
@@ -45,7 +46,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     volume_mean = df['Volume'].rolling(window = 30, center = False).mean()
     sddr = df['Close'].pct_change().std()
     
-    hm_days = 20
+    hm_days = 10
 
     for i in range(1,hm_days+1):
         if (df['Canslim'].iloc[-i] ):
