@@ -24,21 +24,26 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     n_fast = 12
     n_slow = 26
     nema = 9
-    df['MACD_12_26'], df['MACDSign9'], df['MACDDiff'] = compute_MACD(df, n_fast, n_slow, nema)
+    df['MACD_12_26'], df['MACDSign9'], _ = compute_MACD(df, n_fast, n_slow, nema)
     
-    df['Max6M'] = df['High'].shift(1).rolling(window = 120).max()
+    df['Max6M'] = df['High'].shift(1).rolling(window = 126).max()
+    df['Min6M'] = df['Low'].shift(1).rolling(window = 126).max()
     
+    df['Max3M'] = df['High'].shift(1).rolling(window = 63).max()
 #    print('Max 120 days :', max_120)
     
     df['Canslim'] = ((df['MACD_12_26'] > df['MACDSign9']) & (df['RSI'] >=60) & \
                  (df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
                  (df['Close']*df['Volume'] > 1000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
-                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & (df['Close']> df['Max6M']))
+                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M'])))
+#    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
+    df['BOTTOM'] = ((df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
+                   (df['Close']*df['Volume'] > 1000000) & (df['RSI'] <=30) & (df['Close']<= df['Min6M']))
     
     df['Signal'] = 1* ((df['MACD_12_26'] > df['MACDSign9']) & (df['RSI'] >=60) & \
                  (df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
                  (df['Close']*df['Volume'] > 1000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
-                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & (df['Close']> df['Max6M']))
+                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M'])))
     
     volatility = df['Close'].rolling(window=5,center=False).std()
     foreign_buy = df['FB'].rolling(window = 5, center = False).mean()
@@ -46,7 +51,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     volume_mean = df['Volume'].rolling(window = 30, center = False).mean()
     sddr = df['Close'].pct_change().std()
     
-    hm_days = 10
+    hm_days = 5
 
     for i in range(1,hm_days+1):
         if (df['Canslim'].iloc[-i] ):
@@ -57,7 +62,14 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
                 print('  RSI indicator that day: ', df['RSI'].iloc[-i])
                 print('-----------------------------------------------------------------------------------------')
        
-    
+#        if (df['BOTTOM'].iloc[-i] ):
+#                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+#                print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
+#                print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
+#                print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
+#                print('  RSI indicator that day: ', df['RSI'].iloc[-i])
+#                print('-----------------------------------------------------------------------------------------')
+#       
     return df
 
 def short_selling(ticker, start, end, realtime = False, source = "cp68"):
@@ -283,16 +295,16 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['MACD_DOWN'] = ((df['MACD_12_26'] < df['MACDSign9']))
     
     
-    df['L18'] = (df['18_LONG'] & df['MACD_UP']) & df['EMA_UP']
-    df['L3_18'] = (df['3_18_LONG'] & df['MACD_UP']) & df['EMA_UP']
-    df['L3_6'] = (df['3_6_LONG'] &  df['MACD_UP'])  & df['EMA_UP']
-    df['L6_18'] = (df['6_18_LONG'] &  df['MACD_UP']) & df['EMA_UP']
-    df['L3_50'] = (df['3_50_LONG'] & df['MACD_UP']) & df['EMA_UP']
-    df['L6_50'] = (df['6_50_LONG'] &  df['MACD_UP']) & df['EMA_UP']
-    df['L18_50'] = (df['18_50_LONG'] &  df['MACD_UP']) & df['EMA_UP']
+    df['L18'] = (df['18_LONG'] & df['MACD_UP']) & df['EMA_UP'] 
+    df['L3_18'] = (df['3_18_LONG'] & df['MACD_UP']) & df['EMA_UP'] 
+    df['L3_6'] = (df['3_6_LONG'] &  df['MACD_UP'])  & df['EMA_UP'] 
+    df['L6_18'] = (df['6_18_LONG'] &  df['MACD_UP']) & df['EMA_UP'] 
+    df['L3_50'] = (df['3_50_LONG'] & df['MACD_UP']) & df['EMA_UP'] 
+    df['L6_50'] = (df['6_50_LONG'] &  df['MACD_UP']) & df['EMA_UP'] 
+    df['L18_50'] = (df['18_50_LONG'] &  df['MACD_UP']) & df['EMA_UP'] 
     df['L3_6_18'] = (df['3_6_18_LONG'] &  df['MACD_UP']) & df['EMA_UP']    
-    df['L_MACD_SIGNAL']=  (df['MACD_SIGNAL_LONG'] &  df['MACD_UP']) & df['EMA_UP']
-    df['L_MACD_ZERO']=  (df['MACD_ZERO_LONG'] &   df['MACD_UP']) & df['EMA_UP']
+    df['L_MACD_SIGNAL']=  (df['MACD_SIGNAL_LONG'] &  df['MACD_UP']) & df['EMA_UP'] 
+    df['L_MACD_ZERO']=  (df['MACD_ZERO_LONG'] &   df['MACD_UP']) & df['EMA_UP'] 
     
     df['L_EMA_FAN'] =  (swing_high(df) & (df['EMA_UP'] &   df['MACD_UP'])) 
     
@@ -622,6 +634,7 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
     df['Bollinger High'] = rolling_mean + (rolling_std * nstd)
     df['Bollinger Low'] = rolling_mean - (rolling_std * nstd)
     df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 5)
+    df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
     
     volatility = df['Close'].rolling(window=5,center = False).std()
     foreign_buy = df['FB'].rolling(window = 5, center = False).mean()

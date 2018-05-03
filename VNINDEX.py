@@ -100,9 +100,9 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
 #        print(" Analysing ..." , ticker)
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
-            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source)
-#            bollinger_bands(ticker, start, end, realtime = update, source = source)
+            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
@@ -254,7 +254,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
     
 if __name__ == "__main__":
-#    symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -291,7 +291,7 @@ if __name__ == "__main__":
 #    canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 #    plot_canslim_trading(ticker, canslim)
 
-    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-5-2", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-5-3", update = False,  source ="cp68")
     
     
 #    symbolsVNI = getliststocks(typestock = "^VNINDEX")
