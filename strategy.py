@@ -18,6 +18,8 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
     df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
+    df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 5)
+    
     df['SMA15'] = df['Close'].rolling(window=15).mean()
     df['SMA30'] = df['Close'].rolling(window=30).mean()
     df['VolMA30'] = df['Volume'].rolling(window = 30, center = False).mean()
@@ -30,15 +32,20 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     df['Min6M'] = df['Low'].shift(1).rolling(window = 126).max()
     
     df['Max3M'] = df['High'].shift(1).rolling(window = 63).max()
+    df['Max4D'] = df['High'].shift(1).rolling(window = 4).max()
+    df['MID'] = (df['High'] + df['Close']) /2
 #    print('Max 120 days :', max_120)
+#    & (df['Close'] > (df['High'] + df['Low'])/2)
+#    & (df['MACD_12_26'] > df['MACDSign9']) & \
+    df['Canslim'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
+                 (df['Close'] >= df['MID']) & (1.05*df['Close'].shift(2) > df['Close'].shift(1)) & \
+                 ((df['Close']*df['Volume'] >= 3000000)) & (df['RSI'] >=50) &\
+                 ((df['Volume'] > 1.0*df['VolMA30']) & (df['Volume'].shift(1) <  df['Volume'])  ) & \
+                 (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']> df['Max4D'])))
     
-    df['Canslim'] = ((df['MACD_12_26'] > df['MACDSign9']) & (df['RSI'] >=60) & \
-                 (df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
-                 (df['Close']*df['Volume'] > 1000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
-                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M'])))
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
-    df['BOTTOM'] = ((df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
-                   (df['Close']*df['Volume'] > 1000000) & (df['RSI'] <=30) & (df['Close']<= df['Min6M']))
+    df['BOTTOM'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
+                   (df['Close']*df['Volume'] > 10000000) & (df['RSI'] <=30) & (df['ROC'] <-15))
     
     df['Signal'] = 1* ((df['MACD_12_26'] > df['MACDSign9']) & (df['RSI'] >=60) & \
                  (df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
@@ -51,7 +58,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     volume_mean = df['Volume'].rolling(window = 30, center = False).mean()
     sddr = df['Close'].pct_change().std()
     
-    hm_days = 5
+    hm_days = 4
 
     for i in range(1,hm_days+1):
         if (df['Canslim'].iloc[-i] ):
@@ -60,6 +67,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
                 print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
                 print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
                 print('  RSI indicator that day: ', df['RSI'].iloc[-i])
+                print('  Rate of change: ', df['ROC'].iloc[-i])
                 print('-----------------------------------------------------------------------------------------')
        
 #        if (df['BOTTOM'].iloc[-i] ):
@@ -68,8 +76,9 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
 #                print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
 #                print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
 #                print('  RSI indicator that day: ', df['RSI'].iloc[-i])
+#                print('  Rate of change: ', df['ROC'].iloc[-i])
 #                print('-----------------------------------------------------------------------------------------')
-#       
+       
     return df
 
 def short_selling(ticker, start, end, realtime = False, source = "cp68"):
@@ -655,7 +664,7 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
             print(" Bollinger trading buy", str(i), "days before", df.iloc[-i].name ,  ticker)
             print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2))  
             print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
-            print('  Momentum ', df['ROC'].iloc[-i])
+            print('  Rate of change: ', df['ROC'].iloc[-i])
             print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
             print('  RSI indicator that day: ', df['RSI'].iloc[-i])
             print('-----------------------------------------------------------------------------------------')
