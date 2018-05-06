@@ -10,6 +10,7 @@ from finance_util import get_data, fill_missing_values, optimize_portfolio, comp
 from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
+import talib
 
 
 def getliststocks(typestock = "^VNINDEX"):
@@ -171,6 +172,12 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     #    df_result['MaxH'] = max_high
 #    df_result['MinL'] = min_low
     df_result['CPM'] = cpm
+    df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
+    df_result ['Volatility'] = df_data[symbols].pct_change().std() 
+    
+    
+        
+    
     
 
     return df_result, df_data
@@ -248,6 +255,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     df_result['CPM'] = cpm
     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
     df_result ['Volatility'] = volatility
+    
 
     return df_result
     
@@ -267,14 +275,14 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
     
 
-#    ticker = 'TTB'    
-#
-#    end_date = "2018-4-27"
-#    start_date = "2017-4-5"
+    ticker = 'TCH'    
+
+    end_date = "2018-5-4"
+    start_date = "2017-1-5"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
-###    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
-###    plot_hedgefund_trading(ticker, hedgefund)
+#    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
+#    plot_hedgefund_trading(ticker, hedgefund)
 #####    
 #####    shortsell = short_selling(ticker, start_date, end_date, realtime = False, source ="ssi")    
 #####    plot_shortselling_trading(ticker, shortsell)
@@ -288,15 +296,16 @@ if __name__ == "__main__":
 ##    
 ##    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
 #    
-#    canslim = hung_canslim(ticker, start_date, end_date, realtime = True,  source ="cp68") 
+    canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 #    plot_canslim_trading(ticker, canslim)
 
-    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-5-4", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-5-4", update = False,  source ="cp68")
     
     
 #    symbolsVNI = getliststocks(typestock = "^VNINDEX")
 #    symbolsHNX = getliststocks(typestock = "^HASTC")
 #    ALLOC_opt = rebalancing_porfolio(symbols = symbolsHNX, bench = '^HASTC')
+#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")

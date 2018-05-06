@@ -27,34 +27,28 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     nema = 9
     df['MACD_12_26'], df['MACDSign9'], _ = compute_MACD(df, n_fast, n_slow, nema)
     
-    df['Max6M'] = df['High'].shift(1).rolling(window = 126).max()
-    df['Min6M'] = df['Low'].shift(1).rolling(window = 126).max()
+    df['Max6M'] = df['Close'].shift(1).rolling(window = 126).max()
+    df['Min6M'] = df['Close'].shift(1).rolling(window = 126).min()
     
-    df['Max3M'] = df['High'].shift(1).rolling(window = 63).max()
-    df['Max4D'] = df['High'].shift(1).rolling(window = 4).max()
+    df['Max3M'] = df['Close'].shift(1).rolling(window = 63).max()
+    df['Max4D'] = df['Close'].shift(1).rolling(window = 4).max()
     df['MID'] = (df['High'] + df['Close']) /2
 #    print('Max 120 days :', max_120)
 #    & (df['Close'] > (df['High'] + df['Low'])/2)
 #    & (df['MACD_12_26'] > df['MACDSign9']) & \
-    df['Canslim'] = ((df['MACD_12_26'] > df['MACDSign9']) & \
+    df['Canslim'] = (((df['MACD_12_26'] > df['MACDSign9']) | (df['MACD_12_26'] > 0.85*df['MACDSign9'])) & \
                  (df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
-                 (df['Close'] >= df['MID']) & (1.05*df['Close'].shift(2) > df['Close'].shift(1)) & \
+#                 (df['Close'] >= df['MID']) & (1.05*df['Close'].shift(2) > df['Close'].shift(1)) & \
                  ((df['Close']*df['Volume'] >= 3000000)) & (df['RSI'] >=50) &\
-                 ((df['Volume'] > 1.3*df['VolMA30']) & (df['Volume'].shift(1) <  df['Volume'])  ) & \
+                 (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 500000)) & ((df['Volume'].shift(1) <  df['Volume']) | (0.95*df['Volume'].shift(1) <  df['Volume'] ))) & \
                  (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']> df['Max4D'])))
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
     df['BOTTOM'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
                    (df['Close']*df['Volume'] > 10000000) & (df['RSI'] <=30) & (df['ROC'] <-15))
     
-    df['Signal'] = 1* ((df['MACD_12_26'] > df['MACDSign9']) & (df['RSI'] >=60) & \
-                 (df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
-                 (df['Close']*df['Volume'] > 1000000) & (df['Volume'] > 1.3*df['VolMA30']) & \
-                 (df['Close'] > df['SMA30']) & (df['Close'] > 5) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M'])))
-    
-    
-    
-    hm_days = 10
+    df['Signal'] = 1* (df['Canslim'])
+    hm_days = 5
 
     for i in range(1,hm_days+1):
         if (df['Canslim'].iloc[-i] ):
@@ -62,13 +56,18 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
                 print_statistic(df, i)
 #        if (df['BOTTOM'].iloc[-i] ):
 #                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-#                print('  Volatility last 5 days: ', round(volatility[-i],2), "over all: ", round(sddr,2), "ratio  :", round(volatility[-i]/sddr,2)) 
-#                print('  Foreign activity last 5 days, buy : ', foreign_buy[-i], 'sell: ',foreign_sell[-i], "that day, buy: ", df['FB'].iloc[-i], ' sell: ',df['FS'].iloc[-i])
-#                print('  Volume last 5 days : ', volume_mean[-i],  "that day: ", df['Volume'].iloc[-i], "ratio : ", round(df['Volume'].iloc[-i]/volume_mean[-i],2))
-#                print('  RSI indicator that day: ', df['RSI'].iloc[-i])
-#                print('  Rate of change: ', df['ROC'].iloc[-i])
-#                print('-----------------------------------------------------------------------------------------')
-       
+#                print_statistic(df, i)
+    df['Buy'] = df['Canslim'] 
+    
+    back_test = df['Buy'].sum() > 0 
+    if back_test:        
+        df['5Days'] = df['Close'].shift(-5)
+        df['10Days'] = df['Close'].shift(-10)
+        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
+        vals = df['Back_test'] .values.tolist()
+        str_vals = [str(i) for i in vals]
+        print('Back test canslim:', Counter(str_vals), 'symbol: ', ticker)
+     
     return df
 
 def short_selling(ticker, start, end, realtime = False, source = "cp68"):
@@ -191,7 +190,10 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['Value'] = df['Volume']*df['Close']   
    
     df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
-    df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 5)
+    df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    df['RSW'] = 0.4* talib.ROC(df['Close'].values, timeperiod = 65) + \
+    0.3* talib.ROC(df['Close'].values, timeperiod = 130) + \
+    0.3*talib.ROC(df['Close'].values, timeperiod = 260)
     
     
     
@@ -205,6 +207,7 @@ def print_statistic(df, i):
     print('  RSI indicator: ', df['RSI'].iloc[-i])
     print('  Rate of change last week: ', df['ROC'].iloc[-i])
     print('  Trading value (billion): ', df['Value'].iloc[-i]/1E6)
+    print('  Relative strength RSW: ', df['RSW'].iloc[-i])
     print('-----------------------------------------------------------------------------------------')
    
 
@@ -487,21 +490,21 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     # TREND TREND LONG
     df['TT_LONG']= ((df['Close'] > df['EMA18']) 
     & (df['MACD_3_6'] < df['MACDSign20']) & (df['MACD_3_6'] <0) & (df['MACDSign20'] > 0) 
-    & (df['MACD_50_100'] > df['MACDSign9']) & (df['MACD_50_100'] > 0))
+    & ((df['MACD_50_100'] > df['MACDSign9']) | (df['MACD_50_100'] > 0.95*df['MACDSign9'])) & (df['MACD_50_100'] > 0))
     # TREND TREND SHORT
     df['TT_SHORT']= ((df['Close'] < df['EMA18']) 
     & (df['MACD_3_6'] > df['MACDSign20']) & (df['MACD_3_6'] > 0) & (df['MACDSign20'] < 0) 
-    & (df['MACD_50_100'] < df['MACDSign9']) & (df['MACD_50_100'] < 0))
+    & ((df['MACD_50_100'] > df['MACDSign9']) | (df['MACD_50_100'] > 0.95*df['MACDSign9'])) & (df['MACD_50_100'] < 0))
    
     # TREND COUNTER TREND LONG
     df['TCT_LONG']= ((df['Close'] > df['EMA18']) 
     & (df['MACD_3_6'] < df['MACDSign20']) & (df['MACD_3_6'] <0) & (df['MACDSign20'] > 0) 
-    & (df['MACD_50_100'] > df['MACDSign9']) & (df['MACD_50_100'] < 0)) 
+    & ((df['MACD_50_100'] > df['MACDSign9']) | (df['MACD_50_100'] > 0.95*df['MACDSign9'])) & (df['MACD_50_100'] < 0)) 
     
     # TREND COUNTER TREND SHORT
     df['TCT_SHORT']= ((df['Close'] < df['EMA18']) 
     & (df['MACD_3_6'] > df['MACDSign20']) & (df['MACD_3_6'] > 0) & (df['MACDSign20'] < 0) 
-    & (df['MACD_50_100'] < df['MACDSign9']) & (df['MACD_50_100'] > 0))
+    & ((df['MACD_50_100'] > df['MACDSign9']) | (df['MACD_50_100'] > 0.95*df['MACDSign9'])) & (df['MACD_50_100'] > 0))
    
     
     
@@ -591,19 +594,18 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
         if (df['LCTT'].iloc[-i] | df['LCTT_A'].iloc[-i]  ):
                 print(" Slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
                 print_statistic(df, i)
-    df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A']) & (df['Close'].shift(-1) > df['Open'].shift(-1)) & (df['Close'] > df['Open'])
-# Signal validation : 2 days consecutive GREEN !!!!!!
+    df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A'])
     
     
 
-#    back_test = df['Buy'].sum() > 0 
-#    if back_test:        
-#        df['5Days'] = df['Close'].shift(-5)
-#        df['10Days'] = df['Close'].shift(-10)
-#        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
-#        vals = df['Back_test'] .values.tolist()
-#        str_vals = [str(i) for i in vals]
-#        print('Back test hedge fund:', Counter(str_vals), 'symbol: ', ticker)
+    back_test = df['Buy'].sum() > 0 
+    if back_test:        
+        df['5Days'] = df['Close'].shift(-5)
+        df['10Days'] = df['Close'].shift(-10)
+        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
+        vals = df['Back_test'] .values.tolist()
+        str_vals = [str(i) for i in vals]
+        print('Back test hedge fund:', Counter(str_vals), 'symbol: ', ticker)
     return df
 
 def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
