@@ -11,7 +11,57 @@ import talib
 import datetime
 from collections import Counter
 
+def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
 
+    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
+    
+    n_fast = 3
+    n_slow = 6
+    nema = 20
+    df['MACD_3_6'], df['MACDSign20'], _= compute_MACD(df, n_fast, n_slow, nema)
+    
+    
+    n_fast = 12
+    n_slow = 26
+    nema = 9
+    df['MACD_12_26'], df['MACDSign9'], _ = compute_MACD(df, n_fast, n_slow, nema)
+    
+    
+    df['LONG']= ((df['Close'] > 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])
+    & (df['MACD_3_6'].shift(1) < df['MACDSign20'].shift(1)) & (df['RSI'] >=50)
+    & ((df['MACD_3_6'] > df['MACDSign20']) | ((df['MACD_3_6'] > 0)  & (df['MACD_3_6'].shift(1) <0)))
+    & ((df['Close']*df['Volume'] >= 3000000) | ((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))))
+    
+    
+    # df['Canslim'] = (((df['MACD_12_26'] > df['MACDSign9']) | (df['MACD_12_26'] > 0.85*df['MACDSign9'])) & \
+    # (df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
+    ## (df['Close'] >= df['MID']) & (1.05*df['Close'].shift(2) > df['Close'].shift(1)) & \
+    # ((df['Close']*df['Volume'] >= 3000000)) & (df['RSI'] >=50) &\
+    # (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 500000)) & ((df['Volume'].shift(1) < df['Volume']) | (0.95*df['Volume'].shift(1) < df['Volume'] ))) & \
+    # (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']> df['Max4D'])))
+    #
+    
+    df['Signal'] = 1*(df['LONG'])
+    
+    hm_days = 4
+    
+    for i in range(1,hm_days+1):
+        if (df['LONG'].iloc[-i]):
+            print(" Mean reversion trading ", str(i), "days before ", df.iloc[-i].name , ticker)
+            print_statistic(df, i)
+        
+    df['Buy'] = (df['LONG'])
+    
+        
+    back_test = df['Buy'].sum() > 0
+    if back_test:
+        df['5Days'] = df['Close'].shift(-5)
+        df['10Days'] = df['Close'].shift(-10)
+        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
+        vals = df['Back_test'] .values.tolist()
+        str_vals = [str(i) for i in vals]
+        print('Back test mean reversion:', Counter(str_vals), 'symbol: ', ticker)
+    return df
 
 def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     
@@ -32,32 +82,37 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     
     df['Max3M'] = df['Close'].shift(1).rolling(window = 63).max()
     df['Max4D'] = df['Close'].shift(1).rolling(window = 4).max()
+    df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
     df['MID'] = (df['High'] + df['Close']) /2
 #    print('Max 120 days :', max_120)
 #    & (df['Close'] > (df['High'] + df['Low'])/2)
 #    & (df['MACD_12_26'] > df['MACDSign9']) & \
-    df['Canslim'] = (((df['MACD_12_26'] > df['MACDSign9']) | (df['MACD_12_26'] > 0.85*df['MACDSign9'])) & \
-                 (df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
+    df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
 #                 (df['Close'] >= df['MID']) & (1.05*df['Close'].shift(2) > df['Close'].shift(1)) & \
                  ((df['Close']*df['Volume'] >= 3000000)) & (df['RSI'] >=50) &\
-                 (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 500000)) & ((df['Volume'].shift(1) <  df['Volume']) | (0.95*df['Volume'].shift(1) <  df['Volume'] ))) & \
+                 (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))) & \
                  (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']> df['Max4D'])))
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
-    df['BOTTOM'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
-                   (df['Close']*df['Volume'] > 10000000) & (df['RSI'] <=30) & (df['ROC'] <-15))
+    df['BOTTOM'] = ((df['Close']> df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
+                   (df['Close']*df['Volume'] > 10000000) & ((df['RSI'] < 31) | (df['RSI'].shift(1) < df['RSI'])) & (df['ROC'] <-10))
     
-    df['Signal'] = 1* (df['Canslim'])
-    hm_days = 5
+#    ban = (C < Ref(L,-1)AND C < Ref(L,-2)AND C < Ref(L,-3)AND C < Ref(L,-4))
+#OR HHV(C,10) >1.15*C
+    df['Short'] = ((df['Close']< df['Low'].shift(1)) & (df['Close']< df['Low'].shift(2)) & (df['Close']< df['Low'].shift(3)) & (df['Close']< df['Low'].shift(4)))  | \
+                 (df['Max10D'] > 1.15* df['Close'])
+    
+    df['Signal'] = 1* (df['Long']) + -1*df['Short']
+    hm_days = 4
 
     for i in range(1,hm_days+1):
-        if (df['Canslim'].iloc[-i] ):
+        if (df['Long'].iloc[-i] ):
                 print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
                 print_statistic(df, i)
 #        if (df['BOTTOM'].iloc[-i] ):
 #                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
 #                print_statistic(df, i)
-    df['Buy'] = df['Canslim'] 
+    df['Buy'] = df['Long'] 
     
     back_test = df['Buy'].sum() > 0 
     if back_test:        
@@ -67,7 +122,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
         vals = df['Back_test'] .values.tolist()
         str_vals = [str(i) for i in vals]
         print('Back test canslim:', Counter(str_vals), 'symbol: ', ticker)
-     
+#     
     return df
 
 def short_selling(ticker, start, end, realtime = False, source = "cp68"):
@@ -187,6 +242,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
         
     df['VolMA30'] = df['Volume'].rolling(window = 30, center = False).mean()
     df['Volatility'] = df['Close'].rolling(window=5,center=False).std()
+    df['PCT_Change'] = df['Close'].pct_change()
     df['Value'] = df['Volume']*df['Close']   
    
     df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
@@ -208,7 +264,7 @@ def print_statistic(df, i):
     print('  Rate of change last week: ', df['ROC'].iloc[-i])
     print('  Trading value (billion): ', df['Value'].iloc[-i]/1E6)
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
-    print('-----------------------------------------------------------------------------------------')
+    print('-------------------------------------------------------------------------')
    
 
 def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):

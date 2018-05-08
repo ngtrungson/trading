@@ -7,7 +7,7 @@ Created on Fri Dec  8 14:35:57 2017
 import pandas as pd
 from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website
-from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim
+from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
 import talib
@@ -103,6 +103,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
             hung_canslim(ticker, start, end, realtime = update, source = source)
+            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -221,7 +222,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-5-4"
+    end_date = "2018-5-8"
     start_date = "2018-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
@@ -275,10 +276,10 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
     
 
-    ticker = 'TCH'    
+    ticker = 'BVH'    
 
-    end_date = "2018-5-4"
-    start_date = "2017-1-5"
+    end_date = "2018-5-8"
+    start_date = "2017-1-4"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
 #    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
@@ -295,16 +296,17 @@ if __name__ == "__main__":
 ##    plot_trading_weekly(ticker, hedgefund)
 ##    
 ##    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
-#    
-    canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68") 
-#    plot_canslim_trading(ticker, canslim)
+##    
+#    canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68") 
+#    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
+##    plot_canslim_trading(ticker, canslim)
 
-#    analysis_trading(tickers = None, start = "2017-3-26" , end = "2018-5-4", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-7", update = True,  source ="cp68")
     
     
-#    symbolsVNI = getliststocks(typestock = "^VNINDEX")
-#    symbolsHNX = getliststocks(typestock = "^HASTC")
-#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsHNX, bench = '^HASTC')
+    symbolsVNI = getliststocks(typestock = "^VNINDEX")
+    symbolsHNX = getliststocks(typestock = "^HASTC")
+    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
