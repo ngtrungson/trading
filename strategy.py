@@ -43,17 +43,18 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
     
     df['Signal'] = 1*(df['LONG'])
     
-    hm_days = 4
-    
+    hm_days = 1
+    back_test = False
     for i in range(1,hm_days+1):
         if (df['LONG'].iloc[-i]):
             print(" Mean reversion trading ", str(i), "days before ", df.iloc[-i].name , ticker)
             print_statistic(df, i)
+            back_test = True
         
     df['Buy'] = (df['LONG'])
     
         
-    back_test = df['Buy'].sum() > 0
+    
     if back_test:
         df['5Days'] = df['Close'].shift(-5)
         df['10Days'] = df['Close'].shift(-10)
@@ -61,6 +62,7 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
         vals = df['Back_test'] .values.tolist()
         str_vals = [str(i) for i in vals]
         print('Back test mean reversion:', Counter(str_vals), 'symbol: ', ticker)
+        print('*********************************************************************')
     return df
 
 def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
@@ -81,17 +83,36 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     df['Min6M'] = df['Close'].shift(1).rolling(window = 126).min()
     
     df['Max3M'] = df['Close'].shift(1).rolling(window = 63).max()
-    df['Max4D'] = df['Close'].shift(1).rolling(window = 4).max()
+    
     df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
+    
+    df['High4D'] = df['High'].shift(1).rolling(window = 4).max()
     df['MID'] = (df['High'] + df['Close']) /2
 #    print('Max 120 days :', max_120)
 #    & (df['Close'] > (df['High'] + df['Low'])/2)
-#    & (df['MACD_12_26'] > df['MACDSign9']) & \
+    # df['Volume'] > df['Volume'].shift(1)
+    
+    
+#    
+#     HHV(C,5) <1.055* LLV(C,5)
+#    AND C * V >= 3000000 
+#    AND C*V < 500000000
+#    
+#    
+#    AND MA(V,30)>=50000
+#    AND Ref(V,-5)>=50000
+#    AND Ref(V,-10)>=50000
+#    AND Ref(V,-20)>=50000
+#    AND RSI(14)>=40
+   
+    
+   
+    
     df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
-#                 (df['Close'] >= df['MID']) & (1.05*df['Close'].shift(2) > df['Close'].shift(1)) & \
+                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & \
                  ((df['Close']*df['Volume'] >= 3000000)) & (df['RSI'] >=50) &\
-                 (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))) & \
-                 (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']> df['Max4D'])))
+                 (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))) &\
+                 (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']> df['High4D'])))
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
     df['BOTTOM'] = ((df['Close']> df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
@@ -103,18 +124,20 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
                  (df['Max10D'] > 1.15* df['Close'])
     
     df['Signal'] = 1* (df['Long']) + -1*df['Short']
-    hm_days = 4
+    hm_days = 1
 
+    back_test = False
     for i in range(1,hm_days+1):
         if (df['Long'].iloc[-i] ):
-                print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+                back_test = True
                 print_statistic(df, i)
-#        if (df['BOTTOM'].iloc[-i] ):
-#                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-#                print_statistic(df, i)
+        if (df['BOTTOM'].iloc[-i] ):
+                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print_statistic(df, i)
+                back_test = True
     df['Buy'] = df['Long'] 
     
-    back_test = df['Buy'].sum() > 0 
     if back_test:        
         df['5Days'] = df['Close'].shift(-5)
         df['10Days'] = df['Close'].shift(-10)
@@ -122,6 +145,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
         vals = df['Back_test'] .values.tolist()
         str_vals = [str(i) for i in vals]
         print('Back test canslim:', Counter(str_vals), 'symbol: ', ticker)
+        print('*********************************************************************')
 #     
     return df
 
@@ -247,9 +271,18 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
    
     df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
     df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 4)
-    df['RSW'] = 0.4* talib.ROC(df['Close'].values, timeperiod = 65) + \
-    0.3* talib.ROC(df['Close'].values, timeperiod = 130) + \
-    0.3*talib.ROC(df['Close'].values, timeperiod = 260)
+#    df['RSW'] = 0.4* talib.ROC(df['Close'].values, timeperiod = 65) + \
+#    0.3* talib.ROC(df['Close'].values, timeperiod = 130) + \
+#    0.3*talib.ROC(df['Close'].values, timeperiod = 260)
+    
+    df['RSW'] = 40*df['Close'].pct_change(periods = 65) \
+             + 30*df['Close'].pct_change(periods = 130) \
+             + 30*df['Close'].pct_change(periods = 260) 
+             
+    df['Max5D'] = df['Close'].shift(1).rolling(window = 5).max() 
+    df['Min5D'] = df['Close'].shift(1).rolling(window = 5).min()
+    
+    df['Sideways'] = (df['RSI'] >=40) & (df['Close']*df['Volume'] >= 3000000) & (df['Max5D'] <= 1.055*df['Min5D'])
     
     
     
@@ -264,7 +297,8 @@ def print_statistic(df, i):
     print('  Rate of change last week: ', df['ROC'].iloc[-i])
     print('  Trading value (billion): ', df['Value'].iloc[-i]/1E6)
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
-    print('-------------------------------------------------------------------------')
+    print('  Side ways status 1 day before :', df['Sideways'].iloc[-i-1])
+    print('----------------------------------------------------------------')
    
 
 def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
