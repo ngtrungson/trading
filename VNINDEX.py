@@ -7,38 +7,56 @@ Created on Fri Dec  8 14:35:57 2017
 import pandas as pd
 from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website
-from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion
+from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, process_data
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
 
+def get_statistic_index(days, start, end, update = False, source = "cp68"):
+    benchmark = getliststocks(typestock = "BENCHMARK")
+    
+    for ticker in benchmark:
+#        print(" Analysing ..." , ticker)
+        try:
+            print(' Index information: ', ticker)
+            df = process_data(ticker = ticker, start = start, end = end, realtime = update, source = source)
+            print('  Actual Close/Low/High/Open: ', df['Close'].iloc[-days], df['Low'].iloc[-days], df['High'].iloc[-days], df['Open'].iloc[-days])
+            print('  PCT_Change last 3 days: ', round(100*df['PCT_Change'].iloc[-days-2],2),round(100*df['PCT_Change'].iloc[-days-1],2), round(100*df['PCT_Change'].iloc[-days],2))
+            print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-days]/df['VolMA30'].iloc[-days],2))
+            print('  RSI indicator: ', df['RSI'].iloc[-days])
+            print('  Rate of change last week: ', df['ROC'].iloc[-days])           
+        except Exception as e:
+            print (e)
+            print("Error in reading symbol: ", ticker)
+            pass
 
 
 def getliststocks(typestock = "^VNINDEX"):
     benchmark = ["^VNINDEX", "^HASTC", "^UPCOM"]
-    symbolsHNX = ['APS', 'ALV', 'C69', 'TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", 'NVB', "KLF", 'KVC', "VE9", 
-                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9', 'HLD', 'NSH', 'DPS','DS3',
-                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG', 'PVB',
-                  'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC',  'TIG', 'SPP',
-                  'VIG','VKC', 'VPI']
+    symbolsHNX = [ 'ALV', 'C69', 'TNG', 'BVS',  'NVB',   "VE9", 
+                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'SD9', 'HLD', 'NSH', 'DS3',
+                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',   'PHC', 'PVE', 'PVG', 'PVB',
+                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC', 'SPP',
+                 'VKC', 'VPI', 'NBC', 'VGS']
     
-    symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
-                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
-               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
-               'DHM', 
+    symbolsVNI = [ 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
+                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CHP', 'C47', 
+               "DCM","DHG", "DIG",  "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
                "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
-                'HAX', "HAG", "HHS", "HNG", "HQC", "HT1", "HVG", 'HAI', 'HAR', 'HID', 'HII', 'HTT',
+                'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
-               'IDI', "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 'KSH',
+               'IDI', "IJC",  "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
                 "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
                 "PPC", "PAC", 'QBS', "QCG", "REE",  
                 'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
                 "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
-                'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI', 'VIS',
-                'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 'TDG', 'VRC', 'JVC', 'SRC',
-                'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
+                'ITC','LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
+                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  'SRC',
+                'EIB','BHN','VPB','VRE','ROS',"VND", "HDB",  "SMC", "C32","CVT",'VPH','VNG','VIP',
+                'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST', 'AST','DAG', 'HAH']
     
-    symbolsUPCOM = ['TOP', 'TBD', 'LPB', 'QNS', 'RCC', 'ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
+    symbolsUPCOM = ['TBD', 'LPB', 'QNS', 'RCC',  'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
+                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MVC','MCH']
     
     if typestock == "ALL":
         symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM 
@@ -50,6 +68,8 @@ def getliststocks(typestock = "^VNINDEX"):
         symbols = symbolsUPCOM
     if typestock == "TICKER":
         symbols = symbolsVNI + symbolsHNX + symbolsUPCOM 
+    if typestock == "BENCHMARK":
+        symbols = benchmark
 #    symbols =  high_cpm
     symbols = pd.unique(symbols).tolist()
     symbols = sorted(symbols)
@@ -110,7 +130,10 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
             print (e)
             print("Error in reading symbol: ", ticker)
             pass
-               
+    
+    
+
+
 def get_csv_data(source = "cp68"):
 
     symbols = getliststocks(typestock = "ALL")
@@ -278,9 +301,9 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
     
 
-    ticker = 'VIX'    
-
-    end_date = "2018-5-9"
+#    ticker = 'PVB'    
+#
+    end_date = "2018-5-10"
     start_date = "2017-1-2"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -303,13 +326,15 @@ if __name__ == "__main__":
 #    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 ###    plot_canslim_trading(ticker, canslim)
 
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-9", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-10", update = False,  source ="cp68")
+#    
+#    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-9", update = True,  source ="cp68")
     
     
 #    symbolsVNI = getliststocks(typestock = "^VNINDEX")
 #    symbolsHNX = getliststocks(typestock = "^HASTC")
 ##    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^UPCOM")
+    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")

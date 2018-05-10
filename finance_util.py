@@ -130,14 +130,19 @@ def get_info_stock(ticker):
         line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','')         
         if isfloat(line): 
             value_number.append(float(line)) 
+       
+    
     for line in soup.find('div', {'id':'snapshot_trading'}).stripped_strings:
         line = line.replace(',','').replace('%','')
         line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','')        
         if isfloat(line): 
             value_number.append(float(line)) 
+#    print(value_number)   
 #    link href="http://www.cophieu68.vn/css/screen.css?date=20180212
 #    for line in soup.find(l)
 
+    
+    
     df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
                         'Close': value_number[0],
                         'Close_1D' : value_number[1],
@@ -149,10 +154,10 @@ def get_info_stock(ticker):
                          'MeanVol_10W' : value_number[7],
                          'High52W' : value_number[8], 
                          'Low52W' : value_number[9], 
-                         'EPS' : value_number[10], 
+                         'EPS' : value_number[10]*1E3, 
                          'PE' : value_number[11],
-                         'Market capital' : value_number[12], 
-                         'Float' : value_number[13], 
+                         'Market capital' : value_number[12]*1E9, 
+                         'Float' : value_number[13]*1E6, 
                          'BookValue' : value_number[14], 
                          'ROE' : value_number[15], 
                          'Beta' : value_number[16], 
@@ -427,64 +432,65 @@ def optimize_porfolio_markowitz(maindf, symbols):
     return results_frame, max_sharpe_port, min_vol_port 
 
 if __name__ == "__main__":
-     symbolsHNX = ['APS', 'ALV', 'C69', 'TNG', 'BVS', 'PVX', "KDM", "ASA", "HKB", "HVA", 'NVB', "KLF", 'KVC', "VE9", 
-                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC', 'DCS', 'DST','HHG', 'HUT', 'SD9', 'HLD', 'NSH', 'DPS','DS3',
-                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',  'MST', 'PHC', 'PVE', 'PVG', 'PVB',
-                  'PVS', 'S99','SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC',  'TIG', 'SPP',
-                  'VIG','VKC', 'VPI']
+     symbolsHNX = [ 'ALV', 'C69', 'TNG', 'BVS',  'NVB',   "VE9", 
+                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'SD9', 'HLD', 'NSH', 'DS3',
+                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',   'PHC', 'PVE', 'PVG', 'PVB',
+                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC', 'SPP',
+                 'VKC', 'VPI', 'NBC', 'VGS']
     
-     symbolsVNI = [ 'AMD', 'ATG', 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
-                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH", 'CDO',  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CCL', 'CHP', 'C47', 
-               "DCM","DHG", "DIG", "DLG", "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
-               'DHM', 
+     symbolsVNI = [ 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
+                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CHP', 'C47', 
+               "DCM","DHG", "DIG",  "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
                "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
-                'HAX', "HAG", "HHS", "HNG", "HQC", "HT1", "HVG", 'HAI', 'HAR', 'HID', 'HII', 'HTT',
+                'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
-               'IDI', "IJC", "ITA", "KBC", "KSB",  "KDH", "KDC", 'KSH',
+               'IDI', "IJC",  "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
                 "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
                 "PPC", "PAC", 'QBS', "QCG", "REE",  
                 'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI', 'TLH',
-                'ITC','LSS','VOS', 'OGC', 'PME', 'PAN','TCH', 'TDH', 'TNT', 'TTF','GEX','VCI', 'VIS',
-                'TDC','TCM', 'VNE','KSA', 'SHN', 'AAA','SCR', 'AGR', 'TSC', 'TDG', 'VRC', 'JVC', 'SRC',
-                'EIB','BHN','VPB','VRE','ROS',"VND", "HDB", "NVT","VHG", "SMC", "C32","CVT",'VPH','VNG','VIP']
+                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
+                'ITC','LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
+                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  'SRC',
+                'EIB','BHN','VPB','VRE','ROS',"VND", "HDB",  "SMC", "C32","CVT",'VPH','VNG','VIP',
+                'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST', 'AST','DAG', 'HAH']
     
-     symbolsUPCOM = ['TOP', 'TBD', 'LPB', 'QNS', 'RCC', 'ATB', 'ART',  'ACV', "SBS", "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 'PXL', 'VGT','TVN','TVB','TIS','VIB']
-    
+     symbolsUPCOM = ['TBD', 'LPB', 'QNS', 'RCC',  'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
+                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MVC', 'MCH']
+     
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
      
      symbols = pd.unique(symbols).tolist()
      
-   
+#     df_temp = get_info_stock('ACB')
 # 
-#    data = fundemental_analysis(symbols)
+#     data = fundemental_analysis(symbols)
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
-     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
-     data['EPS_Price'] = data['EPS']/data['Close']/1000
-     df = data.query("MeanVol_10W > 80000")
-     df = data.query("MeanVol_13W > 80000")
-#     df = df.query("FVQ > 0")
-#     df = df.query("CPM > 1.4")
-     df = df.query("EPS >= 3000")
-     df = df.query("EPS_52W >= 1000")
-     df = df.query("ROE >= 15")
-#     df = df.query("Close < 12")
+#     data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
+#     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
+#     data['EPS_Price'] = data['EPS']/data['Close']/1000
+#     df = data.query("MeanVol_10W > 0")
+#     df = df.query("MeanVol_13W > 80000")
+##     df = df.query("FVQ > 0")
+##     df = df.query("CPM > 1.4")
+#     df = df.query("EPS >= 1000")
+#     df = df.query("EPS_52W >= 0")
+##     df = df.query("ROE >= 15")
+#     df = df.query("Close > 4")
 #     df = df.query("Beta < 0.4")
 #     df = df.query("Beta > 0")
 #     df = df.query("Diff_Price < 0")
 #     df.to_csv('investment_stock3.csv')
 #     print(df.index)
      
-     listA = symbols
-     listB = df.index.tolist()
-     common = list(set(listA) & set(listB))
-     listC = list(set(listB).difference(set(listA)))
+#     listA = symbols
+#     listB = df.index.tolist()
+#     common = list(set(listA) & set(listB))
+#     listC = list(set(listB).difference(set(listA)))
     
      
      

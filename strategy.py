@@ -11,6 +11,7 @@ import talib
 import datetime
 from collections import Counter
 
+
 def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
 
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
@@ -43,7 +44,7 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
     
     df['Signal'] = 1*(df['LONG'])
     
-    hm_days = 1
+    hm_days = 2
     back_test = False
     for i in range(1,hm_days+1):
         if (df['LONG'].iloc[-i]):
@@ -79,19 +80,16 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     nema = 9
     df['MACD_12_26'], df['MACDSign9'], _ = compute_MACD(df, n_fast, n_slow, nema)
     
-    df['Max6M'] = df['Close'].shift(1).rolling(window = 126).max()
-    df['Min6M'] = df['Close'].shift(1).rolling(window = 126).min()
     
-    df['Max3M'] = df['Close'].shift(1).rolling(window = 63).max()
     
     df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
     
     df['High4D'] = df['High'].shift(1).rolling(window = 4).max()
+    
     df['MID'] = (df['High'] + df['Close']) /2
 #    print('Max 120 days :', max_120)
 #    & (df['Close'] > (df['High'] + df['Low'])/2)
     # df['Volume'] > df['Volume'].shift(1)
-    
     
 #    
 #     HHV(C,5) <1.055* LLV(C,5)
@@ -106,13 +104,12 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
 #    AND RSI(14)>=40
    
     
-   
     
     df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & \
                  ((df['Close']*df['Volume'] >= 3000000)) & (df['RSI'] >=50) &\
                  (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))) &\
-                 (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']> df['High4D'])))
+                 (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
     df['BOTTOM'] = ((df['Close']> df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
@@ -124,7 +121,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
                  (df['Max10D'] > 1.15* df['Close'])
     
     df['Signal'] = 1* (df['Long']) + -1*df['Short']
-    hm_days = 1
+    hm_days = 2
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -152,10 +149,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
 def short_selling(ticker, start, end, realtime = False, source = "cp68"):
        
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
-    
-       
-    
-    
+        
     df['EMA3'] = pd.Series(pd.Series.ewm(df['Close'], span = 3, min_periods = 3-1).mean()) 
     df['EMA6'] = pd.Series(pd.Series.ewm(df['Close'], span = 6, min_periods = 6-1).mean()) 
     df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
@@ -284,7 +278,15 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     
     df['Sideways'] = (df['RSI'] >=40) & (df['Close']*df['Volume'] >= 3000000) & (df['Max5D'] <= 1.055*df['Min5D'])
     
+    df['Max3M'] = df['Close'].shift(1).rolling(window = 63).max()
+    df['Max6M'] = df['Close'].shift(1).rolling(window = 126).max() 
+   
+    df['Max9M'] = df['Close'].shift(1).rolling(window = 189).max() 
+    df['Max12M'] = df['Close'].shift(1).rolling(window = 252).max() 
     
+    df['Min6M'] = df['Close'].shift(1).rolling(window = 126).min()
+    df['Min9M'] = df['Close'].shift(1).rolling(window = 189).min() 
+    df['Min12M'] = df['Close'].shift(1).rolling(window = 252).min() 
     
     return df
 
@@ -297,7 +299,10 @@ def print_statistic(df, i):
     print('  Rate of change last week: ', df['ROC'].iloc[-i])
     print('  Trading value (billion): ', df['Value'].iloc[-i]/1E6)
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
-    print('  Side ways status 1 day before :', df['Sideways'].iloc[-i-1])
+    print('  Side ways status 1 day before: ', df['Sideways'].iloc[-i-1])
+    print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-1],df['Max6M'].iloc[-1], df['Max9M'].iloc[-1], df['Max12M'].iloc[-1])
+    print('  Actual price Close/Low/High/Open: ', df['Close'].iloc[-1], df['Low'].iloc[-1], df['High'].iloc[-1], df['Open'].iloc[-1])
+    print('  PCT_Change last 3 days: ', round(100*df['PCT_Change'].iloc[-i-2],2),round(100*df['PCT_Change'].iloc[-i-1],2), round(100*df['PCT_Change'].iloc[-i],2))
     print('----------------------------------------------------------------')
    
 
