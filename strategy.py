@@ -133,8 +133,11 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
                 print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
                 print_statistic(df, i)
                 back_test = True
-    df['Buy'] = df['Long'] 
+    df['Buy'] = df['Long']
     
+#    back_test = True
+#    if back_test == False:
+#        back_test = df['Buy'].sum() > 0 
     if back_test:        
         df['5Days'] = df['Close'].shift(-5)
         df['10Days'] = df['Close'].shift(-10)

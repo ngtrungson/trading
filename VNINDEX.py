@@ -6,10 +6,60 @@ Created on Fri Dec  8 14:35:57 2017
 """
 import pandas as pd
 from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, \
-                         get_data_from_cophieu68_openwebsite, get_data_from_SSI_website
+                         get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, get_info_stock, analysis_alpha_beta, compute_alpha_beta
 from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, process_data
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
+
+def portfolio_management():
+    df = pd.DataFrame()
+    tickers = ['ANV','BVH','PVB']
+    buy_price = [24, 96.5, 16.5]
+    shares_number = [400,100,600]
+    
+    low_candle = [22.6, 90.5, 15.3]
+    
+    df['Ticker'] = tickers
+    df = df.set_index('Ticker')    
+    df['Buy'] = buy_price
+    df['Cut_loss'] = df['Buy']*0.97
+    df['Target'] = df['Buy']*1.06
+    df['Shares'] = shares_number
+    df['Values'] = df['Buy']*df['Shares']
+    df['Low'] = low_candle
+    df['MinPort'] = df['Low']*df['Shares']
+    df['MaxLoss'] = df['MinPort'] - df['Buy']*df['Shares']
+    #df['']
+    actual_price = []
+    for ticker in tickers:        
+        print(ticker)
+        try:
+            df_temp = get_info_stock(ticker)
+            actual_price.append(df_temp['Close'].iloc[-1]) 
+    #        print(df_temp['Close'].iloc[-1])
+    #        print(df['Target'][ticker])
+            if (df_temp['Close'].iloc[-1] >= df['Target'][ticker]):
+                print(' SELL TARGET signal : actual price:' , df_temp['Close'].iloc[-1], 'target:', df['Target'][ticker])
+            else:
+                if (df_temp['Close'].iloc[-1] <= df['Cut_loss'][ticker]):
+                    print(' CUT_LOSS signal : actual price:' , df_temp['Close'].iloc[-1], 'cut loss: ', df['Cut_loss'][ticker])
+                else:
+                    print(' Continue HOLDING: actual/buy price ratio: ' , df_temp['Close'].iloc[-1]/df['Buy'][ticker])
+        except Exception as e:
+            print(" Error in symbol : ", ticker) 
+            print(e)
+            pass
+    
+    df['Current'] = actual_price
+    df['Port_val'] = df['Current']*df['Shares']
+    df['Diff_val'] = df['Port_val'] - df['Values']
+    portfolio_diff =  df['Diff_val'].sum(axis = 0)
+    
+    print(' Porfolio value :', df['Diff_val'].values, ' Sum: ', portfolio_diff)
+    print(' Max loss:', df['MaxLoss'].sum(axis=0))
+    return df
+    
+
 
 def get_statistic_index(days, start, end, update = False, source = "cp68"):
     benchmark = getliststocks(typestock = "BENCHMARK")
@@ -122,8 +172,8 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-#            hung_canslim(ticker, start, end, realtime = update, source = source)
-            mean_reversion(ticker, start, end, realtime = update, source = source)
+            hung_canslim(ticker, start, end, realtime = update, source = source)
+#            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -163,6 +213,11 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     df_high = get_data(symbols, dates, benchmark = None, colname = '<High>')
     df_low = get_data(symbols, dates, benchmark = None, colname = '<Low>')
     
+#    covariance = numpy.cov(asset , SPY)[0][1]  
+#    variance = numpy.var(asset)
+#    
+#    beta = covariance / variance 
+    
     
     vol_mean = pd.Series(df_volume.mean(),name = 'Volume')
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
@@ -199,6 +254,9 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
     df_result ['Volatility'] = df_data[symbols].pct_change().std() 
     
+    alpha_beta = analysis_alpha_beta(df_data, symbols, market)
+    df_result['Alpha'] = alpha_beta['Alpha']
+    df_result['Beta'] = alpha_beta['Beta']
     
     relative_strength = 40*df_data[symbols].pct_change(periods = 65) \
              + 30*df_data[symbols].pct_change(periods = 130) \
@@ -275,12 +333,17 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     min_low = pd.Series(df_low.min(), name = 'MinLow')
     cpm = pd.Series(max_high/min_low, name = 'CPM')
     volatility = df_data[symbols].pct_change().std()  
+    
     # Fill missing values
             
     df_result['Close'] = df_data[symbols].iloc[-1,:].values    
     df_result['CPM'] = cpm
     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
     df_result ['Volatility'] = volatility
+    
+    alpha_beta = analysis_alpha_beta(df_data, symbols, index = bench)
+    df_result['Alpha'] = alpha_beta['Alpha']
+    df_result['Beta'] = alpha_beta['Beta']
     
 
     return df_result
@@ -301,7 +364,7 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
     
 
-#    ticker = 'PVB'    
+    ticker = 'ACB'    
 #
     end_date = "2018-5-10"
     start_date = "2017-1-2"
@@ -326,15 +389,19 @@ if __name__ == "__main__":
 #    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 ###    plot_canslim_trading(ticker, canslim)
 
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-10", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-11", update = False,  source ="cp68")
 #    
-#    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-9", update = True,  source ="cp68")
+#    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-10", update = True,  source ="cp68")
     
     
 #    symbolsVNI = getliststocks(typestock = "^VNINDEX")
-#    symbolsHNX = getliststocks(typestock = "^HASTC")
-##    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+##    symbolsHNX = getliststocks(typestock = "^HASTC")
+###    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
+#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+#    dates = pd.date_range(start_date, end_date)  # date range as index
+#    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
+#    df_alphabeta = analysis_alpha_beta(df_data, symbols = symbolsVNI, market =  "^VNINDEX" )
+#    port = portfolio_management()
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
 #    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")

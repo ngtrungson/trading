@@ -14,6 +14,8 @@ import requests
 import webbrowser
 import datetime as dt
 import scipy.optimize as spo
+from statsmodels import regression
+import statsmodels.api as sm
 
 
 # Create Pandas data frame for backtrader
@@ -69,7 +71,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all.csv')
+    data.to_csv('fundemental_stocks_all_1105.csv')
     
     
     return tickers
@@ -224,6 +226,45 @@ def get_data(symbols, dates, benchmark = '^VNINDEX', colname = '<CloseFixed>'):
     
     return df_final
 
+def linreg(x,y):
+    # We add a constant so that we can also fit an intercept (alpha) to the model
+    # This just adds a column of 1s to our data
+    x = sm.add_constant(x)
+    model = regression.linear_model.OLS(y,x).fit()
+    # Remove the constant now that we're done
+    x = x[:, 1]
+    return model.params[0], model.params[1]
+
+#alpha, beta = linreg(X,Y)
+
+def analysis_alpha_beta(df_data, symbols, market = '^VNINDEX'):
+    df_result = pd.DataFrame(columns= ['Ticker', 'Alpha', 'Beta'])
+    df_result['Ticker'] = symbols
+    df_result.set_index('Ticker')
+    for ticker in symbols:       
+        alpha, beta = compute_alpha_beta(df = df_data, symbol = ticker, index = market)    
+        if alpha == np.nan:
+            alpha = 0
+        if beta == np.nan:
+            beta = 0    
+        df_result.loc[ticker] = ({'Ticker':ticker, 'Alpha': alpha, 'Beta': beta})
+   
+    df_result.set_index('Ticker')
+    return df_result
+        
+    
+
+def compute_alpha_beta(df, symbol = 'BVH', index = '^VNINDEX'):
+#    covariance = np.cov(df[symbol] , df[index])[0][1] 
+#    variance = np.var(df[index])
+#    beta = covariance / variance 
+    r_a = df[symbol].pct_change()[1:]   
+    r_b = df[index].pct_change()[1:]
+    X = r_b.values # Get just the values, ignore the timestamps
+    Y = r_a.values
+    alpha, beta = linreg(X,Y)
+    
+    return alpha, beta
 
 def compute_daily_returns(df):
     """Compute and return the daily return values."""    
@@ -432,6 +473,10 @@ def optimize_porfolio_markowitz(maindf, symbols):
     return results_frame, max_sharpe_port, min_vol_port 
 
 if __name__ == "__main__":
+     
+     neg_beta = ['AMD', 'ATG', 'DAH', 'DST', 'FRT', 'HMC', 'ITC', 'MCG', 'MST', 'NSH',
+       'PGD', 'PLC', 'SPP', 'TCH', 'TV2', 'VTO'] 
+    
      symbolsHNX = [ 'ALV', 'C69', 'TNG', 'BVS',  'NVB',   "VE9", 
                   'ACB', 'BCC', 'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'SD9', 'HLD', 'NSH', 'DS3',
                   'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',   'PHC', 'PVE', 'PVG', 'PVB',
@@ -470,18 +515,18 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-#     data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
-#     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
-#     data['EPS_Price'] = data['EPS']/data['Close']/1000
-#     df = data.query("MeanVol_10W > 0")
-#     df = df.query("MeanVol_13W > 80000")
-##     df = df.query("FVQ > 0")
-##     df = df.query("CPM > 1.4")
+     data = pd.read_csv('fundemental_stocks_all_1105.csv', parse_dates=True, index_col=0)
+     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
+     data['EPS_Price'] = data['EPS']/data['Close']/1000
+     df = data.query("MeanVol_10W > 50000")
+#     df = df.query("MeanVol_13W > 50000")
+#     df = df.query("FVQ > 0")
+#     df = df.query("CPM > 1.4")
 #     df = df.query("EPS >= 1000")
 #     df = df.query("EPS_52W >= 0")
-##     df = df.query("ROE >= 15")
+#     df = df.query("ROE >= 15")
 #     df = df.query("Close > 4")
-#     df = df.query("Beta < 0.4")
+     df = df.query("Beta < 0")
 #     df = df.query("Beta > 0")
 #     df = df.query("Diff_Price < 0")
 #     df.to_csv('investment_stock3.csv')
