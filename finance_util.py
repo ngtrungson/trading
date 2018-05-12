@@ -121,24 +121,27 @@ def get_info_stock(ticker):
                              'Beta', 
                              'ROE', 
                              'EPS_52W',
-                             'CPM'])
+                             'CPM', 'FVQ','Exchange'])
    
    
 
     value_number = []
-    
+    stockexchange = 'HSX'
     for line in soup.find('div', {'class':'listHeader'}).stripped_strings:
-        line = line.replace(',','').replace('%','')
-        line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','')         
+        line = line.replace(',','').replace('%','').replace(':','').replace(ticker,'').replace(' ','')
+        line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','').replace('(','').replace(')','')       
         if isfloat(line): 
             value_number.append(float(line)) 
-       
-    
+        if ((line == 'HSX')| (line == 'HNX') | (line == 'UPCOM')):
+            stockexchange = line
+     
+#    print(stockexchange)
     for line in soup.find('div', {'id':'snapshot_trading'}).stripped_strings:
         line = line.replace(',','').replace('%','')
         line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','')        
         if isfloat(line): 
             value_number.append(float(line)) 
+#        print(line) 
 #    print(value_number)   
 #    link href="http://www.cophieu68.vn/css/screen.css?date=20180212
 #    for line in soup.find(l)
@@ -165,7 +168,8 @@ def get_info_stock(ticker):
                          'Beta' : value_number[16], 
                          'EPS_52W' : value_number[17],
                          'CPM': value_number[8]/value_number[9],
-                         'FVQ': value_number[13]/value_number[6]*1E6}, ignore_index = True)
+                         'FVQ': value_number[13]/value_number[6]*1E6,
+                         'Exchange': stockexchange}, ignore_index = True)
   
     return df  
     
@@ -239,17 +243,12 @@ def linreg(x,y):
 
 def analysis_alpha_beta(df_data, symbols, market = '^VNINDEX'):
     df_result = pd.DataFrame(columns= ['Ticker', 'Alpha', 'Beta'])
-    df_result['Ticker'] = symbols
-    df_result.set_index('Ticker')
+    
     for ticker in symbols:       
         alpha, beta = compute_alpha_beta(df = df_data, symbol = ticker, index = market)    
-        if alpha == np.nan:
-            alpha = 0
-        if beta == np.nan:
-            beta = 0    
-        df_result.loc[ticker] = ({'Ticker':ticker, 'Alpha': alpha, 'Beta': beta})
+        df_result =  df_result.append({'Ticker':ticker, 'Alpha': alpha, 'Beta': beta},ignore_index = True)
    
-    df_result.set_index('Ticker')
+    df_result = df_result.set_index('Ticker')
     return df_result
         
     
@@ -507,7 +506,7 @@ if __name__ == "__main__":
      
      symbols = pd.unique(symbols).tolist()
      
-#     df_temp = get_info_stock('ACB')
+     df_temp = get_info_stock('TVN')
 # 
 #     data = fundemental_analysis(symbols)
 #    
@@ -515,18 +514,18 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_1105.csv', parse_dates=True, index_col=0)
-     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
-     data['EPS_Price'] = data['EPS']/data['Close']/1000
-     df = data.query("MeanVol_10W > 50000")
-#     df = df.query("MeanVol_13W > 50000")
-#     df = df.query("FVQ > 0")
-#     df = df.query("CPM > 1.4")
-#     df = df.query("EPS >= 1000")
-#     df = df.query("EPS_52W >= 0")
-#     df = df.query("ROE >= 15")
-#     df = df.query("Close > 4")
-     df = df.query("Beta < 0")
+#     data = pd.read_csv('fundemental_stocks_all_1105.csv', parse_dates=True, index_col=0)
+#     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
+#     data['EPS_Price'] = data['EPS']/data['Close']/1000
+#     df = data.query("MeanVol_10W > 50000")
+##     df = df.query("MeanVol_13W > 50000")
+##     df = df.query("FVQ > 0")
+##     df = df.query("CPM > 1.4")
+##     df = df.query("EPS >= 1000")
+##     df = df.query("EPS_52W >= 0")
+##     df = df.query("ROE >= 15")
+##     df = df.query("Close > 4")
+#     df = df.query("Beta < 0")
 #     df = df.query("Beta > 0")
 #     df = df.query("Diff_Price < 0")
 #     df.to_csv('investment_stock3.csv')

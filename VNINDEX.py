@@ -389,17 +389,18 @@ if __name__ == "__main__":
 #    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 ###    plot_canslim_trading(ticker, canslim)
 
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-11", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-11", update = False,  source ="cp68")
 #    
 #    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-10", update = True,  source ="cp68")
     
     
-#    symbolsVNI = getliststocks(typestock = "^VNINDEX")
-##    symbolsHNX = getliststocks(typestock = "^HASTC")
-###    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+    symbolsVNI = getliststocks(typestock = "^VNINDEX")
+#    symbolsHNX = getliststocks(typestock = "^HASTC")
+##    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
+    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
+#    fill_missing_values(df_data)
 #    df_alphabeta = analysis_alpha_beta(df_data, symbols = symbolsVNI, market =  "^VNINDEX" )
 #    port = portfolio_management()
     
