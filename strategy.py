@@ -12,6 +12,51 @@ import datetime
 from collections import Counter
 
 
+def run_backtest(df, ticker):
+    df['5Days'] = df['Close'].shift(-5)
+    df['10Days'] = df['Close'].shift(-10)
+    df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
+    vals = df['Back_test'] .values.tolist()
+    str_vals = [str(i) for i in vals]
+    print('Back test result:', Counter(str_vals), 'symbol: ', ticker)
+    print('*********************************************************************')
+
+def get_statistic_index(days, start, end, update = False, source = "cp68", exchange = "ALL"):
+    
+    benchmark = []
+    if (exchange == "ALL"):
+        benchmark = ["^VNINDEX", "^HASTC", "^UPCOM"]
+    else:
+        benchmark = [exchange]
+   
+    for ticker in benchmark:
+        try:
+            print(' Index information: ', ticker)
+            df = process_data(ticker = ticker, start = start, end = end, realtime = update, source = source)
+            print('  Actual Close/Low/High/Open: ', df['Close'].iloc[-days], df['Low'].iloc[-days], df['High'].iloc[-days], df['Open'].iloc[-days])
+            print('  PCT_Change last 3 days: ', round(100*df['PCT_Change'].iloc[-days-2],2),round(100*df['PCT_Change'].iloc[-days-1],2), round(100*df['PCT_Change'].iloc[-days],2))
+            print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-days]/df['VolMA30'].iloc[-days],2))
+            print('  RSI indicator: ', df['RSI'].iloc[-days])
+            print('  Rate of change last 3 days: ', df['ROC'].iloc[-days])    
+            if ((df['Close'].iloc[-days] > df['EMA18'].iloc[-days] > df['EMA50'].iloc[-days])):
+                print('  Market UPTREND!')
+            else:
+                if ((df['Close'].iloc[-days] < df['EMA18'].iloc[-days] < df['EMA50'].iloc[-days])):
+                    print('  Market DOWNTREND!')
+                else:
+                    print('  Market UNSTABLE!')
+            if (df['MACD_UP'].iloc[-days]):
+                print('  Momentum UP')
+            else:
+                print('  Momentum DOWN')
+            print('----------------------------------------------------------------')
+        except Exception as e:
+            print (e)
+            print("Error in reading symbol: ", ticker)
+            pass
+
+
+
 def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
 
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
@@ -54,19 +99,12 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
         
     df['Buy'] = (df['LONG'])
     
-        
-    
     if back_test:
-        df['5Days'] = df['Close'].shift(-5)
-        df['10Days'] = df['Close'].shift(-10)
-        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
-        vals = df['Back_test'] .values.tolist()
-        str_vals = [str(i) for i in vals]
-        print('Back test mean reversion:', Counter(str_vals), 'symbol: ', ticker)
-        print('*********************************************************************')
+        run_backtest(df, ticker)
+        
     return df
 
-def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
+def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market = "^VNINDEX"):
     
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
@@ -75,16 +113,16 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
     df['SMA30'] = df['Close'].rolling(window=30).mean()
     
     
-    n_fast = 12
-    n_slow = 26
-    nema = 9
-    df['MACD_12_26'], df['MACDSign9'], _ = compute_MACD(df, n_fast, n_slow, nema)
+#    n_fast = 12
+#    n_slow = 26
+#    nema = 9
+#    df['MACD_12_26'], df['MACDSign9'], _ = compute_MACD(df, n_fast, n_slow, nema)
     
     
     
     df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
     
-    df['High4D'] = df['High'].shift(1).rolling(window = 4).max()
+    
     
     df['MID'] = (df['High'] + df['Close']) /2
 #    print('Max 120 days :', max_120)
@@ -110,10 +148,10 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
                  ((df['Close']*df['Volume'] >= 3000000)) & (df['RSI'] >=50) &\
                  (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))) &\
                  (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
-    
+    df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
-    df['BOTTOM'] = ((df['Close']> df['Close'].shift(1)) & (df['Close'] > df['Open']) & \
-                   (df['Close']*df['Volume'] > 10000000) & ((df['RSI'] < 31) | (df['RSI'].shift(1) < df['RSI'])) & (df['ROC'] <-10))
+    df['BOTTOM'] = ((df['Close'] > df['Open']) & \
+                   (df['Close']*df['Volume'] > 10000000) & ((df['RSI'] < 31) | (df['RSI'].shift(1) < df['RSI'])) & (df['ROC4'] <-10))
     
 #    ban = (C < Ref(L,-1)AND C < Ref(L,-2)AND C < Ref(L,-3)AND C < Ref(L,-4))
 #OR HHV(C,10) >1.15*C
@@ -121,7 +159,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
                  (df['Max10D'] > 1.15* df['Close'])
     
     df['Signal'] = 1* (df['Long']) + -1*df['Short']
-    hm_days = 2
+    hm_days = 7
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -129,23 +167,19 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68"):
                 print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
                 print_statistic(df, i)
-        if (df['BOTTOM'].iloc[-i] ):
-                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print_statistic(df, i)
-                back_test = True
+#                get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+#        if (df['BOTTOM'].iloc[-i] ):
+#                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+#                print_statistic(df, i)
+#                back_test = True
+#                get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
     df['Buy'] = df['Long']
     
 #    back_test = True
 #    if back_test == False:
 #        back_test = df['Buy'].sum() > 0 
-    if back_test:        
-        df['5Days'] = df['Close'].shift(-5)
-        df['10Days'] = df['Close'].shift(-10)
-        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
-        vals = df['Back_test'] .values.tolist()
-        str_vals = [str(i) for i in vals]
-        print('Back test canslim:', Counter(str_vals), 'symbol: ', ticker)
-        print('*********************************************************************')
+    if back_test:
+        run_backtest(df, ticker)
 #     
     return df
 
@@ -153,13 +187,7 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
        
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
         
-    df['EMA3'] = pd.Series(pd.Series.ewm(df['Close'], span = 3, min_periods = 3-1).mean()) 
-    df['EMA6'] = pd.Series(pd.Series.ewm(df['Close'], span = 6, min_periods = 6-1).mean()) 
-    df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
-    df['EMA50'] = pd.Series(pd.Series.ewm(df['Close'], span = 50,  min_periods = 50-1).mean()) 
-    df['EMA100'] = pd.Series(pd.Series.ewm(df['Close'], span = 100,  min_periods = 100-1).mean())
-    df['EMA200'] = pd.Series(pd.Series.ewm(df['Close'], span = 200,  min_periods = 200-1).mean())
-
+  
     #((L-XAVGC3)/L) 
     df['PRICE_D'] = (df['Low'] - df['EMA3']) /df['Low']
     n_fast = 3
@@ -267,7 +295,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['Value'] = df['Volume']*df['Close']   
    
     df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
-    df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 3)
 #    df['RSW'] = 0.4* talib.ROC(df['Close'].values, timeperiod = 65) + \
 #    0.3* talib.ROC(df['Close'].values, timeperiod = 130) + \
 #    0.3*talib.ROC(df['Close'].values, timeperiod = 260)
@@ -291,21 +319,49 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['Min9M'] = df['Close'].shift(1).rolling(window = 189).min() 
     df['Min12M'] = df['Close'].shift(1).rolling(window = 252).min() 
     
+    df['High4D'] = df['High'].shift(1).rolling(window = 4).max()
+    
+    df['EMA3'] = pd.Series(pd.Series.ewm(df['Close'], span = 3, min_periods = 3-1).mean()) 
+    df['EMA6'] = pd.Series(pd.Series.ewm(df['Close'], span = 6, min_periods = 6-1).mean()) 
+    df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
+    df['EMA50'] = pd.Series(pd.Series.ewm(df['Close'], span = 50,  min_periods = 50-1).mean()) 
+    df['EMA100'] = pd.Series(pd.Series.ewm(df['Close'], span = 100,  min_periods = 100-1).mean())
+    df['EMA200'] = pd.Series(pd.Series.ewm(df['Close'], span = 200,  min_periods = 200-1).mean())
+    
+    n_fast = 12
+    n_slow = 26
+    nema = 9
+    df['MACD_12_26'], df['Sign12_26_9'], _ = compute_MACD(df, n_fast, n_slow, nema)
+    
+    
+     # MOMENTUM 
+    df['MACD_UP'] = (df['MACD_12_26'] > df['Sign12_26_9'])
+    df['MACD_DOWN'] = (df['MACD_12_26'] < df['Sign12_26_9'])
+    
     return df
 
 def print_statistic(df, i):
-   
-    sddr = df['Close'].pct_change().std()
-    print('  Volatility last week: ', round(df['Volatility'].iloc[-i],2), "over all: ", round(sddr,2), "ratio  :", round(df['Volatility'].iloc[-i]/sddr,2)) 
+#   
+#    sddr = df['Close'].pct_change().std()
+#    print('  Volatility last week: ', round(df['Volatility'].iloc[-i],2), "over all: ", round(sddr,2), "ratio  :", round(df['Volatility'].iloc[-i]/sddr,2)) 
     print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-i]/df['VolMA30'].iloc[-i],2))
     print('  RSI indicator: ', df['RSI'].iloc[-i])
-    print('  Rate of change last week: ', df['ROC'].iloc[-i])
+#    print('  Rate of change last 3 days: ', df['ROC'].iloc[-i])
     print('  Trading value (billion): ', df['Value'].iloc[-i]/1E6)
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
     print('  Side ways status 1 day before: ', df['Sideways'].iloc[-i-1])
-    print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-1],df['Max6M'].iloc[-1], df['Max9M'].iloc[-1], df['Max12M'].iloc[-1])
-    print('  Actual price Close/Low/High/Open: ', df['Close'].iloc[-1], df['Low'].iloc[-1], df['High'].iloc[-1], df['Open'].iloc[-1])
+    print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
+    print('  Actual price Close/Low/High/Open: ', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
     print('  PCT_Change last 3 days: ', round(100*df['PCT_Change'].iloc[-i-2],2),round(100*df['PCT_Change'].iloc[-i-1],2), round(100*df['PCT_Change'].iloc[-i],2))
+    print('  Ratio with price max H4D/3M/6M/9M/12M: ', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i],2),
+                                                       round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i],2),
+                                                       round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i],2),
+                                                       round(df['Close'].iloc[-i]/df['Max9M'].iloc[-i],2),
+                                                       round(df['Close'].iloc[-i]/df['Max12M'].iloc[-i],2))
+    print('  Loss/gain T+3 :', df['ROC'].shift(-3).iloc[-i])
+    T5 = round((df['Close'].shift(-5).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
+    T10 = round((df['Close'].shift(-10).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
+    print('  Back test T+5, T+10:', T5, T10)    
     print('----------------------------------------------------------------')
    
 
@@ -319,12 +375,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['Risk'] = df['R'] /df['Low']
     df['Reward'] = df['Target_SELL']/df['Close']
     
-    df['EMA3'] = pd.Series(pd.Series.ewm(df['Close'], span = 3, min_periods = 3-1).mean()) 
-    df['EMA6'] = pd.Series(pd.Series.ewm(df['Close'], span = 6, min_periods = 6-1).mean()) 
-    df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
-    df['EMA50'] = pd.Series(pd.Series.ewm(df['Close'], span = 50,  min_periods = 50-1).mean()) 
-    df['EMA100'] = pd.Series(pd.Series.ewm(df['Close'], span = 100,  min_periods = 100-1).mean())
-    df['EMA200'] = pd.Series(pd.Series.ewm(df['Close'], span = 200,  min_periods = 200-1).mean())
+  
     
 #    macd, signal, hist = talib.MACD(df['Close'].values, fastperiod=12, slowperiod= 26, signalperiod=9)
 #    MACD = pd.Series(macd,  index = df.index, name = 'MACD_12_26')     
@@ -334,10 +385,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
 #    MACDdiff = pd.Series(hist,  index = df.index, name = 'MACDDiff')
     
     
-    n_fast = 12
-    n_slow = 26
-    nema = 9
-    df['MACD_12_26'], df['MACDSign9'], df['MACDDiff'] = compute_MACD(df, n_fast, n_slow, nema)
+  
           
     df['18_LONG']= (swing_high(df) & check_crossover(df, high = 'Close', low = 'EMA18'))    
 #    & (df['Close'] > df['EMA18']) & (df['C_1d'] > df['EMA18_1d']) & (df['C_2d'] < df['EMA18_2d']))
@@ -392,11 +440,11 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
 #    & (df['EMA3'] < df['EMA6']) & (df['EMA3_1d'] < df['EMA6_1d']) & (df['EMA3_2d'] > df['EMA6_2d'])
 #    & (df['Close'] < df['EMA18']) & (df['C_1d'] < df['EMA18_1d']) & (df['C_2d'] > df['EMA18_2d']))
     
-    df['MACD_SIGNAL_LONG']= (swing_high(df) & check_crossover(df, high = 'MACD_12_26', low = 'MACDSign9'))
+    df['MACD_SIGNAL_LONG']= (swing_high(df) & check_crossover(df, high = 'MACD_12_26', low = 'Sign12_26_9'))
 #    & (df['MACD_12_26'] > df['MACDSign9']) & (df['MACD_12_26_1d'] > df['MACDSign9_1d'])
 #    & (df['MACD_12_26_2d'] < df['MACDSign9_2d']))
     
-    df['MACD_SIGNAL_SHORT']= (swing_low(df) & check_crossover(df, high = 'MACDSign9', low = 'MACD_12_26'))
+    df['MACD_SIGNAL_SHORT']= (swing_low(df) & check_crossover(df, high = 'Sign12_26_9', low = 'MACD_12_26'))
 #    & (df['MACD_12_26'] < df['MACDSign9']) & (df['MACD_12_26_1d'] < df['MACDSign9_1d'])
 #    & (df['MACD_12_26_2d'] > df['MACDSign9_2d']))
         
@@ -411,8 +459,8 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
     df['EMA_UP'] = ((df['EMA18'] > df['EMA50']) & (df['EMA50'] > df['EMA100']) & (df['EMA100'] > df['EMA200']))
     df['EMA_DOWN'] = ((df['EMA18'] < df['EMA50']) & (df['EMA50'] < df['EMA100']) & (df['EMA100'] < df['EMA200']))
     # MOMENTUM
-    df['MACD_UP'] = ((df['MACD_12_26'] > df['MACDSign9']))
-    df['MACD_DOWN'] = ((df['MACD_12_26'] < df['MACDSign9']))
+    df['MACD_UP'] = ((df['MACD_12_26'] > df['Sign12_26_9']))
+    df['MACD_DOWN'] = ((df['MACD_12_26'] < df['Sign12_26_9']))
     
     
     df['L18'] = (df['18_LONG'] & df['MACD_UP']) & df['EMA_UP'] 
@@ -565,44 +613,39 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
        
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
-    
-    df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
+   
     
     n_fast = 3
     n_slow = 6
     nema = 20
-    df['MACD_3_6'], df['MACDSign20'], df['MACDDiff3620'] =  compute_MACD(df, n_fast, n_slow, nema)
+    df['MACD_3_6'], df['Sign3_6_20'], _ =  compute_MACD(df, n_fast, n_slow, nema)
        
         
     n_fast = 50
     n_slow = 100
     nema = 9 
-    df['MACD_50_100'], df['MACDSign9'], df['MACDDiff501009'] = compute_MACD(df, n_fast, n_slow, nema)
+    df['MACD_50_100'], df['Sign50_100_9'], _ = compute_MACD(df, n_fast, n_slow, nema)
     
-    n_fast = 12
-    n_slow = 26
-    nema = 9
-    df['MACD_12_26'], df['MACDSign9_1226'], df['MACDDiff12260'] =  compute_MACD(df, n_fast, n_slow, nema)
-       
+         
 
     # TREND TREND LONG
     df['TT_LONG']= ((df['Close'] > df['EMA18']) 
-    & (df['MACD_3_6'] < df['MACDSign20']) & (df['MACD_3_6'] <0) & (df['MACDSign20'] > 0) 
-    & ((df['MACD_50_100'] > df['MACDSign9']) | (df['MACD_50_100'] > 0.95*df['MACDSign9'])) & (df['MACD_50_100'] > 0))
+    & (df['MACD_3_6'] < df['Sign3_6_20']) & (df['MACD_3_6'] <0) & (df['Sign3_6_20'] > 0) 
+    & ((df['MACD_50_100'] > df['Sign50_100_9']) | (df['MACD_50_100'] > 0.95*df['Sign50_100_9'])) & (df['MACD_50_100'] > 0))
     # TREND TREND SHORT
     df['TT_SHORT']= ((df['Close'] < df['EMA18']) 
-    & (df['MACD_3_6'] > df['MACDSign20']) & (df['MACD_3_6'] > 0) & (df['MACDSign20'] < 0) 
-    & ((df['MACD_50_100'] > df['MACDSign9']) | (df['MACD_50_100'] > 0.95*df['MACDSign9'])) & (df['MACD_50_100'] < 0))
+    & (df['MACD_3_6'] > df['Sign3_6_20']) & (df['MACD_3_6'] > 0) & (df['Sign3_6_20'] < 0) 
+    & ((df['MACD_50_100'] > df['Sign50_100_9']) | (df['MACD_50_100'] > 0.95*df['Sign50_100_9'])) & (df['MACD_50_100'] < 0))
    
     # TREND COUNTER TREND LONG
     df['TCT_LONG']= ((df['Close'] > df['EMA18']) 
-    & (df['MACD_3_6'] < df['MACDSign20']) & (df['MACD_3_6'] <0) & (df['MACDSign20'] > 0) 
-    & ((df['MACD_50_100'] > df['MACDSign9']) | (df['MACD_50_100'] > 0.95*df['MACDSign9'])) & (df['MACD_50_100'] < 0)) 
+    & (df['MACD_3_6'] < df['Sign3_6_20']) & (df['MACD_3_6'] <0) & (df['Sign3_6_20'] > 0) 
+    & ((df['MACD_50_100'] > df['Sign50_100_9']) | (df['MACD_50_100'] > 0.95*df['Sign50_100_9'])) & (df['MACD_50_100'] < 0)) 
     
     # TREND COUNTER TREND SHORT
     df['TCT_SHORT']= ((df['Close'] < df['EMA18']) 
-    & (df['MACD_3_6'] > df['MACDSign20']) & (df['MACD_3_6'] > 0) & (df['MACDSign20'] < 0) 
-    & ((df['MACD_50_100'] > df['MACDSign9']) | (df['MACD_50_100'] > 0.95*df['MACDSign9'])) & (df['MACD_50_100'] > 0))
+    & (df['MACD_3_6'] > df['Sign3_6_20']) & (df['MACD_3_6'] > 0) & (df['Sign3_6_20'] < 0) 
+    & ((df['MACD_50_100'] > df['Sign50_100_9']) | (df['MACD_50_100'] > 0.95*df['Sign50_100_9'])) & (df['MACD_50_100'] > 0))
    
     
     
@@ -674,13 +717,6 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     & (df['High'].shift(1) > df['EMA18'].shift(1)))
     
     
-     # MOMENTUM     
-    n_fast = 12
-    n_slow = 26
-    nema = 9
-    MACD, MACDsign,_ = compute_MACD(df, n_fast, n_slow, nema)
-    df['MACD_UP'] = (MACD > MACDsign)
-    df['MACD_DOWN'] = (MACD < MACDsign)
         
     
     hm_days = 5
@@ -697,13 +733,9 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     
 
     back_test = df['Buy'].sum() > 0 
-    if back_test:        
-        df['5Days'] = df['Close'].shift(-5)
-        df['10Days'] = df['Close'].shift(-10)
-        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
-        vals = df['Back_test'] .values.tolist()
-        str_vals = [str(i) for i in vals]
-        print('Back test hedge fund:', Counter(str_vals), 'symbol: ', ticker)
+    if back_test:
+        run_backtest(df, ticker)
+        
     return df
 
 def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
@@ -733,13 +765,8 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
             print_statistic(df, i)
 #    df['Buy'] =  (df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)) & (df['Close'].shift(-1) > df['Open'].shift(-1))
 #    back_test = df['Buy'].sum() > 0 
-#    if back_test:        
-#        df['5Days'] = df['Close'].shift(-5)
-#        df['10Days'] = df['Close'].shift(-10)
-#        df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close'])  ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))        
-#        vals = df['Back_test'] .values.tolist()
-#        str_vals = [str(i) for i in vals]
-#        print('Back test bollinger bands:', Counter(str_vals), 'symbol: ', ticker)
+#   if back_test:
+#        run_backtest(df)
 #    
     return df
 

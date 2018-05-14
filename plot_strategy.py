@@ -156,7 +156,7 @@ def plot_ninja_trading(ticker, df):
 #    df['MACDDiff'] = MACDdiff
     
     ax2.plot(df_ohlc['Date'], df['MACD_12_26'].values, color='green', lw=1)
-    ax2.plot(df_ohlc['Date'], df['MACDSign9'].values, color='red', lw=1)
+    ax2.plot(df_ohlc['Date'], df['Sign12_26_9'].values, color='red', lw=1)
 #    ax2.fill_between(df_ohlc['Date'], df['MACDDiff'].values, 0, alpha=0.5, facecolor=fillcolor, edgecolor=fillcolor)
     ax2.axhline(0, color = 'gray', linewidth=1, linestyle = '--')
 #    ax2.grid(True, color ='gray', linestyle = '--')
@@ -241,7 +241,7 @@ def plot_hedgefund_trading(ticker, df):
     negCol = '#8f2020'
     
     ax0.plot(df_ohlc['Date'], df['MACD_3_6'].values, color='green', lw=1)
-    ax0.plot(df_ohlc['Date'], df['MACDSign20'].values, color='red', lw=1)
+    ax0.plot(df_ohlc['Date'], df['Sign3_6_20'].values, color='red', lw=1)
 #    ax0.fill_between(df_ohlc['Date'], df['MACDDiff3620'].values, 0, alpha=0.5, facecolor=fillcolor, edgecolor=fillcolor)
     ax0.axhline(0, color = 'gray', linewidth=1, linestyle = '--')
 #    ax0.yaxis.label.set_color("w")
@@ -293,7 +293,7 @@ def plot_hedgefund_trading(ticker, df):
 #    df['MACDDiff'] = MACDdiff
     
     ax2.plot(df_ohlc['Date'], df['MACD_50_100'].values, color='green', lw=1)
-    ax2.plot(df_ohlc['Date'], df['MACDSign9'].values, color='red', lw=1)
+    ax2.plot(df_ohlc['Date'], df['Sign50_100_9'].values, color='red', lw=1)
 #    ax2.fill_between(df_ohlc['Date'], df['MACDDiff501009'].values, 0, alpha=0.5, facecolor=fillcolor, edgecolor=fillcolor)
     ax2.axhline(0, color = 'gray', linewidth=1, linestyle = '--')
 #    ax2.grid(True, color ='gray', linestyle = '--')
@@ -471,7 +471,7 @@ def plot_shortselling_trading(ticker, df):
     negCol = '#8f2020'
     
     ax0.plot(df_ohlc['Date'], df['MACD_3_6'].values, color='darkcyan', lw=1)
-    ax0.plot(df_ohlc['Date'], df['MACDSign369'].values, color='red', lw=1)
+    ax0.plot(df_ohlc['Date'], df['Sign3_6_9'].values, color='red', lw=1)
 #    ax0.fill_between(df_ohlc['Date'], df['MACDDiff3620'].values, 0, alpha=0.5, facecolor=fillcolor, edgecolor=fillcolor)
     ax0.axhline(0, color = 'gray', linewidth=1, linestyle = '--')
 #    ax0.yaxis.label.set_color("w")
@@ -523,7 +523,7 @@ def plot_shortselling_trading(ticker, df):
 #    df['MACDDiff'] = MACDdiff
     
     ax2.plot(df_ohlc['Date'], df['MACD_12_26'].values, color='darkcyan', lw=1)
-    ax2.plot(df_ohlc['Date'], df['MACDSign12269'].values, color='red', lw=1)
+    ax2.plot(df_ohlc['Date'], df['Sign12_26_9'].values, color='red', lw=1)
 #    ax2.fill_between(df_ohlc['Date'], df['MACDDiff501009'].values, 0, alpha=0.5, facecolor=fillcolor, edgecolor=fillcolor)
     ax2.axhline(0, color = 'gray', linewidth=1, linestyle = '--')
 #    ax2.grid(True, color ='gray', linestyle = '--')
@@ -711,7 +711,7 @@ def plot_canslim_trading(ticker, df):
 #    df['MACDDiff'] = MACDdiff
     
     ax2.plot(df_ohlc['Date'], df['MACD_12_26'].values, color='green', lw=1)
-    ax2.plot(df_ohlc['Date'], df['MACDSign9'].values, color='red', lw=1)
+    ax2.plot(df_ohlc['Date'], df['Sign12_26_9'].values, color='red', lw=1)
 #    ax2.fill_between(df_ohlc['Date'], df['MACDDiff'].values, 0, alpha=0.5, facecolor=fillcolor, edgecolor=fillcolor)
     ax2.axhline(0, color = 'gray', linewidth=1, linestyle = '--')
 #    ax2.grid(True, color ='gray', linestyle = '--')
