@@ -89,7 +89,7 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
     
     df['Signal'] = 1*(df['LONG'])
     
-    hm_days = 2
+    hm_days = 5
     back_test = False
     for i in range(1,hm_days+1):
         if (df['LONG'].iloc[-i]):
@@ -104,7 +104,7 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
         
     return df
 
-def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market = "^VNINDEX"):
+def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market = None):
     
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
@@ -159,7 +159,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Max10D'] > 1.15* df['Close'])
     
     df['Signal'] = 1* (df['Long']) + -1*df['Short']
-    hm_days = 7
+    hm_days = 3
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -167,7 +167,8 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
                 print_statistic(df, i)
-#                get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 #        if (df['BOTTOM'].iloc[-i] ):
 #                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
 #                print_statistic(df, i)
@@ -300,9 +301,9 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
 #    0.3* talib.ROC(df['Close'].values, timeperiod = 130) + \
 #    0.3*talib.ROC(df['Close'].values, timeperiod = 260)
     
-    df['RSW'] = 40*df['Close'].pct_change(periods = 65) \
-             + 30*df['Close'].pct_change(periods = 130) \
-             + 30*df['Close'].pct_change(periods = 260) 
+    df['RSW'] = 40*df['Close'].pct_change(periods = 65).fillna(0) \
+             + 30*df['Close'].pct_change(periods = 130).fillna(0) \
+             + 30*df['Close'].pct_change(periods = 260).fillna(0) 
              
     df['Max5D'] = df['Close'].shift(1).rolling(window = 5).max() 
     df['Min5D'] = df['Close'].shift(1).rolling(window = 5).min()

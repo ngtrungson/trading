@@ -317,8 +317,8 @@ def testcode():
      # get AAPL between the in-sample dates set as default
     data = get_data_trading(ticker, start_date, end_date)
     
-    holdTime = 5 # in days
-    smaWindow = 60
+    holdTime = 21 # in days
+    smaWindow = 50
     smaIndicator  = getSmaIndicator(data, smaWindow = smaWindow)
     smaThreshold = 0.012 #0.012 # optimized value on manual trading strategy 1
     # generate a buy signal (1) if price falls significantly below sma
@@ -341,7 +341,7 @@ def testcode():
                      (standardize(data['Close']).diff(1) < -bbThreshold)) + \
                  1 * ((bbIndicator < -1) & \
                      (standardize(data['Close']).diff(1) > bbThreshold))
-    crossWindow = 25             
+    crossWindow = 18             
     crossIndicator = getCrossIndicator(data, crossWindow = crossWindow)
     crossThreshold = 0.08 #0.08 # optimized value on manual trading strategy 1
     # generate a buy/sell signal if indicator is close to 0.5/-0.5
@@ -357,10 +357,10 @@ def testcode():
     df_orders = createOrderDf(order)  
     prices_symbol = compute_portvals_margin_vn(start_date, end_date, df_orders, start_val = investment, market = "^HASTC")
     
-    return order
+#    return order
 
     portVals = prices_symbol['Port Val']
-    print('Cumulative return [%]: ', round(cumReturn * 100, 4) )
+#    print('Cumulative return [%]: ', round(cumReturn * 100, 4) )
     
     order_opt = bestPossibleStrategy(data)    
     df_orders_opt = createOrderDf(order_opt)  

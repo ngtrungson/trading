@@ -71,7 +71,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_1105.csv')
+    data.to_csv('fundemental_stocks_all_1405.csv')
     
     
     return tickers
@@ -132,7 +132,8 @@ def get_info_stock(ticker):
         line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','').replace('(','').replace(')','')       
         if isfloat(line): 
             value_number.append(float(line)) 
-        if ((line == 'HSX')| (line == 'HNX') | (line == 'UPCOM')):
+         
+        if ((line == 'HSX')| (line == 'HNX') | (line == 'UPCOM') | (line == 'HOSE')):
             stockexchange = line
      
 #    print(stockexchange)
@@ -506,7 +507,7 @@ if __name__ == "__main__":
      
      symbols = pd.unique(symbols).tolist()
      
-     df_temp = get_info_stock('TVN')
+     df_temp = get_info_stock('BVH')
 # 
 #     data = fundemental_analysis(symbols)
 #    
@@ -514,16 +515,18 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-#     data = pd.read_csv('fundemental_stocks_all_1105.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_1405.csv', parse_dates=True, index_col=0)
 #     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
 #     data['EPS_Price'] = data['EPS']/data['Close']/1000
-#     df = data.query("MeanVol_10W > 50000")
-##     df = df.query("MeanVol_13W > 50000")
+     
+     df = data.query("MeanVol_10W > 50000")
+     df = df.query("MeanVol_13W > 50000")
+#     df = df.query("MeanVol_10W > 0")
 ##     df = df.query("FVQ > 0")
 ##     df = df.query("CPM > 1.4")
-##     df = df.query("EPS >= 1000")
+     df = df.query("EPS >= 1000")
 ##     df = df.query("EPS_52W >= 0")
-##     df = df.query("ROE >= 15")
+     df = df.query("ROE >= 10")
 ##     df = df.query("Close > 4")
 #     df = df.query("Beta < 0")
 #     df = df.query("Beta > 0")
@@ -531,11 +534,11 @@ if __name__ == "__main__":
 #     df.to_csv('investment_stock3.csv')
 #     print(df.index)
      
-#     listA = symbols
-#     listB = df.index.tolist()
-#     common = list(set(listA) & set(listB))
-#     listC = list(set(listB).difference(set(listA)))
-    
+     listA = symbols
+     listB = data.index.tolist()
+     common = list(set(listA) & set(listB))
+     listC = list(set(listB).difference(set(listA)))
+     df2 = data.loc[symbols]
      
      
 
