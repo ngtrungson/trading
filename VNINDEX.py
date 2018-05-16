@@ -13,17 +13,17 @@ from machine_learning import price_predictions, ML_strategy
 
 def portfolio_management():
     df = pd.DataFrame()
-    tickers = ['ANV','BVH','PVB']
-    buy_price = [24, 96.9, 16.5]
-    shares_number = [400,100,600]
+    tickers = ['ANV','BVH','PVB','PHC']
+    buy_price = [24, 96.9, 16.5, 19.5]
+    shares_number = [400,100,600, 500]
     
-    low_candle = [22.6, 90.5, 15.3]
+    low_candle = [22.6, 90.5, 15.3, 18.9]
     
     df['Ticker'] = tickers
     df = df.set_index('Ticker')    
     df['Buy'] = buy_price
     df['Cut_loss'] = df['Buy']*0.97
-    df['Target'] = df['Buy']*1.06
+    df['Target'] = df['Buy']*1.2
     df['Shares'] = shares_number
     df['Values'] = df['Buy']*df['Shares']
     df['Low'] = low_candle
@@ -44,7 +44,7 @@ def portfolio_management():
                 if (df_temp['Close'].iloc[-1] <= df['Cut_loss'][ticker]):
                     print(' CUT_LOSS signal : actual price:' , df_temp['Close'].iloc[-1], 'cut loss: ', df['Cut_loss'][ticker])
                 else:
-                    print(' Continue HOLDING : actual price:', df_temp['Close'].iloc[-1], ' actual/buy ratio: ' , round(df_temp['Close'].iloc[-1]/df['Buy'][ticker],2))
+                    print(' Continue HOLDING : actual price:', df_temp['Close'].iloc[-1], ' actual/buy ratio: ' , round(df_temp['Close'].iloc[-1]/df['Buy'][ticker],3))
         except Exception as e:
             print(" Error in symbol : ", ticker) 
             print(e)
@@ -241,9 +241,9 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     df_result['Alpha'] = alpha_beta['Alpha']
     df_result['Beta'] = alpha_beta['Beta']
     
-    relative_strength = 40*df_data[symbols].pct_change(periods = 65) \
-             + 30*df_data[symbols].pct_change(periods = 130) \
-             + 30*df_data[symbols].pct_change(periods = 260)     
+    relative_strength = 40*df_data[symbols].pct_change(periods = 65).fillna(0) \
+             + 30*df_data[symbols].pct_change(periods = 130).fillna(0) \
+             + 30*df_data[symbols].pct_change(periods = 260).fillna(0)     
     
     df_result ['RSW'] = relative_strength.iloc[-1,:].values
 
@@ -305,7 +305,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-5-8"
+    end_date = "2018-5-15"
     start_date = "2018-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
@@ -341,11 +341,16 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
     df_result ['Volatility'] = volatility
     
-    alpha_beta = analysis_alpha_beta(df_data, symbols, index = bench)
+    alpha_beta = analysis_alpha_beta(df_data, symbols, market = bench)
     df_result['Alpha'] = alpha_beta['Alpha']
     df_result['Beta'] = alpha_beta['Beta']
     
-
+    relative_strength = 40*df_data[symbols].pct_change(periods = 65).fillna(0) \
+             + 30*df_data[symbols].pct_change(periods = 130).fillna(0) \
+             + 30*df_data[symbols].pct_change(periods = 260).fillna(0)     
+    
+    df_result ['RSW'] = relative_strength.iloc[-1,:].values
+   
     return df_result
     
 
@@ -385,28 +390,28 @@ if __name__ == "__main__":
 ##    
 ##    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
 ##    
-    canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", market = "^HASTC") 
+#    canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", market = "^HASTC") 
 #    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 ###    plot_canslim_trading(ticker, canslim)
 
     RSWlist= ['NVB','VGS','PHC','ACB', 'HLD', 'MBS', 'TTB', 'NDN', 
               'HPG', 'CTG', 'GEX','VCI', 'CTG', 'GEX', 'DIG', 'MBB', 'DGW', 'BVH', 'VND', 'BID', 'HCM',
               'VJC', 'PAN', 'MSN', 'GAS', 'TCH', 'DXG', 'PNJ', 'IDI', 'VIC', 'ANV']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-15", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-16", update = False,  source ="cp68")
 #    
 #    
     
     
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
-##    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
+#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^UPCOM")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
 #    fill_missing_values(df_data)
 #    df_alphabeta = analysis_alpha_beta(df_data, symbols = symbolsVNI, market =  "^VNINDEX" )
-#    port = portfolio_management()
+    port = portfolio_management()
 #    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-14", update = True,  source ="cp68")
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
