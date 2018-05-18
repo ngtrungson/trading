@@ -13,11 +13,12 @@ from machine_learning import price_predictions, ML_strategy
 
 def portfolio_management():
     df = pd.DataFrame()
-    tickers = ['ANV','BVH','PVB','PHC']
-    buy_price = [24, 96.9, 16.5, 19.5]
-    shares_number = [400,100,600, 500]
+    tickers = ['ANV','BVH','PHC','HLD','GEX', 'TVN']
+    # chu y xu ly cac CP nhu PVS (co kha nang thoat hang), ACB, MBS, NVB(ngam lau dai doi thoi),  (HAR, DVN, VIX): sieu lo
+    buy_price = [23.7, 96.9, 19.5, 18.6, 38.8, 10.65]
+    shares_number = [400, 100, 500, 500, 260, 1900]
     
-    low_candle = [22.6, 90.5, 15.3, 18.9]
+    low_candle = [22.3, 90.5, 18.9, 15.9, 37, 10]
     
     df['Ticker'] = tickers
     df = df.set_index('Ticker')    
@@ -156,7 +157,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
             hung_canslim(ticker, start, end, realtime = update, source = source)
-#            mean_reversion(ticker, start, end, realtime = update, source = source)
+            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -305,7 +306,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-5-15"
+    end_date = "2018-5-18"
     start_date = "2018-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
@@ -369,9 +370,9 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
     
 
-    ticker = 'PHC'    
+    ticker = 'DGW'    
 #
-    end_date = "2018-5-15"
+    end_date = "2018-5-18"
     start_date = "2017-1-2"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -397,7 +398,7 @@ if __name__ == "__main__":
     RSWlist= ['NVB','VGS','PHC','ACB', 'HLD', 'MBS', 'TTB', 'NDN', 
               'HPG', 'CTG', 'GEX','VCI', 'CTG', 'GEX', 'DIG', 'MBB', 'DGW', 'BVH', 'VND', 'BID', 'HCM',
               'VJC', 'PAN', 'MSN', 'GAS', 'TCH', 'DXG', 'PNJ', 'IDI', 'VIC', 'ANV']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-16", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-18", update = False,  source ="cp68")
 #    
 #    
     
@@ -405,7 +406,7 @@ if __name__ == "__main__":
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
 #    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^UPCOM")
+    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol

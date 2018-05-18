@@ -12,14 +12,19 @@ import datetime
 from collections import Counter
 
 
-def run_backtest(df, ticker):
+def run_backtest(df, ticker, typetrade = 'Long'):
+    if (typetrade == 'Long'):
+        df['Buy'] = df['Long']
+    else:
+        if (typetrade == 'Bottom'):
+            df['Buy'] = df['Bottom']
     df['5Days'] = df['Close'].shift(-5)
     df['10Days'] = df['Close'].shift(-10)
     df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
     vals = df['Back_test'] .values.tolist()
     str_vals = [str(i) for i in vals]
     print('Back test result:', Counter(str_vals), 'symbol: ', ticker)
-    print('*********************************************************************')
+    print('***************************************************************')
 
 def get_statistic_index(days, start, end, update = False, source = "cp68", exchange = "ALL"):
     
@@ -57,7 +62,7 @@ def get_statistic_index(days, start, end, update = False, source = "cp68", excha
 
 
 
-def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
+def mean_reversion(ticker, start, end, realtime = False, source = "cp68", market = None):
 
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
@@ -73,7 +78,7 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
     df['MACD_12_26'], df['MACDSign9'], _ = compute_MACD(df, n_fast, n_slow, nema)
     
     
-    df['LONG']= ((df['Close'] > 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])
+    df['Long']= ((df['Close'] > 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])
     & (df['MACD_3_6'].shift(1) < df['MACDSign20'].shift(1)) & (df['RSI'] >=50)
     & ((df['MACD_3_6'] > df['MACDSign20']) | ((df['MACD_3_6'] > 0)  & (df['MACD_3_6'].shift(1) <0)))
     & ((df['Close']*df['Volume'] >= 3000000) | ((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))))
@@ -87,18 +92,18 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68"):
     # (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']> df['Max4D'])))
     #
     
-    df['Signal'] = 1*(df['LONG'])
+    df['Signal'] = 1*(df['Long'])
     
-    hm_days = 5
+    hm_days = 2
     back_test = False
     for i in range(1,hm_days+1):
-        if (df['LONG'].iloc[-i]):
+        if (df['Long'].iloc[-i]):
             print(" Mean reversion trading ", str(i), "days before ", df.iloc[-i].name , ticker)
             print_statistic(df, i)
             back_test = True
-        
-    df['Buy'] = (df['LONG'])
-    
+            if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+
     if back_test:
         run_backtest(df, ticker)
         
@@ -150,8 +155,10 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
-    df['BOTTOM'] = ((df['Close'] > df['Open']) & \
-                   (df['Close']*df['Volume'] > 10000000) & ((df['RSI'] < 31) | (df['RSI'].shift(1) < df['RSI'])) & (df['ROC4'] <-10))
+    df['Bottom'] = ((df['Close'] > df['Open']) & (df['Close']*df['Volume'] > 10000000) & 
+#                  ((df['RSI'] < 31) | ((df['RSI'].shift(1) < df['RSI']) & df['RSI'].shift(1) < 31)) & 
+                  ((df['RSI'] < 31) | (df['RSI'].shift(1) < 31)) & (df['RSI'].shift(1) < df['RSI']) &
+                  ((df['ROC4'] <-10)| (df['ROC'] <-10)))
     
 #    ban = (C < Ref(L,-1)AND C < Ref(L,-2)AND C < Ref(L,-3)AND C < Ref(L,-4))
 #OR HHV(C,10) >1.15*C
@@ -169,18 +176,19 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 print_statistic(df, i)
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-#        if (df['BOTTOM'].iloc[-i] ):
+#        if (df['Bottom'].iloc[-i] ):
 #                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
 #                print_statistic(df, i)
 #                back_test = True
-#                get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-    df['Buy'] = df['Long']
+#                if (market != None):
+#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+#   
     
 #    back_test = True
 #    if back_test == False:
 #        back_test = df['Buy'].sum() > 0 
     if back_test:
-        run_backtest(df, ticker)
+        run_backtest(df, ticker, typetrade = 'Bottom')
 #     
     return df
 
