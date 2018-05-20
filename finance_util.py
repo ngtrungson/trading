@@ -71,7 +71,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_1405.csv')
+    data.to_csv('fundemental_stocks_all_1905.csv')
     
     
     return tickers
@@ -477,31 +477,31 @@ if __name__ == "__main__":
      neg_beta = ['AMD', 'ATG', 'DAH', 'DST', 'FRT', 'HMC', 'ITC', 'MCG', 'MST', 'NSH',
        'PGD', 'PLC', 'SPP', 'TCH', 'TV2', 'VTO'] 
     
-     symbolsHNX = [ 'ALV', 'C69', 'TNG', 'BVS',  'NVB',   "VE9", 
-                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'SD9', 'HLD', 'NSH', 'DS3',
+     symbolsHNX = [ 'ALV',  'TNG', 'BVS',  'NVB',   "VE9", 
+                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'SD9', 'HLD', 'HHG', 'NSH', 'DS3',
                   'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',   'PHC', 'PVE', 'PVG', 'PVB',
                   'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC', 'SPP',
                  'VKC', 'VPI', 'NBC', 'VGS']
     
-     symbolsVNI = [ 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
+     symbolsVNI = [ 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 'CEE',
                   'BCG', "BFC", "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CHP', 'C47', 
                "DCM","DHG", "DIG",  "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
                "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
-                'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 
+                'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 'HCD',
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
                'IDI', "IJC",  "KBC", "KSB",  "KDH", "KDC", 
-               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB",
+               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB", 'NAF',
                 "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
                 "PPC", "PAC", 'QBS', "QCG", "REE",  
                 'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
                 "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
                 'ITC','LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
-                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  'SRC',
-                'EIB','BHN','VPB','VRE','ROS',"VND", "HDB",  "SMC", "C32","CVT",'VPH','VNG','VIP',
-                'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST', 'AST','DAG', 'HAH']
+                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  'SRC', 'TLD', 'PMG',
+                'EIB','VPB','VRE','ROS',"VND", "HDB",  "SMC", "C32","CVT",'VPH','VNG','VIP',
+                'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST','DAG', 'HAH']
     
-     symbolsUPCOM = ['TBD', 'LPB', 'QNS', 'RCC',  'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
-                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MVC', 'MCH']
+     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
+                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MVC','MCH']
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
      
@@ -515,7 +515,7 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_1405.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_1905.csv', parse_dates=True, index_col=0)
 #     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
 #     data['EPS_Price'] = data['EPS']/data['Close']/1000
      
@@ -535,7 +535,7 @@ if __name__ == "__main__":
 #     print(df.index)
      
      listA = symbols
-     listB = data.index.tolist()
+     listB = df.index.tolist()
      common = list(set(listA) & set(listB))
      listC = list(set(listB).difference(set(listA)))
      df2 = data.loc[symbols]

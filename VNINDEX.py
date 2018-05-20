@@ -66,6 +66,25 @@ def portfolio_management():
 
 def getliststocks(typestock = "^VNINDEX"):
     benchmark = ["^VNINDEX", "^HASTC", "^UPCOM"]
+    
+    nganhang = ['ACB','CTG','VPB','VCB','NVB', 'LPB', 'VIB', 'BID','HDB', 'EIB', 'MBB', 'SHB', 'STB']
+    
+    thuysan = ['VHC', 'ANV']
+    daukhi = ['PVS','PVD','PVB','PLX', 'BSR', 'POW','TDG','GAS']
+    batdongsan =['HAR', 'HLD', 'DXG', 'NVL', 'KDH', 'CEO', 'VIC','NDN','PDR','VPI', 'VRE','ASM','EVG','NBB' ]
+    chungkhoan = ['HCM', 'SSI', 'VND', 'TVB','TVS', 'BVS','MBS','FTS', 'HCM', 'VIX', 'ART','SHS', 'VCI']
+    baohiem = ['BVH', 'BMI']
+    xaydung = ['CTD', 'HBC', 'PHC','ROS','FLC','VMC']
+    duocpham = ['DVN', 'DHG']
+    hangkhong = ['HVN','VJC']
+    thep = ['TVN', 'HPG']
+    cntt = ['MWG', 'FPT']
+    nhua = ['BMP']
+    vatlieuxd = ['VCS']
+    caosu = ['PHR', 'DRC']
+    anuong = ['VNM', 'SAB']
+    
+    
     symbolsHNX = [ 'ALV',  'TNG', 'BVS',  'NVB',   "VE9", 
                   'ACB', 'BCC', 'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'SD9', 'HLD', 'HHG', 'NSH', 'DS3',
                   'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',   'PHC', 'PVE', 'PVG', 'PVB',
@@ -82,12 +101,12 @@ def getliststocks(typestock = "^VNINDEX"):
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB", 'NAF',
                 "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
                 "PPC", "PAC", 'QBS', "QCG", "REE",  
-                'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
+                'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
                 "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
                 'ITC','LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
                 'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  'SRC',
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "SMC", "C32","CVT",'VPH','VNG','VIP',
-                'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST', 'AST','DAG', 'HAH']
+                'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST','DAG', 'HAH']
     
     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
                     'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MVC','MCH']
@@ -157,7 +176,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
             hung_canslim(ticker, start, end, realtime = update, source = source)
-            mean_reversion(ticker, start, end, realtime = update, source = source)
+#            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -396,9 +415,10 @@ if __name__ == "__main__":
 ###    plot_canslim_trading(ticker, canslim)
 
     RSWlist= ['NVB','VGS','PHC','ACB', 'HLD', 'MBS', 'TTB', 'NDN', 
-              'HPG', 'CTG', 'GEX','VCI', 'CTG', 'GEX', 'DIG', 'MBB', 'DGW', 'BVH', 'VND', 'BID', 'HCM',
+              'HPG', 'CTG', 'GEX','VCI', 'CTG', 'GEX', 'DIG', 'MBB', 'DGW', 
+              'BVH', 'VND', 'BID', 'HCM',
               'VJC', 'PAN', 'MSN', 'GAS', 'TCH', 'DXG', 'PNJ', 'IDI', 'VIC', 'ANV']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-18", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-18", update = False,  source ="cp68")
 #    
 #    
     
@@ -406,13 +426,13 @@ if __name__ == "__main__":
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
 #    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
+#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
 #    fill_missing_values(df_data)
 #    df_alphabeta = analysis_alpha_beta(df_data, symbols = symbolsVNI, market =  "^VNINDEX" )
-    port = portfolio_management()
+#    port = portfolio_management()
 #    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-14", update = True,  source ="cp68")
     
 #    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']

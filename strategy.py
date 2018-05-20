@@ -154,6 +154,16 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))) &\
                  (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    
+    
+    
+#    df['Outperform'] = ((df['Close'].shift(1)> df['Open'].shift(1)) & (df['Close'] > df['Open'])  & \
+#                 (df['ROC'] >= 2) & \
+#                 ((df['Close']*df['Volume'] >= 2000000)) & (df['RSI'] >=45) &\
+#                 ((df['Volume'] > df['Volume'].shift(1))) &\
+#                 (df['Close'] > df['SMA30']))
+  
+    
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
     df['Bottom'] = ((df['Close'] > df['Open']) & (df['Close']*df['Volume'] > 10000000) & 
 #                  ((df['RSI'] < 31) | ((df['RSI'].shift(1) < df['RSI']) & df['RSI'].shift(1) < 31)) & 
@@ -178,6 +188,13 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 #        if (df['Bottom'].iloc[-i] ):
 #                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+#                print_statistic(df, i)
+#                back_test = True
+#                if (market != None):
+#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+#   
+#        if (df['Outperform'].iloc[-i] ):
+#                print(" Outperform filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
 #                print_statistic(df, i)
 #                back_test = True
 #                if (market != None):
@@ -303,15 +320,16 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['PCT_Change'] = df['Close'].pct_change()
     df['Value'] = df['Volume']*df['Close']   
    
-    df['RSI'] = talib.RSI(df['Close'].values, timeperiod=14)
+    df['RSI'] = talib.RSI(df['Close'].values, timeperiod = 14)
     df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 3)
 #    df['RSW'] = 0.4* talib.ROC(df['Close'].values, timeperiod = 65) + \
 #    0.3* talib.ROC(df['Close'].values, timeperiod = 130) + \
 #    0.3*talib.ROC(df['Close'].values, timeperiod = 260)
     
-    df['RSW'] = 40*df['Close'].pct_change(periods = 65).fillna(0) \
-             + 30*df['Close'].pct_change(periods = 130).fillna(0) \
-             + 30*df['Close'].pct_change(periods = 260).fillna(0) 
+    df['RSW'] = 40*df['Close'].pct_change(periods = 63).fillna(0) \
+             + 20*df['Close'].pct_change(periods = 126).fillna(0) \
+             + 20*df['Close'].pct_change(periods = 189).fillna(0) \
+             + 20*df['Close'].pct_change(periods = 252).fillna(0) 
              
     df['Max5D'] = df['Close'].shift(1).rolling(window = 5).max() 
     df['Min5D'] = df['Close'].shift(1).rolling(window = 5).min()
