@@ -110,7 +110,7 @@ def get_info_stock(ticker):
                              'High', 
                              'Volume',
                              'MeanVol_13W', 
-                             'MeanVol_10W',
+                             'MeanVol_10D',
                              'High52W', 
                              'Low52W', 
                              'EPS', 
@@ -157,7 +157,7 @@ def get_info_stock(ticker):
                          'High': value_number[4], 
                          'Volume': value_number[5],
                          'MeanVol_13W' : value_number[6], 
-                         'MeanVol_10W' : value_number[7],
+                         'MeanVol_10D' : value_number[7],
                          'High52W' : value_number[8], 
                          'Low52W' : value_number[9], 
                          'EPS' : value_number[10]*1E3, 
@@ -519,14 +519,14 @@ if __name__ == "__main__":
 #     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
 #     data['EPS_Price'] = data['EPS']/data['Close']/1000
      
-     df = data.query("MeanVol_10W > 50000")
-     df = df.query("MeanVol_13W > 50000")
-#     df = df.query("MeanVol_10W > 0")
+     df = data.query("MeanVol_13W > 50000")
+     df = df.query("MeanVol_10D> 50000")
+#     df = df.query("MeanVol_10D > 0")
 ##     df = df.query("FVQ > 0")
 ##     df = df.query("CPM > 1.4")
      df = df.query("EPS >= 1000")
 ##     df = df.query("EPS_52W >= 0")
-     df = df.query("ROE >= 10")
+     df = df.query("ROE >= 8")
 ##     df = df.query("Close > 4")
 #     df = df.query("Beta < 0")
 #     df = df.query("Beta > 0")

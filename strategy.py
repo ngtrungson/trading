@@ -180,18 +180,18 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
 
     back_test = False
     for i in range(1,hm_days+1):
-        if (df['Long'].iloc[-i] ):
-                print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
-                back_test = True
-                print_statistic(df, i)
-                if (market != None):
-                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-#        if (df['Bottom'].iloc[-i] ):
-#                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-#                print_statistic(df, i)
+#        if (df['Long'].iloc[-i] ):
+#                print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
 #                back_test = True
+#                print_statistic(df, i)
 #                if (market != None):
 #                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+        if (df['Bottom'].iloc[-i] ):
+                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 #   
 #        if (df['Outperform'].iloc[-i] ):
 #                print(" Outperform filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
