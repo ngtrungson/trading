@@ -13,12 +13,12 @@ from machine_learning import price_predictions, ML_strategy
 
 def portfolio_management():
     df = pd.DataFrame()
-    tickers = ['ANV','BVH','PHC','HLD','GEX', 'TVN']
+    tickers = ['ANV','PHC','HLD','GEX', 'TVN']
     # chu y xu ly cac CP nhu PVS (co kha nang thoat hang), ACB, MBS, NVB(ngam lau dai doi thoi),  (HAR, DVN, VIX): sieu lo
-    buy_price = [23.7, 96.9, 19.5, 18.6, 38.8, 10.65]
-    shares_number = [400, 100, 500, 500, 260, 1900]
+    buy_price = [23.7, 19.5, 18.6, 38.8, 10.65]
+    shares_number = [400, 500, 500, 260, 1900]
     
-    low_candle = [22.3, 90.5, 18.9, 15.9, 37, 10]
+    low_candle = [22.3, 18.9, 15.9, 37, 10]
     
     df['Ticker'] = tickers
     df = df.set_index('Ticker')    
@@ -175,8 +175,8 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-#            hung_canslim(ticker, start, end, realtime = update, source = source)
-            mean_reversion(ticker, start, end, realtime = update, source = source)
+            hung_canslim(ticker, start, end, realtime = update, source = source)
+#            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
@@ -418,7 +418,7 @@ if __name__ == "__main__":
               'HPG', 'CTG', 'GEX','VCI', 'CTG', 'GEX', 'DIG', 'MBB', 'DGW', 
               'BVH', 'VND', 'BID', 'HCM',
               'VJC', 'PAN', 'MSN', 'GAS', 'TCH', 'DXG', 'PNJ', 'IDI', 'VIC', 'ANV']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-21", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-23", update = False,  source ="cp68")
 #    
 #    
     
