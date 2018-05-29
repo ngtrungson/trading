@@ -1,0 +1,287 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Dec  8 14:35:57 2017
+
+@author: sonng
+"""
+import pandas as pd
+from finance_util import get_data_us, fill_missing_values, optimize_portfolio, compute_portfolio, analysis_alpha_beta
+from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, canslim_usstock, mean_reversion
+from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
+from machine_learning import price_predictions, ML_strategy
+
+
+
+
+def getliststocks(typestock = "RTS"):
+     
+    if typestock == "RTS":
+        symbols = ['MMM','AA', 'BABA','AMZN', 'AAPL', 'T', 'AXP','ALB', 'BB', 'BAC',
+                   'BA','CAT', 'CSCO', 'C', 'KO', 'CL', 'DIS', 'DBX', 'EBAY',
+                   'FB','FSLR','GE','GM', 'GOOG', 'GS', 'GPRO', 'HOG', 'IBM', 'INTC',
+                   'JPM', 'LN','LMT', 'MTCH', 'MA', 'MCD', 'MSFT','NFLX', 'NKE',
+                   'NOK', 'NVDA', 'PYPL', 'PEP', 'PFE', 'RACE', 'SNE', 'SBUX',
+                   'SNAP', 'SPOT', 'TSLA', 'TWTR', 'UBS', 'V', 'WMT', 'YNDX','AUY', 'ZTO']
+    if typestock == "ALL":
+        symbols = ['MMM', 'ABT', 'ABBV', 'ACN', 'ATVI', 'AYI', 'ADBE', 'AMD', 'AAP', 'AES', 
+               'AET', 'AMG', 'AFL', 'A', 'APD', 'AKAM', 'ALK', 'ALB', 'ARE', 'ALXN', 
+               'ALGN', 'ALLE', 'AGN', 'ADS', 'LNT', 'ALL', 'GOOGL', 'GOOG', 'MO', 
+               'AMZN', 'AEE', 'AAL', 'AEP', 'AXP', 'AIG', 'AMT', 'AWK', 'AMP', 
+               'ABC', 'AME', 'AMGN', 'APH', 'APC', 'ADI', 'ANDV', 'ANSS', 'ANTM', 
+               'AON', 'AOS', 'APA', 'AIV', 'AAPL', 'AMAT', 'APTV', 'ADM', 'ARNC', 
+               'AJG', 'AIZ', 'T', 'ADSK', 'ADP', 'AZO', 'AVB', 'AVY', 'BHGE', 'BLL', 
+               'BAC', 'BK', 'BAX', 'BBT', 'BDX', 'BRK.B', 'BBY', 'BIIB', 'BLK', 
+               'HRB', 'BA', 'BWA', 'BXP', 'BSX', 'BHF', 'BMY', 'AVGO', 'BF.B', 
+               'CHRW', 'CA', 'COG', 'CDNS', 'CPB', 'COF', 'CAH', 'CBOE', 'KMX', 
+               'CCL', 'CAT', 'CBG', 'CBS', 'CELG', 'CNC', 'CNP', 'CTL', 'CERN', 
+               'CF', 'SCHW', 'CHTR', 'CHK', 'CVX', 'CMG', 'CB', 'CHD', 'CI', 
+               'XEC', 'CINF', 'CTAS', 'CSCO', 'C', 'CFG', 'CTXS', 'CLX', 'CME', 
+               'CMS', 'KO', 'CTSH', 'CL', 'CMCSA', 'CMA', 'CAG', 'CXO', 'COP', 
+               'ED', 'STZ', 'COO', 'GLW', 'COST', 'COTY', 'CCI', 'CSRA', 'CSX', 
+               'CMI', 'CVS', 'DHI', 'DHR', 'DRI', 'DVA', 'DE', 'DAL', 'XRAY', 
+               'DVN', 'DLR', 'DFS', 'DISCA', 'DISCK', 'DISH', 'DG', 'DLTR', 'D', 
+               'DOV', 'DWDP', 'DPS', 'DTE', 'DRE', 'DUK', 'DXC', 'ETFC', 'EMN', 
+               'ETN', 'EBAY', 'ECL', 'EIX', 'EW', 'EA', 'EMR', 'ETR', 'EVHC', 
+               'EOG', 'EQT', 'EFX', 'EQIX', 'EQR', 'ESS', 'EL', 'ES', 'RE', 
+               'EXC', 'EXPE', 'EXPD', 'ESRX', 'EXR', 'XOM', 'FFIV', 'FB', 'FAST',
+               'FRT', 'FDX', 'FIS', 'FITB', 'FE', 'FISV', 'FLIR', 'FLS', 'FLR', 
+               'FMC', 'FL', 'F', 'FTV', 'FBHS', 'BEN', 'FCX', 'GPS', 'GRMN', 'IT',
+               'GD', 'GE', 'GGP', 'GIS', 'GM', 'GPC', 'GILD', 'GPN', 'GS', 'GT', 
+               'GWW', 'HAL', 'HBI', 'HOG', 'HRS', 'HIG', 'HAS', 'HCA', 'HCP', 'HP', 
+               'HSIC', 'HSY', 'HES', 'HPE', 'HLT', 'HOLX', 'HD', 'HON', 'HRL', 'HST', 
+               'HPQ', 'HUM', 'HBAN', 'HII', 'IDXX', 'INFO', 'ITW', 'ILMN', 'IR', 'INTC',
+               'ICE', 'IBM', 'INCY', 'IP', 'IPG', 'IFF', 'INTU', 'ISRG', 'IVZ', 'IQV', 
+               'IRM', 'JEC', 'JBHT', 'SJM', 'JNJ', 'JCI', 'JPM', 'JNPR', 'KSU', 'K', 
+               'KEY', 'KMB', 'KIM', 'KMI', 'KLAC', 'KSS', 'KHC', 'KR', 'LB', 'LLL', 
+               'LH', 'LRCX', 'LEG', 'LEN', 'LUK', 'LLY', 'LNC', 'LKQ', 'LMT', 'L', 
+               'LOW', 'LYB', 'MTB', 'MAC', 'M', 'MRO', 'MPC', 'MAR', 'MMC', 'MLM', 
+               'MAS', 'MA', 'MAT', 'MKC', 'MCD', 'MCK', 'MDT', 'MRK', 'MET', 'MTD', 
+               'MGM', 'KORS', 'MCHP', 'MU', 'MSFT', 'MAA', 'MHK', 'TAP', 'MDLZ', 'MON',
+               'MNST', 'MCO', 'MS', 'MOS', 'MSI', 'MYL', 'NDAQ', 'NOV', 'NAVI', 'NTAP', 
+               'NFLX', 'NWL', 'NFX', 'NEM', 'NWSA', 'NWS', 'NEE', 'NLSN', 'NKE', 'NI',
+               'NBL', 'JWN', 'NSC', 'NTRS', 'NOC', 'NCLH', 'NRG', 'NUE', 'NVDA', 'ORLY',
+               'OXY', 'OMC', 'OKE', 'ORCL', 'PCAR', 'PKG', 'PH', 'PDCO', 'PAYX', 'PYPL', 
+               'PNR', 'PBCT', 'PEP', 'PKI', 'PRGO', 'PFE', 'PCG', 'PM', 'PSX', 'PNW', 
+               'PXD', 'PNC', 'RL', 'PPG', 'PPL', 'PX', 'PCLN', 'PFG', 'PG', 'PGR', 
+               'PLD', 'PRU', 'PEG', 'PSA', 'PHM', 'PVH', 'QRVO', 'PWR', 'QCOM', 'DGX',
+               'RRC', 'RJF', 'RTN', 'O', 'RHT', 'REG', 'REGN', 'RF', 'RSG', 'RMD', 
+               'RHI', 'ROK', 'COL', 'ROP', 'ROST', 'RCL', 'CRM', 'SBAC', 'SCG', 'SLB',
+               'SNI', 'STX', 'SEE', 'SRE', 'SHW', 'SIG', 'SPG', 'SWKS', 'SLG', 'SNA', 
+               'SO', 'LUV', 'SPGI', 'SWK', 'SBUX', 'STT', 'SRCL', 'SYK', 'STI', 'SYMC', 
+               'SYF', 'SNPS', 'SYY', 'TROW', 'TPR', 'TGT', 'TEL', 'FTI', 'TXN', 'TXT', 
+               'TMO', 'TIF', 'TWX', 'TJX', 'TMK', 'TSS', 'TSCO', 'TDG', 'TRV', 'TRIP', 
+               'FOXA', 'FOX', 'TSN', 'UDR', 'ULTA', 'USB', 'UAA', 'UA', 'UNP', 'UAL', 
+               'UNH', 'UPS', 'URI', 'UTX', 'UHS', 'UNM', 'VFC', 'VLO', 'VAR', 'VTR', 
+               'VRSN', 'VRSK', 'VZ', 'VRTX', 'VIAB', 'V', 'VNO', 'VMC', 'WMT', 'WBA', 
+               'DIS', 'WM', 'WAT', 'WEC', 'WFC', 'HCN', 'WDC', 'WU', 'WRK', 'WY', 'WHR', 
+               'WMB', 'WLTW', 'WYN', 'WYNN', 'XEL', 'XRX', 'XLNX', 'XL', 'XYL', 'YUM', 
+               'ZBH', 'ZION', 'ZTS']
+#    symbols =  high_cpm
+    symbols = pd.unique(symbols).tolist()
+    symbols = sorted(symbols)
+    
+    return symbols
+
+    
+    
+def analysis_trading(tickers, start, end, update = False, source = "us"):
+    
+    
+   
+    for ticker in tickers:
+#        print(" Analysing ..." , ticker)
+        try:
+            ninja_trading(ticker, start, end, realtime = update, source = source)
+#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+#            canslim_usstock(ticker, start, end, realtime = update, source = source)
+#            mean_reversion(ticker, start, end, realtime = update, source = source)
+#            bollinger_bands(ticker, start, end, realtime = update, source = source)
+#            short_selling(ticker, start, end, realtime = update, source = source)
+        except Exception as e:
+            print (e)
+            print("Error in reading symbol: ", ticker)
+            pass
+   
+ 
+def passive_strategy(start_date, end_date, market = "SPY"):
+
+    symbols = getliststocks(typestock = market)
+    
+    dates = pd.date_range(start_date, end_date)  # date range as index
+    df_data = get_data_us(symbols, dates, benchmark = market)  # get data for each symbol
+    
+    df_volume = get_data_us(symbols, dates, benchmark = None, colname = 'Volume')  # get data for each symbol
+    df_high = get_data_us(symbols, dates, benchmark = None, colname = 'High')
+    df_low = get_data_us(symbols, dates, benchmark = None, colname = 'Low')
+    
+   
+    vol_mean = pd.Series(df_volume.mean(),name = 'Volume')
+    max_high = pd.Series(df_high.max(), name = 'MaxHigh')
+    min_low = pd.Series(df_low.min(), name = 'MinLow')
+    cpm = pd.Series(max_high/min_low, name = 'CPM')
+    # Fill missing values
+    fill_missing_values(df_data)
+
+    
+    # Assess the portfolio
+    
+    allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start_date, ed = end_date,
+        syms = symbols,  benchmark = market, country = 'US', gen_plot = True)
+
+     # Print statistics
+    print ("Start Date:", start_date)
+    print ("End Date:", end_date)
+    print ("Symbols:", symbols)
+    print ("Optimal allocations:", allocations)
+    print ("Sharpe Ratio:", sr)
+    print ("Volatility (stdev of daily returns):", sddr)
+    print ("Average Daily Return:", adr)
+    print ("Cumulative Return:", cr)
+    
+    investment = 50000000
+    df_result = pd.DataFrame(index = symbols)    
+    df_result['Opt allocs'] = allocations
+    df_result['Cash'] = allocations * investment
+    df_result['Volume'] = vol_mean
+    df_result['Close'] = df_data[symbols].iloc[-1,:].values
+    #    df_result['MaxH'] = max_high
+#    df_result['MinL'] = min_low
+    df_result['CPM'] = cpm
+    df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
+    df_result ['Volatility'] = df_data[symbols].pct_change().std() 
+    
+    alpha_beta = analysis_alpha_beta(df_data, symbols, market)
+    df_result['Alpha'] = alpha_beta['Alpha']
+    df_result['Beta'] = alpha_beta['Beta']
+    
+    relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 126).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 189).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 252).fillna(0) 
+             
+            
+    
+    df_result ['RSW'] = relative_strength.iloc[-1,:].values
+
+    return df_result, df_data
+
+
+def active_strategy(start_date, end_date, update = False, source = "cp68", market = "SPY"):
+
+    symbols = getliststocks(typestock = market)
+    
+    for ticker in symbols:
+        try:
+#            ninja_trading(ticker, start, end, realtime = update, source = source)
+#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
+            hung_canslim(ticker, start = start_date, end = end_date, realtime = update, source = source, market = market)
+#            mean_reversion(ticker, start, end, realtime = update, source = source)
+#            bollinger_bands(ticker, start, end, realtime = update, source = source)
+#            short_selling(ticker, start, end, realtime = update, source = source)
+        except Exception as e:
+            print (e)
+            print("Error in reading symbol: ", ticker)
+            pass
+
+def rebalancing_porfolio(symbols = None, bench = 'SPY'):
+
+   
+    start0 = "2015-1-2"
+    end0 = "2017-1-2"
+    allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start0, ed = end0,
+            syms = symbols,  benchmark = bench, gen_plot = True)
+    print ("Optimize start Date:", start0)
+    print ("Optimize end Date:", end0) 
+    print ("Optimize volatility (stdev of daily returns):", sddr)
+    print ("Optimize average Daily Return:", adr)
+    print ("Optimize cumulative Return:", cr)
+    print(" -----------------------------------------------------")
+    start_date_list = ["2017-1-3", "2017-7-3"]
+    end_date_list = ["2017-7-2",  "2018-4-1"]
+    for start, end in zip(start_date_list, end_date_list):    
+        
+        cr, adr, sddr, sr  = compute_portfolio(sd = start, ed = end,
+            syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
+        print ("Start Date:", start)
+        print ("End Date:", end) 
+        print ("Volatility (stdev of daily returns):", sddr)
+        print ("Average Daily Return:", adr)
+        print ("Cumulative Return:", cr)  
+        print(" -----------------------------------------------------")
+        allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start, ed = end,
+            syms = symbols,  benchmark = bench, gen_plot = False)
+        print ("Optimize volatility (stdev of daily returns):", sddr)
+        print ("Optimize average Daily Return:", adr)
+        print ("Optimize cumulative Return:", cr)
+        print(" -----------------------------------------------------")
+        
+    
+    
+    
+    
+    # Out of sample testing optimisation algorithm
+    
+    end_date = "2018-5-21"
+    start_date = "2018-4-2"
+    
+    cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
+            syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
+    print("....................... Out of sample performance .................")
+    print ("Start Date:", start_date)
+    print ("End Date:", end_date) 
+    print ("Volatility (stdev of daily returns):", sddr)
+    print ("Average Daily Return:", adr)
+    print ("Cumulative Return:", cr)  
+    # Assess the portfolio
+    investment = 60000000
+    df_result = pd.DataFrame(index = symbols)    
+    df_result['Opt allocs'] = allocations
+    df_result['Cash'] = allocations * investment
+
+    dates = pd.date_range(start_date, end_date)  # date range as index
+    df_data = get_data_us(symbols, dates, benchmark = bench)  # get data for each symbol
+    
+   
+    df_high = get_data_us(symbols, dates, benchmark = None, colname = 'High')
+    df_low = get_data_us(symbols, dates, benchmark = None, colname = 'Low')
+    
+    max_high = pd.Series(df_high.max(), name = 'MaxHigh')
+    min_low = pd.Series(df_low.min(), name = 'MinLow')
+    cpm = pd.Series(max_high/min_low, name = 'CPM')
+    volatility = df_data[symbols].pct_change().std()  
+    
+    # Fill missing values
+            
+    df_result['Close'] = df_data[symbols].iloc[-1,:].values    
+    df_result['CPM'] = cpm
+    df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
+    df_result ['Volatility'] = volatility
+    
+    alpha_beta = analysis_alpha_beta(df_data, symbols, market = bench)
+    df_result['Alpha'] = alpha_beta['Alpha']
+    df_result['Beta'] = alpha_beta['Beta']
+    
+    relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 126).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 189).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 252).fillna(0)    
+    
+    df_result ['RSW'] = relative_strength.iloc[-1,:].values
+   
+    return df_result
+    
+
+    
+if __name__ == "__main__":
+#
+    end_date = "2018-5-25"
+    start_date = "2017-1-2"
+    
+    symbols = getliststocks(typestock = "RTS")
+
+# 
+#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "SPY")
+    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+    ticker = 'PEP'    
+#    hedgefund = canslim_usstock(ticker, start_date, end_date, realtime = False, source ="yahoo")    
+#    plot_hedgefund_trading(ticker, hedgefund)

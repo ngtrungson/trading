@@ -324,14 +324,14 @@ def ML_strategy(ticker, start, end):
                                       .reset_index(drop=False)\
                                       .rename(columns={'index':'Date'})
     
-    order=[0,1,2,3]
-    fig = sns.FacetGrid(data=Regimes,hue='Regime',hue_order=order,aspect=2,size= 4)
-    fig.map(plt.scatter,'Date','market_cu_return', s=4).add_legend()
-    plt.show()
+#    order=[0,1,2,3]
+#    fig = sns.FacetGrid(data=Regimes,hue='Regime',hue_order=order,aspect=2,size= 4)
+#    fig.map(plt.scatter,'Date','market_cu_return', s=4).add_legend()
+#    plt.show()
     
-    for i in order:
-        print('Mean for regime %i: '%i,unsup.means_[i][0])
-        print('Co-Variance for regime %i: '%i,(unsup.covariances_[i]))
+#    for i in order:
+#        print('Mean for regime %i: '%i,unsup.means_[i][0])
+#        print('Co-Variance for regime %i: '%i,(unsup.covariances_[i]))
     
 #    print(Regimes.head())
     
@@ -348,6 +348,16 @@ def ML_strategy(ticker, start, end):
         decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
         max_iter=-1, probability=False, random_state=None, shrinking=True,
         tol=0.001, verbose=False)
+#    
+    
+#    n_neighbors = 5
+#    cls = neighbors.KNeighborsRegressor(n_neighbors, weights='uniform')
+#    
+#    
+#    cls = BaggingRegressor(
+#            DecisionTreeRegressor(), 
+#            n_estimators=50,        
+#            random_state=50)
     
     split2= int(.8*len(Regimes))
     
@@ -361,7 +371,7 @@ def ML_strategy(ticker, start, end):
     df['Pred_Signal']=0
     df.iloc[-p_data:,df.columns.get_loc('Pred_Signal')]=cls.predict(X[split2:])
     
-    print(df['Pred_Signal'][-p_data:])
+#    print(df['Pred_Signal'][-p_data:])
     
     df['str_ret'] =df['Pred_Signal']*df['Return'].shift(-1)
     
@@ -377,5 +387,6 @@ def ML_strategy(ticker, start, end):
     plt.plot(df['strategy_cu_return'][-p_data:],color='g',label='Strategy Returns')
     plt.plot(df['market_cu_return'][-p_data:],color='r',label='Market Returns')
     plt.figtext(0.14,0.9,s='Sharpe ratio: %.2f'%Sharpe)
+    plt.suptitle(ticker.upper())
     plt.legend(loc='best')
     plt.show()

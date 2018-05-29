@@ -16,6 +16,161 @@ import datetime as dt
 import scipy.optimize as spo
 from statsmodels import regression
 import statsmodels.api as sm
+import pandas_datareader.data as web
+
+
+# HTML parsing library, Beautiful Soup
+auth_tok = "3eiKG4wvnC-s_aF-rQVd"
+
+#auth_tok = "3eiKG4wvnC-s_aF-rQVd"
+#data = quandl.get("WIKI/GOOGL", trim_start = "2017-11-27",
+#                              trim_end = "2017-12-26",
+#                              authtoken= auth_tok)
+#df = quandl.get("WIKI/GOOGL")
+
+def get_symbols_rts():
+    tickers = ['MMM','AA', 'BABA','AMZN', 'AAPL', 'T', 'AXP','ALB', 'BB', 'BAC',
+                   'BA','CAT', 'CSCO', 'C', 'KO', 'CL', 'DIS', 'DB', 'DBX', 'EBAY',
+                   'FB','FSLR','GE','GM', 'GOOG', 'GS', 'GPRO', 'HOG', 'IBM', 'INTC',
+                   'JPM', 'LN','LMT', 'MTCH', 'MA', 'MCD', 'MSFT','NFLX', 'NKE',
+                   'NOK', 'NVDA', 'PYPL', 'PEP', 'PFE', 'RACE', 'SNE', 'SBUX',
+                   'SNAP', 'SPOT', 'TSLA', 'TWTR', 'UBS', 'V', 'WMT', 'YNDX','AUY', 'ZTO']
+    return tickers
+
+def get_symbols_us():
+    tickers = ['MMM', 'ABT', 'ABBV', 'ACN', 'ATVI', 'AYI', 'ADBE', 'AMD', 'AAP', 'AES', 
+               'AET', 'AMG', 'AFL', 'A', 'APD', 'AKAM', 'ALK', 'ALB', 'ARE', 'ALXN', 
+               'ALGN', 'ALLE', 'AGN', 'ADS', 'LNT', 'ALL', 'GOOGL', 'GOOG', 'MO', 
+               'AMZN', 'AEE', 'AAL', 'AEP', 'AXP', 'AIG', 'AMT', 'AWK', 'AMP', 
+               'ABC', 'AME', 'AMGN', 'APH', 'APC', 'ADI', 'ANDV', 'ANSS', 'ANTM', 
+               'AON', 'AOS', 'APA', 'AIV', 'AAPL', 'AMAT', 'APTV', 'ADM', 'ARNC', 
+               'AJG', 'AIZ', 'T', 'ADSK', 'ADP', 'AZO', 'AVB', 'AVY', 'BHGE', 'BLL', 
+               'BAC', 'BK', 'BAX', 'BBT', 'BDX', 'BRK.B', 'BBY', 'BIIB', 'BLK', 
+               'HRB', 'BA', 'BWA', 'BXP', 'BSX', 'BHF', 'BMY', 'AVGO', 'BF.B', 
+               'CHRW', 'CA', 'COG', 'CDNS', 'CPB', 'COF', 'CAH', 'CBOE', 'KMX', 
+               'CCL', 'CAT', 'CBG', 'CBS', 'CELG', 'CNC', 'CNP', 'CTL', 'CERN', 
+               'CF', 'SCHW', 'CHTR', 'CHK', 'CVX', 'CMG', 'CB', 'CHD', 'CI', 
+               'XEC', 'CINF', 'CTAS', 'CSCO', 'C', 'CFG', 'CTXS', 'CLX', 'CME', 
+               'CMS', 'KO', 'CTSH', 'CL', 'CMCSA', 'CMA', 'CAG', 'CXO', 'COP', 
+               'ED', 'STZ', 'COO', 'GLW', 'COST', 'COTY', 'CCI', 'CSRA', 'CSX', 
+               'CMI', 'CVS', 'DHI', 'DHR', 'DRI', 'DVA', 'DE', 'DAL', 'XRAY', 
+               'DVN', 'DLR', 'DFS', 'DISCA', 'DISCK', 'DISH', 'DG', 'DLTR', 'D', 
+               'DOV', 'DWDP', 'DPS', 'DTE', 'DRE', 'DUK', 'DXC', 'ETFC', 'EMN', 
+               'ETN', 'EBAY', 'ECL', 'EIX', 'EW', 'EA', 'EMR', 'ETR', 'EVHC', 
+               'EOG', 'EQT', 'EFX', 'EQIX', 'EQR', 'ESS', 'EL', 'ES', 'RE', 
+               'EXC', 'EXPE', 'EXPD', 'ESRX', 'EXR', 'XOM', 'FFIV', 'FB', 'FAST',
+               'FRT', 'FDX', 'FIS', 'FITB', 'FE', 'FISV', 'FLIR', 'FLS', 'FLR', 
+               'FMC', 'FL', 'F', 'FTV', 'FBHS', 'BEN', 'FCX', 'GPS', 'GRMN', 'IT',
+               'GD', 'GE', 'GGP', 'GIS', 'GM', 'GPC', 'GILD', 'GPN', 'GS', 'GT', 
+               'GWW', 'HAL', 'HBI', 'HOG', 'HRS', 'HIG', 'HAS', 'HCA', 'HCP', 'HP', 
+               'HSIC', 'HSY', 'HES', 'HPE', 'HLT', 'HOLX', 'HD', 'HON', 'HRL', 'HST', 
+               'HPQ', 'HUM', 'HBAN', 'HII', 'IDXX', 'INFO', 'ITW', 'ILMN', 'IR', 'INTC',
+               'ICE', 'IBM', 'INCY', 'IP', 'IPG', 'IFF', 'INTU', 'ISRG', 'IVZ', 'IQV', 
+               'IRM', 'JEC', 'JBHT', 'SJM', 'JNJ', 'JCI', 'JPM', 'JNPR', 'KSU', 'K', 
+               'KEY', 'KMB', 'KIM', 'KMI', 'KLAC', 'KSS', 'KHC', 'KR', 'LB', 'LLL', 
+               'LH', 'LRCX', 'LEG', 'LEN', 'LUK', 'LLY', 'LNC', 'LKQ', 'LMT', 'L', 
+               'LOW', 'LYB', 'MTB', 'MAC', 'M', 'MRO', 'MPC', 'MAR', 'MMC', 'MLM', 
+               'MAS', 'MA', 'MAT', 'MKC', 'MCD', 'MCK', 'MDT', 'MRK', 'MET', 'MTD', 
+               'MGM', 'KORS', 'MCHP', 'MU', 'MSFT', 'MAA', 'MHK', 'TAP', 'MDLZ', 'MON',
+               'MNST', 'MCO', 'MS', 'MOS', 'MSI', 'MYL', 'NDAQ', 'NOV', 'NAVI', 'NTAP', 
+               'NFLX', 'NWL', 'NFX', 'NEM', 'NWSA', 'NWS', 'NEE', 'NLSN', 'NKE', 'NI',
+               'NBL', 'JWN', 'NSC', 'NTRS', 'NOC', 'NCLH', 'NRG', 'NUE', 'NVDA', 'ORLY',
+               'OXY', 'OMC', 'OKE', 'ORCL', 'PCAR', 'PKG', 'PH', 'PDCO', 'PAYX', 'PYPL', 
+               'PNR', 'PBCT', 'PEP', 'PKI', 'PRGO', 'PFE', 'PCG', 'PM', 'PSX', 'PNW', 
+               'PXD', 'PNC', 'RL', 'PPG', 'PPL', 'PX', 'PCLN', 'PFG', 'PG', 'PGR', 
+               'PLD', 'PRU', 'PEG', 'PSA', 'PHM', 'PVH', 'QRVO', 'PWR', 'QCOM', 'DGX',
+               'RRC', 'RJF', 'RTN', 'O', 'RHT', 'REG', 'REGN', 'RF', 'RSG', 'RMD', 
+               'RHI', 'ROK', 'COL', 'ROP', 'ROST', 'RCL', 'CRM', 'SBAC', 'SCG', 'SLB',
+               'SNI', 'STX', 'SEE', 'SRE', 'SHW', 'SIG', 'SPG', 'SWKS', 'SLG', 'SNA', 
+               'SO', 'LUV', 'SPGI', 'SWK', 'SBUX', 'STT', 'SRCL', 'SYK', 'STI', 'SYMC', 
+               'SYF', 'SNPS', 'SYY', 'TROW', 'TPR', 'TGT', 'TEL', 'FTI', 'TXN', 'TXT', 
+               'TMO', 'TIF', 'TWX', 'TJX', 'TMK', 'TSS', 'TSCO', 'TDG', 'TRV', 'TRIP', 
+               'FOXA', 'FOX', 'TSN', 'UDR', 'ULTA', 'USB', 'UAA', 'UA', 'UNP', 'UAL', 
+               'UNH', 'UPS', 'URI', 'UTX', 'UHS', 'UNM', 'VFC', 'VLO', 'VAR', 'VTR', 
+               'VRSN', 'VRSK', 'VZ', 'VRTX', 'VIAB', 'V', 'VNO', 'VMC', 'WMT', 'WBA', 
+               'DIS', 'WM', 'WAT', 'WEC', 'WFC', 'HCN', 'WDC', 'WU', 'WRK', 'WY', 'WHR', 
+               'WMB', 'WLTW', 'WYN', 'WYNN', 'XEL', 'XRX', 'XLNX', 'XL', 'XYL', 'YUM', 
+               'ZBH', 'ZION', 'ZTS']
+    return tickers
+
+
+def save_sp500_tickers():
+    resp = requests.get('http://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+    soup = bs.BeautifulSoup(resp.text, 'lxml')
+    table = soup.find('table', {'class': 'wikitable sortable'})
+    tickers = []
+    for row in table.findAll('tr')[1:]:
+        ticker = row.findAll('td')[0].text
+        tickers.append(ticker)
+        
+    with open("sp500tickers.pickle","wb") as f:
+        pickle.dump(tickers,f)
+        
+    return tickers
+
+def get_data_from_web(tickers, source = 'yahoo'):
+    
+#    if reload_sp500:
+#        tickers = save_sp500_tickers()
+#    else:
+#        with open("sp500tickers.pickle","rb") as f:
+#            tickers = pickle.load(f)
+    
+#    tickers = get_symbols_rts()
+    
+    if not os.path.exists('yahoo'):
+        os.makedirs('yahoo')
+
+#    start = dt.datetime(2000, 1, 1)
+#    end = dt.datetime(2016, 12, 31)
+    
+    for ticker in tickers:
+        # just in case your connection breaks, we'd like to save our progress!
+        
+        try:
+            df = web.DataReader(ticker, source)
+            df.to_csv('yahoo/{}.csv'.format(ticker))
+        except Exception as e:
+            print(str(e))
+
+
+# Create Pandas data frame for backtrader
+def get_data_ticker_us(symbol, start, end): 
+    # columns order for backtrader type
+    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
+    # if symbol is list type
+    if  isinstance(symbol, list):
+        symbol = ''.join(symbol)
+    # obtain data from csv file    
+    dataframe = pd.read_csv(symbol_to_path(symbol,base_dir ='data'), parse_dates=True, index_col=0) 
+    # change the index by new index
+    dataframe = dataframe.reindex(columns = columnsOrder)   
+    # change date index to increasing order
+    dataframe = dataframe.sort_index()
+    # might be wrong and contain NA values ????    
+    df = dataframe.loc[start:end]
+    return df
+
+
+    
+def get_data_us(symbols, dates, benchmark = 'SPY', colname = 'Close'):
+    """Read stock data (adjusted close) for given symbols from CSV files."""
+    df_final = pd.DataFrame(index=dates)
+    if (benchmark not in symbols) and isinstance(benchmark, str):  # add SPY for reference, if absent
+        symbols = [benchmark] + symbols
+        
+    for symbol in symbols:
+        df_temp = pd.read_csv(symbol_to_path(symbol, base_dir ="data"), index_col='Date',
+                parse_dates=True, usecols=['Date', colname], na_values=['nan'])
+        df_temp = df_temp.rename(columns={colname: symbol})
+        df_final = df_final.join(df_temp)
+        if symbol == benchmark:  # drop dates SPY did not trade
+            df_final = df_final.dropna(subset=[benchmark])
+            
+#    fill_missing_values(df_final)
+    
+    return df_final
+
 
 
 # Create Pandas data frame for backtrader
@@ -189,11 +344,15 @@ def get_data_from_SSI_website(tickers):
     
 def symbol_to_path(symbol, base_dir="cp68"):
     """Return CSV file path given ticker symbol."""
-    return os.path.join(base_dir, "excel_{}.csv".format(str(symbol)))
+    if base_dir == "cp68":
+        fileformat = "excel_{}.csv"        
+    if base_dir == "ssi":       
+        fileformat = "Historical_Price_{}.csv"
+    if (base_dir == "yahoo") | (base_dir == "data"):      
+        fileformat = "{}.csv"
+        
+    return os.path.join(base_dir, fileformat.format(str(symbol)))
 
-def symbol_to_path_ssi(symbol, base_dir="ssi"):
-    """Return CSV file path given ticker symbol."""
-    return os.path.join(base_dir, "Historical_Price_{}.csv".format(str(symbol)))
 
 #def get_data(symbols, dates, addVNINDEX=True, colname = '<CloseFixed>'):
 #    """Read stock data (adjusted close) for given symbols from CSV files."""
@@ -359,11 +518,14 @@ def error_optimal_allocations(allocs, prices):
 # This is the function that will be tested by the autograder
 # The student must update this code to properly implement the functionality
 def optimize_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
-    syms=['GOOG','AAPL','GLD','XOM'], benchmark = '^VNINDEX', gen_plot=False):
+    syms=['GOOG','AAPL','GLD','XOM'], benchmark = '^VNINDEX', country = 'VN', gen_plot=False):
     
     # Read in adjusted closing prices for given symbols, date range
     dates = pd.date_range(sd, ed)
-    prices_all = get_data(syms, dates, benchmark = benchmark)  # automatically adds SPY
+    if country=='VN':
+        prices_all = get_data(syms, dates, benchmark = benchmark)  # automatically adds SPY
+    else:
+        prices_all = get_data_us(syms, dates, benchmark = benchmark)
     prices = prices_all[syms]  # only portfolio symbols
     prices_benchmark = prices_all[benchmark]  # only VNINDEX, for comparison later
     
@@ -507,7 +669,7 @@ if __name__ == "__main__":
      
      symbols = pd.unique(symbols).tolist()
      
-     df_temp = get_info_stock('BVH')
+#     df_temp = get_info_stock('BVH')
 # 
 #     data = fundemental_analysis(symbols)
 #    
@@ -515,30 +677,35 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_1905.csv', parse_dates=True, index_col=0)
+#     data = pd.read_csv('fundemental_stocks_all_1905.csv', parse_dates=True, index_col=0)
 #     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
 #     data['EPS_Price'] = data['EPS']/data['Close']/1000
      
-     df = data.query("MeanVol_13W > 50000")
-     df = df.query("MeanVol_10D> 50000")
-#     df = df.query("MeanVol_10D > 0")
-##     df = df.query("FVQ > 0")
-##     df = df.query("CPM > 1.4")
-     df = df.query("EPS >= 1000")
-##     df = df.query("EPS_52W >= 0")
-     df = df.query("ROE >= 8")
-##     df = df.query("Close > 4")
-#     df = df.query("Beta < 0")
-#     df = df.query("Beta > 0")
-#     df = df.query("Diff_Price < 0")
-#     df.to_csv('investment_stock3.csv')
-#     print(df.index)
+#     df = data.query("MeanVol_13W > 50000")
+#     df = df.query("MeanVol_10D> 50000")
+##     df = df.query("MeanVol_10D > 0")
+###     df = df.query("FVQ > 0")
+###     df = df.query("CPM > 1.4")
+#     df = df.query("EPS >= 1000")
+###     df = df.query("EPS_52W >= 0")
+#     df = df.query("ROE >= 8")
+###     df = df.query("Close > 4")
+##     df = df.query("Beta < 0")
+##     df = df.query("Beta > 0")
+##     df = df.query("Diff_Price < 0")
+##     df.to_csv('investment_stock3.csv')
+##     print(df.index)
+#     
+#     listA = symbols
+#     listB = df.index.tolist()
+#     common = list(set(listA) & set(listB))
+#     listC = list(set(listB).difference(set(listA)))
+#     df2 = data.loc[symbols]
+#     
      
-     listA = symbols
-     listB = df.index.tolist()
-     common = list(set(listA) & set(listB))
-     listC = list(set(listB).difference(set(listA)))
-     df2 = data.loc[symbols]
+     get_data_from_web(tickers = get_symbols_rts(), source ='google')
+     
+     
      
      
 

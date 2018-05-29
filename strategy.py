@@ -4,7 +4,7 @@ Created on Sun Feb 11 08:47:17 2018
 
 @author: sonng
 """
-from finance_util import symbol_to_path, get_info_stock, symbol_to_path_ssi
+from finance_util import symbol_to_path, get_info_stock
 import numpy as np
 import pandas as pd
 import talib
@@ -180,12 +180,12 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
 
     back_test = False
     for i in range(1,hm_days+1):
-        if (df['Long'].iloc[-i] ):
-                print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
-                back_test = True
-                print_statistic(df, i)
-                if (market != None):
-                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+#        if (df['Long'].iloc[-i] ):
+#                print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+#                back_test = True
+#                print_statistic(df, i)
+#                if (market != None):
+#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
         if (df['Bottom'].iloc[-i] ):
                 print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
                 print_statistic(df, i)
@@ -206,6 +206,71 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
 #        back_test = df['Buy'].sum() > 0 
     if back_test:
         run_backtest(df, ticker, typetrade = 'Bottom')
+#     
+    return df
+
+
+def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", market = None):
+    
+    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
+    
+    
+    df['SMA15'] = df['Close'].rolling(window=15).mean()
+    df['SMA30'] = df['Close'].rolling(window=30).mean()
+    
+    
+#    n_fast = 12
+#    n_slow = 26
+#    nema = 9
+#    df['MACD_12_26'], df['MACDSign9'], _ = compute_MACD(df, n_fast, n_slow, nema)
+    
+    
+    
+    df['High15D'] = df['High'].shift(1).rolling(window = 15).max()
+   
+    df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
+    
+    df['Long'] = ((df['High']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
+                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & \
+                 ((df['Close']*df['Volume'] >= 5000000)) & (df['RSI'] >=50) &\
+                 ((df['Volume'] > 1.2*df['VolMA30'])) &\
+                 (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High15D'])))
+    
+    df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    
+
+  
+    
+    df['Signal'] = 1* (df['Long']) 
+    hm_days = 10
+
+    back_test = False
+    for i in range(1,hm_days+1):
+        if (df['Long'].iloc[-i] ):
+                print(" US stocks canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+                back_test = True
+                print_statistic(df, i)
+               
+#        if (df['Bottom'].iloc[-i] ):
+#                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+#                print_statistic(df, i)
+#                back_test = True
+#                if (market != None):
+#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+##   
+#        if (df['Outperform'].iloc[-i] ):
+#                print(" Outperform filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+#                print_statistic(df, i)
+#                back_test = True
+#                if (market != None):
+#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+#   
+    
+#    back_test = True
+#    if back_test == False:
+#        back_test = df['Buy'].sum() > 0 
+    if back_test:
+        run_backtest(df, ticker, typetrade = 'Long')
 #     
     return df
 
@@ -274,22 +339,40 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
                 
 def process_data(ticker, start, end, realtime = False, source = "cp68"):
     
+#    print(source)
     if source == "ssi":
-        file_path = symbol_to_path_ssi(ticker)
+        file_path = symbol_to_path(ticker, base_dir = source)
         df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
                      usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN", "TOTAL VALUES"], na_values = "nan")
         df = df.reset_index()
         df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
                                   'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume', 'TOTAL VALUES': 'Values'})
         df = df.set_index('Date')
-    else:
-        file_path = symbol_to_path(ticker)
+        
+    if source == 'cp68':
+        file_path = symbol_to_path(ticker, base_dir = source)
         df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
                      usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>", "<VolumeDeal>","<VolumeFB>", "<VolumeFS>"], na_values = "nan")
         df = df.reset_index()
         df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
                                   '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume', '<VolumeDeal>':'Deal', '<VolumeFB>': 'FB', '<VolumeFS>': 'FS'})
         df = df.set_index('Date')
+    
+    if source == 'data':
+        file_path = symbol_to_path(ticker, base_dir = source)
+        df = pd.read_csv(file_path, index_col ="Date", parse_dates = True, 
+                     usecols = ["Date", "Open", "High","Low","Close", "Volume"], na_values = "nan")
+        df = df.reset_index()
+        df = df.set_index('Date')
+        
+    if source == 'yahoo':
+        file_path = symbol_to_path(ticker, base_dir = source)
+        df = pd.read_csv(file_path, index_col ="Date", parse_dates = True,  
+                     usecols = ["Date", "Open", "High","Low","Close", "Volume"], na_values = "nan")
+        df = df.reset_index()
+        df = df.set_index('Date')
+       
+        
     # columns order for backtrader type
     columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest", "FB", "FS"]
     # change the index by new index
@@ -379,7 +462,11 @@ def print_statistic(df, i):
     print('  Side ways status 1 day before: ', df['Sideways'].iloc[-i-1])
     print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
     print('  Actual price Close/Low/High/Open: ', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
-    print('  PCT_Change last 3 days: ', round(100*df['PCT_Change'].iloc[-i-2],2),round(100*df['PCT_Change'].iloc[-i-1],2), round(100*df['PCT_Change'].iloc[-i],2))
+    print('  PCT_Change last 5 days:',round(100*df['PCT_Change'].iloc[-i-4],2), 
+                                      round(100*df['PCT_Change'].iloc[-i-3],2),
+                                      round(100*df['PCT_Change'].iloc[-i-2],2),
+                                      round(100*df['PCT_Change'].iloc[-i-1],2), 
+                                      round(100*df['PCT_Change'].iloc[-i],2))
     print('  Ratio with price max H4D/3M/6M/9M/12M: ', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i],2),
@@ -547,13 +634,29 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
         | (df['L18_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
         | (df['L3_6_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))):
 #         if (df['Close'].iloc[-i] > df['Open'].iloc[-i]) :
-            print(" Advanced ninja trading", str(i), "days before", df.iloc[-i].name ,  ticker)
+            print(" Advanced ninja trading LONG ", str(i), "days before", df.iloc[-i].name ,  ticker)
             print_statistic(df, i)
 ##            print(" Target sell", df['Target_SELL'].iloc[-i])
 ##            print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
 ##            print(" Risk ", df['Risk'].iloc[-i])
 ##            print(" Reward ", df['Reward'].iloc[-i])
       
+     for i in range(1,hm_days+1):
+         if ((df['S18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))
+            | (df['S3_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))
+            | (df['S3_6'].iloc[-i] & check_bounce(df, ind = i, nema = 6))
+            | (df['S6_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))
+            | (df['S3_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
+            | (df['S6_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
+            | (df['S18_50'].iloc[-i] & check_bounce(df, ind = i, nema = 50))
+            | (df['S3_6_18'].iloc[-i] & check_bounce(df, ind = i, nema = 18))):
+#         if (df['Close'].iloc[-i] > df['Open'].iloc[-i]) :
+            print(" Advanced ninja trading SHORT ", str(i), "days before", df.iloc[-i].name ,  ticker)
+            print_statistic(df, i)
+##            print(" Target sell", df['Target_SELL'].iloc[-i])
+##            print(" Target STOP LOSS", df['Target_STOPLOSS'].iloc[-i])
+##            print(" Risk ", df['Risk'].iloc[-i])
+##            print(" Reward ", df['Reward'].iloc[-i])
         
 #    
 #    for i in range(1,hm_days+1):
@@ -599,7 +702,7 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
         (df['Close'].shift(-3) > df['Open'].shift(-3)) &
         (df['Close'].shift(-4) > df['Open'].shift(-4)))
 #    
-#    df['Buy'] = (df['L18'] | df['L3_6'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  & (df['1PB_RG'] | df['2PBIB_RRG'] | df['1IB2PB_RRRG'] | df['2PBIB_RRRG'] |  df['PBIBPB_RRRG'] | df['IBPBIB_RRRG'] )
+    df['Buy'] = (df['L18'] | df['L3_6'] | df['L3_18'] | df['L6_18'] | df['L3_50'] | df['L6_50'] | df['L18_50'] |  df['L3_6_18'] | df['L_MACD_SIGNAL'] | df['L_MACD_ZERO'] | df['L_EMA_FAN'])  & (df['1PB_RG'] | df['2PBIB_RRG'] | df['1IB2PB_RRRG'] | df['2PBIB_RRRG'] |  df['PBIBPB_RRRG'] | df['IBPBIB_RRRG'] )
 #    
 #    back_test = df['Buy'].sum() > 0 
 #    if back_test:        
@@ -610,6 +713,10 @@ def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
 #        str_vals = [str(i) for i in vals]
 #        print('Back test ninja trading:', Counter(str_vals), 'symbol: ', ticker)
 #    
+#    df['Long'] = df['Buy']
+#    back_test = df['Buy'].sum() > 0 
+#    if back_test:
+#        run_backtest(df, ticker)
     
     return df
 
@@ -640,8 +747,7 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
        
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
-   
-    
+        
     n_fast = 3
     n_slow = 6
     nema = 20
@@ -729,7 +835,7 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     
     df['Signal'] = 1*(df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A'])
     
-    
+    df['Long'] = df['Signal']
     
     df['1TT_SHORT'] = ((df['Low']> df['Low'].shift(1)) 
     & (df['Close'] < df['EMA18']) & (df['Close'].shift(1) > df['EMA18'].shift(1)))
@@ -746,7 +852,7 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     
         
     
-    hm_days = 5
+    hm_days = 10
 
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] | df['LTT_A'].iloc[-i] ):

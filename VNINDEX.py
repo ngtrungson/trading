@@ -13,12 +13,12 @@ from machine_learning import price_predictions, ML_strategy
 
 def portfolio_management():
     df = pd.DataFrame()
-    tickers = ['ANV','PHC','HLD','GEX', 'TVN']
+    tickers = ['PHC','HLD','GEX', 'TVN']
     # chu y xu ly cac CP nhu PVS (co kha nang thoat hang), ACB, MBS, NVB(ngam lau dai doi thoi),  (HAR, DVN, VIX): sieu lo
-    buy_price = [23.7, 19.5, 18.6, 38.8, 10.65]
-    shares_number = [400, 500, 500, 260, 1900]
+    buy_price = [19.5, 15.5, 38.8, 10.65]
+    shares_number = [500, 500, 260, 1900]
     
-    low_candle = [22.3, 18.9, 15.9, 37, 10]
+    low_candle = [18.9, 14.9, 37, 10]
     
     df['Ticker'] = tickers
     df = df.set_index('Ticker')    
@@ -261,9 +261,12 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     df_result['Alpha'] = alpha_beta['Alpha']
     df_result['Beta'] = alpha_beta['Beta']
     
-    relative_strength = 40*df_data[symbols].pct_change(periods = 65).fillna(0) \
-             + 30*df_data[symbols].pct_change(periods = 130).fillna(0) \
-             + 30*df_data[symbols].pct_change(periods = 260).fillna(0)     
+    relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 126).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 189).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 252).fillna(0) 
+             
+            
     
     df_result ['RSW'] = relative_strength.iloc[-1,:].values
 
@@ -365,9 +368,10 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     df_result['Alpha'] = alpha_beta['Alpha']
     df_result['Beta'] = alpha_beta['Beta']
     
-    relative_strength = 40*df_data[symbols].pct_change(periods = 65).fillna(0) \
-             + 30*df_data[symbols].pct_change(periods = 130).fillna(0) \
-             + 30*df_data[symbols].pct_change(periods = 260).fillna(0)     
+    relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 126).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 189).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 252).fillna(0)    
     
     df_result ['RSW'] = relative_strength.iloc[-1,:].values
    
@@ -391,7 +395,7 @@ if __name__ == "__main__":
 
     ticker = 'DGW'    
 #
-    end_date = "2018-5-18"
+    end_date = "2018-5-29"
     start_date = "2017-1-2"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -414,11 +418,12 @@ if __name__ == "__main__":
 #    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 ###    plot_canslim_trading(ticker, canslim)
 
-    RSWlist= ['NVB','VGS','PHC','ACB', 'HLD', 'MBS', 'TTB', 'NDN', 
-              'HPG', 'CTG', 'GEX','VCI', 'CTG', 'GEX', 'DIG', 'MBB', 'DGW', 
-              'BVH', 'VND', 'BID', 'HCM',
-              'VJC', 'PAN', 'MSN', 'GAS', 'TCH', 'DXG', 'PNJ', 'IDI', 'VIC', 'ANV']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-23", update = False,  source ="cp68")
+    RSWlist= ['CVN', 'TTB', 'NDN', 'HLD', 'CEO',  'ACB', 'MBS', 'PHC', 'PGS', 'PVB', 
+              'MBB', 'CTG', 'DHC',   'HCM', 'HPG', 'VCI',
+               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
+              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
+              'MSR', 'MCH', 'TVB', 'TBD']
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-5-29", update = False,  source ="cp68")
 #    
 #    
     
@@ -426,7 +431,7 @@ if __name__ == "__main__":
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
 #    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
@@ -434,11 +439,11 @@ if __name__ == "__main__":
 #    df_alphabeta = analysis_alpha_beta(df_data, symbols = symbolsVNI, market =  "^VNINDEX" )
 #    port = portfolio_management()
     
-#    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-14", update = True,  source ="cp68")
+#    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-23", update = True,  source ="cp68")
     
-#    investing = ['NVB', 'MBS', 'FPT', 'TVN', 'VIX']
-#    predict_stocks(investing, start ="2010-3-18", end = "2018-4-13")
-   
-#    ML_strategy('ACB', start ="2008-1-2", end = "2018-4-26")
+#    investing = ['ANV', 'ACB','MBS', 'TVN', 'VIX']
+#    predict_stocks(investing, start ="2010-3-18", end = "2018-4-22")
+#    for ticker in RSWlist:
+#        ML_strategy(ticker, start ="2011-1-2", end = "2018-5-24")
 #    tickers = pd.Series(symbols)
     
