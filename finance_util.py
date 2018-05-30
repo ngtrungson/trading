@@ -16,17 +16,14 @@ import datetime as dt
 import scipy.optimize as spo
 from statsmodels import regression
 import statsmodels.api as sm
-import pandas_datareader.data as web
+
+from alpha_vantage.timeseries import TimeSeries
 
 
-# HTML parsing library, Beautiful Soup
-auth_tok = "3eiKG4wvnC-s_aF-rQVd"
+from pandas_datareader import data as pdr
 
-#auth_tok = "3eiKG4wvnC-s_aF-rQVd"
-#data = quandl.get("WIKI/GOOGL", trim_start = "2017-11-27",
-#                              trim_end = "2017-12-26",
-#                              authtoken= auth_tok)
-#df = quandl.get("WIKI/GOOGL")
+import fix_yahoo_finance as yf
+
 
 def get_symbols_rts():
     tickers = ['MMM','AA', 'BABA','AMZN', 'AAPL', 'T', 'AXP','ALB', 'BB', 'BAC',
@@ -108,30 +105,38 @@ def save_sp500_tickers():
         
     return tickers
 
-def get_data_from_web(tickers, source = 'yahoo'):
+def get_data_from_web(tickers, start, end, source = 'yahoo'):
     
-#    if reload_sp500:
-#        tickers = save_sp500_tickers()
-#    else:
-#        with open("sp500tickers.pickle","rb") as f:
-#            tickers = pickle.load(f)
-    
-#    tickers = get_symbols_rts()
-    
-    if not os.path.exists('yahoo'):
-        os.makedirs('yahoo')
-
-#    start = dt.datetime(2000, 1, 1)
-#    end = dt.datetime(2016, 12, 31)
+    if not os.path.exists(source):
+        os.makedirs(source)
+        
+    yf.pdr_override() # <== that's all it takes :-)
+    apiKey = '9ODDY4H8J5P847TA'
     
     for ticker in tickers:
-        # just in case your connection breaks, we'd like to save our progress!
-        
-        try:
-            df = web.DataReader(ticker, source)
-            df.to_csv('yahoo/{}.csv'.format(ticker))
-        except Exception as e:
-            print(str(e))
+        # just in case your connection breaks, we'd like to save our progress!        
+       if not os.path.exists((source+'/{}.csv').format(ticker)):
+           try:
+#            df = web.DataReader(ticker, source, start, end)
+                
+                if (source == 'yahoo'):                    
+                    df = pdr.get_data_yahoo(ticker, start=start, end=end) 
+                    filepath = source + '/{}.csv'
+                    df.to_csv(filepath.format(ticker))
+                if (source == 'alpha'):
+                    
+                    ts = TimeSeries(key=apiKey, output_format='pandas')
+                    df, _ = ts.get_daily(symbol=ticker, outputsize='full')
+                    filepath = source + '/{}.csv'
+                    df.to_csv(filepath.format(ticker))
+                    
+                
+                
+            
+           except Exception as e:
+                print(str(e))
+       else:
+            print('Already have {}'.format(ticker))
 
 
 # Create Pandas data frame for backtrader
@@ -348,7 +353,7 @@ def symbol_to_path(symbol, base_dir="cp68"):
         fileformat = "excel_{}.csv"        
     if base_dir == "ssi":       
         fileformat = "Historical_Price_{}.csv"
-    if (base_dir == "yahoo") | (base_dir == "data"):      
+    if (base_dir == "yahoo") | (base_dir == "alpha"):      
         fileformat = "{}.csv"
         
     return os.path.join(base_dir, fileformat.format(str(symbol)))
@@ -439,8 +444,8 @@ def fill_missing_values(df_data):
     df_data.fillna(method ="ffill", inplace = True)
     df_data.fillna(method ="backfill", inplace = True)
     pass  
-	
-	
+    
+    
 def plot_data(df, title="Stock prices", xlabel="Date", ylabel="Price"):
     """Plot stock prices with a custom title and meaningful axis labels."""
     ax = df.plot(title=title, fontsize=12)
@@ -702,8 +707,15 @@ if __name__ == "__main__":
 #     listC = list(set(listB).difference(set(listA)))
 #     df2 = data.loc[symbols]
 #     
+     end_date = "2018-5-29"
+     start_date = "2017-1-2"
+#     data = yf.download("SPY", start="2017-01-2", end="2018-05-29")
+#     get_data_from_web(tickers = ['MSFT'], start = start_date, end = end_date, source ='yahoo')
+     yf.pdr_override()
+     ticker = 'ZTO'
+     df = pdr.get_data_yahoo(ticker, start = start_date, end = end_date) 
      
-     get_data_from_web(tickers = get_symbols_rts(), source ='google')
+     
      
      
      

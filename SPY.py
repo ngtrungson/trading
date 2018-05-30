@@ -5,7 +5,7 @@ Created on Fri Dec  8 14:35:57 2017
 @author: sonng
 """
 import pandas as pd
-from finance_util import get_data_us, fill_missing_values, optimize_portfolio, compute_portfolio, analysis_alpha_beta
+from finance_util import get_data_from_web, get_data_us, fill_missing_values, optimize_portfolio, compute_portfolio, analysis_alpha_beta
 from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, canslim_usstock, mean_reversion
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
@@ -30,11 +30,11 @@ def getliststocks(typestock = "RTS"):
                'ABC', 'AME', 'AMGN', 'APH', 'APC', 'ADI', 'ANDV', 'ANSS', 'ANTM', 
                'AON', 'AOS', 'APA', 'AIV', 'AAPL', 'AMAT', 'APTV', 'ADM', 'ARNC', 
                'AJG', 'AIZ', 'T', 'ADSK', 'ADP', 'AZO', 'AVB', 'AVY', 'BHGE', 'BLL', 
-               'BAC', 'BK', 'BAX', 'BBT', 'BDX', 'BRK.B', 'BBY', 'BIIB', 'BLK', 
-               'HRB', 'BA', 'BWA', 'BXP', 'BSX', 'BHF', 'BMY', 'AVGO', 'BF.B', 
+               'BAC', 'BK', 'BAX', 'BBT', 'BDX', 'BBY', 'BIIB', 'BLK', 
+               'HRB', 'BA', 'BWA', 'BXP', 'BSX', 'BHF', 'BMY', 'AVGO',  
                'CHRW', 'CA', 'COG', 'CDNS', 'CPB', 'COF', 'CAH', 'CBOE', 'KMX', 
-               'CCL', 'CAT', 'CBG', 'CBS', 'CELG', 'CNC', 'CNP', 'CTL', 'CERN', 
-               'CF', 'SCHW', 'CHTR', 'CHK', 'CVX', 'CMG', 'CB', 'CHD', 'CI', 
+               'CCL', 'CAT', 'CBS', 'CELG', 'CNC', 'CNP', 'CTL', 'CERN', 
+               'CF', 'SCHW', 'CHTR', 'CVX', 'CMG', 'CB', 'CHD', 'CI', 
                'XEC', 'CINF', 'CTAS', 'CSCO', 'C', 'CFG', 'CTXS', 'CLX', 'CME', 
                'CMS', 'KO', 'CTSH', 'CL', 'CMCSA', 'CMA', 'CAG', 'CXO', 'COP', 
                'ED', 'STZ', 'COO', 'GLW', 'COST', 'COTY', 'CCI', 'CSRA', 'CSX', 
@@ -45,7 +45,7 @@ def getliststocks(typestock = "RTS"):
                'EOG', 'EQT', 'EFX', 'EQIX', 'EQR', 'ESS', 'EL', 'ES', 'RE', 
                'EXC', 'EXPE', 'EXPD', 'ESRX', 'EXR', 'XOM', 'FFIV', 'FB', 'FAST',
                'FRT', 'FDX', 'FIS', 'FITB', 'FE', 'FISV', 'FLIR', 'FLS', 'FLR', 
-               'FMC', 'FL', 'F', 'FTV', 'FBHS', 'BEN', 'FCX', 'GPS', 'GRMN', 'IT',
+               'FMC', 'FL', 'F', 'FTV', 'FBHS', 'BEN', 'FCX',  'GRMN', 'IT',
                'GD', 'GE', 'GGP', 'GIS', 'GM', 'GPC', 'GILD', 'GPN', 'GS', 'GT', 
                'GWW', 'HAL', 'HBI', 'HOG', 'HRS', 'HIG', 'HAS', 'HCA', 'HCP', 'HP', 
                'HSIC', 'HSY', 'HES', 'HPE', 'HLT', 'HOLX', 'HD', 'HON', 'HRL', 'HST', 
@@ -62,18 +62,18 @@ def getliststocks(typestock = "RTS"):
                'NBL', 'JWN', 'NSC', 'NTRS', 'NOC', 'NCLH', 'NRG', 'NUE', 'NVDA', 'ORLY',
                'OXY', 'OMC', 'OKE', 'ORCL', 'PCAR', 'PKG', 'PH', 'PDCO', 'PAYX', 'PYPL', 
                'PNR', 'PBCT', 'PEP', 'PKI', 'PRGO', 'PFE', 'PCG', 'PM', 'PSX', 'PNW', 
-               'PXD', 'PNC', 'RL', 'PPG', 'PPL', 'PX', 'PCLN', 'PFG', 'PG', 'PGR', 
-               'PLD', 'PRU', 'PEG', 'PSA', 'PHM', 'PVH', 'QRVO', 'PWR', 'QCOM', 'DGX',
+               'PXD', 'PNC', 'RL', 'PPG', 'PPL', 'PX', 'PFG', 'PG', 'PGR', 
+               'PLD', 'PRU', 'PEG', 'PSA', 'PHM', 'PVH', 'QRVO', 'PWR', 'QCOM', 
                'RRC', 'RJF', 'RTN', 'O', 'RHT', 'REG', 'REGN', 'RF', 'RSG', 'RMD', 
                'RHI', 'ROK', 'COL', 'ROP', 'ROST', 'RCL', 'CRM', 'SBAC', 'SCG', 'SLB',
-               'SNI', 'STX', 'SEE', 'SRE', 'SHW', 'SIG', 'SPG', 'SWKS', 'SLG', 'SNA', 
+               'STX', 'SEE', 'SRE', 'SHW', 'SIG', 'SPG', 'SWKS', 'SLG', 'SNA', 
                'SO', 'LUV', 'SPGI', 'SWK', 'SBUX', 'STT', 'SRCL', 'SYK', 'STI', 'SYMC', 
                'SYF', 'SNPS', 'SYY', 'TROW', 'TPR', 'TGT', 'TEL', 'FTI', 'TXN', 'TXT', 
                'TMO', 'TIF', 'TWX', 'TJX', 'TMK', 'TSS', 'TSCO', 'TDG', 'TRV', 'TRIP', 
                'FOXA', 'FOX', 'TSN', 'UDR', 'ULTA', 'USB', 'UAA', 'UA', 'UNP', 'UAL', 
                'UNH', 'UPS', 'URI', 'UTX', 'UHS', 'UNM', 'VFC', 'VLO', 'VAR', 'VTR', 
                'VRSN', 'VRSK', 'VZ', 'VRTX', 'VIAB', 'V', 'VNO', 'VMC', 'WMT', 'WBA', 
-               'DIS', 'WM', 'WAT', 'WEC', 'WFC', 'HCN', 'WDC', 'WU', 'WRK', 'WY', 'WHR', 
+               'DIS', 'WM', 'WAT', 'WEC', 'WFC', 'WDC', 'WU', 'WRK', 'WY', 'WHR', 
                'WMB', 'WLTW', 'WYN', 'WYNN', 'XEL', 'XRX', 'XLNX', 'XL', 'XYL', 'YUM', 
                'ZBH', 'ZION', 'ZTS']
 #    symbols =  high_cpm
@@ -84,16 +84,16 @@ def getliststocks(typestock = "RTS"):
 
     
     
-def analysis_trading(tickers, start, end, update = False, source = "us"):
+def analysis_trading(tickers, start, end, update = False, source = "yahoo"):
     
     
    
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
-            ninja_trading(ticker, start, end, realtime = update, source = source)
+#            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-#            canslim_usstock(ticker, start, end, realtime = update, source = source)
+            canslim_usstock(ticker, start, end, realtime = update, source = source)
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
@@ -166,7 +166,7 @@ def passive_strategy(start_date, end_date, market = "SPY"):
     return df_result, df_data
 
 
-def active_strategy(start_date, end_date, update = False, source = "cp68", market = "SPY"):
+def active_strategy(start_date, end_date, update = False, source = "yahoo", market = "SPY"):
 
     symbols = getliststocks(typestock = market)
     
@@ -174,7 +174,7 @@ def active_strategy(start_date, end_date, update = False, source = "cp68", marke
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start = start_date, end = end_date, realtime = update, source = source, market = market)
+            ninja_trading(ticker, start = start_date, end = end_date, realtime = update, source = source, market = market)
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
@@ -274,14 +274,14 @@ def rebalancing_porfolio(symbols = None, bench = 'SPY'):
     
 if __name__ == "__main__":
 #
-    end_date = "2018-5-25"
-    start_date = "2017-1-2"
+    end_date = "2018-5-30"
+    start_date = "2017-1-1"
     
     symbols = getliststocks(typestock = "RTS")
 
-# 
+#    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo')
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "SPY")
-    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
-    ticker = 'PEP'    
-#    hedgefund = canslim_usstock(ticker, start_date, end_date, realtime = False, source ="yahoo")    
+#    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+    ticker = 'MSFT'    
+    usstock = canslim_usstock(ticker, start_date, end_date, realtime = True, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)

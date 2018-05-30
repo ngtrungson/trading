@@ -10,7 +10,9 @@ import pandas as pd
 import talib
 import datetime
 from collections import Counter
+import fix_yahoo_finance as yf
 
+from alpha_vantage.timeseries import TimeSeries
 
 def run_backtest(df, ticker, typetrade = 'Long'):
     if (typetrade == 'Long'):
@@ -18,6 +20,8 @@ def run_backtest(df, ticker, typetrade = 'Long'):
     else:
         if (typetrade == 'Bottom'):
             df['Buy'] = df['Bottom']
+        if (typetrade == 'Short'):
+            df['Buy'] = df['Short']
     df['5Days'] = df['Close'].shift(-5)
     df['10Days'] = df['Close'].shift(-10)
     df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
@@ -226,15 +230,25 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
     
     
     
+    df['ValueM30'] = df['Value'].rolling(window = 30).mean()
+    df['Low15D'] = df['Low'].shift(1).rolling(window = 15).min()
     df['High15D'] = df['High'].shift(1).rolling(window = 15).max()
+    df['PCT_HL'] = ((df['High15D'] -df['Low15D'])/df['Low15D'])*100
    
     df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
     
-    df['Long'] = ((df['High']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
+    df['Long'] = ((df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & \
                  ((df['Close']*df['Volume'] >= 5000000)) & (df['RSI'] >=50) &\
-                 ((df['Volume'] > 1.2*df['VolMA30'])) &\
-                 (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High15D'])))
+                 ((df['Volume'] > df['VolMA30'])) &\
+                 (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
+   
+    
+    
+#    df['Long'] = ((df['ValueM30']> 5000000) & (df['Close'] > df['Open'])  & (df['Close'] > df['Low']) &\
+#                 (df['PCT_HL'] < 10) & (df['Volume'] > 1.2*df['VolMA30']) & \
+#                 (df['High15D'] > 1.05*df['Low15D'])  & \
+#                 ((df['Close'] > df['SMA30']) & (df['Close']> df['High15D'])))
     
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
     
@@ -242,7 +256,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
   
     
     df['Signal'] = 1* (df['Long']) 
-    hm_days = 10
+    hm_days = 2
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -312,7 +326,7 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
     n_fast = 12
     n_slow = 26
     nema = 9
-    df['MACD_12_26'],df['MACDSign12269'], df['MACDDiff12269'] = compute_MACD(df, n_fast, n_slow, nema)
+    df['MACD_12_26'],df['MACDSign12269'], _ = compute_MACD(df, n_fast, n_slow, nema)
     
     df['CONTEXT'] = (df['MACD_3_6'] > 0) & (df['MACD_12_26'] > 0) & (df['Close'] > df['EMA18']) & df['EMA_UP'] 
 
@@ -325,15 +339,21 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
     df['SHORT_SELL'] =  df['CONTEXT'] & (df['Close'] < df['Open']) & (df['Close'].shift(1) > df['Open'].shift(1)) & (df['Low'] > df['Low'].shift(1))
     
 
-    hm_days = 5
+    hm_days = 2
+    back_test = False
     for i in range(1,hm_days+1):
         if (df['SHORT_SELL'].iloc[-i]):
 #            if (df['Close'].iloc[-i] < df['Open'].iloc[-i]):
                 print(" Short selling", str(i), " days before ", df.iloc[-i].name ,  ticker)
 #                print(" Risk ", df['Risk'].iloc[-i])
 #                print(" Price divergence ", df['PRICE_D'].iloc[-i])
+                print_statistic(df, i)
+                back_test = True
        
-    df['Signal'] = -1*df['SHORT_SELL']     
+    df['Signal'] = -1*df['SHORT_SELL']    
+    df['Short'] = df['SHORT_SELL']  
+    if back_test:
+        run_backtest(df, ticker,  typetrade = 'Short')
 
     return df    
                 
@@ -358,20 +378,41 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
                                   '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume', '<VolumeDeal>':'Deal', '<VolumeFB>': 'FB', '<VolumeFS>': 'FS'})
         df = df.set_index('Date')
     
-    if source == 'data':
-        file_path = symbol_to_path(ticker, base_dir = source)
-        df = pd.read_csv(file_path, index_col ="Date", parse_dates = True, 
-                     usecols = ["Date", "Open", "High","Low","Close", "Volume"], na_values = "nan")
-        df = df.reset_index()
-        df = df.set_index('Date')
+    if source == 'alpha':
+        if realtime: 
+            ts = TimeSeries(key='9ODDY4H8J5P847TA', output_format='pandas')
+            df, _ = ts.get_daily(symbol=ticker, outputsize='full')
+            df = df.reset_index()
+            df = df.rename(columns = {'date': 'Date', "1. open": 'Open', '2. high': 'High',
+                                      '3. low': 'Low','4. close' : 'Close', '5. volume': 'Volume'})
+           
+            df = df.set_index('Date')
+        else:
+            
+            file_path = symbol_to_path(ticker, base_dir = source)
+            df = pd.read_csv(file_path, index_col ="date", parse_dates = True, 
+                         usecols = ["date", "1. open", "2. high","3. low","4. close", "5. volume"], na_values = "nan")
+            df = df.reset_index()
+            df = df.rename(columns = {'date': 'Date', "1. open": 'Open', '2. high': 'High',
+                                      '3. low': 'Low','4. close' : 'Close', '5. volume': 'Volume'})
+           
+            df = df.set_index('Date')
+#    if (source == 'yahoo'):
+#        file_path = symbol_to_path(ticker, base_dir = source)
+#        df = pd.read_csv(file_path, index_col ="Date", parse_dates = True,  
+#                     usecols = ["Date", "Open", "High","Low","Close", "Volume"], na_values = "nan")
+#        df = df.reset_index()
+#        df = df.set_index('Date')
         
-    if source == 'yahoo':
-        file_path = symbol_to_path(ticker, base_dir = source)
-        df = pd.read_csv(file_path, index_col ="Date", parse_dates = True,  
-                     usecols = ["Date", "Open", "High","Low","Close", "Volume"], na_values = "nan")
-        df = df.reset_index()
-        df = df.set_index('Date')
-       
+    if (source == 'yahoo'):
+        if realtime:          
+            df = yf.download(ticker, start, end)
+        else:            
+            file_path = symbol_to_path(ticker, base_dir = source)
+            df = pd.read_csv(file_path, index_col ="Date", parse_dates = True,  
+                         usecols = ["Date", "Open", "High","Low","Close", "Volume"], na_values = "nan")
+            df = df.reset_index()
+            df = df.set_index('Date')
         
     # columns order for backtrader type
     columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest", "FB", "FS"]
@@ -382,7 +423,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     # take a part of dataframe
     df = df.loc[start:end]
     
-    if realtime:
+    if (realtime & ((source == 'cp68') | (source == 'ssi'))):
         actual_price = get_info_stock(ticker)
         today = datetime.datetime.today()
         next_date = today
@@ -472,9 +513,11 @@ def print_statistic(df, i):
                                                        round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max9M'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max12M'].iloc[-i],2))
-    print('  Loss/gain T+3 :', df['ROC'].shift(-3).iloc[-i])
+    
     T5 = round((df['Close'].shift(-5).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
     T10 = round((df['Close'].shift(-10).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
+    T1 = round((df['Close'].shift(-1).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
+    print('  Loss/gain T+1/T+3 :', T1, df['ROC'].shift(-3).iloc[-i])
     print('  Back test T+5, T+10:', T5, T10)    
     print('----------------------------------------------------------------')
    
@@ -853,21 +896,21 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
         
     
     hm_days = 10
-
+    back_test = False
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] | df['LTT_A'].iloc[-i] ):
                 print(" Slingshot trading TT", str(i), "days before ", df.iloc[-i].name ,  ticker)   
                 print_statistic(df, i)
+                back_test = True
         if (df['LCTT'].iloc[-i] | df['LCTT_A'].iloc[-i]  ):
                 print(" Slingshot trading TCT", str(i), "days before ", df.iloc[-i].name ,  ticker)
                 print_statistic(df, i)
+                back_test = True
     df['Buy'] = (df['LTT'] | df['LCTT'] | df['LTT_A'] | df['LCTT_A'])
     
     
-
-    back_test = df['Buy'].sum() > 0 
     if back_test:
-        run_backtest(df, ticker)
+        run_backtest(df, ticker,  typetrade = 'Long')
         
     return df
 
@@ -888,18 +931,23 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
                    1 *((df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1))  )
             
     
-    hmdays = 3
+    hmdays = 10
+    back_test = False
     for i in range(1,hmdays+1):    
 #        if (df['Close'].iloc[-i] > df['Bollinger High'].iloc[-i]) & (df['Close'].iloc[-i-1] < df['Bollinger High'].iloc[-i-1]):
 #            print(" Bollinger trading sell", str(i), " days before", df.iloc[-i].name ,  ticker)
+#            print_statistic(df, i)
+#            back_test = True
         
-        if (df['Close'].iloc[-i] < df['Bollinger Low'].iloc[-i]) & (df['Close'].iloc[-i-1] > df['Bollinger Low'].iloc[-i-1]) & (df['ROC'].iloc[-i] < -15):
+        if (df['Close'].iloc[-i] < df['Bollinger Low'].iloc[-i]) & (df['Close'].iloc[-i-1] > df['Bollinger Low'].iloc[-i-1]):
             print(" Bollinger trading buy", str(i), "days before", df.iloc[-i].name ,  ticker)
             print_statistic(df, i)
-#    df['Buy'] =  (df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1)) & (df['Close'].shift(-1) > df['Open'].shift(-1))
+            back_test = True
+    df['Long'] =  (df['Close'] < df['Bollinger Low']) & (df['Close'].shift(1) > df['Bollinger Low'].shift(1))
+    
 #    back_test = df['Buy'].sum() > 0 
-#   if back_test:
-#        run_backtest(df)
+    if back_test:
+        run_backtest(df, ticker,  typetrade = 'Long')
 #    
     return df
 
