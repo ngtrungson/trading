@@ -274,14 +274,14 @@ def rebalancing_porfolio(symbols = None, bench = 'SPY'):
     
 if __name__ == "__main__":
 #
-    end_date = "2018-5-30"
+    end_date = "2018-5-31"
     start_date = "2017-1-1"
     
-    symbols = getliststocks(typestock = "RTS")
+    symbols = getliststocks(typestock = "ALL")
 
 #    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo')
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "SPY")
-#    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
-    ticker = 'MSFT'    
-    usstock = canslim_usstock(ticker, start_date, end_date, realtime = True, source ="yahoo")    
+    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+#    ticker = 'MSFT'    
+#    usstock = canslim_usstock(ticker, start_date, end_date, realtime = True, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)

@@ -12,7 +12,10 @@ import datetime
 from collections import Counter
 import fix_yahoo_finance as yf
 
+from pandas_datareader import data as pdr
 from alpha_vantage.timeseries import TimeSeries
+
+yf.pdr_override()
 
 def run_backtest(df, ticker, typetrade = 'Long'):
     if (typetrade == 'Long'):
@@ -256,7 +259,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
   
     
     df['Signal'] = 1* (df['Long']) 
-    hm_days = 2
+    hm_days = 1
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -406,7 +409,8 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
         
     if (source == 'yahoo'):
         if realtime:          
-            df = yf.download(ticker, start, end)
+#            df = yf.download(ticker, start, end)
+            df = pdr.get_data_yahoo(ticker, start=start, end=end,  as_panel = False) 
         else:            
             file_path = symbol_to_path(ticker, base_dir = source)
             df = pd.read_csv(file_path, index_col ="Date", parse_dates = True,  
@@ -895,7 +899,7 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     
         
     
-    hm_days = 10
+    hm_days = 2
     back_test = False
     for i in range(1,hm_days+1):
         if (df['LTT'].iloc[-i] | df['LTT_A'].iloc[-i] ):

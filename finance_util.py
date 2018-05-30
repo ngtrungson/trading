@@ -18,8 +18,6 @@ from statsmodels import regression
 import statsmodels.api as sm
 
 from alpha_vantage.timeseries import TimeSeries
-
-
 from pandas_datareader import data as pdr
 
 import fix_yahoo_finance as yf
@@ -115,12 +113,12 @@ def get_data_from_web(tickers, start, end, source = 'yahoo'):
     
     for ticker in tickers:
         # just in case your connection breaks, we'd like to save our progress!        
-       if not os.path.exists((source+'/{}.csv').format(ticker)):
+#       if not os.path.exists((source+'/{}.csv').format(ticker)):
            try:
 #            df = web.DataReader(ticker, source, start, end)
                 
                 if (source == 'yahoo'):                    
-                    df = pdr.get_data_yahoo(ticker, start=start, end=end) 
+                    df = pdr.get_data_yahoo(ticker, start=start, end=end,  as_panel = False) 
                     filepath = source + '/{}.csv'
                     df.to_csv(filepath.format(ticker))
                 if (source == 'alpha'):
@@ -135,8 +133,8 @@ def get_data_from_web(tickers, start, end, source = 'yahoo'):
             
            except Exception as e:
                 print(str(e))
-       else:
-            print('Already have {}'.format(ticker))
+#       else:
+#            print('Already have {}'.format(ticker))
 
 
 # Create Pandas data frame for backtrader
