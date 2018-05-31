@@ -172,10 +172,10 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
   
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
-    df['Bottom'] = ((df['Close'] > df['Open']) & (df['Close']*df['Volume'] > 10000000) & 
+    df['Bottom'] = ((df['Close'] > df['Open']) & (df['Close']*df['Volume'] > 1E7) & 
 #                  ((df['RSI'] < 31) | ((df['RSI'].shift(1) < df['RSI']) & df['RSI'].shift(1) < 31)) & 
                   ((df['RSI'] < 31) | (df['RSI'].shift(1) < 31)) & (df['RSI'].shift(1) < df['RSI']) &
-                  ((df['ROC4'] <-10)| (df['ROC'] <-10)))
+                  ((df['ROC4'].shift(1) <-12)| (df['ROC'].shift(1) <-12)))
     
 #    ban = (C < Ref(L,-1)AND C < Ref(L,-2)AND C < Ref(L,-3)AND C < Ref(L,-4))
 #OR HHV(C,10) >1.15*C
@@ -183,7 +183,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Max10D'] > 1.15* df['Close'])
     
     df['Signal'] = 1* (df['Long']) + -1*df['Short']
-    hm_days = 2
+    hm_days = 4
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -243,7 +243,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
     df['Long'] = ((df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & \
                  ((df['Close']*df['Volume'] >= 5000000)) & (df['RSI'] >=50) &\
-                 ((df['Volume'] > df['VolMA30'])) &\
+                 ((df['Volume'] > df['VolMA30'])) & \
                  (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
    
     
@@ -259,7 +259,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
   
     
     df['Signal'] = 1* (df['Long']) 
-    hm_days = 1
+    hm_days = 4
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -502,7 +502,7 @@ def print_statistic(df, i):
     print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-i]/df['VolMA30'].iloc[-i],2))
     print('  RSI indicator: ', df['RSI'].iloc[-i])
 #    print('  Rate of change last 3 days: ', df['ROC'].iloc[-i])
-    print('  Trading value (billion): ', df['Value'].iloc[-i]/1E6)
+    print('  Trading value (billion VND/million USD): ', df['Value'].iloc[-i]/1E6)
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
     print('  Side ways status 1 day before: ', df['Sideways'].iloc[-i-1])
     print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
@@ -521,7 +521,8 @@ def print_statistic(df, i):
     T5 = round((df['Close'].shift(-5).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
     T10 = round((df['Close'].shift(-10).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
     T1 = round((df['Close'].shift(-1).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
-    print('  Loss/gain T+1/T+3 :', T1, df['ROC'].shift(-3).iloc[-i])
+    T2 = round((df['Close'].shift(-2).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
+    print('  Loss/gain T+1/T+2/T+3 :', T1, T2, df['ROC'].shift(-3).iloc[-i])
     print('  Back test T+5, T+10:', T5, T10)    
     print('----------------------------------------------------------------')
    

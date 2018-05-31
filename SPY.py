@@ -14,7 +14,11 @@ from machine_learning import price_predictions, ML_strategy
 
 
 def getliststocks(typestock = "RTS"):
-     
+    #IXIC = NASDAQ
+    #NYA = 	NYSE COMPOSITE (DJ)
+    if typestock == "Index":
+        symbols = ['^IXIC', '^DJI', '^GSPC','^NYA']
+    
     if typestock == "RTS":
         symbols = ['MMM','AA', 'BABA','AMZN', 'AAPL', 'T', 'AXP','ALB', 'BB', 'BAC',
                    'BA','CAT', 'CSCO', 'C', 'KO', 'CL', 'DIS', 'DBX', 'EBAY',
@@ -22,6 +26,21 @@ def getliststocks(typestock = "RTS"):
                    'JPM', 'LN','LMT', 'MTCH', 'MA', 'MCD', 'MSFT','NFLX', 'NKE',
                    'NOK', 'NVDA', 'PYPL', 'PEP', 'PFE', 'RACE', 'SNE', 'SBUX',
                    'SNAP', 'SPOT', 'TSLA', 'TWTR', 'UBS', 'V', 'WMT', 'YNDX','AUY', 'ZTO']
+    
+    if typestock == "RTS_NASDAQ":
+        symbols = ['AMZN', 'AAPL', 'BB', 'CSCO', 'DIS', 'DBX', 'EBAY',
+                   'FB','FSLR','GOOG', 'GPRO', 'INTC',
+                    'MTCH',  'MSFT','NFLX',  'NVDA', 'PYPL', 'SBUX',
+                   'TSLA', 'YNDX']
+    
+    if typestock == "RTS_NYSE":
+        symbols = ['MMM','AA', 'BABA', 'T', 'AXP','ALB', 'BAC',
+                   'BA','CAT', 'C', 'KO', 'CL', 
+                   'GE','GM', 'GS', 'HOG', 'IBM', 
+                   'JPM', 'LN','LMT', 'MA', 'MCD', 'NKE',
+                   'NOK', 'PEP', 'PFE', 'RACE', 'SNE', 
+                   'SNAP', 'SPOT', 'TWTR', 'UBS', 'V', 'WMT', 'AUY', 'ZTO']
+        
     if typestock == "ALL":
         symbols = ['MMM', 'ABT', 'ABBV', 'ACN', 'ATVI', 'AYI', 'ADBE', 'AMD', 'AAP', 'AES', 
                'AET', 'AMG', 'AFL', 'A', 'APD', 'AKAM', 'ALK', 'ALB', 'ARE', 'ALXN', 
@@ -77,6 +96,7 @@ def getliststocks(typestock = "RTS"):
                'WMB', 'WLTW', 'WYN', 'WYNN', 'XEL', 'XRX', 'XLNX', 'XL', 'XYL', 'YUM', 
                'ZBH', 'ZION', 'ZTS']
 #    symbols =  high_cpm
+    symbols = symbols 
     symbols = pd.unique(symbols).tolist()
     symbols = sorted(symbols)
     
@@ -93,10 +113,10 @@ def analysis_trading(tickers, start, end, update = False, source = "yahoo"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            canslim_usstock(ticker, start, end, realtime = update, source = source)
+#            canslim_usstock(ticker, start, end, realtime = update, source = source)
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
-#            short_selling(ticker, start, end, realtime = update, source = source)
+            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -164,6 +184,42 @@ def passive_strategy(start_date, end_date, market = "SPY"):
     df_result ['RSW'] = relative_strength.iloc[-1,:].values
 
     return df_result, df_data
+
+
+def analysis_stocks_RTS(start_date, end_date):
+
+    symbols = getliststocks(typestock = "RTS")
+    
+    dates = pd.date_range(start_date, end_date)  # date range as index
+    df_data = get_data_us(symbols, dates, benchmark = None)  # get data for each symbol
+    
+    # Fill missing values
+    fill_missing_values(df_data)
+
+   
+#    df_result = pd.DataFrame(index = symbols)    
+    
+    df_result = pd.read_csv('dataRTS.csv', index_col='Ticker')
+
+    df_result = df_result.sort_index()
+#    return prices
+#    df_result['Commision'] = prices['Commision']
+    
+    df_result['Close'] = df_data[symbols].iloc[-1,:].values
+    
+    df_result['Margin'] = df_result['Close']*df_result['Lot']/50
+#    df_result['Comm_Ratio'] = round(df_result['Commision']/df_result['Close'].values*100,3)
+  
+    
+    relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 126).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 189).fillna(0) \
+                     + 20*df_data[symbols].pct_change(periods = 252).fillna(0) 
+     
+    df_result ['RSW'] = relative_strength.iloc[-1,:].values
+
+    return df_result, df_data
+
 
 
 def active_strategy(start_date, end_date, update = False, source = "yahoo", market = "SPY"):
@@ -277,11 +333,13 @@ if __name__ == "__main__":
     end_date = "2018-5-31"
     start_date = "2017-1-1"
     
-    symbols = getliststocks(typestock = "ALL")
-
+#    symbols = getliststocks(typestock = "RTS")
+#    price = get_exchange_price_rts()
 #    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo')
+    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
+
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "SPY")
-    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+#    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
 #    ticker = 'MSFT'    
 #    usstock = canslim_usstock(ticker, start_date, end_date, realtime = True, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)

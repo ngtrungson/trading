@@ -163,7 +163,7 @@ def get_data_us(symbols, dates, benchmark = 'SPY', colname = 'Close'):
         symbols = [benchmark] + symbols
         
     for symbol in symbols:
-        df_temp = pd.read_csv(symbol_to_path(symbol, base_dir ="data"), index_col='Date',
+        df_temp = pd.read_csv(symbol_to_path(symbol, base_dir ="yahoo"), index_col='Date',
                 parse_dates=True, usecols=['Date', colname], na_values=['nan'])
         df_temp = df_temp.rename(columns={colname: symbol})
         df_final = df_final.join(df_temp)
