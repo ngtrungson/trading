@@ -103,38 +103,32 @@ def save_sp500_tickers():
         
     return tickers
 
-def get_data_from_web(tickers, start, end, source = 'yahoo'):
+def get_data_from_web(tickers, start, end, source = 'yahoo', redownload = False):
     
     if not os.path.exists(source):
         os.makedirs(source)
         
     yf.pdr_override() # <== that's all it takes :-)
     apiKey = '9ODDY4H8J5P847TA'
-    
+    filepath = source + '/{}.csv'
     for ticker in tickers:
         # just in case your connection breaks, we'd like to save our progress!        
-#       if not os.path.exists((source+'/{}.csv').format(ticker)):
+       if (redownload | (not os.path.exists(filepath.format(ticker)))):
            try:
 #            df = web.DataReader(ticker, source, start, end)
                 
                 if (source == 'yahoo'):                    
-                    df = pdr.get_data_yahoo(ticker, start=start, end=end,  as_panel = False) 
-                    filepath = source + '/{}.csv'
+                    df = pdr.get_data_yahoo(ticker, start=start, end=end,  as_panel = False)                   
                     df.to_csv(filepath.format(ticker))
-                if (source == 'alpha'):
-                    
+                if (source == 'alpha'):                    
                     ts = TimeSeries(key=apiKey, output_format='pandas')
-                    df, _ = ts.get_daily(symbol=ticker, outputsize='full')
-                    filepath = source + '/{}.csv'
+                    df, _ = ts.get_daily(symbol=ticker, outputsize='full')                    
                     df.to_csv(filepath.format(ticker))
                     
-                
-                
-            
            except Exception as e:
                 print(str(e))
-#       else:
-#            print('Already have {}'.format(ticker))
+       else:
+            print('Already have {}'.format(ticker))
 
 
 # Create Pandas data frame for backtrader

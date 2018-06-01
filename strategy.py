@@ -234,9 +234,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
     
     
     df['ValueM30'] = df['Value'].rolling(window = 30).mean()
-    df['Low15D'] = df['Low'].shift(1).rolling(window = 15).min()
-    df['High15D'] = df['High'].shift(1).rolling(window = 15).max()
-    df['PCT_HL'] = ((df['High15D'] -df['Low15D'])/df['Low15D'])*100
+   
    
     df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
     
@@ -267,6 +265,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
                 print(" US stocks canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
                 print_statistic(df, i)
+                
                
 #        if (df['Bottom'].iloc[-i] ):
 #                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -464,6 +463,11 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     
     df['Sideways'] = (df['RSI'] >=40) & (df['Close']*df['Volume'] >= 3000000) & (df['Max5D'] <= 1.055*df['Min5D'])
     
+    
+    df['Low15D'] = df['Low'].shift(1).rolling(window = 15).min()
+    df['High15D'] = df['High'].shift(1).rolling(window = 15).max()
+    df['PCT_HL'] = ((df['High15D'] -df['Low15D'])/df['Low15D'])*100
+    
     df['Max3M'] = df['Close'].shift(1).rolling(window = 63).max()
     df['Max6M'] = df['Close'].shift(1).rolling(window = 126).max() 
    
@@ -504,7 +508,7 @@ def print_statistic(df, i):
 #    print('  Rate of change last 3 days: ', df['ROC'].iloc[-i])
     print('  Trading value (billion VND/million USD): ', df['Value'].iloc[-i]/1E6)
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
-    print('  Side ways status 1 day before: ', df['Sideways'].iloc[-i-1])
+    print('  Side ways status last 3 days: ', df['Sideways'].iloc[-i-2], df['Sideways'].iloc[-i-1], df['Sideways'].iloc[-i])
     print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
     print('  Actual price Close/Low/High/Open: ', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
     print('  PCT_Change last 5 days:',round(100*df['PCT_Change'].iloc[-i-4],2), 
@@ -512,6 +516,7 @@ def print_statistic(df, i):
                                       round(100*df['PCT_Change'].iloc[-i-2],2),
                                       round(100*df['PCT_Change'].iloc[-i-1],2), 
                                       round(100*df['PCT_Change'].iloc[-i],2))
+    print('  Variation last 3 days: ', df['PCT_HL'].iloc[-i-2], df['PCT_HL'].iloc[-i-1], df['PCT_HL'].iloc[-i])
     print('  Ratio with price max H4D/3M/6M/9M/12M: ', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i],2),

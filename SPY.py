@@ -26,14 +26,22 @@ def getliststocks(typestock = "RTS"):
                    'JPM', 'LN','LMT', 'MTCH', 'MA', 'MCD', 'MSFT','NFLX', 'NKE',
                    'NOK', 'NVDA', 'PYPL', 'PEP', 'PFE', 'RACE', 'SNE', 'SBUX',
                    'SNAP', 'SPOT', 'TSLA', 'TWTR', 'UBS', 'V', 'WMT', 'YNDX','AUY', 'ZTO']
+    if typestock == "RTS_IND":
+        symbols = ['MMM','AA', 'BABA','AMZN', 'AAPL', 'T', 'AXP','ALB', 'BB', 'BAC',
+                   'BA','CAT', 'CSCO', 'C', 'KO', 'CL', 'DIS', 'DBX', 'EBAY',
+                   'FB','FSLR','GE','GM', 'GOOG', 'GS', 'GPRO', 'HOG', 'IBM', 'INTC',
+                   'JPM', 'LN','LMT', 'MTCH', 'MA', 'MCD', 'MSFT','NFLX', 'NKE',
+                   'NOK', 'NVDA', 'PYPL', 'PEP', 'PFE', 'RACE', 'SNE', 'SBUX',
+                   'SNAP', 'SPOT', 'TSLA', 'TWTR', 'UBS', 'V', 'WMT', 'YNDX','AUY', 'ZTO'] + ['^IXIC', '^DJI', '^GSPC','^NYA']
+        
     
-    if typestock == "RTS_NASDAQ":
+    if typestock == "^IXIC":
         symbols = ['AMZN', 'AAPL', 'BB', 'CSCO', 'DIS', 'DBX', 'EBAY',
                    'FB','FSLR','GOOG', 'GPRO', 'INTC',
                     'MTCH',  'MSFT','NFLX',  'NVDA', 'PYPL', 'SBUX',
                    'TSLA', 'YNDX']
     
-    if typestock == "RTS_NYSE":
+    if typestock == "^NYA":
         symbols = ['MMM','AA', 'BABA', 'T', 'AXP','ALB', 'BAC',
                    'BA','CAT', 'C', 'KO', 'CL', 
                    'GE','GM', 'GS', 'HOG', 'IBM', 
@@ -96,7 +104,7 @@ def getliststocks(typestock = "RTS"):
                'WMB', 'WLTW', 'WYN', 'WYNN', 'XEL', 'XRX', 'XLNX', 'XL', 'XYL', 'YUM', 
                'ZBH', 'ZION', 'ZTS']
 #    symbols =  high_cpm
-    symbols = symbols 
+#    symbols = symbols 
     symbols = pd.unique(symbols).tolist()
     symbols = sorted(symbols)
     
@@ -113,10 +121,10 @@ def analysis_trading(tickers, start, end, update = False, source = "yahoo"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-#            canslim_usstock(ticker, start, end, realtime = update, source = source)
+            canslim_usstock(ticker, start, end, realtime = update, source = source)
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
-            short_selling(ticker, start, end, realtime = update, source = source)
+#            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -188,27 +196,25 @@ def passive_strategy(start_date, end_date, market = "SPY"):
 
 def analysis_stocks_RTS(start_date, end_date):
 
-    symbols = getliststocks(typestock = "RTS")
+    
+    df_result = pd.read_csv('dataRTS.csv', index_col='Ticker')
+
+    df_result = df_result.sort_index()
+    symbols = df_result.index
     
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data_us(symbols, dates, benchmark = None)  # get data for each symbol
     
     # Fill missing values
     fill_missing_values(df_data)
-
-   
-#    df_result = pd.DataFrame(index = symbols)    
-    
-    df_result = pd.read_csv('dataRTS.csv', index_col='Ticker')
-
-    df_result = df_result.sort_index()
 #    return prices
 #    df_result['Commision'] = prices['Commision']
     
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
     
     df_result['Margin'] = df_result['Close']*df_result['Lot']/50
-#    df_result['Comm_Ratio'] = round(df_result['Commision']/df_result['Close'].values*100,3)
+    df_result['Commision'] = (df_result['Spread']- df_result['Buy'] - df_result['Sell'])/df_result['Lot']
+    df_result['Comm_Ratio'] = round(df_result['Commision']/df_result['Close'].values*100,3)
   
     
     relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
@@ -222,124 +228,19 @@ def analysis_stocks_RTS(start_date, end_date):
 
 
 
-def active_strategy(start_date, end_date, update = False, source = "yahoo", market = "SPY"):
-
-    symbols = getliststocks(typestock = market)
-    
-    for ticker in symbols:
-        try:
-#            ninja_trading(ticker, start, end, realtime = update, source = source)
-#            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            ninja_trading(ticker, start = start_date, end = end_date, realtime = update, source = source, market = market)
-#            mean_reversion(ticker, start, end, realtime = update, source = source)
-#            bollinger_bands(ticker, start, end, realtime = update, source = source)
-#            short_selling(ticker, start, end, realtime = update, source = source)
-        except Exception as e:
-            print (e)
-            print("Error in reading symbol: ", ticker)
-            pass
-
-def rebalancing_porfolio(symbols = None, bench = 'SPY'):
-
-   
-    start0 = "2015-1-2"
-    end0 = "2017-1-2"
-    allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start0, ed = end0,
-            syms = symbols,  benchmark = bench, gen_plot = True)
-    print ("Optimize start Date:", start0)
-    print ("Optimize end Date:", end0) 
-    print ("Optimize volatility (stdev of daily returns):", sddr)
-    print ("Optimize average Daily Return:", adr)
-    print ("Optimize cumulative Return:", cr)
-    print(" -----------------------------------------------------")
-    start_date_list = ["2017-1-3", "2017-7-3"]
-    end_date_list = ["2017-7-2",  "2018-4-1"]
-    for start, end in zip(start_date_list, end_date_list):    
-        
-        cr, adr, sddr, sr  = compute_portfolio(sd = start, ed = end,
-            syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
-        print ("Start Date:", start)
-        print ("End Date:", end) 
-        print ("Volatility (stdev of daily returns):", sddr)
-        print ("Average Daily Return:", adr)
-        print ("Cumulative Return:", cr)  
-        print(" -----------------------------------------------------")
-        allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start, ed = end,
-            syms = symbols,  benchmark = bench, gen_plot = False)
-        print ("Optimize volatility (stdev of daily returns):", sddr)
-        print ("Optimize average Daily Return:", adr)
-        print ("Optimize cumulative Return:", cr)
-        print(" -----------------------------------------------------")
-        
-    
-    
-    
-    
-    # Out of sample testing optimisation algorithm
-    
-    end_date = "2018-5-21"
-    start_date = "2018-4-2"
-    
-    cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
-            syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
-    print("....................... Out of sample performance .................")
-    print ("Start Date:", start_date)
-    print ("End Date:", end_date) 
-    print ("Volatility (stdev of daily returns):", sddr)
-    print ("Average Daily Return:", adr)
-    print ("Cumulative Return:", cr)  
-    # Assess the portfolio
-    investment = 60000000
-    df_result = pd.DataFrame(index = symbols)    
-    df_result['Opt allocs'] = allocations
-    df_result['Cash'] = allocations * investment
-
-    dates = pd.date_range(start_date, end_date)  # date range as index
-    df_data = get_data_us(symbols, dates, benchmark = bench)  # get data for each symbol
-    
-   
-    df_high = get_data_us(symbols, dates, benchmark = None, colname = 'High')
-    df_low = get_data_us(symbols, dates, benchmark = None, colname = 'Low')
-    
-    max_high = pd.Series(df_high.max(), name = 'MaxHigh')
-    min_low = pd.Series(df_low.min(), name = 'MinLow')
-    cpm = pd.Series(max_high/min_low, name = 'CPM')
-    volatility = df_data[symbols].pct_change().std()  
-    
-    # Fill missing values
-            
-    df_result['Close'] = df_data[symbols].iloc[-1,:].values    
-    df_result['CPM'] = cpm
-    df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
-    df_result ['Volatility'] = volatility
-    
-    alpha_beta = analysis_alpha_beta(df_data, symbols, market = bench)
-    df_result['Alpha'] = alpha_beta['Alpha']
-    df_result['Beta'] = alpha_beta['Beta']
-    
-    relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
-                     + 20*df_data[symbols].pct_change(periods = 126).fillna(0) \
-                     + 20*df_data[symbols].pct_change(periods = 189).fillna(0) \
-                     + 20*df_data[symbols].pct_change(periods = 252).fillna(0)    
-    
-    df_result ['RSW'] = relative_strength.iloc[-1,:].values
-   
-    return df_result
-    
-
     
 if __name__ == "__main__":
 #
-    end_date = "2018-5-31"
+    end_date = "2018-6-1"
     start_date = "2017-1-1"
     
-#    symbols = getliststocks(typestock = "RTS")
-#    price = get_exchange_price_rts()
-#    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo')
-    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
+    symbols = getliststocks(typestock = "RTS_IND")
 
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "SPY")
-#    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+#    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
+#    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
+
+#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^NYA")
+    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
 #    ticker = 'MSFT'    
 #    usstock = canslim_usstock(ticker, start_date, end_date, realtime = True, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)
