@@ -8,7 +8,7 @@ import pandas as pd
 from finance_util import get_data_from_web, get_data_us, fill_missing_values, optimize_portfolio, compute_portfolio, analysis_alpha_beta
 from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, canslim_usstock, mean_reversion
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
-from machine_learning import price_predictions, ML_strategy
+from machine_learning import price_predictions, ML_strategy, analysis_stock
 
 
 
@@ -231,16 +231,17 @@ def analysis_stocks_RTS(start_date, end_date):
     
 if __name__ == "__main__":
 #
-    end_date = "2018-6-1"
-    start_date = "2017-1-1"
+    end_date = "2018-6-5"
+    start_date = "2015-1-1"
     
-    symbols = getliststocks(typestock = "RTS_IND")
+    symbols = getliststocks(typestock = "RTS")
 
-#    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
+#    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = False)
 #    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
+#    analysis_stock(symbols, stock_data, start_date, end_date)
 
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^NYA")
-    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+    analysis_trading(symbols, start = start_date , end = end_date, update = True, source = "yahoo")
 #    ticker = 'MSFT'    
 #    usstock = canslim_usstock(ticker, start_date, end_date, realtime = True, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)

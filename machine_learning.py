@@ -41,7 +41,7 @@ def process_data_for_labels(df, ticker):
  
 def buy_sell_hold(*args):
     cols = [c for c in args]
-    requirement = 0.03
+    requirement = 0.01
     for col in cols:
         if col > requirement:
             return 1
@@ -67,7 +67,7 @@ def extract_featuresets(df, ticker):
 
     vals = df['{}_target'.format(ticker)].values.tolist()
     str_vals = [str(i) for i in vals]
-    print('Data spread:',Counter(str_vals))
+#    print('Data spread:',Counter(str_vals))
 
     df.fillna(0, inplace=True)
     df = df.replace([np.inf, -np.inf], np.nan)
@@ -96,10 +96,12 @@ def analysis_stock(tickers, df, start, end):
         
         clf.fit(X_train, y_train)
         confidence = clf.score(X_test, y_test)
-        print('accuracy:',confidence)
+        
         predictions = clf.predict(X_test)
-        print('predicted class counts:', Counter(predictions))
+        
         if (confidence > 0.7):
+            print('accuracy:',confidence)
+            print('predicted class counts:', Counter(predictions))
             print(' Recommend invesment for next 5-7 days:', ticker)
             print('Predictions for next 5-7 days: ', clf.predict(X[-1:]))
             

@@ -183,23 +183,23 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Max10D'] > 1.15* df['Close'])
     
     df['Signal'] = 1* (df['Long']) + -1*df['Short']
-    hm_days = 4
+    hm_days = 1
 
     back_test = False
     for i in range(1,hm_days+1):
-#        if (df['Long'].iloc[-i] ):
-#                print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
-#                back_test = True
-#                print_statistic(df, i)
-#                if (market != None):
-#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-        if (df['Bottom'].iloc[-i] ):
-                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print_statistic(df, i)
+        if (df['Long'].iloc[-i] ):
+                print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
+                print_statistic(df, i)
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-#   
+#        if (df['Bottom'].iloc[-i] ):
+#                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+#                print_statistic(df, i)
+#                back_test = True
+#                if (market != None):
+#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+##   
 #        if (df['Outperform'].iloc[-i] ):
 #                print(" Outperform filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
 #                print_statistic(df, i)
@@ -527,7 +527,8 @@ def print_statistic(df, i):
     T10 = round((df['Close'].shift(-10).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
     T1 = round((df['Close'].shift(-1).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
     T2 = round((df['Close'].shift(-2).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
-    print('  Loss/gain T+1/T+2/T+3 :', T1, T2, df['ROC'].shift(-3).iloc[-i])
+    T4 = round((df['Close'].shift(-4).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
+    print('  Loss/gain T+1/T+2/T+3/T+4 :', T1, T2, round(df['ROC'].shift(-3).iloc[-i],2), T4)
     print('  Back test T+5, T+10:', T5, T10)    
     print('----------------------------------------------------------------')
    
