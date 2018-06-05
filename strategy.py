@@ -212,7 +212,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
 #    if back_test == False:
 #        back_test = df['Buy'].sum() > 0 
     if back_test:
-        run_backtest(df, ticker, typetrade = 'Bottom')
+        run_backtest(df, ticker, typetrade = 'Long')
 #     
     return df
 

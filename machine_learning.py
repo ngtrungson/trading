@@ -41,7 +41,7 @@ def process_data_for_labels(df, ticker):
  
 def buy_sell_hold(*args):
     cols = [c for c in args]
-    requirement = 0.01
+    requirement = 0.0
     for col in cols:
         if col > requirement:
             return 1
@@ -99,7 +99,7 @@ def analysis_stock(tickers, df, start, end):
         
         predictions = clf.predict(X_test)
         
-        if (confidence > 0.7):
+        if (confidence > 0.6):
             print('accuracy:',confidence)
             print('predicted class counts:', Counter(predictions))
             print(' Recommend invesment for next 5-7 days:', ticker)

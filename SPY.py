@@ -237,11 +237,11 @@ if __name__ == "__main__":
     symbols = getliststocks(typestock = "RTS")
 
 #    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = False)
-#    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
-#    analysis_stock(symbols, stock_data, start_date, end_date)
+    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
+    analysis_stock(symbols, stock_data, start_date, end_date)
 
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^NYA")
-    analysis_trading(symbols, start = start_date , end = end_date, update = True, source = "yahoo")
+#    analysis_trading(symbols, start = start_date , end = end_date, update = True, source = "yahoo")
 #    ticker = 'MSFT'    
 #    usstock = canslim_usstock(ticker, start_date, end_date, realtime = True, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)
