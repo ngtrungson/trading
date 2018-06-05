@@ -257,7 +257,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
   
     
     df['Signal'] = 1* (df['Long']) 
-    hm_days = 4
+    hm_days = 2
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -516,7 +516,7 @@ def print_statistic(df, i):
                                       round(100*df['PCT_Change'].iloc[-i-2],2),
                                       round(100*df['PCT_Change'].iloc[-i-1],2), 
                                       round(100*df['PCT_Change'].iloc[-i],2))
-    print('  Variation last 3 days: ', df['PCT_HL'].iloc[-i-2], df['PCT_HL'].iloc[-i-1], df['PCT_HL'].iloc[-i])
+    print('  Variation last 3 days: ', round(df['PCT_HL'].iloc[-i-2],2), round(df['PCT_HL'].iloc[-i-1],2), round(df['PCT_HL'].iloc[-i],2))
     print('  Ratio with price max H4D/3M/6M/9M/12M: ', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i],2),
