@@ -380,6 +380,11 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
     
 if __name__ == "__main__":
+#    import sys
+#    old_stdout = sys.stdout
+#    sys.stdout=open("logging.txt","w")
+   
+    
 #    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
@@ -393,9 +398,9 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
     
 
-    ticker = 'VPB'    
+    ticker = 'GMD'    
 #
-    end_date = "2018-5-31"
+    end_date = "2018-6-6"
     start_date = "2017-1-2"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -414,7 +419,7 @@ if __name__ == "__main__":
 ##    
 ##    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
 ##    
-#    canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", market = "^VNINDEX") 
+#    canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 #    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 ###    plot_canslim_trading(ticker, canslim)
 
@@ -423,7 +428,7 @@ if __name__ == "__main__":
                'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
               'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
               'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-5", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-6", update = False,  source ="cp68")
 #    
 #    
     
@@ -431,7 +436,7 @@ if __name__ == "__main__":
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
 #    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
+    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
@@ -446,4 +451,5 @@ if __name__ == "__main__":
 #    for ticker in RSWlist:
 #        ML_strategy(ticker, start ="2011-1-2", end = "2018-5-24")
 #    tickers = pd.Series(symbols)
+#    sys.stdout = old_stdout
     

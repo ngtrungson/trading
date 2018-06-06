@@ -25,6 +25,8 @@ def run_backtest(df, ticker, typetrade = 'Long'):
             df['Buy'] = df['Bottom']
         if (typetrade == 'Short'):
             df['Buy'] = df['Short']
+        if (typetrade == 'ShortTerm'):
+            df['Buy'] = df['ShortTerm']
     df['5Days'] = df['Close'].shift(-5)
     df['10Days'] = df['Close'].shift(-10)
     df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
@@ -164,18 +166,15 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     
     
     
-#    df['Outperform'] = ((df['Close'].shift(1)> df['Open'].shift(1)) & (df['Close'] > df['Open'])  & \
-#                 (df['ROC'] >= 2) & \
-#                 ((df['Close']*df['Volume'] >= 2000000)) & (df['RSI'] >=45) &\
-#                 ((df['Volume'] > df['Volume'].shift(1))) &\
-#                 (df['Close'] > df['SMA30']))
+    df['ShortTerm'] = ((df['Close'] > df['Open'])  & (df['Close'].shift(1) > df['Open'].shift(1)) & (df['RSI'] >=40) & \
+                      (df['RSI'] > df['RSI'].shift(1)))
   
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
     df['Bottom'] = ((df['Close'] > df['Open']) & (df['Close']*df['Volume'] > 1E7) & 
 #                  ((df['RSI'] < 31) | ((df['RSI'].shift(1) < df['RSI']) & df['RSI'].shift(1) < 31)) & 
                   ((df['RSI'] < 31) | (df['RSI'].shift(1) < 31)) & (df['RSI'].shift(1) < df['RSI']) &
-                  ((df['ROC4'].shift(1) <-12)| (df['ROC'].shift(1) <-12)))
+                  ((df['ROC4'].shift(1) <-10)| (df['ROC'].shift(1) <-10)))
     
 #    ban = (C < Ref(L,-1)AND C < Ref(L,-2)AND C < Ref(L,-3)AND C < Ref(L,-4))
 #OR HHV(C,10) >1.15*C
@@ -193,15 +192,15 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 print_statistic(df, i)
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-#        if (df['Bottom'].iloc[-i] ):
-#                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-#                print_statistic(df, i)
-#                back_test = True
-#                if (market != None):
-#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+        if (df['Bottom'].iloc[-i] ):
+                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 ##   
-#        if (df['Outperform'].iloc[-i] ):
-#                print(" Outperform filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+#        if (df['ShortTerm'].iloc[-i] ):
+#                print(" ShortTerm filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
 #                print_statistic(df, i)
 #                back_test = True
 #                if (market != None):
