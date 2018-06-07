@@ -159,15 +159,15 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     
     df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & \
-                 ((df['Close']*df['Volume'] >= 3000000)) & (df['RSI'] >=50) &\
+                 ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
                  (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))) &\
                  (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
     
     
     
-    df['ShortTerm'] = ((df['Close'] > df['Open'])  & (df['Close'].shift(1) > df['Open'].shift(1)) & (df['RSI'] >=40) & \
-                      (df['RSI'] > df['RSI'].shift(1)))
+    df['ShortTerm'] = ((df['Close'] > 1.02* df['Close'].shift(1))  & (df['Close'].shift(1) > df['Open'].shift(1)) & (df['RSI'] >=50) & \
+                      (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] > 2*df['VolMA30']))
   
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
@@ -182,7 +182,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Max10D'] > 1.15* df['Close'])
     
     df['Signal'] = 1* (df['Long']) + -1*df['Short']
-    hm_days = 1
+    hm_days = 2
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -192,20 +192,20 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 print_statistic(df, i)
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-        if (df['Bottom'].iloc[-i] ):
-                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print_statistic(df, i)
-                back_test = True
-                if (market != None):
-                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-##   
+#        if (df['Bottom'].iloc[-i] ):
+#                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+#                print_statistic(df, i)
+#                back_test = True
+#                if (market != None):
+#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+###   
 #        if (df['ShortTerm'].iloc[-i] ):
 #                print(" ShortTerm filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
 #                print_statistic(df, i)
 #                back_test = True
 #                if (market != None):
 #                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-#   
+   
     
 #    back_test = True
 #    if back_test == False:
@@ -256,7 +256,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
   
     
     df['Signal'] = 1* (df['Long']) 
-    hm_days = 2
+    hm_days = 1
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -502,6 +502,7 @@ def print_statistic(df, i):
 #   
 #    sddr = df['Close'].pct_change().std()
 #    print('  Volatility last week: ', round(df['Volatility'].iloc[-i],2), "over all: ", round(sddr,2), "ratio  :", round(df['Volatility'].iloc[-i]/sddr,2)) 
+    max_all = df['Close'].max()
     print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-i]/df['VolMA30'].iloc[-i],2))
     print('  RSI indicator: ', df['RSI'].iloc[-i])
 #    print('  Rate of change last 3 days: ', df['ROC'].iloc[-i])
@@ -516,11 +517,12 @@ def print_statistic(df, i):
                                       round(100*df['PCT_Change'].iloc[-i-1],2), 
                                       round(100*df['PCT_Change'].iloc[-i],2))
     print('  Variation last 3 days: ', round(df['PCT_HL'].iloc[-i-2],2), round(df['PCT_HL'].iloc[-i-1],2), round(df['PCT_HL'].iloc[-i],2))
-    print('  Ratio with price max H4D/3M/6M/9M/12M: ', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i],2),
+    print('  Ratio with price max H4D/3M/6M/9M/12M/all_time: ', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i],2),
                                                        round(df['Close'].iloc[-i]/df['Max9M'].iloc[-i],2),
-                                                       round(df['Close'].iloc[-i]/df['Max12M'].iloc[-i],2))
+                                                       round(df['Close'].iloc[-i]/df['Max12M'].iloc[-i],2),
+                                                       round(df['Close'].iloc[-i]/max_all,2),)
     
     T5 = round((df['Close'].shift(-5).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
     T10 = round((df['Close'].shift(-10).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)

@@ -231,7 +231,7 @@ def analysis_stocks_RTS(start_date, end_date):
     
 if __name__ == "__main__":
 #
-    end_date = "2018-6-6"
+    end_date = "2018-6-7"
     start_date = "2015-1-1"
     
     symbols = getliststocks(typestock = "RTS_IND")

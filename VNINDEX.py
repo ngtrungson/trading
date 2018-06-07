@@ -91,7 +91,7 @@ def getliststocks(typestock = "^VNINDEX"):
                   'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC', 'SPP',
                  'VKC', 'VPI', 'NBC', 'VGS']
     
-    symbolsVNI = [ 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 'CEE',
+    symbolsVNI = [ 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 'CEE',
                   'BCG', "BFC", "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CHP', 'C47', 
                "DCM","DHG", "DIG",  "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
                "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
@@ -221,11 +221,13 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
 #    
 #    beta = covariance / variance 
     
-    
+    df_value = df_volume*df_data
     vol_mean = pd.Series(df_volume.mean(),name = 'Volume')
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
     min_low = pd.Series(df_low.min(), name = 'MinLow')
     cpm = pd.Series(max_high/min_low, name = 'CPM')
+    value_mean = pd.Series(df_value.mean(), name = 'Value')
+    
     # Fill missing values
     fill_missing_values(df_data)
 
@@ -251,6 +253,7 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     df_result['Cash'] = allocations * investment
     df_result['Volume'] = vol_mean
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
+    df_result['Value'] = value_mean
     #    df_result['MaxH'] = max_high
 #    df_result['MinL'] = min_low
     df_result['CPM'] = cpm
@@ -340,7 +343,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     print ("Average Daily Return:", adr)
     print ("Cumulative Return:", cr)  
     # Assess the portfolio
-    investment = 60000000
+    investment = 60E6
     df_result = pd.DataFrame(index = symbols)    
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
@@ -383,8 +386,8 @@ if __name__ == "__main__":
 #    import sys
 #    old_stdout = sys.stdout
 #    sys.stdout=open("logging.txt","w")
-   
-    
+##   
+#    
 #    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
@@ -428,7 +431,7 @@ if __name__ == "__main__":
                'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
               'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
               'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-6", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-7", update = False,  source ="cp68")
 #    
 #    
     
@@ -442,7 +445,7 @@ if __name__ == "__main__":
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
 #    fill_missing_values(df_data)
 #    df_alphabeta = analysis_alpha_beta(df_data, symbols = symbolsVNI, market =  "^VNINDEX" )
-    port = portfolio_management()
+#    port = portfolio_management()
     
 #    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-23", update = True,  source ="cp68")
     

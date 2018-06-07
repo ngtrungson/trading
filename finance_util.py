@@ -642,7 +642,7 @@ if __name__ == "__main__":
                   'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC', 'SPP',
                  'VKC', 'VPI', 'NBC', 'VGS']
     
-     symbolsVNI = [ 'ASP', 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 'CEE',
+     symbolsVNI = ['APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 'CEE',
                   'BCG', "BFC", "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CHP', 'C47', 
                "DCM","DHG", "DIG",  "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
                "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
