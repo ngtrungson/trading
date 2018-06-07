@@ -147,6 +147,8 @@ def passive_strategy(start_date, end_date, market = "SPY"):
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
     min_low = pd.Series(df_low.min(), name = 'MinLow')
     cpm = pd.Series(max_high/min_low, name = 'CPM')
+    df_value = df_volume*df_data
+    value_mean = pd.Series(df_value.mean(), name = 'Value')
     # Fill missing values
     fill_missing_values(df_data)
 
@@ -172,6 +174,7 @@ def passive_strategy(start_date, end_date, market = "SPY"):
     df_result['Cash'] = allocations * investment
     df_result['Volume'] = vol_mean
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
+    df_result['Value'] = value_mean
     #    df_result['MaxH'] = max_high
 #    df_result['MinL'] = min_low
     df_result['CPM'] = cpm
@@ -231,7 +234,7 @@ def analysis_stocks_RTS(start_date, end_date):
     
 if __name__ == "__main__":
 #
-    end_date = "2018-6-7"
+    end_date = "2018-6-8"
     start_date = "2015-1-1"
     
     symbols = getliststocks(typestock = "RTS_IND")
@@ -240,8 +243,8 @@ if __name__ == "__main__":
 #    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
 #    analysis_stock(symbols, stock_data, start_date, end_date)
 
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^NYA")
-    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
+#    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
 #    ticker = 'MSFT'    
 #    usstock = canslim_usstock(ticker, start_date, end_date, realtime = True, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)
