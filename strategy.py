@@ -337,7 +337,9 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
 #     L>L1 
 
 
-    df['SHORT_SELL'] =  df['CONTEXT'] & (df['Close'] < df['Open']) & (df['Close'].shift(1) > df['Open'].shift(1)) & (df['Low'] > df['Low'].shift(1))
+    df['SHORT_SELL'] =  df['CONTEXT'] & (df['Close'] < df['Open']) & \
+                                        (df['Close'].shift(1) > df['Open'].shift(1)) & \
+                                        (df['Low'] > df['Low'].shift(1))
     
 
     hm_days = 2
@@ -506,30 +508,35 @@ def print_statistic(df, i):
     print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-i]/df['VolMA30'].iloc[-i],2))
     print('  RSI indicator: ', df['RSI'].iloc[-i])
 #    print('  Rate of change last 3 days: ', df['ROC'].iloc[-i])
-    print('  Trading value (billion VND/million USD): ', df['Value'].iloc[-i]/1E6)
+    print('  Trading value (billion VND/million USD): ', round(df['Value'].iloc[-i]/1E6, 2))
+    print('  Money flow in last 5 days: ',round(df['Value'].iloc[-i-4]/1E6, 2), 
+                                          round(df['Value'].iloc[-i-3]/1E6, 2),
+                                          round(df['Value'].iloc[-i-2]/1E6, 2),
+                                          round(df['Value'].iloc[-i-1]/1E6, 2), 
+                                          round(df['Value'].iloc[-i]/1E6, 2))
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
     print('  Side ways status last 3 days: ', df['Sideways'].iloc[-i-2], df['Sideways'].iloc[-i-1], df['Sideways'].iloc[-i])
     print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
     print('  Actual price Close/Low/High/Open: ', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
-    print('  PCT_Change last 5 days:',round(100*df['PCT_Change'].iloc[-i-4],2), 
-                                      round(100*df['PCT_Change'].iloc[-i-3],2),
-                                      round(100*df['PCT_Change'].iloc[-i-2],2),
-                                      round(100*df['PCT_Change'].iloc[-i-1],2), 
-                                      round(100*df['PCT_Change'].iloc[-i],2))
-    print('  Variation last 3 days: ', round(df['PCT_HL'].iloc[-i-2],2), round(df['PCT_HL'].iloc[-i-1],2), round(df['PCT_HL'].iloc[-i],2))
-    print('  Ratio with price max H4D/3M/6M/9M/12M/all_time: ', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i],2),
-                                                       round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i],2),
-                                                       round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i],2),
-                                                       round(df['Close'].iloc[-i]/df['Max9M'].iloc[-i],2),
-                                                       round(df['Close'].iloc[-i]/df['Max12M'].iloc[-i],2),
+    print('  PCT_Change last 5 days:',round(100*df['PCT_Change'].iloc[-i-4], 2), 
+                                      round(100*df['PCT_Change'].iloc[-i-3], 2),
+                                      round(100*df['PCT_Change'].iloc[-i-2], 2),
+                                      round(100*df['PCT_Change'].iloc[-i-1], 2), 
+                                      round(100*df['PCT_Change'].iloc[-i], 2))
+    print('  Variation last 3 days: ', round(df['PCT_HL'].iloc[-i-2], 2), round(df['PCT_HL'].iloc[-i-1], 2), round(df['PCT_HL'].iloc[-i], 2))
+    print('  Ratio with price max H4D/3M/6M/9M/12M/all_time: ', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i], 2),
+                                                       round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i], 2),
+                                                       round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i], 2),
+                                                       round(df['Close'].iloc[-i]/df['Max9M'].iloc[-i], 2),
+                                                       round(df['Close'].iloc[-i]/df['Max12M'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/max_all,2),)
     
-    T5 = round((df['Close'].shift(-5).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
-    T10 = round((df['Close'].shift(-10).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
-    T1 = round((df['Close'].shift(-1).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
-    T2 = round((df['Close'].shift(-2).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
-    T4 = round((df['Close'].shift(-4).iloc[-i]/df['Close'].iloc[-i]-1)*100,2)
-    print('  Loss/gain T+1/T+2/T+3/T+4 :', T1, T2, round(df['ROC'].shift(-3).iloc[-i],2), T4)
+    T5 = round((df['Close'].shift(-5).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    T10 = round((df['Close'].shift(-10).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    T1 = round((df['Close'].shift(-1).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    T2 = round((df['Close'].shift(-2).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    T4 = round((df['Close'].shift(-4).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    print('  Loss/gain T+1/T+2/T+3/T+4 :', T1, T2, round(df['ROC'].shift(-3).iloc[-i], 2), T4)
     print('  Back test T+5, T+10:', T5, T10)    
     print('----------------------------------------------------------------')
    

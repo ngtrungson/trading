@@ -217,7 +217,7 @@ def analysis_stocks_RTS(start_date, end_date):
     
     df_result['Margin'] = df_result['Close']*df_result['Lot']/50
     df_result['Commision'] = (df_result['Spread']- df_result['Buy'] - df_result['Sell'])/df_result['Lot']
-    df_result['Comm_Ratio'] = round(df_result['Commision']/df_result['Close'].values*100,3)
+    df_result['Comm_Ratio'] = round(df_result['Commision']/df_result['Close'].values*100, 3)
   
     
     relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
@@ -240,10 +240,10 @@ if __name__ == "__main__":
     symbols = getliststocks(typestock = "RTS_IND")
 
 #    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
-#    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
+    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
 #    analysis_stock(symbols, stock_data, start_date, end_date)
 
-    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
+#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
 #    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
 #    ticker = 'MSFT'    
 #    usstock = canslim_usstock(ticker, start_date, end_date, realtime = True, source ="yahoo")    
