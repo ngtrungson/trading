@@ -13,12 +13,12 @@ from machine_learning import price_predictions, ML_strategy
 
 def portfolio_management():
     df = pd.DataFrame()
-    tickers = ['PHC','HLD','GEX', 'TVN']
+    tickers = ['PHC','ANV','GEX', 'TVN']
     # chu y xu ly cac CP nhu PVS (co kha nang thoat hang), ACB, MBS, NVB(ngam lau dai doi thoi),  (HAR, DVN, VIX): sieu lo
-    buy_price = [19.5, 15.5, 38.8, 10.65]
-    shares_number = [500, 500, 260, 1900]
+    buy_price = [19.5, 25.85, 38.8, 10.65]
+    shares_number = [500, 400, 260, 1900]
     
-    low_candle = [18.9, 14.9, 37, 10]
+    low_candle = [18.9, 25, 37, 10]
     
     df['Ticker'] = tickers
     df = df.set_index('Ticker')    
@@ -175,7 +175,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start, end, realtime = update, source = source)
+            hung_canslim(ticker, start, end, realtime = update, source = source, typetrade = 'Long')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
@@ -431,7 +431,7 @@ if __name__ == "__main__":
                'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
               'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
               'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-7", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-8", update = False,  source ="cp68")
 #    
 #    
     
@@ -439,13 +439,13 @@ if __name__ == "__main__":
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
 #    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
 #    fill_missing_values(df_data)
 #    df_alphabeta = analysis_alpha_beta(df_data, symbols = symbolsVNI, market =  "^VNINDEX" )
-#    port = portfolio_management()
+    port = portfolio_management()
     
 #    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-23", update = True,  source ="cp68")
     

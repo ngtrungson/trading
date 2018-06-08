@@ -260,13 +260,21 @@ def price_predictions(ticker, start, end, forecast_out):
     print('Price for next {} days'.format(forecast_out), forecast_set)
  
 def ML_strategy(ticker, start, end):
-    file_path = symbol_to_path(ticker)
-    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+    
+#    file_path = symbol_to_path(ticker)
+#    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
+#                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+#    df = df.reset_index()
+#    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
+#                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+#    df = df.set_index('Date')
+    
+    file_path = symbol_to_path(ticker, base_dir = 'yahoo')
+    df = pd.read_csv(file_path, index_col ="Date", parse_dates = True,  
+                 usecols = ["Date", "Open", "High","Low","Close", "Volume"], na_values = "nan")
     df = df.reset_index()
-    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
     df = df.set_index('Date')
+    
     
     # columns order for backtrader type
     columnsOrder=["Open","High","Low","Close"]

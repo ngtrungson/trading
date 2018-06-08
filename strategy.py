@@ -17,15 +17,15 @@ from alpha_vantage.timeseries import TimeSeries
 
 yf.pdr_override()
 
-def run_backtest(df, ticker, typetrade = 'Long'):
-    if (typetrade == 'Long'):
+def run_backtest(df, ticker, trade = 'Long'):
+    if (trade == 'Long'):
         df['Buy'] = df['Long']
     else:
-        if (typetrade == 'Bottom'):
+        if (trade == 'Bottom'):
             df['Buy'] = df['Bottom']
-        if (typetrade == 'Short'):
+        if (trade == 'Short'):
             df['Buy'] = df['Short']
-        if (typetrade == 'ShortTerm'):
+        if (trade == 'ShortTerm'):
             df['Buy'] = df['ShortTerm']
     df['5Days'] = df['Close'].shift(-5)
     df['10Days'] = df['Close'].shift(-10)
@@ -118,7 +118,7 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68", market
         
     return df
 
-def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market = None):
+def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market = None , typetrade = 'Long'):
     
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
@@ -186,32 +186,34 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
 
     back_test = False
     for i in range(1,hm_days+1):
-        if (df['Long'].iloc[-i] ):
+        if (df['Long'].iloc[-i] & (typetrade == 'Long')):
                 print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
                 print_statistic(df, i)
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-#        if (df['Bottom'].iloc[-i] ):
-#                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-#                print_statistic(df, i)
-#                back_test = True
-#                if (market != None):
-#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-###   
-#        if (df['ShortTerm'].iloc[-i] ):
-#                print(" ShortTerm filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-#                print_statistic(df, i)
-#                back_test = True
-#                if (market != None):
-#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+
+        if (df['Bottom'].iloc[-i] & (typetrade == 'Bottom')):
+                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+##   
+
+        if (df['ShortTerm'].iloc[-i] & (typetrade == 'ShortTerm')):
+                print(" ShortTerm filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
    
     
 #    back_test = True
 #    if back_test == False:
 #        back_test = df['Buy'].sum() > 0 
     if back_test:
-        run_backtest(df, ticker, typetrade = 'Long')
+        run_backtest(df, ticker, trade = typetrade)
 #     
     return df
 
@@ -285,7 +287,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
 #    if back_test == False:
 #        back_test = df['Buy'].sum() > 0 
     if back_test:
-        run_backtest(df, ticker, typetrade = 'Long')
+        run_backtest(df, ticker, trade = 'Long')
 #     
     return df
 
@@ -335,14 +337,18 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
 #     C<O AND
 #     C1>O1 AND
 #     L>L1 
+    df['Divergence'] = np.where((df['MACD_3_6'] < df['MACD_3_6'].shift(1)) & (df['MACD_3_6'].shift(2) < df['MACD_3_6'].shift(1)), df['MACD_3_6'].shift(1), np.nan)
+    df['Divergence'] = np.where((df['MACD_3_6'] > df['MACDSign369']), df['MACD_3_6'], np.nan)
+    
+    df['Divergence'].fillna(method ="ffill", inplace = True)
 
-
-    df['SHORT_SELL'] =  df['CONTEXT'] & (df['Close'] < df['Open']) & \
-                                        (df['Close'].shift(1) > df['Open'].shift(1)) & \
+    df['SHORT_SELL'] =  df['CONTEXT'] & (df['Divergence'] < df['Divergence'].shift(1)) &\
+                (df['MACD_3_6'] < df['MACD_3_6'].shift(1)) & (df['Close'] < df['Open']) &\
+                  (df['Close'].shift(1) > df['Open'].shift(1)) & \
                                         (df['Low'] > df['Low'].shift(1))
     
 
-    hm_days = 2
+    hm_days = 10
     back_test = False
     for i in range(1,hm_days+1):
         if (df['SHORT_SELL'].iloc[-i]):
@@ -356,7 +362,7 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
     df['Signal'] = -1*df['SHORT_SELL']    
     df['Short'] = df['SHORT_SELL']  
     if back_test:
-        run_backtest(df, ticker,  typetrade = 'Short')
+        run_backtest(df, ticker,  trade = 'Short')
 
     return df    
                 
@@ -929,7 +935,7 @@ def hedgefund_trading(ticker, start, end, realtime = False, source = "cp68"):
     
     
     if back_test:
-        run_backtest(df, ticker,  typetrade = 'Long')
+        run_backtest(df, ticker,  trade = 'Long')
         
     return df
 
