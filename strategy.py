@@ -258,7 +258,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
   
     
     df['Signal'] = 1* (df['Long']) 
-    hm_days = 1
+    hm_days = 2
 
     back_test = False
     for i in range(1,hm_days+1):
@@ -453,6 +453,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['Volatility'] = df['Close'].rolling(window=5,center=False).std()
     df['PCT_Change'] = df['Close'].pct_change()
     df['Value'] = df['Volume']*df['Close']   
+    df['ValueMA30'] = df['Value'].rolling(window = 30, center = False).mean()
    
     df['RSI'] = talib.RSI(df['Close'].values, timeperiod = 14)
     df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 3)
@@ -514,7 +515,7 @@ def print_statistic(df, i):
     print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-i]/df['VolMA30'].iloc[-i],2))
     print('  RSI indicator: ', df['RSI'].iloc[-i])
 #    print('  Rate of change last 3 days: ', df['ROC'].iloc[-i])
-    print('  Trading value (billion VND/million USD): ', round(df['Value'].iloc[-i]/1E6, 2))
+    print('  Trading value (billion VND/million USD): ', round(df['Value'].iloc[-i]/1E6, 2), ' MA30 :', round(df['ValueMA30'].iloc[-i]/1E6, 2))
     print('  Money flow in last 5 days: ',round(df['Value'].iloc[-i-4]/1E6, 2), 
                                           round(df['Value'].iloc[-i-3]/1E6, 2),
                                           round(df['Value'].iloc[-i-2]/1E6, 2),

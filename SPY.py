@@ -121,10 +121,10 @@ def analysis_trading(tickers, start, end, update = False, source = "yahoo"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-#            canslim_usstock(ticker, start, end, realtime = update, source = source)
+            canslim_usstock(ticker, start, end, realtime = update, source = source)
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
-            short_selling(ticker, start, end, realtime = update, source = source)
+#            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -197,7 +197,7 @@ def passive_strategy(start_date, end_date, market = "SPY"):
     return df_result, df_data
 
 
-def analysis_stocks_RTS(start_date, end_date):
+def analysis_stocks_RTS(start_date, end_date, margin= 25, investment_size = 200):
 
     
     df_result = pd.read_csv('dataRTS.csv', index_col='Ticker')
@@ -214,10 +214,17 @@ def analysis_stocks_RTS(start_date, end_date):
 #    df_result['Commision'] = prices['Commision']
     
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
+    df_result['MinNbStock'] = df_result['Lot']* 0.01
+    df_result['PriceStockMarg'] = df_result['MinNbStock'] * df_result['Close']/margin    
     
-    df_result['Margin'] = df_result['Close']*df_result['Lot']/50
-    df_result['Commision'] = (df_result['Spread']- df_result['Buy'] - df_result['Sell'])/df_result['Lot']
-    df_result['Comm_Ratio'] = round(df_result['Commision']/df_result['Close'].values*100, 3)
+    df_result['NbMaxVol'] = round(investment_size/df_result['PriceStockMarg'], 0)
+    df_result['MaxVolLot'] = round(investment_size/df_result['PriceStockMarg']*0.01, 2)
+    
+    df_result['CommisionMin'] = (df_result['Spread']- df_result['Buy'] - df_result['Sell'])/df_result['Lot']* df_result['MinNbStock']   
+    df_result['Comm_Trade'] = (df_result['Spread']- df_result['Buy'] - df_result['Sell'])/df_result['Lot']*df_result['NbMaxVol']
+       
+    df_result['Comm_Ratio_Price'] = round(df_result['CommisionMin']/df_result['MinNbStock']/df_result['Close'].values*100, 3)
+    df_result['Comm_Ratio_Invest'] = round(df_result['Comm_Trade']/investment_size*100, 3)
   
     
     relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
@@ -229,10 +236,30 @@ def analysis_stocks_RTS(start_date, end_date):
 
     return df_result, df_data
 
-
+def analysis_single_stock(ticker, bid, ask, lot = 100, over_night = 5, investment = 200, margin = 25):
+    spread = (ask - bid)*100
+    close = ask
+    nb_stock_min = lot * 0.01
+    
+    price_stock_mg = nb_stock_min* close/margin 
+    print(ticker, " price min_volume with margin", price_stock_mg)
+    nb_min_vol = round(investment/price_stock_mg, 0)
+    commision = (spread + over_night)/lot*nb_min_vol
+    print(ticker, " commision min_volume with margin overnight", commision, " x 0.01")
+    print(ticker, " min_volume with $", investment, ":", nb_min_vol, " x 0.01")
+    print(ticker, " commision ratio with invesment with margin:", round(commision/investment*100, 2))
+    
 
     
 if __name__ == "__main__":
+    
+#    analysis_single_stock(ticker = 'TSLA', 
+#                          bid = 317.21, 
+#                          ask = 318.21, 
+#                          lot = 50, 
+#                          over_night = 4.36, 
+#                          investment = 200, 
+#                          margin = 10)
 #
     end_date = "2018-6-9"
     start_date = "2015-1-1"
@@ -244,7 +271,7 @@ if __name__ == "__main__":
 #    analysis_stock(symbols, stock_data, start_date, end_date)
 
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
-    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+#    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
 #    ticker = 'NVDA'    
 #    shortselling = short_selling(ticker, start_date, end_date, realtime = False, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)
