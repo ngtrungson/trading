@@ -121,10 +121,10 @@ def analysis_trading(tickers, start, end, update = False, source = "yahoo"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            canslim_usstock(ticker, start, end, realtime = update, source = source)
+#            canslim_usstock(ticker, start, end, realtime = update, source = source)
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
-#            short_selling(ticker, start, end, realtime = update, source = source)
+            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -138,20 +138,22 @@ def passive_strategy(start_date, end_date, market = "SPY"):
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data_us(symbols, dates, benchmark = market)  # get data for each symbol
     
-    df_volume = get_data_us(symbols, dates, benchmark = None, colname = 'Volume')  # get data for each symbol
-    df_high = get_data_us(symbols, dates, benchmark = None, colname = 'High')
-    df_low = get_data_us(symbols, dates, benchmark = None, colname = 'Low')
+    df_volume = get_data_us(symbols, dates, benchmark = market, colname = 'Volume')  # get data for each symbol
+    df_high = get_data_us(symbols, dates, benchmark = market, colname = 'High')
+    df_low = get_data_us(symbols, dates, benchmark = market, colname = 'Low')
     
-   
+    df_value = (df_volume*df_data).fillna(0)
+    valueM30 = df_value.rolling(window =30).mean()
+    
     vol_mean = pd.Series(df_volume.mean(),name = 'Volume')
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
     min_low = pd.Series(df_low.min(), name = 'MinLow')
     cpm = pd.Series(max_high/min_low, name = 'CPM')
-    df_value = df_volume*df_data
     value_mean = pd.Series(df_value.mean(), name = 'Value')
+    
+    
     # Fill missing values
     fill_missing_values(df_data)
-
     
     # Assess the portfolio
     
@@ -172,12 +174,15 @@ def passive_strategy(start_date, end_date, market = "SPY"):
     df_result = pd.DataFrame(index = symbols)    
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
-    df_result['Volume'] = vol_mean
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
-    df_result['Value'] = value_mean
+    df_result['Volume'] = df_volume[symbols].iloc[-1,:].values
+    df_result['VolumeMean'] = vol_mean[symbols]
+    df_result['Value'] = df_result['Close'] * df_result['Volume']   
+    df_result['ValueMean'] = value_mean[symbols]    
+    df_result['ValueMA30'] = valueM30[symbols].iloc[-1,:].values
     #    df_result['MaxH'] = max_high
 #    df_result['MinL'] = min_low
-    df_result['CPM'] = cpm
+    df_result['CPM'] = cpm[symbols]
     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
     df_result ['Volatility'] = df_data[symbols].pct_change().std() 
     
@@ -261,16 +266,16 @@ if __name__ == "__main__":
 #                          investment = 200, 
 #                          margin = 10)
 #
-    end_date = "2018-6-9"
+    end_date = "2018-6-12"
     start_date = "2015-1-1"
     
     symbols = getliststocks(typestock = "RTS")
 
 #    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
-    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
+#    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
 #    analysis_stock(symbols, stock_data, start_date, end_date)
 
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
+    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
 #    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
 #    ticker = 'NVDA'    
 #    shortselling = short_selling(ticker, start_date, end_date, realtime = False, source ="yahoo")    

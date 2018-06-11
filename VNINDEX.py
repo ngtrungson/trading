@@ -223,14 +223,13 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
 #    beta = covariance / variance 
     
     df_value = (df_volume*df_data).fillna(0)
-
     valueM30 = df_value.rolling(window =30).mean()
     
     vol_mean = pd.Series(df_volume.mean(),name = 'Volume')
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
     min_low = pd.Series(df_low.min(), name = 'MinLow')
     cpm = pd.Series(max_high/min_low, name = 'CPM')
-    value_mean = pd.Series(df_value.mean(), name = 'Value')
+    value_mean = pd.Series(df_value.mean(), name = 'ValueMean')
     
     
     # Fill missing values
@@ -256,10 +255,11 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     df_result = pd.DataFrame(index = symbols)    
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
-    df_result['Volume'] = vol_mean[symbols]
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
-    df_result['Value'] = value_mean[symbols]
-    
+    df_result['Volume'] = df_volume[symbols].iloc[-1,:].values
+    df_result['VolumeMean'] = vol_mean[symbols]
+    df_result['Value'] = df_result['Close'] * df_result['Volume']   
+    df_result['ValueMean'] = value_mean[symbols]    
     df_result['ValueMA30'] = valueM30[symbols].iloc[-1,:].values
     #    df_result['MaxH'] = max_high
 #    df_result['MinL'] = min_low
@@ -280,7 +280,7 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     
     df_result ['RSW'] = relative_strength.iloc[-1,:].values
 
-    return df_result, df_data, df_value
+    return df_result, df_data
 
 
 def active_strategy(start_date, end_date, update = False, source = "cp68", market = "^VNINDEX"):
@@ -359,8 +359,8 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     df_data = get_data(symbols, dates, benchmark = bench)  # get data for each symbol
     
    
-    df_high = get_data(symbols, dates, benchmark = None, colname = '<High>')
-    df_low = get_data(symbols, dates, benchmark = None, colname = '<Low>')
+    df_high = get_data(symbols, dates, benchmark = bench, colname = '<High>')
+    df_low = get_data(symbols, dates, benchmark = bench, colname = '<Low>')
     
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
     min_low = pd.Series(df_low.min(), name = 'MinLow')
@@ -370,7 +370,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     # Fill missing values
             
     df_result['Close'] = df_data[symbols].iloc[-1,:].values    
-    df_result['CPM'] = cpm
+    df_result['CPM'] = cpm[symbols]
     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
     df_result ['Volatility'] = volatility
     
@@ -446,7 +446,7 @@ if __name__ == "__main__":
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
 #    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-    stock_alloc, stock_data, stock_value = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
