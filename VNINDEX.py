@@ -66,6 +66,7 @@ def portfolio_management():
 
 def getliststocks(typestock = "^VNINDEX"):
     benchmark = ["^VNINDEX", "^HASTC", "^UPCOM"]
+    futures = ["VN30F1M", "VN30F2M", "VN30F1Q", "VN30F2Q"]
     
     nganhang = ['ACB','CTG','VPB','VCB','NVB', 'LPB', 'VIB', 'BID','HDB', 'EIB', 'MBB', 'SHB', 'STB']
     
@@ -112,7 +113,7 @@ def getliststocks(typestock = "^VNINDEX"):
                     'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MVC','MCH']
     
     if typestock == "ALL":
-        symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM 
+        symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + futures
     if typestock == "^VNINDEX":
         symbols = symbolsVNI
     if typestock == "^HASTC":
@@ -212,21 +213,25 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbols, dates, benchmark = market)  # get data for each symbol
     
-    df_volume = get_data(symbols, dates, benchmark = None, colname = '<Volume>')  # get data for each symbol
-    df_high = get_data(symbols, dates, benchmark = None, colname = '<High>')
-    df_low = get_data(symbols, dates, benchmark = None, colname = '<Low>')
+    df_volume = get_data(symbols, dates, benchmark = market, colname = '<Volume>')  # get data for each symbol
+    df_high = get_data(symbols, dates, benchmark = market, colname = '<High>')
+    df_low = get_data(symbols, dates, benchmark = market, colname = '<Low>')
     
 #    covariance = numpy.cov(asset , SPY)[0][1]  
 #    variance = numpy.var(asset)
 #    
 #    beta = covariance / variance 
     
-    df_value = df_volume*df_data
+    df_value = (df_volume*df_data).fillna(0)
+
+    valueM30 = df_value.rolling(window =30).mean()
+    
     vol_mean = pd.Series(df_volume.mean(),name = 'Volume')
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
     min_low = pd.Series(df_low.min(), name = 'MinLow')
     cpm = pd.Series(max_high/min_low, name = 'CPM')
     value_mean = pd.Series(df_value.mean(), name = 'Value')
+    
     
     # Fill missing values
     fill_missing_values(df_data)
@@ -251,12 +256,14 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     df_result = pd.DataFrame(index = symbols)    
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
-    df_result['Volume'] = vol_mean
+    df_result['Volume'] = vol_mean[symbols]
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
-    df_result['Value'] = value_mean
+    df_result['Value'] = value_mean[symbols]
+    
+    df_result['ValueMA30'] = valueM30[symbols].iloc[-1,:].values
     #    df_result['MaxH'] = max_high
 #    df_result['MinL'] = min_low
-    df_result['CPM'] = cpm
+    df_result['CPM'] = cpm[symbols]
     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
     df_result ['Volatility'] = df_data[symbols].pct_change().std() 
     
@@ -273,7 +280,7 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
     
     df_result ['RSW'] = relative_strength.iloc[-1,:].values
 
-    return df_result, df_data
+    return df_result, df_data, df_value
 
 
 def active_strategy(start_date, end_date, update = False, source = "cp68", market = "^VNINDEX"):
@@ -403,7 +410,7 @@ if __name__ == "__main__":
 
     ticker = 'GMD'    
 #
-    end_date = "2018-6-6"
+    end_date = "2018-6-11"
     start_date = "2017-1-2"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -431,7 +438,7 @@ if __name__ == "__main__":
                'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
               'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
               'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-8", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-11", update = False,  source ="cp68")
 #    
 #    
     
@@ -439,13 +446,13 @@ if __name__ == "__main__":
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
 #    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+    stock_alloc, stock_data, stock_value = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
 #    fill_missing_values(df_data)
 #    df_alphabeta = analysis_alpha_beta(df_data, symbols = symbolsVNI, market =  "^VNINDEX" )
-    port = portfolio_management()
+#    port = portfolio_management()
     
 #    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-23", update = True,  source ="cp68")
     

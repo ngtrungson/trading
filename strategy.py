@@ -158,7 +158,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     
     
     df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
-                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & \
+                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] > df['Volume'].shift(1)) &\
                  ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
                  (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))) &\
                  (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
@@ -348,7 +348,7 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
                                         (df['Low'] > df['Low'].shift(1))
     
 
-    hm_days = 10
+    hm_days = 3
     back_test = False
     for i in range(1,hm_days+1):
         if (df['SHORT_SELL'].iloc[-i]):

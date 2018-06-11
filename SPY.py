@@ -220,11 +220,11 @@ def analysis_stocks_RTS(start_date, end_date, margin= 25, investment_size = 200)
     df_result['NbMaxVol'] = round(investment_size/df_result['PriceStockMarg'], 0)
     df_result['MaxVolLot'] = round(investment_size/df_result['PriceStockMarg']*0.01, 2)
     
-    df_result['CommisionMin'] = (df_result['Spread']- df_result['Buy'] - df_result['Sell'])/df_result['Lot']* df_result['MinNbStock']   
+    df_result['CommMin'] = (df_result['Spread']- df_result['Buy'] - df_result['Sell'])/df_result['Lot']* df_result['MinNbStock']   
     df_result['Comm_Trade'] = (df_result['Spread']- df_result['Buy'] - df_result['Sell'])/df_result['Lot']*df_result['NbMaxVol']
        
-    df_result['Comm_Ratio_Price'] = round(df_result['CommisionMin']/df_result['MinNbStock']/df_result['Close'].values*100, 3)
-    df_result['Comm_Ratio_Invest'] = round(df_result['Comm_Trade']/investment_size*100, 3)
+    df_result['Comm_Price'] = round(df_result['CommMin']/df_result['MinNbStock']/df_result['Close'].values*100, 3)
+    df_result['Comm_Invest'] = round(df_result['Comm_Trade']/investment_size*100, 3)
   
     
     relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
@@ -236,7 +236,7 @@ def analysis_stocks_RTS(start_date, end_date, margin= 25, investment_size = 200)
 
     return df_result, df_data
 
-def analysis_single_stock(ticker, bid, ask, lot = 100, over_night = 5, investment = 200, margin = 25):
+def analysis_single_stock(ticker, bid, ask, lot = 100, over_night = 5, investment = 200, margin = 25, stoploss = 0.03, takeprofit = 0.08):
     spread = (ask - bid)*100
     close = ask
     nb_stock_min = lot * 0.01
