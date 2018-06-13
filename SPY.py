@@ -121,10 +121,10 @@ def analysis_trading(tickers, start, end, update = False, source = "yahoo"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-#            canslim_usstock(ticker, start, end, realtime = update, source = source)
+            canslim_usstock(ticker, start, end, realtime = update, source = source)
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
-            short_selling(ticker, start, end, realtime = update, source = source)
+#            short_selling(ticker, start, end, realtime = update, source = source)
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -266,17 +266,17 @@ if __name__ == "__main__":
 #                          investment = 200, 
 #                          margin = 10)
 #
-    end_date = "2018-6-12"
+    end_date = "2018-6-13"
     start_date = "2015-1-1"
     
-    symbols = getliststocks(typestock = "RTS")
+    symbols = getliststocks(typestock = "RTS_IND")
 
 #    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
 #    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
 #    analysis_stock(symbols, stock_data, start_date, end_date)
 
-    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
-#    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
+    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
 #    ticker = 'NVDA'    
 #    shortselling = short_selling(ticker, start_date, end_date, realtime = False, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)

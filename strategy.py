@@ -158,10 +158,11 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     
     
     df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
-                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] > df['Volume'].shift(1)) &\
+                  (df['Close'] > (df['High'] + df['Low'])/2)  &\
+                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
                  ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
-                 (((df['Volume'] > 1.3*df['VolMA30']) |(df['Volume'] > 250000))) &\
-                 (df['Close'] > df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
+                 (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 250000))) &\
+                 (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
     
     
@@ -203,6 +204,13 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
 
         if (df['ShortTerm'].iloc[-i] & (typetrade == 'ShortTerm')):
                 print(" ShortTerm filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+   
+        if (df['Short'].iloc[-i] & (typetrade == 'Short')):
+                print(" Short selling canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
                 print_statistic(df, i)
                 back_test = True
                 if (market != None):
@@ -505,13 +513,76 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['MACD_UP'] = (df['MACD_12_26'] > df['Sign12_26_9'])
     df['MACD_DOWN'] = (df['MACD_12_26'] < df['Sign12_26_9'])
     
+    
+    
+    # SUPPORT AND RESISTANCE
+   
+    df['Support'] = np.where((df['Low'] >= df['Low'].shift(1)) & (df['Low'].shift(2) >= df['Low'].shift(1)), df['Low'].shift(1), np.nan)
+    
+    df['Support'].fillna(method ="backfill", inplace = True)
+    df['Support'].fillna(method ="ffill", inplace = True)
+    
+    
+    df['Resistance'] = np.where((df['High'].shift(1) >= df['High']) & (df['High'].shift(2) <= df['High'].shift(1)), df['High'].shift(1), np.nan)
+    
+    df['Resistance'].fillna(method ="backfill", inplace = True)
+    df['Resistance'].fillna(method ="ffill", inplace = True)
     return df
+
+def compute_support_resistance(df, i):
+    
+    S1 = np.nan
+    S2 = np.nan
+    S3 = np.nan
+    R1 = np.nan
+    R2 = np.nan
+    R3 = np.nan
+    
+    support = df['Support'][:-i] 
+    S1 = min(support.iloc[-i], df['Low'].iloc[-i-1], df['Close'].iloc[-i])
+    ind = 1  
+    
+    while ((support.iloc[-ind] >= S1) & (ind < len(support))):
+        ind = ind +1
+    if (ind < len(support)):
+        S2 =  support.iloc[-ind]  
+  
+    while ((support.iloc[-ind] >= S2) & (ind < len(support))):
+        ind = ind +1 
+    if (ind < len(support)):
+        S3 =  support.iloc[-ind]
+    
+    
+    resistance = df['Resistance'][:-i]   
+    R0 = max(resistance.iloc[-i], df['High'].iloc[-i-1], df['Close'].iloc[-i])    
+    ind = 1
+
+    while ((resistance.iloc[-ind] <= R0) & (ind < len(resistance))):
+        ind = ind +1
+    if (ind < len(resistance)):
+        R1 =  resistance.iloc[-ind] 
+    
+    
+    while ((resistance.iloc[-ind] <= R1) & (ind < len(resistance))):
+        ind = ind +1
+    if (ind < len(resistance)):
+        R2 =  resistance.iloc[-ind]
+    while ((resistance.iloc[-ind] <= R2) & (ind < len(resistance))):
+        ind = ind +1
+    if (ind < len(resistance)):
+        R3 =  resistance.iloc[-ind]
+    
+    return S1, S2, S3, R1, R2, R3
 
 def print_statistic(df, i):
 #   
 #    sddr = df['Close'].pct_change().std()
 #    print('  Volatility last week: ', round(df['Volatility'].iloc[-i],2), "over all: ", round(sddr,2), "ratio  :", round(df['Volatility'].iloc[-i]/sddr,2)) 
     max_all = df['Close'].max()
+   
+    S1, S2, S3, R1, R2, R3 = compute_support_resistance(df, i)
+    
+    
     print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-i]/df['VolMA30'].iloc[-i],2))
     print('  RSI indicator: ', df['RSI'].iloc[-i])
 #    print('  Rate of change last 3 days: ', df['ROC'].iloc[-i])
@@ -543,6 +614,8 @@ def print_statistic(df, i):
     T1 = round((df['Close'].shift(-1).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T2 = round((df['Close'].shift(-2).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T4 = round((df['Close'].shift(-4).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    print('  Support S1 S2 S3 :', S1, S2, S3)
+    print('  Resistance R1 R2 R3 :', R1, R2, R3)
     print('  Loss/gain T+1/T+2/T+3/T+4 :', T1, T2, round(df['ROC'].shift(-3).iloc[-i], 2), T4)
     print('  Back test T+5, T+10:', T5, T10)    
     print('----------------------------------------------------------------')

@@ -654,13 +654,13 @@ if __name__ == "__main__":
                 "PPC", "PAC", 'QBS', "QCG", "REE",  
                 'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
                 "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
-                'ITC','LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
+                'LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
                 'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  'SRC', 'TLD', 'PMG',
-                'EIB','VPB','VRE','ROS',"VND", "HDB",  "SMC", "C32","CVT",'VPH','VNG','VIP',
+                'EIB','VPB','VRE','ROS',"VND", "HDB",  "C32","CVT",'VPH','VNG','VIP',
                 'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST','DAG', 'HAH']
     
      symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
-                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MVC','MCH']
+                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
      
