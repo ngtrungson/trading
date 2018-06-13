@@ -118,7 +118,7 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68", market
         
     return df
 
-def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market = None , typetrade = 'Long'):
+def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market = None , ndays = 2, typetrade = 'Long'):
     
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
@@ -183,7 +183,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Max10D'] > 1.15* df['Close'])
     
     df['Signal'] = 1* (df['Long']) + -1*df['Short']
-    hm_days = 2
+    hm_days = ndays
 
     back_test = False
     for i in range(1,hm_days+1):
