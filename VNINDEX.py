@@ -98,7 +98,7 @@ def getliststocks(typestock = "^VNINDEX"):
                "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
                 'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 'HCD',
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
-               'IDI', "IJC",  "KBC", "KSB",  "KDH", "KDC", 
+               'IDI', "IJC", 'ITD', "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB", 'NAF',
                 "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
                 "PPC", "PAC", 'QBS', "QCG", "REE",  
@@ -176,10 +176,10 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 10, typetrade = 'Long')
+#            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Long')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
-#            short_selling(ticker, start, end, realtime = update, source = source)
+            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -338,7 +338,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-5-21"
+    end_date = "2018-6-14"
     start_date = "2018-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
@@ -390,9 +390,9 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
     
 if __name__ == "__main__":
-    import sys
-    old_stdout = sys.stdout
-    sys.stdout=open("logging.txt","w")
+#    import sys
+#    old_stdout = sys.stdout
+#    sys.stdout=open("logging.txt","w")
 ##   
 #    
 #    symbols = get_csv_data(source = "cp68")
@@ -438,15 +438,15 @@ if __name__ == "__main__":
                'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
               'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
               'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-13", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-14", update = False,  source ="cp68")
 #    
 #    
     
     
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
-#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
+    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
+#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index
 #    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
@@ -461,5 +461,5 @@ if __name__ == "__main__":
 #    for ticker in RSWlist:
 #        ML_strategy(ticker, start ="2011-1-2", end = "2018-5-24")
 #    tickers = pd.Series(symbols)
-    sys.stdout = old_stdout
+#    sys.stdout = old_stdout
     

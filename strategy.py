@@ -138,7 +138,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     
     
     
-    df['MID'] = (df['High'] + df['Close']) /2
+    df['MID'] = (df['High'] + df['Low']) /2
 #    print('Max 120 days :', max_120)
 #    & (df['Close'] > (df['High'] + df['Low'])/2)
     # df['Volume'] > df['Volume'].shift(1)
@@ -299,7 +299,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
 #     
     return df
 
-def short_selling(ticker, start, end, realtime = False, source = "cp68"):
+def short_selling(ticker, start, end, realtime = False, source = "cp68", market = None , ndays = 2, typetrade = 'Short'):
        
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
         
@@ -356,7 +356,7 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
                                         (df['Low'] > df['Low'].shift(1))
     
 
-    hm_days = 3
+    hm_days = ndays
     back_test = False
     for i in range(1,hm_days+1):
         if (df['SHORT_SELL'].iloc[-i]):
@@ -366,11 +366,13 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68"):
 #                print(" Price divergence ", df['PRICE_D'].iloc[-i])
                 print_statistic(df, i)
                 back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
        
     df['Signal'] = -1*df['SHORT_SELL']    
     df['Short'] = df['SHORT_SELL']  
     if back_test:
-        run_backtest(df, ticker,  trade = 'Short')
+        run_backtest(df, ticker,  trade = typetrade)
 
     return df    
                 
@@ -595,14 +597,14 @@ def print_statistic(df, i):
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
     print('  Side ways status last 3 days: ', df['Sideways'].iloc[-i-2], df['Sideways'].iloc[-i-1], df['Sideways'].iloc[-i])
     print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
-    print('  Actual price Close/Low/High/Open: ', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
+    print('  Actual price Close/Low/High/Open:', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
     print('  PCT_Change last 5 days:',round(100*df['PCT_Change'].iloc[-i-4], 2), 
                                       round(100*df['PCT_Change'].iloc[-i-3], 2),
                                       round(100*df['PCT_Change'].iloc[-i-2], 2),
                                       round(100*df['PCT_Change'].iloc[-i-1], 2), 
                                       round(100*df['PCT_Change'].iloc[-i], 2))
-    print('  Variation last 3 days: ', round(df['PCT_HL'].iloc[-i-2], 2), round(df['PCT_HL'].iloc[-i-1], 2), round(df['PCT_HL'].iloc[-i], 2))
-    print('  Ratio with price max H4D/3M/6M/9M/12M/all_time: ', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i], 2),
+    print('  Variation last 3 days (H/L): ', round(df['PCT_HL'].iloc[-i-2], 2), round(df['PCT_HL'].iloc[-i-1], 2), round(df['PCT_HL'].iloc[-i], 2))
+    print('  Ratio vs max H4D/3M/6M/9M/12M/all_time:', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max9M'].iloc[-i], 2),

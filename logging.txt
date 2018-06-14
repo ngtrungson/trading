@@ -6,10 +6,10 @@
   Relative strength RSW:  1.0533521748024222
   Side ways status last 3 days:  True True False
   Price max 3M/6M/9M/12M:  22.0 25.75 26.04 26.04
-  Actual price Close/Low/High/Open:  22.55 21.5 22.55 21.5
+  Actual price Close/Low/High/Open: 22.55 21.5 22.55 21.5
   PCT_Change last 5 days: 0.5 -1.0 1.51 4.46 6.87
-  Variation last 3 days:  16.48 16.48 18.99
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.06 1.03 0.88 0.87 0.87 0.87
+  Variation last 3 days (H/L):  16.48 16.48 18.99
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.06 1.03 0.88 0.87 0.87 0.87
   Support S1 S2 S3 : 17.9 17.45 17.08
   Resistance R1 R2 R3 : 23.0 23.03 23.34
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 2.0 -2.44 -2.88
@@ -23,10 +23,10 @@
   Relative strength RSW:  -6.8533657657469975
   Side ways status last 3 days:  False True True
   Price max 3M/6M/9M/12M:  22.0 25.75 26.04 26.04
-  Actual price Close/Low/High/Open:  21.1 20.2 21.3 20.2
+  Actual price Close/Low/High/Open: 21.1 20.2 21.3 20.2
   PCT_Change last 5 days: -3.38 0.5 -1.0 1.51 4.46
-  Variation last 3 days:  16.48 16.48 16.48
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.96 0.82 0.81 0.81 0.81
+  Variation last 3 days (H/L):  16.48 16.48 16.48
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.96 0.82 0.81 0.81 0.81
   Support S1 S2 S3 : 17.9 17.45 17.08
   Resistance R1 R2 R3 : 23.0 23.03 23.34
   Loss/gain T+1/T+2/T+3/T+4 : 6.87 6.87 9.0 4.27
@@ -42,10 +42,10 @@ Back test result: Counter({'0': 348, '-1': 5, '1': 4}) symbol:  AAA
   Relative strength RSW:  40.716050297170646
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  51.1 51.1 51.1 51.1
-  Actual price Close/Low/High/Open:  43.3 41.3 43.5 41.7
+  Actual price Close/Low/High/Open: 43.3 41.3 43.5 41.7
   PCT_Change last 5 days: 4.17 1.25 3.7 -0.71 3.84
-  Variation last 3 days:  50.0 50.0 50.0
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.85 0.85 0.85 0.85 0.85
+  Variation last 3 days (H/L):  50.0 50.0 50.0
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.85 0.85 0.85 0.85 0.85
   Support S1 S2 S3 : 32.6 31.09 29.0
   Resistance R1 R2 R3 : 48.9 50.3 50.4
   Loss/gain T+1/T+2/T+3/T+4 : -2.08 -0.46 -1.62 -3.93
@@ -61,10 +61,10 @@ Back test result: Counter({'0': 350, '1': 7, '-1': 2}) symbol:  ACB
   Relative strength RSW:  31.35606181524865
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  106.1 119.0 119.0 119.0
-  Actual price Close/Low/High/Open:  96.2 88.0 97.1 89.0
+  Actual price Close/Low/High/Open: 96.2 88.0 97.1 89.0
   PCT_Change last 5 days: 2.84 -2.65 0.34 1.24 7.49
-  Variation last 3 days:  20.93 20.93 20.93
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.06 0.91 0.81 0.81 0.81 0.81
+  Variation last 3 days (H/L):  20.93 20.93 20.93
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.06 0.91 0.81 0.81 0.81 0.81
   Support S1 S2 S3 : 87.0 79.5 77.2
   Resistance R1 R2 R3 : 97.1 108.0 118.0
   Loss/gain T+1/T+2/T+3/T+4 : -2.29 -3.85 nan nan
@@ -80,10 +80,10 @@ Back test result: Counter({'0': 353, '1': 3, '-1': 3}) symbol:  ACV
   Relative strength RSW:  -32.34077974277245
   Side ways status last 3 days:  False True True
   Price max 3M/6M/9M/12M:  66.8 90.8 90.8 90.8
-  Actual price Close/Low/High/Open:  30.35 28.5 30.35 28.9
+  Actual price Close/Low/High/Open: 30.35 28.5 30.35 28.9
   PCT_Change last 5 days: -0.53 -0.35 0.36 0.71 6.87
-  Variation last 3 days:  22.53 20.55 20.55
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.45 0.33 0.33 0.33 0.33
+  Variation last 3 days (H/L):  22.53 20.55 20.55
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.45 0.33 0.33 0.33 0.33
   Support S1 S2 S3 : 27.5 27.0 25.3
   Resistance R1 R2 R3 : 30.5 31.2 31.8
   Loss/gain T+1/T+2/T+3/T+4 : 6.92 14.33 12.19 nan
@@ -99,10 +99,10 @@ Back test result: Counter({'0': 349, '1': 6, '-1': 2}) symbol:  APC
   Relative strength RSW:  -21.939152210891336
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  10.4 17.6 19.97 nan
-  Actual price Close/Low/High/Open:  8.9 8.4 9.0 8.6
+  Actual price Close/Low/High/Open: 8.9 8.4 9.0 8.6
   PCT_Change last 5 days: -1.3 2.63 3.85 4.94 4.71
-  Variation last 3 days:  67.14 52.86 42.86
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.86 0.51 0.45 nan 0.33
+  Variation last 3 days (H/L):  67.14 52.86 42.86
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.86 0.51 0.45 nan 0.33
   Support S1 S2 S3 : 7.0 nan nan
   Resistance R1 R2 R3 : 9.0 9.1 9.5
   Loss/gain T+1/T+2/T+3/T+4 : -2.25 -2.25 -2.25 0.0
@@ -118,10 +118,10 @@ Back test result: Counter({'0': 212, '-1': 4}) symbol:  ART
   Relative strength RSW:  28.92959177224351
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  15.15 15.15 15.15 15.15
-  Actual price Close/Low/High/Open:  13.9 13.0 13.9 13.05
+  Actual price Close/Low/High/Open: 13.9 13.0 13.9 13.05
   PCT_Change last 5 days: -3.6 4.56 0.79 2.36 6.92
-  Variation last 3 days:  19.74 19.74 18.03
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.07 0.92 0.92 0.92 0.92 0.92
+  Variation last 3 days (H/L):  19.74 19.74 18.03
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.07 0.92 0.92 0.92 0.92 0.92
   Support S1 S2 S3 : 11.65 11.0 10.15
   Resistance R1 R2 R3 : 14.2 15.35 nan
   Loss/gain T+1/T+2/T+3/T+4 : 0.72 -1.44 2.88 2.88
@@ -137,10 +137,10 @@ Back test result: Counter({'0': 347, '-1': 6, '1': 4}) symbol:  ASM
   Relative strength RSW:  -26.379488157794405
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  89.34 92.68 92.68 100.68
-  Actual price Close/Low/High/Open:  63.5 59.5 63.5 59.8
+  Actual price Close/Low/High/Open: 63.5 59.5 63.5 59.8
   PCT_Change last 5 days: 0.0 -2.01 1.88 0.67 5.83
-  Variation last 3 days:  25.8 25.77 25.77
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.71 0.69 0.69 0.63 0.6
+  Variation last 3 days (H/L):  25.8 25.77 25.77
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.71 0.69 0.69 0.63 0.6
   Support S1 S2 S3 : 57.0 56.1 50.01
   Resistance R1 R2 R3 : 66.2 68.67 69.63
   Loss/gain T+1/T+2/T+3/T+4 : -2.2 -3.62 -1.42 0.79
@@ -156,10 +156,10 @@ Back test result: Counter({'0': 348, '1': 5, '-1': 4}) symbol:  BMP
   Relative strength RSW:  4.499717185902778
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  15.7 17.5 17.5 17.5
-  Actual price Close/Low/High/Open:  14.0 13.4 14.2 13.4
+  Actual price Close/Low/High/Open: 14.0 13.4 14.2 13.4
   PCT_Change last 5 days: 0.0 0.0 0.0 2.27 3.7
-  Variation last 3 days:  13.39 11.81 10.24
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.89 0.8 0.8 0.8 0.8
+  Variation last 3 days (H/L):  13.39 11.81 10.24
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.89 0.8 0.8 0.8 0.8
   Support S1 S2 S3 : 13.0 12.7 12.5
   Resistance R1 R2 R3 : 14.2 14.6 15.1
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 -0.36 -5.71 -5.0
@@ -175,10 +175,10 @@ Back test result: Counter({'0': 351, '1': 1}) symbol:  BSI
   Relative strength RSW:  1.6601845908036306
   Side ways status last 3 days:  True False True
   Price max 3M/6M/9M/12M:  15.3 17.9 17.9 19.5
-  Actual price Close/Low/High/Open:  15.65 14.7 15.65 14.7
+  Actual price Close/Low/High/Open: 15.65 14.7 15.65 14.7
   PCT_Change last 5 days: -1.33 0.0 1.35 -2.33 6.83
-  Variation last 3 days:  20.08 20.08 20.08
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 1.02 0.87 0.87 0.8 0.78
+  Variation last 3 days (H/L):  20.08 20.08 20.08
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 1.02 0.87 0.87 0.8 0.78
   Support S1 S2 S3 : 14.65 14.35 13.1
   Resistance R1 R2 R3 : 18.0 18.25 18.7
   Loss/gain T+1/T+2/T+3/T+4 : -1.92 -1.92 -5.43 -3.51
@@ -194,10 +194,10 @@ Back test result: Counter({'0': 345, '-1': 7, '1': 5}) symbol:  CSM
   Relative strength RSW:  -21.929043035999214
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  182.0 234.3 239.0 239.0
-  Actual price Close/Low/High/Open:  156.0 146.5 156.4 146.5
+  Actual price Close/Low/High/Open: 156.0 146.5 156.4 146.5
   PCT_Change last 5 days: 4.07 2.9 0.42 3.09 6.12
-  Variation last 3 days:  25.83 25.83 25.83
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.86 0.67 0.65 0.65 0.65
+  Variation last 3 days (H/L):  25.83 25.83 25.83
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.86 0.67 0.65 0.65 0.65
   Support S1 S2 S3 : 120.4 nan nan
   Resistance R1 R2 R3 : 167.0 174.0 184.5
   Loss/gain T+1/T+2/T+3/T+4 : 5.13 2.37 0.96 2.63
@@ -211,10 +211,10 @@ Back test result: Counter({'0': 345, '-1': 7, '1': 5}) symbol:  CSM
   Relative strength RSW:  -28.872172641790925
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  182.0 234.3 239.0 239.0
-  Actual price Close/Low/High/Open:  142.0 134.0 143.5 136.0
+  Actual price Close/Low/High/Open: 142.0 134.0 143.5 136.0
   PCT_Change last 5 days: -5.79 1.64 6.94 4.07 2.9
-  Variation last 3 days:  25.83 25.83 25.83
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.78 0.61 0.59 0.59 0.59
+  Variation last 3 days (H/L):  25.83 25.83 25.83
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.78 0.61 0.59 0.59 0.59
   Support S1 S2 S3 : 133.0 120.4 nan
   Resistance R1 R2 R3 : 151.5 153.0 162.5
   Loss/gain T+1/T+2/T+3/T+4 : 0.42 3.52 9.86 15.49
@@ -230,10 +230,10 @@ Back test result: Counter({'0': 353, '1': 2, '-1': 2}) symbol:  CTD
   Relative strength RSW:  -7.848725561311931
   Side ways status last 3 days:  True False False
   Price max 3M/6M/9M/12M:  38.35 42.3 42.3 42.3
-  Actual price Close/Low/High/Open:  32.45 31.4 32.45 31.4
+  Actual price Close/Low/High/Open: 32.45 31.4 32.45 31.4
   PCT_Change last 5 days: -1.8 2.67 4.22 -2.18 3.34
-  Variation last 3 days:  17.33 16.61 16.61
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.0 0.85 0.77 0.77 0.77 0.77
+  Variation last 3 days (H/L):  17.33 16.61 16.61
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 0.85 0.77 0.77 0.77 0.77
   Support S1 S2 S3 : 29.7 28.3 27.7
   Resistance R1 R2 R3 : 36.8 37.98 38.13
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
@@ -249,10 +249,10 @@ Back test result: Counter({'0': 338, '1': 8, '-1': 7}) symbol:  CVT
   Relative strength RSW:  -5.341233418749713
   Side ways status last 3 days:  True True False
   Price max 3M/6M/9M/12M:  9.0 10.3 12.26 13.31
-  Actual price Close/Low/High/Open:  9.41 8.89 9.41 8.9
+  Actual price Close/Low/High/Open: 9.41 8.89 9.41 8.9
   PCT_Change last 5 days: 1.78 -4.65 5.49 1.73 6.93
-  Variation last 3 days:  15.38 15.38 15.38
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.06 1.05 0.91 0.77 0.71 0.71
+  Variation last 3 days (H/L):  15.38 15.38 15.38
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.06 1.05 0.91 0.77 0.71 0.71
   Support S1 S2 S3 : 8.1 7.8 7.6
   Resistance R1 R2 R3 : 9.8 10.4 10.7
   Loss/gain T+1/T+2/T+3/T+4 : -1.17 -1.17 -0.11 0.11
@@ -268,10 +268,10 @@ Back test result: Counter({'0': 346, '-1': 10, '1': 1}) symbol:  DAG
   Relative strength RSW:  14.443563669265146
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  5.28 5.28 5.28 5.82
-  Actual price Close/Low/High/Open:  5.45 5.1 5.45 5.13
+  Actual price Close/Low/High/Open: 5.45 5.1 5.45 5.13
   PCT_Change last 5 days: 1.57 -0.58 -0.78 0.39 6.24
-  Variation last 3 days:  15.69 15.69 15.69
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  0.99 1.03 1.03 1.03 0.94 0.75
+  Variation last 3 days (H/L):  15.69 15.69 15.69
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 0.99 1.03 1.03 1.03 0.94 0.75
   Support S1 S2 S3 : 4.9 4.8 4.78
   Resistance R1 R2 R3 : 5.73 5.86 5.93
   Loss/gain T+1/T+2/T+3/T+4 : -0.55 -4.04 -3.67 -2.94
@@ -287,10 +287,10 @@ Back test result: Counter({'0': 354, '-1': 3}) symbol:  DAH
   Relative strength RSW:  -11.112056974190978
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  13.4 14.35 14.35 15.0
-  Actual price Close/Low/High/Open:  11.75 11.1 11.75 11.1
+  Actual price Close/Low/High/Open: 11.75 11.1 11.75 11.1
   PCT_Change last 5 days: 0.96 3.33 2.3 -0.9 6.82
-  Variation last 3 days:  18.59 17.09 16.08
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.88 0.82 0.82 0.78 0.78
+  Variation last 3 days (H/L):  18.59 17.09 16.08
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.88 0.82 0.82 0.78 0.78
   Support S1 S2 S3 : 10.9 9.95 9.83
   Resistance R1 R2 R3 : 11.85 12.1 12.25
   Loss/gain T+1/T+2/T+3/T+4 : -2.55 -1.7 -5.96 -2.55
@@ -306,10 +306,10 @@ Back test result: Counter({'0': 341, '-1': 9, '1': 7}) symbol:  DCM
   Relative strength RSW:  57.625972056859005
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  29.0 29.0 29.0 29.0
-  Actual price Close/Low/High/Open:  29.7 27.4 29.7 27.8
+  Actual price Close/Low/High/Open: 29.7 27.4 29.7 27.8
   PCT_Change last 5 days: 6.81 0.0 -1.38 -2.8 6.83
-  Variation last 3 days:  17.6 17.6 17.6
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 1.02 1.02 1.02 1.02 1.0
+  Variation last 3 days (H/L):  17.6 17.6 17.6
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 1.02 1.02 1.02 1.02 1.0
   Support S1 S2 S3 : 27.4 25.0 24.94
   Resistance R1 R2 R3 : nan nan nan
   Loss/gain T+1/T+2/T+3/T+4 : -2.36 -2.36 nan nan
@@ -323,10 +323,10 @@ Back test result: Counter({'0': 341, '-1': 9, '1': 7}) symbol:  DCM
   Relative strength RSW:  56.770831482840336
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  27.56 27.56 27.56 27.56
-  Actual price Close/Low/High/Open:  29.0 26.8 29.0 27.2
+  Actual price Close/Low/High/Open: 29.0 26.8 29.0 27.2
   PCT_Change last 5 days: 0.0 1.92 1.32 1.12 6.81
-  Variation last 3 days:  10.4 10.4 10.4
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.07 1.05 1.05 1.05 1.05 0.98
+  Variation last 3 days (H/L):  10.4 10.4 10.4
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.07 1.05 1.05 1.05 1.05 0.98
   Support S1 S2 S3 : 25.0 24.94 23.44
   Resistance R1 R2 R3 : 29.4 nan nan
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 -1.38 -4.14 2.41
@@ -342,10 +342,10 @@ Back test result: Counter({'0': 337, '1': 11, '-1': 9}) symbol:  DGW
   Relative strength RSW:  11.813335194593769
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  116.49 116.49 116.49 125.59
-  Actual price Close/Low/High/Open:  115.0 109.5 115.0 110.0
+  Actual price Close/Low/High/Open: 115.0 109.5 115.0 110.0
   PCT_Change last 5 days: -0.99 4.5 0.0 4.31 5.5
-  Variation last 3 days:  14.74 14.74 14.74
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.06 0.99 0.99 0.99 0.92 0.92
+  Variation last 3 days (H/L):  14.74 14.74 14.74
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.06 0.99 0.99 0.99 0.92 0.92
   Support S1 S2 S3 : 95.0 90.9 83.34
   Resistance R1 R2 R3 : 115.49 117.49 119.75
   Loss/gain T+1/T+2/T+3/T+4 : -4.35 -4.35 -5.22 -6.43
@@ -359,10 +359,10 @@ Back test result: Counter({'0': 337, '1': 11, '-1': 9}) symbol:  DGW
   Relative strength RSW:  3.5897649459371195
   Side ways status last 3 days:  True False False
   Price max 3M/6M/9M/12M:  116.49 116.49 116.49 125.59
-  Actual price Close/Low/High/Open:  109.0 105.4 109.0 107.6
+  Actual price Close/Low/High/Open: 109.0 105.4 109.0 107.6
   PCT_Change last 5 days: 5.21 -0.99 4.5 0.0 4.31
-  Variation last 3 days:  14.74 14.74 14.74
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.94 0.94 0.94 0.87 0.87
+  Variation last 3 days (H/L):  14.74 14.74 14.74
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.94 0.94 0.94 0.87 0.87
   Support S1 S2 S3 : 96.3 95.0 90.9
   Resistance R1 R2 R3 : 110.5 113.7 115.49
   Loss/gain T+1/T+2/T+3/T+4 : 5.5 0.92 0.92 0.0
@@ -378,10 +378,10 @@ Back test result: Counter({'0': 341, '1': 11, '-1': 5}) symbol:  DHG
   Relative strength RSW:  -12.744148404622166
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  23.45 26.1 26.1 26.1
-  Actual price Close/Low/High/Open:  19.0 18.2 19.1 18.2
+  Actual price Close/Low/High/Open: 19.0 18.2 19.1 18.2
   PCT_Change last 5 days: 1.81 4.14 2.84 -0.83 5.85
-  Variation last 3 days:  25.16 23.6 21.74
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.81 0.73 0.73 0.73 0.73
+  Variation last 3 days (H/L):  25.16 23.6 21.74
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.81 0.73 0.73 0.73 0.73
   Support S1 S2 S3 : 16.35 16.1 nan
   Resistance R1 R2 R3 : 20.15 20.8 22.0
   Loss/gain T+1/T+2/T+3/T+4 : 0.26 0.26 -2.89 -2.89
@@ -397,10 +397,10 @@ Back test result: Counter({'0': 350, '-1': 5, '1': 2}) symbol:  DPM
   Relative strength RSW:  -7.564127862806142
   Side ways status last 3 days:  True True False
   Price max 3M/6M/9M/12M:  30.9 30.9 30.9 32.78
-  Actual price Close/Low/High/Open:  23.5 22.5 23.5 22.6
+  Actual price Close/Low/High/Open: 23.5 22.5 23.5 22.6
   PCT_Change last 5 days: -1.9 2.67 1.18 4.67 4.91
-  Variation last 3 days:  21.49 19.89 18.83
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.76 0.76 0.76 0.72 0.72
+  Variation last 3 days (H/L):  21.49 19.89 18.83
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.76 0.76 0.76 0.72 0.72
   Support S1 S2 S3 : 20.05 18.85 nan
   Resistance R1 R2 R3 : 23.75 23.8 24.4
   Loss/gain T+1/T+2/T+3/T+4 : -1.28 -2.13 -4.47 1.7
@@ -416,10 +416,10 @@ Back test result: Counter({'0': 343, '1': 7, '-1': 7}) symbol:  DRC
   Relative strength RSW:  -21.588668487676337
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  19.8 22.85 25.4 30.5
-  Actual price Close/Low/High/Open:  17.75 17.0 17.85 17.05
+  Actual price Close/Low/High/Open: 17.75 17.0 17.85 17.05
   PCT_Change last 5 days: -0.29 -0.3 0.3 0.59 4.41
-  Variation last 3 days:  15.15 13.94 13.64
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.9 0.78 0.7 0.58 0.54
+  Variation last 3 days (H/L):  15.15 13.94 13.64
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.9 0.78 0.7 0.58 0.54
   Support S1 S2 S3 : 16.5 16.25 15.7
   Resistance R1 R2 R3 : 17.9 18.1 18.5
   Loss/gain T+1/T+2/T+3/T+4 : -0.28 -1.97 -4.23 -3.1
@@ -435,10 +435,10 @@ Back test result: Counter({'0': 345, '1': 6, '-1': 6}) symbol:  DRH
   Relative strength RSW:  -23.587066400839717
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  22.5 27.8 27.8 27.8
-  Actual price Close/Low/High/Open:  15.9 14.6 16.0 14.8
+  Actual price Close/Low/High/Open: 15.9 14.6 16.0 14.8
   PCT_Change last 5 days: 0.67 -1.32 0.67 -0.67 6.71
-  Variation last 3 days:  21.74 20.29 20.29
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.71 0.57 0.57 0.57 0.56
+  Variation last 3 days (H/L):  21.74 20.29 20.29
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.71 0.57 0.57 0.57 0.56
   Support S1 S2 S3 : 14.8 13.9 13.8
   Resistance R1 R2 R3 : 17.0 17.2 17.5
   Loss/gain T+1/T+2/T+3/T+4 : 4.4 0.0 0.63 nan
@@ -454,10 +454,10 @@ Back test result: Counter({'0': 261, '1': 6, '-1': 2}) symbol:  DVN
   Relative strength RSW:  68.53816658503918
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  35.22 35.22 35.22 35.22
-  Actual price Close/Low/High/Open:  33.95 32.35 33.95 32.7
+  Actual price Close/Low/High/Open: 33.95 32.35 33.95 32.7
   PCT_Change last 5 days: 2.86 6.96 4.07 2.81 3.19
-  Variation last 3 days:  23.52 23.9 26.2
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.96 0.96 0.96 0.96 0.96
+  Variation last 3 days (H/L):  23.52 23.9 26.2
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.96 0.96 0.96 0.96 0.96
   Support S1 S2 S3 : 26.15 25.35 23.72
   Resistance R1 R2 R3 : 34.1 35.57 nan
   Loss/gain T+1/T+2/T+3/T+4 : -0.15 -2.21 -0.59 -4.27
@@ -471,10 +471,10 @@ Back test result: Counter({'0': 261, '1': 6, '-1': 2}) symbol:  DVN
   Relative strength RSW:  56.42813496541349
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  35.22 35.22 35.22 35.22
-  Actual price Close/Low/High/Open:  30.75 28.6 30.75 28.75
+  Actual price Close/Low/High/Open: 30.75 28.6 30.75 28.75
   PCT_Change last 5 days: -5.7 -6.94 6.88 2.86 6.96
-  Variation last 3 days:  23.52 23.52 23.52
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.87 0.87 0.87 0.87 0.87
+  Variation last 3 days (H/L):  23.52 23.52 23.52
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.87 0.87 0.87 0.87 0.87
   Support S1 S2 S3 : 27.8 26.15 25.35
   Resistance R1 R2 R3 : 34.1 35.57 nan
   Loss/gain T+1/T+2/T+3/T+4 : 4.07 6.99 10.41 10.24
@@ -490,10 +490,10 @@ Back test result: Counter({'0': 342, '-1': 8, '1': 7}) symbol:  DXG
   Relative strength RSW:  18.903043994150245
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  16.45 16.45 16.45 16.45
-  Actual price Close/Low/High/Open:  15.45 14.6 15.55 14.9
+  Actual price Close/Low/High/Open: 15.45 14.6 15.55 14.9
   PCT_Change last 5 days: -1.03 0.7 0.0 3.11 3.69
-  Variation last 3 days:  8.51 8.51 7.45
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.94 0.94 0.94 0.94 0.94
+  Variation last 3 days (H/L):  8.51 8.51 7.45
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.94 0.94 0.94 0.94 0.94
   Support S1 S2 S3 : 14.45 14.1 13.7
   Resistance R1 R2 R3 : 15.55 16.5 16.6
   Loss/gain T+1/T+2/T+3/T+4 : -0.97 -1.62 -1.62 -1.94
@@ -509,10 +509,10 @@ Back test result: Counter({'0': 347, '1': 5, '-1': 5}) symbol:  EIB
   Relative strength RSW:  6.63481147936221
   Side ways status last 3 days:  True False False
   Price max 3M/6M/9M/12M:  18.07 19.68 19.68 19.87
-  Actual price Close/Low/High/Open:  18.35 17.5 18.75 17.6
+  Actual price Close/Low/High/Open: 18.35 17.5 18.75 17.6
   PCT_Change last 5 days: 1.24 -1.53 6.85 3.79 3.09
-  Variation last 3 days:  16.61 16.29 16.29
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 1.02 0.93 0.93 0.92 0.81
+  Variation last 3 days (H/L):  16.61 16.29 16.29
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 1.02 0.93 0.93 0.92 0.81
   Support S1 S2 S3 : 16.0 15.35 14.19
   Resistance R1 R2 R3 : 18.75 18.92 20.02
   Loss/gain T+1/T+2/T+3/T+4 : -3.0 -0.54 -1.09 nan
@@ -526,10 +526,10 @@ Back test result: Counter({'0': 347, '1': 5, '-1': 5}) symbol:  EIB
   Relative strength RSW:  -1.4720040946274326
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  18.07 19.68 19.68 19.87
-  Actual price Close/Low/High/Open:  17.15 16.25 17.15 16.25
+  Actual price Close/Low/High/Open: 17.15 16.25 17.15 16.25
   PCT_Change last 5 days: 1.23 -1.83 1.24 -1.53 6.85
-  Variation last 3 days:  18.89 18.89 16.61
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.95 0.87 0.87 0.86 0.76
+  Variation last 3 days (H/L):  18.89 18.89 16.61
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.95 0.87 0.87 0.86 0.76
   Support S1 S2 S3 : 15.35 14.19 nan
   Resistance R1 R2 R3 : 17.6 17.85 18.25
   Loss/gain T+1/T+2/T+3/T+4 : 3.79 7.0 3.79 6.41
@@ -545,10 +545,10 @@ Back test result: Counter({'0': 347, '-1': 7, '1': 3}) symbol:  EVE
   Relative strength RSW:  -8.740562675488079
   Side ways status last 3 days:  False True True
   Price max 3M/6M/9M/12M:  6.4 6.4 9.0 nan
-  Actual price Close/Low/High/Open:  5.29 5.1 5.38 5.1
+  Actual price Close/Low/High/Open: 5.29 5.1 5.38 5.1
   PCT_Change last 5 days: 2.4 -0.59 -1.57 1.6 3.93
-  Variation last 3 days:  21.56 21.56 21.56
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.83 0.83 0.59 nan 0.27
+  Variation last 3 days (H/L):  21.56 21.56 21.56
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.83 0.83 0.59 nan 0.27
   Support S1 S2 S3 : 5.02 4.93 4.73
   Resistance R1 R2 R3 : 5.75 5.89 6.58
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 0.38 0.57 -0.19
@@ -564,10 +564,10 @@ Back test result: Counter({'0': 251, '-1': 2}) symbol:  EVG
   Relative strength RSW:  -12.984796149481621
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  22.3 23.7 23.7 24.29
-  Actual price Close/Low/High/Open:  17.7 16.2 17.7 16.55
+  Actual price Close/Low/High/Open: 17.7 16.2 17.7 16.55
   PCT_Change last 5 days: 4.41 3.25 1.89 2.16 6.95
-  Variation last 3 days:  31.97 28.62 26.39
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.07 0.79 0.75 0.75 0.73 0.73
+  Variation last 3 days (H/L):  31.97 28.62 26.39
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.07 0.79 0.75 0.75 0.73 0.73
   Support S1 S2 S3 : 15.8 13.45 nan
   Resistance R1 R2 R3 : 18.15 20.3 20.9
   Loss/gain T+1/T+2/T+3/T+4 : -3.95 -4.52 -5.08 nan
@@ -581,10 +581,10 @@ Back test result: Counter({'0': 251, '-1': 2}) symbol:  EVG
   Relative strength RSW:  -18.73384917253496
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  22.3 23.7 23.7 24.29
-  Actual price Close/Low/High/Open:  16.55 15.8 16.6 16.1
+  Actual price Close/Low/High/Open: 16.55 15.8 16.6 16.1
   PCT_Change last 5 days: 1.72 4.41 3.25 1.89 2.16
-  Variation last 3 days:  31.97 31.97 28.62
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.74 0.7 0.7 0.68 0.68
+  Variation last 3 days (H/L):  31.97 31.97 28.62
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.74 0.7 0.7 0.68 0.68
   Support S1 S2 S3 : 15.6 13.45 nan
   Resistance R1 R2 R3 : 18.15 20.3 20.9
   Loss/gain T+1/T+2/T+3/T+4 : 6.95 2.72 2.11 1.51
@@ -600,10 +600,10 @@ Back test result: Counter({'0': 337, '-1': 13, '1': 7}) symbol:  FCN
   Relative strength RSW:  -14.67568848051956
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  35.31 37.42 37.42 37.42
-  Actual price Close/Low/High/Open:  29.4 27.7 29.55 28.1
+  Actual price Close/Low/High/Open: 29.4 27.7 29.55 28.1
   PCT_Change last 5 days: 1.39 1.76 5.19 2.38 5.0
-  Variation last 3 days:  23.49 23.49 23.49
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.83 0.79 0.79 0.79 0.79
+  Variation last 3 days (H/L):  23.49 23.49 23.49
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.83 0.79 0.79 0.79 0.79
   Support S1 S2 S3 : 23.2 22.61 22.48
   Resistance R1 R2 R3 : 29.55 31.15 31.5
   Loss/gain T+1/T+2/T+3/T+4 : -1.36 -2.04 -5.1 -7.14
@@ -619,10 +619,10 @@ Back test result: Counter({'0': 345, '1': 6, '-1': 6}) symbol:  GMD
   Relative strength RSW:  -20.26795837747918
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  16.49 19.67 21.51 21.51
-  Actual price Close/Low/High/Open:  14.7 14.1 14.8 14.2
+  Actual price Close/Low/High/Open: 14.7 14.1 14.8 14.2
   PCT_Change last 5 days: -1.05 -0.35 -0.71 0.0 5.0
-  Variation last 3 days:  5.93 5.93 5.93
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.89 0.75 0.68 0.68 0.59
+  Variation last 3 days (H/L):  5.93 5.93 5.93
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.89 0.75 0.68 0.68 0.59
   Support S1 S2 S3 : 13.9 13.5 nan
   Resistance R1 R2 R3 : 15.2 15.38 15.57
   Loss/gain T+1/T+2/T+3/T+4 : -3.4 nan nan nan
@@ -638,10 +638,10 @@ Back test result: Counter({'0': 356}) symbol:  HAH
   Relative strength RSW:  -29.732491169105792
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  24.64 27.17 28.26 33.63
-  Actual price Close/Low/High/Open:  17.5 16.4 17.65 16.6
+  Actual price Close/Low/High/Open: 17.5 16.4 17.65 16.6
   PCT_Change last 5 days: 4.38 0.0 6.45 0.0 6.06
-  Variation last 3 days:  27.66 27.66 26.24
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.06 0.71 0.64 0.62 0.52 0.52
+  Variation last 3 days (H/L):  27.66 27.66 26.24
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.06 0.71 0.64 0.62 0.52 0.52
   Support S1 S2 S3 : 15.45 14.1 nan
   Resistance R1 R2 R3 : 17.65 18.0 20.8
   Loss/gain T+1/T+2/T+3/T+4 : -1.14 -6.86 -8.57 -5.14
@@ -657,10 +657,10 @@ Back test result: Counter({'0': 347, '1': 6, '-1': 4}) symbol:  HAX
   Relative strength RSW:  29.159211152384216
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  10.75 10.75 10.75 10.75
-  Actual price Close/Low/High/Open:  10.85 10.6 10.9 10.8
+  Actual price Close/Low/High/Open: 10.85 10.6 10.9 10.8
   PCT_Change last 5 days: 6.71 2.38 -0.47 -0.93 2.36
-  Variation last 3 days:  28.57 28.57 26.32
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.0 1.01 1.01 1.01 1.01 0.92
+  Variation last 3 days (H/L):  28.57 28.57 26.32
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 1.01 1.01 1.01 1.01 0.92
   Support S1 S2 S3 : 10.5 9.78 9.6
   Resistance R1 R2 R3 : 12.01 nan nan
   Loss/gain T+1/T+2/T+3/T+4 : -0.92 -0.46 nan nan
@@ -674,10 +674,10 @@ Back test result: Counter({'0': 347, '1': 6, '-1': 4}) symbol:  HAX
   Relative strength RSW:  24.437884454885474
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  9.85 9.85 9.85 10.25
-  Actual price Close/Low/High/Open:  10.5 9.82 10.5 9.82
+  Actual price Close/Low/High/Open: 10.5 9.82 10.5 9.82
   PCT_Change last 5 days: -0.21 1.55 0.0 -0.1 6.71
-  Variation last 3 days:  23.46 21.21 21.07
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 1.07 1.07 1.07 1.02 0.89
+  Variation last 3 days (H/L):  23.46 21.21 21.07
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 1.07 1.07 1.07 1.02 0.89
   Support S1 S2 S3 : 9.6 8.4 7.42
   Resistance R1 R2 R3 : 10.8 12.01 nan
   Loss/gain T+1/T+2/T+3/T+4 : 2.38 1.9 0.95 3.33
@@ -693,10 +693,10 @@ Back test result: Counter({'0': 346, '-1': 6, '1': 5}) symbol:  HCD
   Relative strength RSW:  1.9764705882352995
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  51.8 nan nan nan
-  Actual price Close/Low/High/Open:  44.6 42.9 44.8 43.1
+  Actual price Close/Low/High/Open: 44.6 42.9 44.8 43.1
   PCT_Change last 5 days: 5.64 4.37 0.47 0.0 3.24
-  Variation last 3 days:  31.1 34.15 34.15
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.86 nan nan nan 0.86
+  Variation last 3 days (H/L):  31.1 34.15 34.15
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.86 nan nan nan 0.86
   Support S1 S2 S3 : 39.0 32.8 nan
   Resistance R1 R2 R3 : 52.4 nan nan
   Loss/gain T+1/T+2/T+3/T+4 : -2.69 -6.05 -8.3 -8.07
@@ -712,10 +712,10 @@ Back test result: Counter({'0': 103, '1': 1}) symbol:  HDB
   Relative strength RSW:  19.161554680351664
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  18.35 18.35 18.45 18.45
-  Actual price Close/Low/High/Open:  17.2 16.05 17.2 16.15
+  Actual price Close/Low/High/Open: 17.2 16.05 17.2 16.15
   PCT_Change last 5 days: 1.23 -1.22 -1.23 1.25 6.17
-  Variation last 3 days:  14.57 14.57 14.57
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.94 0.94 0.93 0.93 0.93
+  Variation last 3 days (H/L):  14.57 14.57 14.57
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.94 0.94 0.93 0.93 0.93
   Support S1 S2 S3 : 15.1 14.9 14.2
   Resistance R1 R2 R3 : 17.4 17.7 18.3
   Loss/gain T+1/T+2/T+3/T+4 : -2.91 -2.33 -3.2 -5.23
@@ -731,10 +731,10 @@ Back test result: Counter({'0': 348, '1': 6, '-1': 3}) symbol:  HDC
   Relative strength RSW:  38.40518470682013
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  47.64 47.64 47.64 47.64
-  Actual price Close/Low/High/Open:  40.07 37.71 40.07 37.78
+  Actual price Close/Low/High/Open: 40.07 37.71 40.07 37.78
   PCT_Change last 5 days: -0.59 -6.5 6.75 1.53 6.26
-  Variation last 3 days:  18.92 18.09 16.85
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.84 0.84 0.84 0.84 0.84
+  Variation last 3 days (H/L):  18.92 18.09 16.85
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.84 0.84 0.84 0.84 0.84
   Support S1 S2 S3 : 36.35 34.78 33.93
   Resistance R1 R2 R3 : 44.57 45.93 48.43
   Loss/gain T+1/T+2/T+3/T+4 : 1.6 6.96 5.17 8.39
@@ -750,10 +750,10 @@ Back test result: Counter({'0': 338, '1': 16, '-1': 3}) symbol:  HPG
   Relative strength RSW:  -42.27477416552206
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  21.06 24.62 25.65 28.62
-  Actual price Close/Low/High/Open:  13.15 11.9 13.15 12.1
+  Actual price Close/Low/High/Open: 13.15 11.9 13.15 12.1
   PCT_Change last 5 days: 6.64 6.64 -0.78 -3.53 6.91
-  Variation last 3 days:  43.35 41.42 39.48
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.62 0.53 0.51 0.46 0.46
+  Variation last 3 days (H/L):  43.35 41.42 39.48
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.62 0.53 0.51 0.46 0.46
   Support S1 S2 S3 : 11.9 9.32 nan
   Resistance R1 R2 R3 : 13.46 13.71 14.94
   Loss/gain T+1/T+2/T+3/T+4 : 1.14 -4.18 -2.66 nan
@@ -769,10 +769,10 @@ Back test result: Counter({'0': 345, '-1': 8, '1': 4}) symbol:  HSG
   Relative strength RSW:  -16.27426606354538
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  15.5 17.9 17.9 22.23
-  Actual price Close/Low/High/Open:  13.05 12.3 13.05 12.45
+  Actual price Close/Low/High/Open: 13.05 12.3 13.05 12.45
   PCT_Change last 5 days: 2.11 0.0 0.0 0.83 6.97
-  Variation last 3 days:  14.04 14.04 12.34
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.06 0.84 0.73 0.73 0.59 0.56
+  Variation last 3 days (H/L):  14.04 14.04 12.34
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.06 0.84 0.73 0.73 0.59 0.56
   Support S1 S2 S3 : 11.85 11.75 nan
   Resistance R1 R2 R3 : 13.4 13.45 13.65
   Loss/gain T+1/T+2/T+3/T+4 : -1.15 -0.77 -3.83 nan
@@ -788,10 +788,10 @@ Back test result: Counter({'0': 342, '-1': 10, '1': 5}) symbol:  HT1
   Relative strength RSW:  6.901669543518697
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  51.51 65.53 65.53 65.53
-  Actual price Close/Low/High/Open:  36.0 32.8 36.4 33.1
+  Actual price Close/Low/High/Open: 36.0 32.8 36.4 33.1
   PCT_Change last 5 days: 4.59 3.45 0.3 0.0 8.76
-  Variation last 3 days:  48.16 48.16 48.16
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.07 0.7 0.55 0.55 0.55 0.55
+  Variation last 3 days (H/L):  48.16 48.16 48.16
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.07 0.7 0.55 0.55 0.55 0.55
   Support S1 S2 S3 : 32.4 26.29 25.51
   Resistance R1 R2 R3 : 38.95 39.05 41.96
   Loss/gain T+1/T+2/T+3/T+4 : 3.33 0.28 -2.22 -1.39
@@ -807,10 +807,10 @@ Back test result: Counter({'0': 341, '1': 13, '-1': 5}) symbol:  HVN
   Relative strength RSW:  0.14448295926315025
   Side ways status last 3 days:  True False True
   Price max 3M/6M/9M/12M:  10.9 10.9 12.2 13.0
-  Actual price Close/Low/High/Open:  9.8 9.51 9.95 9.55
+  Actual price Close/Low/High/Open: 9.8 9.51 9.95 9.55
   PCT_Change last 5 days: 1.5 -0.42 3.4 -1.95 2.62
-  Variation last 3 days:  16.59 16.59 16.59
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.0 0.9 0.9 0.8 0.75 0.75
+  Variation last 3 days (H/L):  16.59 16.59 16.59
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 0.9 0.9 0.8 0.75 0.75
   Support S1 S2 S3 : 8.92 8.8 8.1
   Resistance R1 R2 R3 : 9.95 10.4 11.1
   Loss/gain T+1/T+2/T+3/T+4 : -0.2 -1.02 -1.63 -3.27
@@ -824,10 +824,10 @@ Back test result: Counter({'0': 341, '1': 13, '-1': 5}) symbol:  HVN
   Relative strength RSW:  2.2935009064120537
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  10.9 10.9 12.2 13.0
-  Actual price Close/Low/High/Open:  9.74 9.37 9.74 9.47
+  Actual price Close/Low/High/Open: 9.74 9.37 9.74 9.47
   PCT_Change last 5 days: 5.44 -1.79 1.5 -0.42 3.4
-  Variation last 3 days:  16.59 16.59 16.59
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.89 0.89 0.8 0.75 0.75
+  Variation last 3 days (H/L):  16.59 16.59 16.59
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.89 0.89 0.8 0.75 0.75
   Support S1 S2 S3 : 8.92 8.8 8.1
   Resistance R1 R2 R3 : 11.1 11.95 12.15
   Loss/gain T+1/T+2/T+3/T+4 : -1.95 0.62 0.41 -0.41
@@ -843,10 +843,10 @@ Back test result: Counter({'0': 285, '-1': 8, '1': 3}) symbol:  IJC
   Relative strength RSW:  -17.8033978742908
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  42.1 48.0 53.0 57.61
-  Actual price Close/Low/High/Open:  38.1 36.1 38.85 36.75
+  Actual price Close/Low/High/Open: 38.1 36.1 38.85 36.75
   PCT_Change last 5 days: 2.01 4.92 0.0 -1.61 3.81
-  Variation last 3 days:  11.94 11.94 11.94
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.9 0.79 0.72 0.66 0.66
+  Variation last 3 days (H/L):  11.94 11.94 11.94
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.9 0.79 0.72 0.66 0.66
   Support S1 S2 S3 : 36.1 34.25 34.0
   Resistance R1 R2 R3 : 38.85 39.4 40.0
   Loss/gain T+1/T+2/T+3/T+4 : 0.26 3.54 nan nan
@@ -860,16 +860,16 @@ Back test result: Counter({'0': 285, '-1': 8, '1': 3}) symbol:  IJC
   Relative strength RSW:  -20.12855111171493
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  43.5 48.0 53.0 57.61
-  Actual price Close/Low/High/Open:  37.3 35.55 37.5 35.55
+  Actual price Close/Low/High/Open: 37.3 35.55 37.5 35.55
   PCT_Change last 5 days: 0.87 -1.15 1.6 2.01 4.92
-  Variation last 3 days:  10.15 10.15 10.15
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.86 0.78 0.7 0.65 0.65
+  Variation last 3 days (H/L):  10.15 10.15 10.15
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.86 0.78 0.7 0.65 0.65
   Support S1 S2 S3 : 34.0 33.5 33.07
   Resistance R1 R2 R3 : 37.5 37.6 38.4
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 -1.61 2.14 2.41
   Back test T+5, T+10: 5.76 nan
 ----------------------------------------------------------------
-Back test result: Counter({'0': 345, '1': 6, '-1': 6}) symbol:  KSB
+Back test result: Counter({'0': 345, '-1': 6, '1': 6}) symbol:  KSB
 ***************************************************************
  Canslim trading  5 days before  2018-06-07 00:00:00 LHG
   Volume/volume(MA30) ratio:  4.28
@@ -879,10 +879,10 @@ Back test result: Counter({'0': 345, '1': 6, '-1': 6}) symbol:  KSB
   Relative strength RSW:  17.156240016032733
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  24.73 24.73 24.73 24.73
-  Actual price Close/Low/High/Open:  21.7 20.1 21.7 20.2
+  Actual price Close/Low/High/Open: 21.7 20.1 21.7 20.2
   PCT_Change last 5 days: -4.53 2.0 0.0 -0.49 6.9
-  Variation last 3 days:  11.64 11.17 9.66
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.88 0.88 0.88 0.88 0.88
+  Variation last 3 days (H/L):  11.64 11.17 9.66
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.88 0.88 0.88 0.88 0.88
   Support S1 S2 S3 : 19.8 19.15 17.71
   Resistance R1 R2 R3 : 22.3 23.62 23.66
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 -1.84 -4.61 -6.45
@@ -898,10 +898,10 @@ Back test result: Counter({'0': 348, '1': 5, '-1': 4}) symbol:  LHG
   Relative strength RSW:  24.2274091012759
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  36.8 36.8 36.8 36.8
-  Actual price Close/Low/High/Open:  30.45 29.0 30.45 29.1
+  Actual price Close/Low/High/Open: 30.45 29.0 30.45 29.1
   PCT_Change last 5 days: 6.84 -1.96 5.63 0.52 4.1
-  Variation last 3 days:  20.19 20.19 20.19
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.83 0.83 0.83 0.83 0.83
+  Variation last 3 days (H/L):  20.19 20.19 20.19
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.83 0.83 0.83 0.83 0.83
   Support S1 S2 S3 : 28.0 27.4 26.25
   Resistance R1 R2 R3 : 30.8 31.55 32.35
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 0.33 1.48 0.99
@@ -917,10 +917,10 @@ Back test result: Counter({'0': 337, '1': 13, '-1': 7}) symbol:  MBB
   Relative strength RSW:  36.84764107308048
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  22.6 22.6 22.6 22.6
-  Actual price Close/Low/High/Open:  17.3 16.3 17.3 16.5
+  Actual price Close/Low/High/Open: 17.3 16.3 17.3 16.5
   PCT_Change last 5 days: 5.3 0.63 0.0 3.12 4.85
-  Variation last 3 days:  20.98 20.98 19.58
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.77 0.77 0.77 0.77 0.77
+  Variation last 3 days (H/L):  20.98 20.98 19.58
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.77 0.77 0.77 0.77 0.77
   Support S1 S2 S3 : 14.3 13.4 12.7
   Resistance R1 R2 R3 : 17.8 18.3 19.9
   Loss/gain T+1/T+2/T+3/T+4 : 0.58 0.58 0.0 -4.05
@@ -936,10 +936,10 @@ Back test result: Counter({'0': 337, '1': 12, '-1': 10}) symbol:  MBS
   Relative strength RSW:  9.164345353340194
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  118.5 134.29 135.57 135.57
-  Actual price Close/Low/High/Open:  121.0 115.5 121.9 116.0
+  Actual price Close/Low/High/Open: 121.0 115.5 121.9 116.0
   PCT_Change last 5 days: 0.0 1.74 6.85 -1.77 3.95
-  Variation last 3 days:  13.66 17.33 17.62
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 1.02 0.9 0.89 0.89 0.89
+  Variation last 3 days (H/L):  13.66 17.33 17.62
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.9 0.89 0.89 0.89
   Support S1 S2 S3 : 115.5 102.3 101.0
   Resistance R1 R2 R3 : 124.0 124.24 132.32
   Loss/gain T+1/T+2/T+3/T+4 : 1.4 -0.74 1.32 nan
@@ -953,10 +953,10 @@ Back test result: Counter({'0': 337, '1': 12, '-1': 10}) symbol:  MBS
   Relative strength RSW:  6.6942217570487506
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  118.32 134.29 135.57 135.57
-  Actual price Close/Low/High/Open:  118.5 110.9 118.5 111.0
+  Actual price Close/Low/High/Open: 118.5 110.9 118.5 111.0
   PCT_Change last 5 days: 3.11 2.64 0.0 1.74 6.85
-  Variation last 3 days:  13.66 13.66 13.66
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.06 1.0 0.88 0.87 0.87 0.87
+  Variation last 3 days (H/L):  13.66 13.66 13.66
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.06 1.0 0.88 0.87 0.87 0.87
   Support S1 S2 S3 : 101.0 99.9 99.0
   Resistance R1 R2 R3 : 120.98 124.24 132.32
   Loss/gain T+1/T+2/T+3/T+4 : -1.77 2.11 3.54 1.35
@@ -970,10 +970,10 @@ Back test result: Counter({'0': 337, '1': 12, '-1': 10}) symbol:  MBS
   Relative strength RSW:  -3.372233721261842
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  120.78 135.57 135.57 135.57
-  Actual price Close/Low/High/Open:  109.0 104.6 109.0 106.0
+  Actual price Close/Low/High/Open: 109.0 104.6 109.0 106.0
   PCT_Change last 5 days: -7.0 2.64 -1.9 3.11 2.64
-  Variation last 3 days:  14.91 14.91 14.91
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.0 0.9 0.8 0.8 0.8 0.8
+  Variation last 3 days (H/L):  14.91 14.91 14.91
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 0.9 0.8 0.8 0.8 0.8
   Support S1 S2 S3 : 102.1 101.0 99.9
   Resistance R1 R2 R3 : 114.8 116.74 120.98
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 1.74 8.72 6.79
@@ -989,10 +989,10 @@ Back test result: Counter({'0': 349, '-1': 6, '1': 2}) symbol:  MWG
   Relative strength RSW:  98.29144697949883
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  21.2 21.2 21.2 21.2
-  Actual price Close/Low/High/Open:  19.1 18.2 19.4 18.3
+  Actual price Close/Low/High/Open: 19.1 18.2 19.4 18.3
   PCT_Change last 5 days: -5.56 5.29 1.68 1.65 3.24
-  Variation last 3 days:  20.12 18.9 18.9
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.9 0.9 0.9 0.9 0.9
+  Variation last 3 days (H/L):  20.12 18.9 18.9
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.9 0.9 0.9 0.9 0.9
   Support S1 S2 S3 : 17.6 16.4 15.6
   Resistance R1 R2 R3 : 19.4 19.5 19.7
   Loss/gain T+1/T+2/T+3/T+4 : 0.52 -1.57 0.0 -1.57
@@ -1008,10 +1008,10 @@ Back test result: Counter({'0': 346, '1': 8, '-1': 5}) symbol:  NDN
   Relative strength RSW:  -32.93751024155134
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  24.57 31.64 31.64 31.64
-  Actual price Close/Low/High/Open:  15.89 15.15 15.9 15.29
+  Actual price Close/Low/High/Open: 15.89 15.15 15.9 15.29
   PCT_Change last 5 days: 4.52 0.71 2.53 1.99 6.93
-  Variation last 3 days:  21.63 21.63 21.63
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.06 0.65 0.5 0.5 0.5 0.5
+  Variation last 3 days (H/L):  21.63 21.63 21.63
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.06 0.65 0.5 0.5 0.5 0.5
   Support S1 S2 S3 : 14.64 13.5 nan
   Resistance R1 R2 R3 : 18.07 18.29 22.14
   Loss/gain T+1/T+2/T+3/T+4 : 6.99 11.96 11.45 10.38
@@ -1027,10 +1027,10 @@ Back test result: Counter({'0': 344, '1': 7, '-1': 6}) symbol:  NKG
   Relative strength RSW:  9.306054867675439
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  30.92 34.25 34.25 34.25
-  Actual price Close/Low/High/Open:  29.8 28.75 30.0 29.15
+  Actual price Close/Low/High/Open: 29.8 28.75 30.0 29.15
   PCT_Change last 5 days: 2.35 -0.35 0.35 1.23 3.83
-  Variation last 3 days:  13.88 13.88 13.88
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.96 0.87 0.87 0.87 0.87
+  Variation last 3 days (H/L):  13.88 13.88 13.88
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.96 0.87 0.87 0.87 0.87
   Support S1 S2 S3 : 26.7 26.3 26.14
   Resistance R1 R2 R3 : 30.8 30.83 32.32
   Loss/gain T+1/T+2/T+3/T+4 : -0.67 -2.68 -2.18 -2.35
@@ -1046,10 +1046,10 @@ Back test result: Counter({'0': 348, '-1': 5, '1': 4}) symbol:  NT2
   Relative strength RSW:  7.395111521560356
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  10.5 10.6 10.6 10.6
-  Actual price Close/Low/High/Open:  10.0 9.7 10.2 9.73
+  Actual price Close/Low/High/Open: 10.0 9.7 10.2 9.73
   PCT_Change last 5 days: 0.75 0.32 1.69 1.66 2.25
-  Variation last 3 days:  8.37 8.37 8.37
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.95 0.94 0.94 0.94 0.94
+  Variation last 3 days (H/L):  8.37 8.37 8.37
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.95 0.94 0.94 0.94 0.94
   Support S1 S2 S3 : 9.2 8.6 8.45
   Resistance R1 R2 R3 : 10.2 10.3 10.8
   Loss/gain T+1/T+2/T+3/T+4 : 1.0 1.0 0.0 -1.0
@@ -1065,10 +1065,10 @@ Back test result: Counter({'0': 346, '-1': 10, '1': 1}) symbol:  NTL
   Relative strength RSW:  -7.172737618021709
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  34.8 40.65 40.65 40.65
-  Actual price Close/Low/High/Open:  32.0 30.0 32.1 30.8
+  Actual price Close/Low/High/Open: 32.0 30.0 32.1 30.8
   PCT_Change last 5 days: 0.0 2.43 0.68 1.01 6.67
-  Variation last 3 days:  19.72 19.72 19.72
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.92 0.79 0.79 0.79 0.79
+  Variation last 3 days (H/L):  19.72 19.72 19.72
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.92 0.79 0.79 0.79 0.79
   Support S1 S2 S3 : 28.4 27.84 27.77
   Resistance R1 R2 R3 : 33.15 33.8 34.0
   Loss/gain T+1/T+2/T+3/T+4 : 0.94 1.09 0.0 3.44
@@ -1084,10 +1084,10 @@ Back test result: Counter({'0': 350, '1': 4, '-1': 3}) symbol:  PC1
   Relative strength RSW:  22.21900966279508
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  36.17 36.17 36.17 36.17
-  Actual price Close/Low/High/Open:  32.3 30.4 32.5 30.75
+  Actual price Close/Low/High/Open: 32.3 30.4 32.5 30.75
   PCT_Change last 5 days: 0.5 0.66 1.32 0.16 5.04
-  Variation last 3 days:  10.07 9.72 8.85
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.89 0.89 0.89 0.89 0.89
+  Variation last 3 days (H/L):  10.07 9.72 8.85
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.89 0.89 0.89 0.89 0.89
   Support S1 S2 S3 : 28.8 28.25 27.09
   Resistance R1 R2 R3 : 32.5 32.7 33.35
   Loss/gain T+1/T+2/T+3/T+4 : -0.62 -1.55 -2.79 -2.79
@@ -1103,10 +1103,10 @@ Back test result: Counter({'0': 341, '1': 10, '-1': 6}) symbol:  PDR
   Relative strength RSW:  9.481905285171583
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  51.5 52.0 52.0 52.0
-  Actual price Close/Low/High/Open:  46.0 44.4 46.3 44.7
+  Actual price Close/Low/High/Open: 46.0 44.4 46.3 44.7
   PCT_Change last 5 days: 3.39 -0.47 2.82 -0.92 6.24
-  Variation last 3 days:  14.65 14.65 14.65
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.89 0.88 0.88 0.88 0.88
+  Variation last 3 days (H/L):  14.65 14.65 14.65
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.89 0.88 0.88 0.88 0.88
   Support S1 S2 S3 : 39.25 39.2 37.55
   Resistance R1 R2 R3 : 46.55 48.1 50.2
   Loss/gain T+1/T+2/T+3/T+4 : 2.17 1.74 -0.76 -3.7
@@ -1120,10 +1120,10 @@ Back test result: Counter({'0': 341, '1': 10, '-1': 6}) symbol:  PDR
   Relative strength RSW:  5.94816884004997
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  51.5 52.0 52.0 52.0
-  Actual price Close/Low/High/Open:  43.7 42.9 44.2 42.9
+  Actual price Close/Low/High/Open: 43.7 42.9 44.2 42.9
   PCT_Change last 5 days: 5.6 -0.48 3.39 -0.47 2.82
-  Variation last 3 days:  14.65 14.65 14.65
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.85 0.84 0.84 0.84 0.84
+  Variation last 3 days (H/L):  14.65 14.65 14.65
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.85 0.84 0.84 0.84 0.84
   Support S1 S2 S3 : 41.7 39.25 39.2
   Resistance R1 R2 R3 : 44.2 45.0 46.55
   Loss/gain T+1/T+2/T+3/T+4 : -0.92 5.26 7.55 7.09
@@ -1139,10 +1139,10 @@ Back test result: Counter({'0': 335, '1': 13, '-1': 9}) symbol:  PHR
   Relative strength RSW:  -4.935191398272244
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  86.9 93.1 93.1 93.1
-  Actual price Close/Low/High/Open:  65.6 62.8 66.5 62.8
+  Actual price Close/Low/High/Open: 65.6 62.8 66.5 62.8
   PCT_Change last 5 days: -2.34 5.98 0.81 0.48 4.46
-  Variation last 3 days:  26.79 26.79 26.79
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.75 0.7 0.7 0.7 0.7
+  Variation last 3 days (H/L):  26.79 26.79 26.79
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.75 0.7 0.7 0.7 0.7
   Support S1 S2 S3 : 56.0 55.6 54.0
   Resistance R1 R2 R3 : 67.5 69.1 71.0
   Loss/gain T+1/T+2/T+3/T+4 : 2.44 1.98 3.96 1.07
@@ -1158,10 +1158,10 @@ Back test result: Counter({'0': 275, '1': 6, '-1': 4}) symbol:  PLX
   Relative strength RSW:  47.90269764284942
   Side ways status last 3 days:  True False False
   Price max 3M/6M/9M/12M:  205.77 205.77 205.77 205.77
-  Actual price Close/Low/High/Open:  184.9 177.0 184.9 180.0
+  Actual price Close/Low/High/Open: 184.9 177.0 184.9 180.0
   PCT_Change last 5 days: 3.09 2.22 1.35 3.47 3.3
-  Variation last 3 days:  22.09 21.96 20.92
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.9 0.9 0.9 0.9 0.9
+  Variation last 3 days (H/L):  22.09 21.96 20.92
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.9 0.9 0.9 0.9 0.9
   Support S1 S2 S3 : 153.0 138.85 135.65
   Resistance R1 R2 R3 : 186.0 186.8 187.79
   Loss/gain T+1/T+2/T+3/T+4 : -1.03 -0.65 -1.57 -3.73
@@ -1175,10 +1175,10 @@ Back test result: Counter({'0': 275, '1': 6, '-1': 4}) symbol:  PLX
   Relative strength RSW:  45.117464802070415
   Side ways status last 3 days:  False True False
   Price max 3M/6M/9M/12M:  205.77 205.77 205.77 205.77
-  Actual price Close/Low/High/Open:  179.0 173.0 179.0 174.0
+  Actual price Close/Low/High/Open: 179.0 173.0 179.0 174.0
   PCT_Change last 5 days: -1.82 3.09 2.22 1.35 3.47
-  Variation last 3 days:  22.09 22.09 21.96
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.87 0.87 0.87 0.87 0.87
+  Variation last 3 days (H/L):  22.09 22.09 21.96
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.87 0.87 0.87 0.87 0.87
   Support S1 S2 S3 : 153.0 138.85 135.65
   Resistance R1 R2 R3 : 184.0 186.8 187.79
   Loss/gain T+1/T+2/T+3/T+4 : 3.3 2.23 2.63 1.68
@@ -1194,10 +1194,10 @@ Back test result: Counter({'0': 343, '1': 10, '-1': 4}) symbol:  PNJ
   Relative strength RSW:  -5.81206861123897
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  14.4 14.4 14.4 14.4
-  Actual price Close/Low/High/Open:  10.15 9.46 10.15 9.59
+  Actual price Close/Low/High/Open: 10.15 9.46 10.15 9.59
   PCT_Change last 5 days: 1.49 -1.26 1.91 -0.73 6.62
-  Variation last 3 days:  25.75 24.55 24.55
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.7 0.7 0.7 0.7 0.7
+  Variation last 3 days (H/L):  25.75 24.55 24.55
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.7 0.7 0.7 0.7 0.7
   Support S1 S2 S3 : 9.31 8.35 7.92
   Resistance R1 R2 R3 : 10.35 10.4 10.7
   Loss/gain T+1/T+2/T+3/T+4 : -2.76 -5.22 -4.43 nan
@@ -1213,10 +1213,10 @@ Back test result: Counter({'0': 344, '-1': 7, '1': 6}) symbol:  SCR
   Relative strength RSW:  -10.954800161895971
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  28.45 34.4 35.0 52.0
-  Actual price Close/Low/High/Open:  29.0 27.6 29.5 27.6
+  Actual price Close/Low/High/Open: 29.0 27.6 29.5 27.6
   PCT_Change last 5 days: 6.95 -0.18 -1.76 -1.08 5.07
-  Variation last 3 days:  21.94 21.94 21.94
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.0 1.02 0.84 0.83 0.56 0.5
+  Variation last 3 days (H/L):  21.94 21.94 21.94
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 1.02 0.84 0.83 0.56 0.5
   Support S1 S2 S3 : 27.05 24.5 23.7
   Resistance R1 R2 R3 : 30.0 32.4 32.5
   Loss/gain T+1/T+2/T+3/T+4 : -0.34 -1.03 nan nan
@@ -1230,10 +1230,10 @@ Back test result: Counter({'0': 344, '-1': 7, '1': 6}) symbol:  SCR
   Relative strength RSW:  -17.277694531474665
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  28.0 35.0 35.0 52.0
-  Actual price Close/Low/High/Open:  26.6 25.0 26.6 25.0
+  Actual price Close/Low/High/Open: 26.6 25.0 26.6 25.0
   PCT_Change last 5 days: 4.17 -0.4 0.6 -0.6 6.83
-  Variation last 3 days:  8.44 8.44 8.44
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.06 0.95 0.76 0.76 0.51 0.46
+  Variation last 3 days (H/L):  8.44 8.44 8.44
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.06 0.95 0.76 0.76 0.51 0.46
   Support S1 S2 S3 : 24.7 24.5 23.7
   Resistance R1 R2 R3 : 26.8 27.5 27.7
   Loss/gain T+1/T+2/T+3/T+4 : 6.95 6.77 4.89 3.76
@@ -1249,16 +1249,16 @@ Back test result: Counter({'0': 353, '-1': 3, '1': 1}) symbol:  SKG
   Relative strength RSW:  -0.07483657948032185
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  16.4 17.1 17.1 17.1
-  Actual price Close/Low/High/Open:  13.3 12.7 13.45 12.8
+  Actual price Close/Low/High/Open: 13.3 12.7 13.45 12.8
   PCT_Change last 5 days: 2.17 0.0 6.81 2.79 3.1
-  Variation last 3 days:  22.58 22.58 21.66
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.81 0.78 0.78 0.78 0.78
+  Variation last 3 days (H/L):  22.58 22.58 21.66
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.81 0.78 0.78 0.78 0.78
   Support S1 S2 S3 : 10.85 10.45 10.3
   Resistance R1 R2 R3 : 14.0 15.5 15.85
   Loss/gain T+1/T+2/T+3/T+4 : -2.26 -3.01 -5.26 -3.76
   Back test T+5, T+10: -3.76 nan
 ----------------------------------------------------------------
-Back test result: Counter({'0': 343, '1': 7, '-1': 7}) symbol:  STB
+Back test result: Counter({'0': 343, '-1': 7, '1': 7}) symbol:  STB
 ***************************************************************
  Canslim trading  6 days before  2018-06-06 00:00:00 TCM
   Volume/volume(MA30) ratio:  2.56
@@ -1268,10 +1268,10 @@ Back test result: Counter({'0': 343, '1': 7, '-1': 7}) symbol:  STB
   Relative strength RSW:  -16.84030846884426
   Side ways status last 3 days:  True False False
   Price max 3M/6M/9M/12M:  26.67 28.76 28.76 30.35
-  Actual price Close/Low/High/Open:  21.7 20.3 21.7 20.4
+  Actual price Close/Low/High/Open: 21.7 20.3 21.7 20.4
   PCT_Change last 5 days: 2.36 1.28 3.54 -0.73 6.9
-  Variation last 3 days:  13.78 13.78 12.97
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.81 0.75 0.75 0.71 0.71
+  Variation last 3 days (H/L):  13.78 13.78 12.97
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.81 0.75 0.75 0.71 0.71
   Support S1 S2 S3 : 18.5 18.43 18.0
   Resistance R1 R2 R3 : 22.35 22.76 23.57
   Loss/gain T+1/T+2/T+3/T+4 : 1.38 2.53 -0.46 -4.15
@@ -1287,10 +1287,10 @@ Back test result: Counter({'0': 341, '-1': 10, '1': 6}) symbol:  TCM
   Relative strength RSW:  22.941154359764916
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  9.3 9.3 9.3 9.3
-  Actual price Close/Low/High/Open:  9.66 9.05 9.66 9.15
+  Actual price Close/Low/High/Open: 9.66 9.05 9.66 9.15
   PCT_Change last 5 days: 0.78 0.89 -0.11 -0.44 6.98
-  Variation last 3 days:  15.75 15.75 16.12
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 1.04 1.04 1.04 1.04 0.99
+  Variation last 3 days (H/L):  15.75 15.75 16.12
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 1.04 1.04 1.04 1.04 0.99
   Support S1 S2 S3 : 8.0 7.81 7.49
   Resistance R1 R2 R3 : 9.99 nan nan
   Loss/gain T+1/T+2/T+3/T+4 : 0.62 -0.62 -3.31 -6.83
@@ -1306,10 +1306,10 @@ Back test result: Counter({'0': 347, '-1': 7, '1': 3}) symbol:  TDC
   Relative strength RSW:  5.145438416581694
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  15.45 16.62 16.62 16.62
-  Actual price Close/Low/High/Open:  14.52 13.95 14.51 14.23
+  Actual price Close/Low/High/Open: 14.52 13.95 14.51 14.23
   PCT_Change last 5 days: 2.78 -0.36 0.64 0.99 2.04
-  Variation last 3 days:  8.8 7.99 7.99
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.0 0.94 0.87 0.87 0.87 0.87
+  Variation last 3 days (H/L):  8.8 7.99 7.99
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 0.94 0.87 0.87 0.87 0.87
   Support S1 S2 S3 : 13.49 13.4 13.3
   Resistance R1 R2 R3 : 15.2 16.06 16.11
   Loss/gain T+1/T+2/T+3/T+4 : 0.28 1.58 1.58 -1.52
@@ -1325,10 +1325,10 @@ Back test result: Counter({'0': 335, '1': 11, '-1': 11}) symbol:  TDH
   Relative strength RSW:  11.808064221857318
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  13.5 13.6 13.9 13.9
-  Actual price Close/Low/High/Open:  13.6 13.3 13.6 13.4
+  Actual price Close/Low/High/Open: 13.6 13.3 13.6 13.4
   PCT_Change last 5 days: 0.75 0.0 0.0 -1.48 2.26
-  Variation last 3 days:  10.4 8.66 8.66
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 1.01 1.0 0.98 0.98 0.98
+  Variation last 3 days (H/L):  10.4 8.66 8.66
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 1.01 1.0 0.98 0.98 0.98
   Support S1 S2 S3 : 13.2 13.0 12.9
   Resistance R1 R2 R3 : 14.0 14.1 14.5
   Loss/gain T+1/T+2/T+3/T+4 : -1.47 -1.47 -0.74 0.74
@@ -1344,16 +1344,16 @@ Back test result: Counter({'0': 355, '-1': 4}) symbol:  TIS
   Relative strength RSW:  -19.914893617021274
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  25.1 nan nan nan
-  Actual price Close/Low/High/Open:  11.8 11.05 11.85 11.25
+  Actual price Close/Low/High/Open: 11.8 11.05 11.85 11.25
   PCT_Change last 5 days: 0.0 -0.92 3.72 0.45 5.36
-  Variation last 3 days:  23.87 23.87 23.87
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.47 nan nan nan 0.47
+  Variation last 3 days (H/L):  23.87 23.87 23.87
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.47 nan nan nan 0.47
   Support S1 S2 S3 : 10.75 10.55 9.93
   Resistance R1 R2 R3 : 13.4 14.1 17.0
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
   Back test T+5, T+10: nan nan
 ----------------------------------------------------------------
-Back test result: Counter({'0': 122, '1': 1, '-1': 1}) symbol:  TLD
+Back test result: Counter({'0': 122, '-1': 1, '1': 1}) symbol:  TLD
 ***************************************************************
  Canslim trading  6 days before  2018-06-06 00:00:00 TNG
   Volume/volume(MA30) ratio:  1.6
@@ -1363,10 +1363,10 @@ Back test result: Counter({'0': 122, '1': 1, '-1': 1}) symbol:  TLD
   Relative strength RSW:  -0.05922787066465762
   Side ways status last 3 days:  False True True
   Price max 3M/6M/9M/12M:  15.9 16.9 16.9 16.9
-  Actual price Close/Low/High/Open:  13.5 12.7 13.6 12.7
+  Actual price Close/Low/High/Open: 13.5 12.7 13.6 12.7
   PCT_Change last 5 days: 2.48 0.0 0.81 0.8 7.14
-  Variation last 3 days:  20.69 20.69 18.97
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.85 0.8 0.8 0.8 0.8
+  Variation last 3 days (H/L):  20.69 20.69 18.97
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.85 0.8 0.8 0.8 0.8
   Support S1 S2 S3 : 11.6 11.4 11.2
   Resistance R1 R2 R3 : 14.0 14.2 14.6
   Loss/gain T+1/T+2/T+3/T+4 : -1.48 -2.22 -5.19 -5.93
@@ -1382,10 +1382,10 @@ Back test result: Counter({'0': 346, '1': 7, '-1': 6}) symbol:  TNG
   Relative strength RSW:  164.46257018140054
   Side ways status last 3 days:  True False False
   Price max 3M/6M/9M/12M:  21.5 21.5 21.5 21.5
-  Actual price Close/Low/High/Open:  23.3 21.1 23.4 21.3
+  Actual price Close/Low/High/Open: 23.3 21.1 23.4 21.3
   PCT_Change last 5 days: -0.55 5.49 9.9 1.9 8.37
-  Variation last 3 days:  41.96 46.83 49.62
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.08 1.08 1.08 1.08 1.08 1.0
+  Variation last 3 days (H/L):  41.96 46.83 49.62
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.08 1.08 1.08 1.08 1.08 1.0
   Support S1 S2 S3 : 18.1 17.9 14.37
   Resistance R1 R2 R3 : nan nan nan
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
@@ -1399,10 +1399,10 @@ Back test result: Counter({'0': 346, '1': 7, '-1': 6}) symbol:  TNG
   Relative strength RSW:  126.60213357930976
   Side ways status last 3 days:  True False False
   Price max 3M/6M/9M/12M:  19.5 19.5 19.5 19.5
-  Actual price Close/Low/High/Open:  19.2 18.1 19.4 18.1
+  Actual price Close/Low/High/Open: 19.2 18.1 19.4 18.1
   PCT_Change last 5 days: -5.13 0.54 -1.61 -0.55 5.49
-  Variation last 3 days:  41.96 41.96 41.96
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.0 0.98 0.98 0.98 0.98 0.82
+  Variation last 3 days (H/L):  41.96 41.96 41.96
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 0.98 0.98 0.98 0.98 0.82
   Support S1 S2 S3 : 18.1 17.9 14.37
   Resistance R1 R2 R3 : 20.82 nan nan
   Loss/gain T+1/T+2/T+3/T+4 : 9.9 11.98 21.35 nan
@@ -1418,10 +1418,10 @@ Back test result: Counter({'0': 342, '-1': 9, '1': 8}) symbol:  TTB
   Relative strength RSW:  -2.717913766809226
   Side ways status last 3 days:  False True True
   Price max 3M/6M/9M/12M:  22.0 22.0 22.0 29.0
-  Actual price Close/Low/High/Open:  19.2 18.6 19.5 18.6
+  Actual price Close/Low/High/Open: 19.2 18.6 19.5 18.6
   PCT_Change last 5 days: 0.0 -0.53 -0.54 0.54 3.23
-  Variation last 3 days:  7.22 7.22 6.67
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.87 0.87 0.87 0.66 0.57
+  Variation last 3 days (H/L):  7.22 7.22 6.67
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.87 0.87 0.87 0.66 0.57
   Support S1 S2 S3 : 18.4 18.0 17.6
   Resistance R1 R2 R3 : 19.5 20.2 21.1
   Loss/gain T+1/T+2/T+3/T+4 : -1.04 -1.56 -2.08 -2.08
@@ -1437,10 +1437,10 @@ Back test result: Counter({'0': 351, '-1': 5, '1': 3}) symbol:  VC3
   Relative strength RSW:  28.17282821001349
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  77.8 77.8 77.8 77.8
-  Actual price Close/Low/High/Open:  64.5 61.1 66.3 62.0
+  Actual price Close/Low/High/Open: 64.5 61.1 66.3 62.0
   PCT_Change last 5 days: 0.57 6.4 6.9 2.65 4.03
-  Variation last 3 days:  15.92 23.27 28.57
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 0.83 0.83 0.83 0.83 0.83
+  Variation last 3 days (H/L):  15.92 23.27 28.57
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.83 0.83 0.83 0.83 0.83
   Support S1 S2 S3 : 57.5 49.1 49.0
   Resistance R1 R2 R3 : 78.1 nan nan
   Loss/gain T+1/T+2/T+3/T+4 : -6.36 -8.99 -8.22 -6.67
@@ -1456,10 +1456,10 @@ Back test result: Counter({'0': 345, '1': 8, '-1': 4}) symbol:  VHC
   Relative strength RSW:  98.16015555834366
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  134.9 134.9 134.9 134.9
-  Actual price Close/Low/High/Open:  124.1 117.7 124.4 120.0
+  Actual price Close/Low/High/Open: 124.1 117.7 124.4 120.0
   PCT_Change last 5 days: 4.5 2.59 0.84 0.92 2.48
-  Variation last 3 days:  36.16 36.16 33.33
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.92 0.92 0.92 0.92 0.92
+  Variation last 3 days (H/L):  36.16 36.16 33.33
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.92 0.92 0.92 0.92 0.92
   Support S1 S2 S3 : 105.9 100.0 99.0
   Resistance R1 R2 R3 : 134.8 136.8 nan
   Loss/gain T+1/T+2/T+3/T+4 : 0.08 0.08 0.16 0.24
@@ -1475,10 +1475,10 @@ Back test result: Counter({'0': 340, '1': 12, '-1': 5}) symbol:  VIC
   Relative strength RSW:  44.57469745466885
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  226.87 226.87 226.87 226.87
-  Actual price Close/Low/High/Open:  184.0 176.0 187.0 179.0
+  Actual price Close/Low/High/Open: 184.0 176.0 187.0 179.0
   PCT_Change last 5 days: 1.59 0.92 2.52 0.0 2.79
-  Variation last 3 days:  40.79 39.35 39.35
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.81 0.81 0.81 0.81 0.81
+  Variation last 3 days (H/L):  40.79 39.35 39.35
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.81 0.81 0.81 0.81 0.81
   Support S1 S2 S3 : 168.0 138.5 135.49
   Resistance R1 R2 R3 : 193.0 197.9 199.0
   Loss/gain T+1/T+2/T+3/T+4 : -2.72 -2.34 nan nan
@@ -1492,10 +1492,10 @@ Back test result: Counter({'0': 340, '1': 12, '-1': 5}) symbol:  VIC
   Relative strength RSW:  41.93703178074581
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  226.87 226.87 226.87 226.87
-  Actual price Close/Low/High/Open:  179.0 174.6 181.5 174.6
+  Actual price Close/Low/High/Open: 179.0 174.6 181.5 174.6
   PCT_Change last 5 days: 6.99 6.97 1.59 0.92 2.52
-  Variation last 3 days:  42.89 42.17 40.79
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.01 0.79 0.79 0.79 0.79 0.79
+  Variation last 3 days (H/L):  42.89 42.17 40.79
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.79 0.79 0.79 0.79 0.79
   Support S1 S2 S3 : 168.0 138.5 135.49
   Resistance R1 R2 R3 : 179.9 193.0 197.9
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 2.79 0.0 0.39
@@ -1511,10 +1511,10 @@ Back test result: Counter({'0': 307, '1': 15}) symbol:  VJC
   Relative strength RSW:  11.885794030530876
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  17.5 18.7 18.7 18.7
-  Actual price Close/Low/High/Open:  14.9 14.4 14.95 14.4
+  Actual price Close/Low/High/Open: 14.9 14.4 14.95 14.4
   PCT_Change last 5 days: -2.1 1.43 1.41 0.0 3.47
-  Variation last 3 days:  8.03 8.03 8.03
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.85 0.8 0.8 0.8 0.8
+  Variation last 3 days (H/L):  8.03 8.03 8.03
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.85 0.8 0.8 0.8 0.8
   Support S1 S2 S3 : 14.3 13.8 13.7
   Resistance R1 R2 R3 : 15.1 16.05 16.2
   Loss/gain T+1/T+2/T+3/T+4 : 0.67 0.67 1.01 0.0
@@ -1530,10 +1530,10 @@ Back test result: Counter({'0': 348, '1': 5, '-1': 4}) symbol:  VNG
   Relative strength RSW:  -3.6597567783679357
   Side ways status last 3 days:  False False True
   Price max 3M/6M/9M/12M:  15.8 16.8 18.1 22.87
-  Actual price Close/Low/High/Open:  14.85 13.9 14.85 13.9
+  Actual price Close/Low/High/Open: 14.85 13.9 14.85 13.9
   PCT_Change last 5 days: -0.72 0.73 -1.45 2.21 6.83
-  Variation last 3 days:  15.87 15.87 15.87
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.04 0.94 0.88 0.82 0.65 0.5
+  Variation last 3 days (H/L):  15.87 15.87 15.87
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.94 0.88 0.82 0.65 0.5
   Support S1 S2 S3 : 12.6 12.0 nan
   Resistance R1 R2 R3 : 16.0 16.1 16.2
   Loss/gain T+1/T+2/T+3/T+4 : 5.05 7.07 3.03 3.03
@@ -1549,10 +1549,10 @@ Back test result: Counter({'0': 354, '-1': 2, '1': 1}) symbol:  VNS
   Relative strength RSW:  6.203313364150277
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  69.3 69.3 69.3 nan
-  Actual price Close/Low/High/Open:  51.8 49.0 51.8 49.0
+  Actual price Close/Low/High/Open: 51.8 49.0 51.8 49.0
   PCT_Change last 5 days: 6.96 0.41 0.1 0.1 4.65
-  Variation last 3 days:  38.98 38.98 38.98
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.0 0.75 0.75 0.75 nan 0.75
+  Variation last 3 days (H/L):  38.98 38.98 38.98
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 0.75 0.75 0.75 nan 0.75
   Support S1 S2 S3 : 48.45 37.2 36.0
   Resistance R1 R2 R3 : 54.5 56.0 61.8
   Loss/gain T+1/T+2/T+3/T+4 : 2.7 1.35 1.16 nan
@@ -1568,10 +1568,10 @@ Back test result: Counter({'0': 194, '1': 7, '-1': 2}) symbol:  VPB
   Relative strength RSW:  9.401393284888435
   Side ways status last 3 days:  True True True
   Price max 3M/6M/9M/12M:  44.0 44.0 nan nan
-  Actual price Close/Low/High/Open:  44.6 43.0 44.9 43.0
+  Actual price Close/Low/High/Open: 44.6 43.0 44.9 43.0
   PCT_Change last 5 days: 0.94 0.93 0.0 0.23 2.29
-  Variation last 3 days:  7.8 7.8 7.8
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.02 1.01 1.01 nan nan 0.99
+  Variation last 3 days (H/L):  7.8 7.8 7.8
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 1.01 1.01 nan nan 0.99
   Support S1 S2 S3 : 41.0 38.4 37.0
   Resistance R1 R2 R3 : nan nan nan
   Loss/gain T+1/T+2/T+3/T+4 : 0.67 0.67 -0.22 0.0
@@ -1587,10 +1587,10 @@ Back test result: Counter({'0': 131, '1': 1, '-1': 1}) symbol:  VPI
   Relative strength RSW:  -9.567836453698257
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  55.8 61.0 nan nan
-  Actual price Close/Low/High/Open:  45.45 43.15 45.45 43.7
+  Actual price Close/Low/High/Open: 45.45 43.15 45.45 43.7
   PCT_Change last 5 days: -1.47 6.7 -2.33 2.38 5.7
-  Variation last 3 days:  28.87 28.87 28.87
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.81 0.75 nan nan 0.75
+  Variation last 3 days (H/L):  28.87 28.87 28.87
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.81 0.75 nan nan 0.75
   Support S1 S2 S3 : 41.3 38.1 nan
   Resistance R1 R2 R3 : 49.1 54.3 56.2
   Loss/gain T+1/T+2/T+3/T+4 : 0.33 -0.33 -0.33 -0.99
@@ -1606,10 +1606,10 @@ Back test result: Counter({'0': 139, '-1': 3, '1': 2}) symbol:  VRE
   Relative strength RSW:  -19.095381007813046
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  44.06 46.2 48.79 55.71
-  Actual price Close/Low/High/Open:  36.5 34.0 36.8 34.6
+  Actual price Close/Low/High/Open: 36.5 34.0 36.8 34.6
   PCT_Change last 5 days: 0.0 6.13 0.58 1.44 3.4
-  Variation last 3 days:  21.4 22.81 23.86
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.03 0.83 0.79 0.75 0.66 0.66
+  Variation last 3 days (H/L):  21.4 22.81 23.86
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.83 0.79 0.75 0.66 0.66
   Support S1 S2 S3 : 31.8 28.5 nan
   Resistance R1 R2 R3 : 36.88 38.53 38.63
   Loss/gain T+1/T+2/T+3/T+4 : -2.6 0.14 nan nan
@@ -1623,10 +1623,10 @@ Back test result: Counter({'0': 139, '-1': 3, '1': 2}) symbol:  VRE
   Relative strength RSW:  -21.610910033377312
   Side ways status last 3 days:  False False False
   Price max 3M/6M/9M/12M:  44.06 46.2 48.79 55.71
-  Actual price Close/Low/High/Open:  34.6 31.8 34.6 32.6
+  Actual price Close/Low/High/Open: 34.6 31.8 34.6 32.6
   PCT_Change last 5 days: 4.0 -0.96 5.5 0.0 6.13
-  Variation last 3 days:  22.11 22.11 21.4
-  Ratio with price max H4D/3M/6M/9M/12M/all_time:  1.05 0.79 0.75 0.71 0.62 0.62
+  Variation last 3 days (H/L):  22.11 22.11 21.4
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 0.79 0.75 0.71 0.62 0.62
   Support S1 S2 S3 : 28.5 nan nan
   Resistance R1 R2 R3 : 36.8 36.88 38.53
   Loss/gain T+1/T+2/T+3/T+4 : 0.58 2.02 5.49 2.75

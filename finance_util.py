@@ -223,7 +223,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_1905.csv')
+    data.to_csv('fundemental_stocks_all_1406.csv')
     
     
     return tickers
@@ -648,7 +648,7 @@ if __name__ == "__main__":
                "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
                 'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 'HCD',
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
-               'IDI', "IJC",  "KBC", "KSB",  "KDH", "KDC", 
+               'IDI', "IJC",  'ITD', "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB", 'NAF',
                 "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
                 "PPC", "PAC", 'QBS', "QCG", "REE",  
@@ -672,20 +672,20 @@ if __name__ == "__main__":
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
-#     tickers = save_and_analyse_vnindex_tickers()
+     tickers = save_and_analyse_vnindex_tickers()
     
-#     data = pd.read_csv('fundemental_stocks_all_1905.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_1406.csv', parse_dates=True, index_col=0)
 #     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
 #     data['EPS_Price'] = data['EPS']/data['Close']/1000
      
-#     df = data.query("MeanVol_13W > 50000")
-#     df = df.query("MeanVol_10D> 50000")
+     df = data.query("MeanVol_13W > 50000")
+     df = df.query("MeanVol_10D> 50000")
 ##     df = df.query("MeanVol_10D > 0")
 ###     df = df.query("FVQ > 0")
 ###     df = df.query("CPM > 1.4")
-#     df = df.query("EPS >= 1000")
+     df = df.query("EPS >= 1000")
 ###     df = df.query("EPS_52W >= 0")
-#     df = df.query("ROE >= 8")
+     df = df.query("ROE >= 8")
 ###     df = df.query("Close > 4")
 ##     df = df.query("Beta < 0")
 ##     df = df.query("Beta > 0")
@@ -693,19 +693,19 @@ if __name__ == "__main__":
 ##     df.to_csv('investment_stock3.csv')
 ##     print(df.index)
 #     
-#     listA = symbols
-#     listB = df.index.tolist()
-#     common = list(set(listA) & set(listB))
-#     listC = list(set(listB).difference(set(listA)))
-#     df2 = data.loc[symbols]
+     listA = symbols
+     listB = df.index.tolist()
+     common = list(set(listA) & set(listB))
+     listC = list(set(listB).difference(set(listA)))
+     df2 = data.loc[symbols]
 #     
      end_date = "2018-5-29"
      start_date = "2017-1-2"
 #     data = yf.download("SPY", start="2017-01-2", end="2018-05-29")
 #     get_data_from_web(tickers = ['MSFT'], start = start_date, end = end_date, source ='yahoo')
-     yf.pdr_override()
-     ticker = 'ZTO'
-     df = pdr.get_data_yahoo(ticker, start = start_date, end = end_date) 
+#     yf.pdr_override()
+#     ticker = 'ZTO'
+#     df = pdr.get_data_yahoo(ticker, start = start_date, end = end_date) 
      
      
      
