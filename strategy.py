@@ -27,6 +27,8 @@ def run_backtest(df, ticker, trade = 'Long'):
             df['Buy'] = df['Short']
         if (trade == 'ShortTerm'):
             df['Buy'] = df['ShortTerm']
+        if (trade == 'Breakout'):
+            df['Buy'] = df['Breakout']
     df['5Days'] = df['Close'].shift(-5)
     df['10Days'] = df['Close'].shift(-10)
     df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
@@ -165,7 +167,11 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
     
-    
+    df['Breakout'] = ((df['Close']*df['Volume'] >= 3E6) & (df['ValueMA30']> 1E6) &\
+                  (df['Close'] > 1.02*df['Close'].shift(1))  & (df['Close'] > df['Open']) &\
+                 (df['PCT_HL'] < 15) & (df['Volume'] >= 1.3*df['VolMA30']) & \
+                 (df['High15D'] > 1.05*df['Low15D'])  & \
+                 ((df['Close'] > df['SMA30']) & (df['Close']>= df['High15D'])))
     
     df['ShortTerm'] = ((df['Close'] > 1.02* df['Close'].shift(1))  & (df['Close'].shift(1) > df['Open'].shift(1)) & (df['RSI'] >=50) & \
                       (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] > 2*df['VolMA30']))
@@ -211,6 +217,13 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
    
         if (df['Short'].iloc[-i] & (typetrade == 'Short')):
                 print(" Short selling canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+        
+        if (df['Breakout'].iloc[-i] & (typetrade == 'Breakout')):
+                print(" Breakout canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
                 print_statistic(df, i)
                 back_test = True
                 if (market != None):

@@ -176,10 +176,10 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-#            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Long')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Long')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
-            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
+#            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -438,14 +438,14 @@ if __name__ == "__main__":
                'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
               'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
               'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-14", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-14", update = False,  source ="cp68")
 #    
 #    
     
     
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")
-    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
+#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    active_strategy(start_date = start_date, end_date = end_date, update = True, source = "cp68", market = "^VNINDEX")
 #    dates = pd.date_range(start_date, end_date)  # date range as index

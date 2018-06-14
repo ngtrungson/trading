@@ -202,7 +202,7 @@ def passive_strategy(start_date, end_date, market = "SPY"):
     return df_result, df_data
 
 
-def analysis_stocks_RTS(start_date, end_date, margin= 25, investment_size = 200):
+def analysis_stocks_RTS(start_date, end_date, margin= 50, factor = 0.325, investment_size = 200):
 
     
     df_result = pd.read_csv('dataRTS.csv', index_col='Ticker')
@@ -217,6 +217,8 @@ def analysis_stocks_RTS(start_date, end_date, margin= 25, investment_size = 200)
     fill_missing_values(df_data)
 #    return prices
 #    df_result['Commision'] = prices['Commision']
+    
+    df_result['Spread'] = df_result['Spread']*factor
     
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
     df_result['MinNbStock'] = df_result['Lot']* 0.01
@@ -252,31 +254,31 @@ def analysis_single_stock(ticker, bid, ask, lot = 100, over_night = 5, investmen
     commision = (spread + over_night)/lot*nb_min_vol
     print(ticker, " commision min_volume with margin overnight", commision, " x 0.01")
     print(ticker, " min_volume with $", investment, ":", nb_min_vol, " x 0.01")
-    print(ticker, " commision ratio with invesment with margin:", round(commision/investment*100, 2))
+    print(ticker, " commision ratio with invesment margin:", round(commision/investment*100, 2))
     
 
     
 if __name__ == "__main__":
     
-#    analysis_single_stock(ticker = 'TSLA', 
-#                          bid = 317.21, 
-#                          ask = 318.21, 
-#                          lot = 50, 
-#                          over_night = 4.36, 
-#                          investment = 200, 
-#                          margin = 10)
+    analysis_single_stock(ticker = 'TWTR', 
+                          bid = 46.28, 
+                          ask = 46.54, 
+                          lot = 750, 
+                          over_night = 0.41, 
+                          investment = 200, 
+                          margin = 50)
 #
-    end_date = "2018-6-14"
+    end_date = "2018-6-15"
     start_date = "2015-1-1"
     
     symbols = getliststocks(typestock = "RTS")
 
 #    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
-#    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
+    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
 #    analysis_stock(symbols, stock_data, start_date, end_date)
 
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
-    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
+#    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
 #    ticker = 'NVDA'    
 #    shortselling = short_selling(ticker, start_date, end_date, realtime = False, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)
