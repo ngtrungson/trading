@@ -260,18 +260,18 @@ def analysis_single_stock(ticker, bid, ask, lot = 100, over_night = 5, investmen
     
 if __name__ == "__main__":
     
-    analysis_single_stock(ticker = 'TWTR', 
-                          bid = 46.28, 
-                          ask = 46.54, 
-                          lot = 750, 
-                          over_night = 0.41, 
-                          investment = 200, 
-                          margin = 50)
+#    analysis_single_stock(ticker = 'TWTR', 
+#                          bid = 46.28, 
+#                          ask = 46.54, 
+#                          lot = 750, 
+#                          over_night = 0.41, 
+#                          investment = 200, 
+#                          margin = 50)
 #
     end_date = "2018-6-15"
     start_date = "2015-1-1"
     
-    symbols = getliststocks(typestock = "RTS")
+    symbols = getliststocks(typestock = "RTS_IND")
 
 #    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
     stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
