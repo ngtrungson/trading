@@ -176,7 +176,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 1, typetrade = 'Long')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 20, typetrade = 'Long')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
@@ -205,6 +205,17 @@ def predict_stocks(tickers, start, end):
         print('Prediction of ticker .................' , ticker)
         price_predictions(ticker, start, end, forecast_out = 5)
         print(' End of prediction ticker ...................', ticker)
+
+def analysis_stocks(start_date, end_date):
+    
+    hsx_res, hsx_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+    hnx_res, hnx_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
+    upcom_res, upcom_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^UPCOM")
+    
+    
+    frames = [hsx_res, hnx_res, upcom_res]
+    df_result  = pd.concat(frames)
+    return df_result
 
 def passive_strategy(start_date, end_date, market = "^VNINDEX"):
 
@@ -438,10 +449,11 @@ if __name__ == "__main__":
                'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
               'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
               'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-15", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-15", update = False,  source ="cp68")
 #    
 #    
-    
+    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
+#    
     
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
     symbolsHNX = getliststocks(typestock = "^HASTC")

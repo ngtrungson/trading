@@ -633,6 +633,12 @@ def print_statistic(df, i):
     print('  Resistance R1 R2 R3 :', R1, R2, R3)
     print('  Loss/gain T+1/T+2/T+3/T+4 :', T1, T2, round(df['ROC'].shift(-3).iloc[-i], 2), T4)
     print('  Back test T+5, T+10:', T5, T10)    
+    
+    R = df['High'].iloc[-i] - df['Low'].iloc[-i]
+    target3R = round(3*R /df['Close'].iloc[-i]*100, 2)
+    cutloss1R = round(R /df['Close'].iloc[-i]*100, 2)
+    print('  Cutloss <=:', df['Low'].iloc[-i], '-', cutloss1R, '%', 'Target >=:', (df['Close'].iloc[-i] + 3*R), '+', target3R, '%')
+    
     print('----------------------------------------------------------------')
    
 
