@@ -239,7 +239,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     return df
 
 
-def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", market = None):
+def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", market = None, ndays = 2):
     
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
@@ -279,7 +279,7 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
   
     
     df['Signal'] = 1* (df['Long']) 
-    hm_days = 2
+    hm_days = ndays
 
     back_test = False
     for i in range(1,hm_days+1):
