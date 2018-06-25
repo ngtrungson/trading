@@ -651,7 +651,7 @@ if __name__ == "__main__":
                'IDI', "IJC",  'ITD', "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB", 'NAF',
                 "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
-                "PPC", "PAC", 'QBS', "QCG", "REE",  
+                "PPC", "PAC", 'QBS', "QCG", "REE",  "SJF",
                 'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
                 "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
                 'LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
