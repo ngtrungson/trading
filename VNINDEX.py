@@ -176,7 +176,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Long')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Bottom')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
@@ -421,7 +421,7 @@ if __name__ == "__main__":
 
     ticker = 'HCD'    
 #
-    end_date = "2018-6-25"
+    end_date = "2018-6-28"
     start_date = "2017-1-2"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -440,7 +440,7 @@ if __name__ == "__main__":
 ##    
 ##    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
 ##    
-#    canslim = hung_canslim(ticker, start_date, end_date, realtime = True,  source ="cp68") 
+    canslim = hung_canslim(ticker, start_date, end_date, realtime = True,  source ="cp68") 
 #    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 ###    plot_canslim_trading(ticker, canslim)
 
@@ -449,7 +449,7 @@ if __name__ == "__main__":
                'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
               'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
               'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-26", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-6-27", update = False,  source ="cp68")
 #    
 #    
 #    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
