@@ -121,7 +121,7 @@ def getliststocks(typestock = "^VNINDEX"):
     if typestock == "^UPCOM":
         symbols = symbolsUPCOM
     if typestock == "TICKER":
-        symbols = symbolsVNI + symbolsHNX + symbolsUPCOM 
+        symbols = symbolsVNI + symbolsHNX + symbolsUPCOM + benchmark
     if typestock == "BENCHMARK":
         symbols = benchmark
 #    symbols =  high_cpm
@@ -176,7 +176,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'Long')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Bottom')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
@@ -449,7 +449,7 @@ if __name__ == "__main__":
                'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
               'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
               'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-7-5", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-7-6", update = False,  source ="cp68")
 #    
 #    
 #    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
@@ -468,8 +468,8 @@ if __name__ == "__main__":
     
 #    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-23", update = True,  source ="cp68")
     
-#    investing = ['ANV', 'ACB','MBS', 'TVN', 'VIX']
-#    predict_stocks(investing, start ="2010-3-18", end = "2018-4-22")
+#    investing = ['SHB', 'ACB','MBS', 'CTG', 'BID']
+#    predict_stocks(investing, start ="2010-3-18", end = "2018-7-5")
 #    for ticker in RSWlist:
 #        ML_strategy(ticker, start ="2011-1-2", end = "2018-5-24")
 #    tickers = pd.Series(symbols)

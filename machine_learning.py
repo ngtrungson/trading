@@ -154,7 +154,7 @@ def price_predictions(ticker, start, end, forecast_out):
     
     df['HL_PCT'] = (df['High'] - df['Low']) / df['Close'] * 100.0
     df['PCT_change'] = (df['Close'] - df['Open']) / df['Open'] * 100.0
-    bbwindow = 21
+    bbwindow = 25
     vlwindow = 10
     mmtum = 10
     df['BB_Value'] = compute_indicator_bb(df, window = bbwindow)
@@ -169,10 +169,10 @@ def price_predictions(ticker, start, end, forecast_out):
 #    df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean())
     df['PDI'] = talib.PLUS_DI(df['High'].values, df['Low'].values, df['Close'].values, timeperiod=14)
     df['NDI'] = talib.MINUS_DI(df['High'].values, df['Low'].values, df['Close'].values, timeperiod=14)
-    df = df[['Close', 'HL_PCT', 'PCT_change', 'Volume','BB_Value', 
-                        'Volatility', 'Momentum', 'MACD', 'STOCH', 'MFI', 'OBV']]
-    
-    #df = df[['Close', 'HL_PCT', 'PCT_change', 'Volume','BB_Value']]
+#    df = df[['Close', 'HL_PCT', 'PCT_change', 'Volume','BB_Value', 
+#                        'Volatility', 'Momentum', 'MACD', 'STOCH', 'MFI', 'OBV']]
+#    
+    df = df[['Close', 'HL_PCT', 'PCT_change', 'Volume','BB_Value']]
     df.fillna(method ="ffill", inplace = True)
     df.fillna(method ="backfill", inplace = True)
     
