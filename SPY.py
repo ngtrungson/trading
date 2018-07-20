@@ -268,7 +268,7 @@ if __name__ == "__main__":
 #                          investment = 200, 
 #                          margin = 50)
 #
-    end_date = "2018-7-11"
+    end_date = "2018-7-16"
     start_date = "2015-1-1"
     
     symbols = getliststocks(typestock = "RTS_IND")
