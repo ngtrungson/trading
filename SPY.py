@@ -121,7 +121,7 @@ def analysis_trading(tickers, start, end, update = False, source = "yahoo"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            canslim_usstock(ticker, start, end, realtime = update, source = source)
+            canslim_usstock(ticker, start, end, realtime = update, source = source, ndays = 5)
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source)
@@ -268,7 +268,7 @@ if __name__ == "__main__":
 #                          investment = 200, 
 #                          margin = 50)
 #
-    end_date = "2018-7-16"
+    end_date = "2018-7-25"
     start_date = "2015-1-1"
     
     symbols = getliststocks(typestock = "RTS_IND")
