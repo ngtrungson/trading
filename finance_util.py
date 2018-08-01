@@ -326,7 +326,82 @@ def get_info_stock(ticker):
   
     return df  
     
+def get_info_stock_ssi(ticker):
+    url = 'http://www.cophieu68.vn/snapshot.php?id=' + ticker    
+    resp = requests.get(url)
+    soup = bs.BeautifulSoup(resp.text, 'lxml') 
+    df = pd.DataFrame(columns = ['Ticker',
+                             'Close',
+                             'Close_1D',
+                             'Open',
+                             'Low',
+                             'High', 
+                             'Volume',
+                             'MeanVol_13W', 
+                             'MeanVol_10D',
+                             'High52W', 
+                             'Low52W', 
+                             'EPS', 
+                             'PE',
+                             'Market capital', 
+                             'Float', 
+                             'BookValue', 
+                             'Beta', 
+                             'ROE', 
+                             'EPS_52W',
+                             'CPM', 'FVQ','Exchange'])
+   
+   
 
+    value_number = []
+    stockexchange = 'HSX'
+    for line in soup.find('div', {'class':'listHeader'}).stripped_strings:
+        line = line.replace(',','').replace('%','').replace(':','').replace(ticker,'').replace(' ','')
+        line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','').replace('(','').replace(')','')       
+        if isfloat(line): 
+            value_number.append(float(line)) 
+         
+        if ((line == 'HSX')| (line == 'HNX') | (line == 'UPCOM') | (line == 'HOSE')):
+            stockexchange = line
+     
+#    print(stockexchange)
+    for line in soup.find('div', {'id':'snapshot_trading'}).stripped_strings:
+        line = line.replace(',','').replace('%','')
+        line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','')        
+        if isfloat(line): 
+            value_number.append(float(line)) 
+#        print(line) 
+#    print(value_number)   
+#    link href="http://www.cophieu68.vn/css/screen.css?date=20180212
+#    for line in soup.find(l)
+
+    
+    
+    df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+                        'Close': value_number[0],
+                        'Close_1D' : value_number[1],
+                         'Open' : value_number[2],
+                         'Low' : value_number[3],
+                         'High': value_number[4], 
+                         'Volume': value_number[5],
+                         'MeanVol_13W' : value_number[6], 
+                         'MeanVol_10D' : value_number[7],
+                         'High52W' : value_number[8], 
+                         'Low52W' : value_number[9], 
+                         'EPS' : value_number[10]*1E3, 
+                         'PE' : value_number[11],
+                         'Market capital' : value_number[12]*1E9, 
+                         'Float' : value_number[13]*1E6, 
+                         'BookValue' : value_number[14], 
+                         'ROE' : value_number[15], 
+                         'Beta' : value_number[16], 
+                         'EPS_52W' : value_number[17],
+                         'CPM': value_number[8]/value_number[9],
+                         'FVQ': value_number[13]/value_number[6]*1E6,
+                         'Exchange': stockexchange}, ignore_index = True)
+  
+    return df  
+ 
 def get_data_from_cophieu68_openwebsite(tickers):       
     file_url = 'http://www.cophieu68.vn/export/excelfull.php?id='
     for ticker in tickers:
