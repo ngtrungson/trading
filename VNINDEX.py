@@ -86,31 +86,31 @@ def getliststocks(typestock = "^VNINDEX"):
     anuong = ['VNM', 'SAB']
     
     
-    symbolsHNX = [ 'ALV',  'TNG', 'BVS',  'NVB',   "VE9", 
-                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'SD9', 'HLD', 'HHG', 'NSH', 'DS3',
-                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',   'PHC', 'PVE', 'PVG', 'PVB',
-                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC', 'SPP',
-                 'VKC', 'VPI', 'NBC', 'VGS']
+    symbolsHNX = [ 'TNG', 'NVB',  
+                  'ACB',  'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'HHG', 'NSH', 'DS3',
+                  'MBS', 'NDN', 'PVC', 'PVI',   'PHC',  'PVB',
+                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 'SPP',
+                  'VPI', 'NBC', 'VGS']
     
-    symbolsVNI = [ 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 'CEE',
-                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CHP', 'C47', 
-               "DCM","DHG", "DIG",  "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
-               "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
+    symbolsVNI = [ 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
+                  'BCG',  "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG",  'C47', 
+               "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',  'DAH',
+               "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', "FPT", "GAS", "GMD", "GTN", 
                 'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 'HCD',
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
                'IDI', "IJC", 'ITD', "KBC", "KSB",  "KDH", "KDC", 
-               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB", 'NAF',
-                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
-                "PPC", "PAC", 'QBS', "QCG", "REE", "SJF",  
-                'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
-                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
-                'LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
-                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  'SRC',
-                'EIB','VPB','VRE','ROS',"VND", "HDB",  "C32","CVT",'VPH','VNG','VIP',
-                'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST','DAG', 'HAH']
+               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",  'NAF',
+                "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
+                "PPC",  'QBS', "QCG", "REE", "SJF",  
+                'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
+                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  'VDS', 'TNI','TLH',
+                 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
+                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  
+                'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VPH','VNG','VIP',
+                'NTL','PET','VTO','SHA', 'AST','DAG', 'HAH']
     
-    symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
-                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
+    symbolsUPCOM = ['LPB', 'QNS',   'ART',  'ACV',   "DVN", 'HVN', 'IDC',  'MSR', 
+                    'VGT', 'TVB','TIS','VIB', 'POW', 'BSR']
     
     if typestock == "ALL":
         symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + futures
@@ -401,9 +401,9 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
     
 if __name__ == "__main__":
-    import sys
-    old_stdout = sys.stdout
-    sys.stdout=open("logging.txt","w")
+#    import sys
+#    old_stdout = sys.stdout
+#    sys.stdout=open("logging.txt","w")
 #   
 #    
 #    symbols = get_csv_data(source = "cp68")
@@ -421,7 +421,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-8-24"
+    end_date = "2018-8-30"
     start_date = "2018-4-1"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -449,10 +449,10 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-8-29", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-8-30", update = False,  source ="cp68")
 #    
 #    
-#    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
 #    
     
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
@@ -473,5 +473,5 @@ if __name__ == "__main__":
 #    for ticker in RSWlist:
 #        ML_strategy(ticker, start ="2011-1-2", end = "2018-5-24")
 #    tickers = pd.Series(symbols)
-    sys.stdout = old_stdout
+#    sys.stdout = old_stdout
     
