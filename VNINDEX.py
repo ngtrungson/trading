@@ -86,31 +86,31 @@ def getliststocks(typestock = "^VNINDEX"):
     anuong = ['VNM', 'SAB']
     
     
-    symbolsHNX = [ 'TNG', 'NVB',  
-                  'ACB',  'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'HHG', 'NSH', 'DS3',
-                  'MBS', 'NDN', 'PVC', 'PVI',   'PHC',  'PVB',
-                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 'SPP',
-                  'VPI', 'NBC', 'VGS']
+    symbolsHNX = [ 'TNG', 'NVB',  'L14', 'AAV', 'AMV',
+                  'ACB',  'CEO', 'DBC',  'DST', 'HUT', 'NSH',
+                  'MBS', 'NDN', 'PVI',   'PHC',  'PVB',
+                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
+                  'VPI']
     
     symbolsVNI = [ 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
-                  'BCG',  "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG",  'C47', 
+                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSV", "CTG", 
                "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',  'DAH',
-               "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', "FPT", "GAS", "GMD", "GTN", 
+                'EVG', "FCN","FIT","FLC", 'FMC', "FPT", "GAS", "GMD", "GTN", 
                 'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 'HCD',
-               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
-               'IDI', "IJC", 'ITD', "KBC", "KSB",  "KDH", "KDC", 
+               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LHG', 'HDC',
+               'IDI', "IJC",  "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",  'NAF',
-                "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
+                "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
                 "PPC",  'QBS', "QCG", "REE", "SJF",  
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
-                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  'VDS', 'TNI','TLH',
-                 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
+                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  'TNI','TLH',
+                 'PAN','TCH', 'TDH',  'GEX','VCI', 
                 'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  
-                'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VPH','VNG','VIP',
-                'NTL','PET','VTO','SHA', 'AST','DAG', 'HAH']
+                'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
+                'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB']
     
-    symbolsUPCOM = ['LPB', 'QNS',   'ART',  'ACV',   "DVN", 'HVN', 'IDC',  'MSR', 
-                    'VGT', 'TVB','TIS','VIB', 'POW', 'BSR']
+    symbolsUPCOM = ['LPB', 'QNS',   'ART',  'ACV',   "DVN", 'HVN', 'MSR', 
+                    'VGT', 'TVB','VIB', 'POW', 'BSR']
     
     if typestock == "ALL":
         symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + futures
@@ -450,11 +450,11 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-8-31", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-8-31", update = False,  source ="cp68")
 #    
 #    
 
-#    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
 #    
     
     symbolsVNI = getliststocks(typestock = "^VNINDEX")
