@@ -86,20 +86,20 @@ def getliststocks(typestock = "^VNINDEX"):
     anuong = ['VNM', 'SAB']
     
     
-    symbolsHNX = [ 'TNG', 'NVB',  'L14', 'AAV', 'AMV',
+    symbolsHNX = [ 'TNG', 'NVB',  'L14', 'AAV', 
                   'ACB',  'CEO', 'DBC',  'DST', 'HUT', 'NSH',
                   'MBS', 'NDN', 'PVI',   'PHC',  'PVB',
                   'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
                   'VPI']
     
     symbolsVNI = [ 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
-                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSV", "CTG", 
+                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CMG", "CSV", "CTG", 
                "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',  'DAH',
                 'EVG', "FCN","FIT","FLC", 'FMC', "FPT", "GAS", "GMD", "GTN", 
                 'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 'HCD',
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LHG', 'HDC',
                'IDI', "IJC",  "KBC", "KSB",  "KDH", "KDC", 
-               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",  'NAF',
+               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
                 "PPC",  'QBS', "QCG", "REE", "SJF",  
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
@@ -350,7 +350,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-6-14"
+    end_date = "2018-9-10"
     start_date = "2018-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
@@ -422,8 +422,8 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-9-7"
-    start_date = "2018-6-1"
+    end_date = "2018-9-11"
+    start_date = "2018-4-1"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
 #    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
@@ -450,15 +450,15 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-9-10", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-9-12", update = False,  source ="cp68")
 #    
 #    
 
 #    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
 #    
     
-    symbolsVNI = getliststocks(typestock = "^VNINDEX")
-    symbolsHNX = getliststocks(typestock = "^HASTC")
+#    symbolsVNI = getliststocks(typestock = "^VNINDEX")
+#    symbolsHNX = getliststocks(typestock = "^HASTC")
 #    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    active_strategy(start_date = start_date, end_date = end_date, update = False, source = "cp68", market = "^VNINDEX")
