@@ -422,7 +422,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-9-12"
+    end_date = "2018-9-24"
     start_date = "2018-4-1"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -450,7 +450,7 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-9-19", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-9-25", update = False,  source ="cp68")
 #    
 #    
 
