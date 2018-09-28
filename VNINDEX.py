@@ -86,13 +86,13 @@ def getliststocks(typestock = "^VNINDEX"):
     anuong = ['VNM', 'SAB']
     
     
-    symbolsHNX = [ 'TNG', 'NVB',  'L14', 'AAV', 
+    symbolsHNX = ['ART', 'TNG', 'NVB',  'L14', 'AAV', 
                   'ACB',  'CEO', 'DBC',  'DST', 'HUT', 'NSH',
-                  'MBS', 'NDN', 'PVI',   'PHC',  'PVB',
+                  'MBS', 'NDN', 'PVI', 'PVB',
                   'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
                   'VPI']
     
-    symbolsVNI = [ 'APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
+    symbolsVNI = [ 'PHC','APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                    "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CMG", "CSV", "CTG", 
                "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',  'DAH',
                 'EVG', "FCN","FIT","FLC", 'FMC', "FPT", "GAS", "GMD", "GTN", 
@@ -109,7 +109,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB']
     
-    symbolsUPCOM = ['LPB', 'QNS',   'ART',  'ACV',   "DVN", 'HVN', 'MSR', 
+    symbolsUPCOM = ['LPB', 'QNS',    'ACV',   "DVN", 'HVN', 'MSR', 
                     'VGT', 'TVB','VIB', 'POW', 'BSR']
     
     if typestock == "ALL":
@@ -350,7 +350,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-9-10"
+    end_date = "2018-9-27"
     start_date = "2018-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
@@ -422,7 +422,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-9-27"
+    end_date = "2018-9-28"
     start_date = "2018-4-1"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -450,7 +450,7 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-9-27", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-9-28", update = False,  source ="cp68")
 #    
 #    
 
