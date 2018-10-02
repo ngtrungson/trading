@@ -598,8 +598,14 @@ def optimize_portfolio(sd=dt.datetime(2008,1,1), ed=dt.datetime(2009,1,1), \
         prices_all = get_data(syms, dates, benchmark = benchmark)  # automatically adds SPY
     else:
         prices_all = get_data_us(syms, dates, benchmark = benchmark)
+    
+    fill_missing_values(prices_all)
+    
     prices = prices_all[syms]  # only portfolio symbols
     prices_benchmark = prices_all[benchmark]  # only VNINDEX, for comparison later
+    
+    
+    
     
 #    return prices, prices_benchmark
 

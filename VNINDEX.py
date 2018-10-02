@@ -453,11 +453,11 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-10-1", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-10-2", update = False,  source ="cp68")
 #    
 #    
 
-    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
+#    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
 #    
     
 #    symbolsVNI = getliststocks(typestock = "^VNINDEX")
