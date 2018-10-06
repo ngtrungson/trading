@@ -87,21 +87,20 @@ def getliststocks(typestock = "^VNINDEX"):
     
     
     symbolsHNX = ['ART', 'TNG', 'NVB',  'L14', 'AAV', 
-                  'ACB',  'CEO', 'DBC',  'DST', 'HUT', 'NSH',
-                  'MBS', 'NDN', 'PVI', 'PVB',
+                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
                   'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
-                  'VPI']
+                  'VPI', 'AAV', 'AMV', 'DTD']
     
     symbolsVNI = [ 'PHC','APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                    "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CMG", "CSV", "CTG", 
                "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',  'DAH',
-                'EVG', "FCN","FIT","FLC", 'FMC', "FPT", "GAS", "GMD", "GTN", 
-                'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 'HCD',
+                "FCN","FLC", 'FMC', "FPT", "GAS", "GMD", "GTN", 
+                'HAX', "HAG", "HNG",  "HT1",  'HII', 'HCD',
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LHG', 'HDC',
                'IDI', "IJC",  "KBC", "KSB",  "KDH", "KDC", 
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
-                "PPC",  'QBS', "QCG", "REE", "SJF",  
+                "PPC",  "QCG", "REE", "SJF",  
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  'TNI','TLH',
                  'PAN','TCH', 'TDH',  'GEX','VCI', 
@@ -109,8 +108,8 @@ def getliststocks(typestock = "^VNINDEX"):
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB']
     
-    symbolsUPCOM = ['LPB', 'QNS',    'ACV',   "DVN", 'HVN', 'MSR', 
-                    'VGT', 'TVB','VIB', 'POW', 'BSR']
+    symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN', 'MSR', 
+                    'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA']
     
     if typestock == "ALL":
         symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + futures
