@@ -92,7 +92,7 @@ def getliststocks(typestock = "^VNINDEX"):
                   'VPI', 'AAV', 'AMV', 'DTD']
     
     symbolsVNI = [ 'PHC','APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
-                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CMG", "CSV", "CTG", 
+                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CSV", "CTG", 
                "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',  'DAH',
                 "FCN","FLC", 'FMC', "FPT", "GAS", "GMD", "GTN", 
                 'HAX', "HAG", "HNG",  "HT1",  'HII', 'HCD',
@@ -108,7 +108,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB']
     
-    symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN', 'MSR', 
+    symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN',  
                     'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA']
     
     if typestock == "ALL":
