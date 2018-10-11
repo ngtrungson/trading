@@ -456,7 +456,7 @@ if __name__ == "__main__":
 #    
 #    
 
-    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
+#    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
 #    
     
 #    symbolsVNI = getliststocks(typestock = "^VNINDEX")
