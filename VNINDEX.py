@@ -276,7 +276,11 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX"):
 #    df_result['MinL'] = min_low
     df_result['CPM'] = cpm[symbols]
     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
+    
     df_result ['Volatility'] = df_data[symbols].pct_change().std() 
+    
+    df_result ['PCT_Change0D'] = df_data[symbols].pct_change().iloc[-1,:].values*100
+    df_result ['PCT_Change1D'] = df_data[symbols].pct_change().iloc[-2,:].values*100
     
     alpha_beta = analysis_alpha_beta(df_data, symbols, market)
     df_result['Alpha'] = alpha_beta['Alpha']
