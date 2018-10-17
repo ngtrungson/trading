@@ -5,11 +5,20 @@ Created on Fri Dec  8 14:35:57 2017
 @author: sonng
 """
 import pandas as pd
-from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, \
+from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta,get_info_stock
 from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, get_statistic_index
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
+
+
+def my_portfolio(start = "2018-7-10" , end = "2018-10-16"):
+    dates = pd.date_range(start, end)
+    symbols = ['PHC','MBB','GEX', 'MBS', 'NDN', 'PNJ', 'STB', 'PVD', 'VRC', 'VIX']
+#    symbols = ['PHC','MBB','GEX', 'MBS']
+    df_data = get_data(symbols, dates, benchmark = '^VNINDEX')  # get data for each symbol
+    fill_missing_values(df_data)
+    plot_normalized_data(df_data, title= " Daily porfolio value with VNINDEX ", xlabel="Date", ylabel= " Normalized price ")
 
 def portfolio_management():
     df = pd.DataFrame()
@@ -93,18 +102,18 @@ def getliststocks(typestock = "^VNINDEX"):
     
     symbolsVNI = [ 'PHC','APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                    "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CSV", "CTG", 
-               "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',  'DAH',
-                "FCN","FLC", 'FMC', "FPT", "GAS", "GMD", "GTN", 
-                'HAX', "HAG", "HNG",  "HT1",  'HII', 'HCD',
+               "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',
+                "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
+                'HAX',  "HNG",  "HT1",  'HII', 
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LHG', 'HDC',
-               'IDI', "IJC",  "KBC", "KSB",  "KDH", "KDC", 
+               'IDI', "IJC",  "KBC", "KSB",  "KDH",
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
-                "PPC",  "QCG", "REE", "SJF",  
+                "PPC",  "QCG", "REE",  
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
-                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  'TNI','TLH',
+                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  'TLH',
                  'PAN','TCH', 'TDH',  'GEX','VCI', 
-                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  
+                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'VRC',  
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB']
     
@@ -175,7 +184,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'Bottom')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'Long')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
@@ -409,9 +418,9 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
     
 if __name__ == "__main__":
-    import sys
-    old_stdout = sys.stdout
-    sys.stdout=open("logging.txt","w")
+#    import sys
+#    old_stdout = sys.stdout
+#    sys.stdout=open("logging.txt","w")
 #   
 #    
 #    symbols = get_csv_data(source = "cp68")
@@ -429,7 +438,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-10-15"
+    end_date = "2018-10-16"
     start_date = "2018-4-10"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -457,11 +466,12 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-10-11", update = True,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-10-17", update = False,  source ="cp68")
 #    
 #    
+#    my_portfolio()
 
-    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
+#    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
 #    
     
 #    symbolsVNI = getliststocks(typestock = "^VNINDEX")
@@ -482,5 +492,5 @@ if __name__ == "__main__":
 #    for ticker in RSWlist:
 #        ML_strategy(ticker, start ="2011-1-2", end = "2018-5-24")
 #    tickers = pd.Series(symbols)
-    sys.stdout = old_stdout
+#    sys.stdout = old_stdout
     

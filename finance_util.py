@@ -755,7 +755,7 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_0610.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_1610.csv', parse_dates=True, index_col=0)
 #     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
 #     data['EPS_Price'] = data['EPS']/data['Close']/1000
      
