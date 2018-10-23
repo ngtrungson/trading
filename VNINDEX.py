@@ -232,9 +232,17 @@ def analysis_stocks(start_date, end_date):
     df_result  = pd.concat(frames)
     return df_result
 
-def passive_strategy(start_date, end_date, market = "^VNINDEX"):
+def analysis_VN30(start_date, end_date):
+    
+    symbolsVN30 = getliststocks(typestock = "VN30")
+    hsxvn30_res, hsxvn30_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX", symbols = symbolsVN30)
+    
+    return hsxvn30_res
 
-    symbols = getliststocks(typestock = market)
+def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
+
+    if symbols == None:
+        symbols = getliststocks(typestock = market)
     
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbols, dates, benchmark = market)  # get data for each symbol
@@ -444,7 +452,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-10-22"
+    end_date = "2018-10-23"
     start_date = "2018-4-10"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -478,6 +486,8 @@ if __name__ == "__main__":
 #    my_portfolio()
 
     stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    
+#    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
 #    
     
 #    symbolsVNI = getliststocks(typestock = "^VNINDEX")
