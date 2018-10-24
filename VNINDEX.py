@@ -452,7 +452,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-10-23"
+    end_date = "2018-10-24"
     start_date = "2018-4-10"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
