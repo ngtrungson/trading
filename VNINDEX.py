@@ -5,6 +5,8 @@ Created on Fri Dec  8 14:35:57 2017
 @author: sonng
 """
 import pandas as pd
+import numpy as np
+from collections import Counter
 from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta,get_info_stock
 from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, get_statistic_index
@@ -222,15 +224,21 @@ def predict_stocks(tickers, start, end):
 
 def analysis_stocks(start_date, end_date):
     
-    hsx_res, hsx_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
-    hnx_res, hnx_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
-    upcom_res, upcom_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^UPCOM")
+    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+    hnx_res, hnx_data, hnx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
+    upcom_res, upcom_data, upcom_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^UPCOM")
     
     
     frames = [hsx_res, hnx_res, upcom_res]
 #    frames = [hnx_res]
     df_result  = pd.concat(frames)
-    return df_result
+    
+    df_market = pd.DataFrame(index=hsx_market.index)
+    df_market = df_market.join(hsx_market)
+    df_market = df_market.join(hnx_market)
+    df_market = df_market.join(upcom_market)
+    
+    return df_result, df_market
 
 def analysis_VN30(start_date, end_date):
     
@@ -322,7 +330,26 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
     
     df_result ['RSW1M'] = relative_strength1M.iloc[-1,:].values
     df_result ['RSW2M'] = relative_strength2M.iloc[-1,:].values
-    return df_result, df_data
+    
+    
+    marketVNI = df_data[symbols].pct_change() 
+    advances = marketVNI[marketVNI > 0] 
+    declines = marketVNI[marketVNI <= 0] 
+    dec = advances.isnull().sum(axis=1)
+    adv = declines.isnull().sum(axis=1)
+    
+    df_market = pd.DataFrame(index = marketVNI.index)
+    df_market[market+'Volume'] = df_volume[market]
+    df_market[market+'PCT_Volume'] = df_volume[market].pct_change() *100
+    df_market[market+'PCT_Index'] = df_data[market].pct_change() *100
+#    df_market['Adv'] = adv
+#    df_market['Dec'] = dec
+    df_market[market+'Adv_Dec'] = adv - dec
+#    np.where((df_data[symbols].pct_change() > 0), 1, -1)
+    
+    
+    
+    return df_result, df_data, df_market
 
 
 def active_strategy(start_date, end_date, update = False, source = "cp68", market = "^VNINDEX"):
@@ -452,8 +479,8 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-10-24"
-    start_date = "2018-4-10"
+    end_date = "2018-10-25"
+    start_date = "2018-4-9"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
 #    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
@@ -485,8 +512,9 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-    stock_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
+#    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
 #    
     
