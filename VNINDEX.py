@@ -345,6 +345,12 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
 #    df_market['Adv'] = adv
 #    df_market['Dec'] = dec
     df_market[market+'Adv_Dec'] = adv - dec
+    df_market[market+'Dec/Adv'] = dec/adv
+    strength = pd.Series(index = marketVNI.index)
+    strength[(df_market[market+'Adv_Dec']> 0) & (df_market[market+'PCT_Index'] > 0)] = 1
+    strength[(df_market[market+'Adv_Dec']< 0) & (df_market[market+'PCT_Index'] < 0)] = -1
+    strength[(df_market[market+'Adv_Dec']< 0) & (df_market[market+'PCT_Index'] > 0)] = 0
+    df_market[market+'Strength'] = strength 
 #    np.where((df_data[symbols].pct_change() > 0), 1, -1)
     
     
@@ -480,7 +486,7 @@ if __name__ == "__main__":
     ticker = 'GEX'    
 #
     end_date = "2018-10-25"
-    start_date = "2018-4-9"
+    start_date = "2018-4-6"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
 #    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
@@ -512,9 +518,9 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+#    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
-#    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
 #    
     
