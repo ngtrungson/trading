@@ -520,7 +520,7 @@ if __name__ == "__main__":
 
 #    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
-    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
+#    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
 #    
     
