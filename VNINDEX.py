@@ -6,10 +6,11 @@ Created on Fri Dec  8 14:35:57 2017
 """
 import pandas as pd
 import numpy as np
+import datetime
 from collections import Counter
 from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta,get_info_stock
-from strategy import ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, get_statistic_index
+from strategy import process_data, ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, get_statistic_index
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
 
@@ -192,7 +193,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'Long')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'Bottom')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
@@ -201,7 +202,79 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
             print("Error in reading symbol: ", ticker)
             pass
     
+def analysis_market(tickers, start, end, update = False, market = "^VNINDEX", source = "cp68"):
     
+    if tickers == None:
+        tickers = getliststocks(typestock = market)
+        
+    if update:
+        end_date = datetime.datetime.today()
+        dates = pd.date_range(start, end_date)  # date range as index
+        df_data = pd.DataFrame(index=dates)
+        df_volume = pd.DataFrame(index=dates)
+    else:
+        dates = pd.date_range(start, end)  # date range as index
+        df_data = pd.DataFrame(index=dates)
+        df_volume = pd.DataFrame(index=dates)
+        
+    for ticker in tickers:
+#        print(" Analysing ..." , ticker)
+#        try:
+#           
+            df = process_data(ticker = ticker, start = start, end = end, realtime = update, source = source)
+            
+           
+#            print(df_temp.head())
+            
+            df_data = df_data.join(df['Close'])
+            df_data = df_data.rename(columns={'Close': ticker})
+            
+            
+            df_volume = df_volume.join(df['Volume'])
+            df_volume = df_volume.rename(columns={'Volume': ticker})
+            
+#        except Exception as e:
+#            print (e)
+#            print("Error in reading symbol: ", ticker)
+#            pass
+    
+    fill_missing_values(df_data) 
+    fill_missing_values(df_volume) 
+    
+    marketVNI = df_data[tickers].pct_change() 
+    advances = marketVNI[marketVNI > 0] 
+    declines = marketVNI[marketVNI <= 0] 
+    dec = advances.isnull().sum(axis=1)
+    adv = declines.isnull().sum(axis=1)
+    
+    
+    df_market = pd.DataFrame(index = marketVNI.index)
+    
+#    df_market[market+'Volume'] = df_volume[market]
+#    df_market[market+'PCT_Volume'] = df_volume[market].pct_change() *100
+#    df_market[market+'PCT_Index'] = df_data[market].pct_change() *100
+#    df_market[market+'Adv_Dec'] = adv - dec
+#    df_market[market+'Dec/Adv'] = dec/adv
+#    strength = pd.Series(index = marketVNI.index)
+#    strength[(df_market[market+'Adv_Dec']> 0) & (df_market[market+'PCT_Index'] > 0)] = 1
+#    strength[(df_market[market+'Adv_Dec']< 0) & (df_market[market+'PCT_Index'] < 0)] = -1
+#    strength[(df_market[market+'Adv_Dec']< 0) & (df_market[market+'PCT_Index'] > 0)] = 0
+#    df_market[market+'Strength'] = strength 
+        
+    return df_market
+
+def analysis_all_market(tickers, start, end, update = False, source = "cp68"):
+    
+    hsx_market = analysis_market(tickers = None, start = start, end = end, update = update, market = "^VNINDEX", source = source)
+#    hnx_market = analysis_market(tickers = None, start = start, end = end, update = update, market = "^HASTC", source = source)
+#    upcom_market = analysis_market(tickers = None, start = start, end = end, update = update, market = "^UPCOM", source = source)
+#    
+    df_market = pd.DataFrame(index=hsx_market.index)
+    df_market = df_market.join(hsx_market)
+#    df_market = df_market.join(hnx_market)
+#    df_market = df_market.join(upcom_market)    
+    
+    return df_market
 
 
 def get_csv_data(source = "cp68"):
@@ -470,7 +543,7 @@ if __name__ == "__main__":
 #    sys.stdout=open("logging.txt","w")
 #   
 #    
-    symbols = get_csv_data(source = "cp68")
+#    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -485,7 +558,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-11-2"
+    end_date = "2018-11-6"
     start_date = "2018-4-6"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -513,7 +586,11 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-11-01", update = True,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2018-11-06", update = False,  source ="cp68")
+    
+#    benchVNI = ["^VNINDEX"]
+#    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-11-5", update = True,  source ="cp68")
+##   
 #    
 #    
 #    my_portfolio()

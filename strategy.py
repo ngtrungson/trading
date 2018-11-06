@@ -457,6 +457,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df = df.loc[start:end]
     
     if (realtime & ((source == 'cp68') | (source == 'ssi'))):
+#        print(ticker)
         actual_price = get_info_stock(ticker)
         today = datetime.datetime.today()
         next_date = today

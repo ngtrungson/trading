@@ -287,7 +287,8 @@ def get_info_stock(ticker):
          
         if ((line == 'HSX')| (line == 'HNX') | (line == 'UPCOM') | (line == 'HOSE')):
             stockexchange = line
-     
+        else:
+            stockexchange = 'BM'
 #    print(stockexchange)
     for line in soup.find('div', {'id':'snapshot_trading'}).stripped_strings:
         line = line.replace(',','').replace('%','')
@@ -755,18 +756,18 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_1610.csv', parse_dates=True, index_col=0)
+#     data = pd.read_csv('fundemental_stocks_all_1610.csv', parse_dates=True, index_col=0)
 #     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
 #     data['EPS_Price'] = data['EPS']/data['Close']/1000
      
-     df = data.query("MeanVol_13W > 100000")
-     df = df.query("MeanVol_10D> 100000")
-##     df = df.query("MeanVol_10D > 0")
-###     df = df.query("FVQ > 0")
-###     df = df.query("CPM > 1.4")
-     df = df.query("EPS >= 1000")
-###     df = df.query("EPS_52W >= 0")
-     df = df.query("ROE >= 10")
+#     df = data.query("MeanVol_13W > 100000")
+#     df = df.query("MeanVol_10D> 100000")
+###     df = df.query("MeanVol_10D > 0")
+####     df = df.query("FVQ > 0")
+####     df = df.query("CPM > 1.4")
+#     df = df.query("EPS >= 1000")
+####     df = df.query("EPS_52W >= 0")
+#     df = df.query("ROE >= 10")
 ###     df = df.query("Close > 4")
 ##     df = df.query("Beta < 0")
 ##     df = df.query("Beta > 0")
@@ -774,14 +775,16 @@ if __name__ == "__main__":
 ##     df.to_csv('investment_stock3.csv')
 ##     print(df.index)
 #     
-     listA = symbols
-     listB = df.index.tolist()
-     common = list(set(listA) & set(listB))
-     listC = list(set(listB).difference(set(listA)))
-     df2 = data.loc[symbols]
-#     
-     end_date = "2018-5-29"
-     start_date = "2017-1-2"
+#     listA = symbols
+#     listB = df.index.tolist()
+#     common = list(set(listA) & set(listB))
+#     listC = list(set(listB).difference(set(listA)))
+#     df2 = data.loc[symbols]
+##     
+#     end_date = "2018-5-29"
+#     start_date = "2017-1-2"
+     
+     df = get_info_stock("^VNINDEX")
 #     data = yf.download("SPY", start="2017-01-2", end="2018-05-29")
 #     get_data_from_web(tickers = ['MSFT'], start = start_date, end = end_date, source ='yahoo')
 #     yf.pdr_override()
