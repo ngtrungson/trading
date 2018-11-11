@@ -404,7 +404,8 @@ def get_info_stock_ssi(ticker):
     return df  
  
 def get_data_from_cophieu68_openwebsite(tickers):       
-    file_url = 'http://www.cophieu68.vn/export/excelfull.php?id='
+#    https://www.cophieu68.vn/export/excelfull.php?id=^hastc
+    file_url = 'https://www.cophieu68.vn/export/excelfull.php?id='
     for ticker in tickers:
        webbrowser.open(file_url+ticker)
        

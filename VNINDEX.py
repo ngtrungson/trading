@@ -558,7 +558,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2018-11-6"
+    end_date = "2018-11-9"
     start_date = "2018-4-6"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -595,7 +595,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-#    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
