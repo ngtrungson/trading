@@ -23,6 +23,8 @@ def run_backtest(df, ticker, trade = 'Long'):
     else:
         if (trade == 'Bottom'):
             df['Buy'] = df['Bottom']
+        if (trade == 'MarkM'):
+            df['Buy'] = df['MarkM']    
         if (trade == 'Short'):
             df['Buy'] = df['Short']
         if (trade == 'ShortTerm'):
@@ -129,6 +131,10 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     df['SMA30'] = df['Close'].rolling(window=30).mean()
     
     
+    df['SMA50'] = df['Close'].rolling(window=50).mean()
+    df['SMA150'] = df['Close'].rolling(window=150).mean()
+    df['SMA200'] = df['Close'].rolling(window=200).mean()
+    
 #    n_fast = 12
 #    n_slow = 26
 #    nema = 9
@@ -167,6 +173,14 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
     
+    df['MarkM'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
+                  (df['Close'] > (df['High'] + df['Low'])/2)  &\
+                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
+                 ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
+                 (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
+                 ((df['Close'] >= df['SMA50']) & (df['SMA50']>= df['SMA150']) & (df['SMA150']>= df['SMA200']) &  (df['Close']>= 1.25*df['Min12M']) & (df['Close']>= 0.75*df['Max12M'])))
+   
+    
     df['Breakout'] = ((df['Close']*df['Volume'] >= 3E6) & (df['ValueMA30']> 1E6) &\
                   (df['Close'] > 1.02*df['Close'].shift(1))  & (df['Close'] > df['Open']) &\
                  (df['PCT_HL'] < 15) & (df['Volume'] >= 1.3*df['VolMA30']) & \
@@ -195,6 +209,13 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     for i in range(1,hm_days+1):
         if (df['Long'].iloc[-i] & (typetrade == 'Long')):
                 print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+                back_test = True
+                print_statistic(df, i)
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+
+        if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
+                print(" MarkM trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
                 print_statistic(df, i)
                 if (market != None):
@@ -246,6 +267,8 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
     
     df['SMA15'] = df['Close'].rolling(window=15).mean()
     df['SMA30'] = df['Close'].rolling(window=30).mean()
+    
+   
     
     
 #    n_fast = 12
