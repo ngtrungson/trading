@@ -116,11 +116,11 @@ def getliststocks(typestock = "^VNINDEX"):
                'IDI', "IJC",  "KBC", "KSB",  "KDH",
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
-                "PPC",  "QCG", "REE",  
+                "PPC",  "REE",  
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
-                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  'TLH',
+                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  
                  'PAN','TCH', 'TDH',  'GEX','VCI', 
-                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'VRC',  
+                'TDC','TCM',  'SHN', 'AAA','SCR',  'VRC',  
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB']
     
@@ -558,7 +558,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2019-2-14"
+    end_date = "2019-2-19"
     start_date = "2018-4-6"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -586,7 +586,7 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-2-18", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-2-18", update = True,  source ="cp68")
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-11-5", update = True,  source ="cp68")
@@ -595,7 +595,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-#    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)

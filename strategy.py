@@ -640,7 +640,7 @@ def print_statistic(df, i):
                                       round(100*df['PCT_Change'].iloc[-i-2], 2),
                                       round(100*df['PCT_Change'].iloc[-i-1], 2), 
                                       round(100*df['PCT_Change'].iloc[-i], 2))
-    print('  Variation last 3 days (H/L): ', round(df['PCT_HL'].iloc[-i-2], 2), round(df['PCT_HL'].iloc[-i-1], 2), round(df['PCT_HL'].iloc[-i], 2))
+    print('  Variation last 5 days (H/L): ', round(df['PCT_HL'].iloc[-i-4], 2), round(df['PCT_HL'].iloc[-i-3], 2), round(df['PCT_HL'].iloc[-i-2], 2), round(df['PCT_HL'].iloc[-i-1], 2), round(df['PCT_HL'].iloc[-i], 2))
     print('  Ratio vs max H4D/3M/6M/9M/12M/all_time:', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i], 2),
