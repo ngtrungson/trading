@@ -105,7 +105,8 @@ def getliststocks(typestock = "^VNINDEX"):
     symbolsHNX = ['TNG', 'NVB',  'L14',  
                   'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
                   'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
-                  'VPI', 'AMV', 'DTD']
+                  'VPI', 'AMV', 'DTD',
+                  'TTH', 'TDT', 'DGC', 'MPT', 'HDA', 'AAV']
     
     symbolsVNI = [ 'KDC','PHC','APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
                    "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CSV", "CTG", 
@@ -122,10 +123,11 @@ def getliststocks(typestock = "^VNINDEX"):
                  'PAN','TCH', 'TDH',  'GEX','VCI', 
                 'TDC','TCM',  'SHN', 'AAA','SCR',  'VRC',  
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
-                'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB']
+                'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB',
+                'HPX','FIR','CRE','HSL','NAF', 'HTN', 'DHC']
     
     symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN',  
-                    'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA']
+                    'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA', 'GEG', 'NTC']
     
     if typestock == "ALL":
         symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + futures
@@ -193,7 +195,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'Long')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
@@ -558,7 +560,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2019-2-19"
+    end_date = "2019-2-21"
     start_date = "2018-4-6"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -586,7 +588,7 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-2-18", update = True,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-2-20", update = True,  source ="cp68")
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-11-5", update = True,  source ="cp68")

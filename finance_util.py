@@ -223,7 +223,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_0610.csv')
+    data.to_csv('fundemental_stocks_all_2002.csv')
     
     
     return tickers
@@ -719,31 +719,56 @@ if __name__ == "__main__":
      neg_beta = ['AMD', 'ATG', 'DAH', 'DST', 'FRT', 'HMC', 'ITC', 'MCG', 'MST', 'NSH',
        'PGD', 'PLC', 'SPP', 'TCH', 'TV2', 'VTO'] 
     
-     symbolsHNX = [ 'ALV',  'TNG', 'BVS',  'NVB',   "VE9", 
-                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'SD9', 'HLD', 'HHG', 'NSH', 'DS3',
-                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',   'PHC', 'PVE', 'PVG', 'PVB',
-                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC', 'SPP',
-                 'VKC', 'VPI', 'NBC', 'VGS']
+#     symbolsHNX = [ 'ALV',  'TNG', 'BVS',  'NVB',   "VE9", 
+#                  'ACB', 'BCC', 'CVN', 'CEO', 'DBC',  'DST', 'HUT', 'SD9', 'HLD', 'HHG', 'NSH', 'DS3',
+#                  'LAS',  'MBS', 'NDN', 'PGS', 'PVC', 'PVI',   'PHC', 'PVE', 'PVG', 'PVB',
+#                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC','VMC','VIX', 'TVC', 'SPP',
+#                 'VKC', 'VPI', 'NBC', 'VGS']
+#    
+#     symbolsVNI = ['APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 'CEE',
+#                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CHP', 'C47', 
+#               "DCM","DHG", "DIG",  "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
+#               "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
+#                'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 'HCD',
+#               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
+#               'IDI', "IJC",  'ITD', "KBC", "KSB",  "KDH", "KDC", 
+#               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB", 'NAF',
+#                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
+#                "PPC", "PAC", 'QBS', "QCG", "REE",  "SJF",
+#                'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
+#                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
+#                'LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
+#                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  'SRC', 'TLD', 'PMG',
+#                'EIB','VPB','VRE','ROS',"VND", "HDB",  "C32","CVT",'VPH','VNG','VIP',
+#                'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST','DAG', 'HAH']
+#    
+#     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
+#                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
+     
+     symbolsHNX = ['TNG', 'NVB',  'L14',  
+                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
+                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
+                  'VPI', 'AMV', 'DTD']
     
-     symbolsVNI = ['APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 'CEE',
-                  'BCG', "BFC", "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CAV", "CMG", "CSM", "CSV", "CTG", 'CHP', 'C47', 
-               "DCM","DHG", "DIG",  "DPM","DPR", "DRH",  "DQC", "DRC", "DXG", 'DGW', 'DHA', 'DHC', 'DAH',
-               "ELC", "EVE", 'EVG', "FCN","FIT","FLC", 'FMC', 'FTS', "FPT", "GAS", "GMD", "GTN", 
-                'HAX', "HAG", "HHS", "HNG",  "HT1",  'HAR', 'HII', 'HCD',
-               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LCG', 'LGL', 'LHG', 'HDC',
-               'IDI', "IJC",  'ITD', "KBC", "KSB",  "KDH", "KDC", 
-               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL", "NBB", 'NAF',
-                "PVT","PVD","PHR","PGI","PDR","PTB", "PNJ",  "PC1",   "PLX", "PXS",
-                "PPC", "PAC", 'QBS', "QCG", "REE",  "SJF",
-                'SHI',"SAM","SJD","SJS","STB","STG","SKG",  "SSI", "SBT", "SAB", 
-                "VSH","VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" , 'TVS', 'VDS', 'TNI','TLH',
-                'LSS',  'PME', 'PAN','TCH', 'TDH',  'GEX','VCI', 'VIS',
-                'TDC','TCM', 'VNE', 'SHN', 'AAA','SCR',  'TDG', 'VRC',  'SRC', 'TLD', 'PMG',
-                'EIB','VPB','VRE','ROS',"VND", "HDB",  "C32","CVT",'VPH','VNG','VIP',
-                'NTL','PET','VPD','VTO','SHA','DCL', 'GIL', 'TEG', 'AST','DAG', 'HAH']
+     symbolsVNI = [ 'KDC','PHC','APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
+                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CSV", "CTG", 
+               "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',
+                "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
+                'HAX',  "HNG",  "HT1",  'HII', 
+               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LHG', 'HDC',
+               'IDI', "IJC",  "KBC", "KSB",  "KDH",
+               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",
+                "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
+                "PPC",  "REE",  
+                'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
+                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  
+                 'PAN','TCH', 'TDH',  'GEX','VCI', 
+                'TDC','TCM',  'SHN', 'AAA','SCR',  'VRC',  
+                'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
+                'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB']
     
-     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
-                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
+     symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN',  
+                    'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA']
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
      
@@ -757,35 +782,35 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-#     data = pd.read_csv('fundemental_stocks_all_1610.csv', parse_dates=True, index_col=0)
-#     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
-#     data['EPS_Price'] = data['EPS']/data['Close']/1000
+     data = pd.read_csv('fundemental_stocks_all_2002.csv', parse_dates=True, index_col=0)
+     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
+     data['EPS_Price'] = data['EPS']/data['Close']/1000
      
-#     df = data.query("MeanVol_13W > 100000")
-#     df = df.query("MeanVol_10D> 100000")
-###     df = df.query("MeanVol_10D > 0")
-####     df = df.query("FVQ > 0")
-####     df = df.query("CPM > 1.4")
-#     df = df.query("EPS >= 1000")
-####     df = df.query("EPS_52W >= 0")
-#     df = df.query("ROE >= 10")
-###     df = df.query("Close > 4")
-##     df = df.query("Beta < 0")
-##     df = df.query("Beta > 0")
-##     df = df.query("Diff_Price < 0")
-##     df.to_csv('investment_stock3.csv')
-##     print(df.index)
-#     
-#     listA = symbols
-#     listB = df.index.tolist()
-#     common = list(set(listA) & set(listB))
-#     listC = list(set(listB).difference(set(listA)))
-#     df2 = data.loc[symbols]
+     df = data.query("MeanVol_13W > 80000")
+     df = df.query("MeanVol_10D> 80000")
+##     df = df.query("MeanVol_10D > 0")
+###     df = df.query("FVQ > 0")
+###     df = df.query("CPM > 1.4")
+     df = df.query("EPS >= 1000")
+###     df = df.query("EPS_52W >= 0")
+     df = df.query("ROE >= 10")
+##     df = df.query("Close > 4")
+#     df = df.query("Beta < 0")
+#     df = df.query("Beta > 0")
+#     df = df.query("Diff_Price < 0")
+#     df.to_csv('investment_stock3.csv')
+#     print(df.index)
+     
+     listA = symbols
+     listB = df.index.tolist()
+     common = list(set(listA) & set(listB))
+     listC = list(set(listB).difference(set(listA)))
+     df2 = data.loc[symbols]
 ##     
 #     end_date = "2018-5-29"
 #     start_date = "2017-1-2"
      
-     df = get_info_stock("^VNINDEX")
+#     df = get_info_stock("^VNINDEX")
 #     data = yf.download("SPY", start="2017-01-2", end="2018-05-29")
 #     get_data_from_web(tickers = ['MSFT'], start = start_date, end = end_date, source ='yahoo')
 #     yf.pdr_override()
