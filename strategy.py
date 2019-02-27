@@ -170,7 +170,10 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
                  ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
                  (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
-                 (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])))
+                 (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])) &\
+                 (df['PCT_HL'] <= 15))
+    
+    
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
     
     df['MarkM'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
@@ -632,7 +635,7 @@ def print_statistic(df, i):
                                           round(df['Value'].iloc[-i-1]/1E6, 2), 
                                           round(df['Value'].iloc[-i]/1E6, 2))
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
-    print('  Side ways status last 3 days: ', df['Sideways'].iloc[-i-2], df['Sideways'].iloc[-i-1], df['Sideways'].iloc[-i])
+    print('  Side ways status last 5 days: ',df['Sideways'].iloc[-i-4], df['Sideways'].iloc[-i-3], df['Sideways'].iloc[-i-2], df['Sideways'].iloc[-i-1], df['Sideways'].iloc[-i])
     print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
     print('  Actual price Close/Low/High/Open:', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
     print('  PCT_Change last 5 days:',round(100*df['PCT_Change'].iloc[-i-4], 2), 
