@@ -545,7 +545,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 #    
-#    symbols = get_csv_data(source = "ssi")
+    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -588,7 +588,7 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-4", update = False,  source ="ssi")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-5", update = False,  source ="cp68")
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-11-5", update = True,  source ="cp68")
@@ -597,7 +597,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+#    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)

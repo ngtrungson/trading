@@ -181,7 +181,9 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
                  ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
                  (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
-                 ((df['Close'] >= df['SMA50']) & (df['SMA50']>= df['SMA150']) & (df['SMA150']>= df['SMA200']) &  (df['Close']>= 1.25*df['Min12M']) & (df['Close']>= 0.75*df['Max12M'])))
+                 ((df['Close'] >= df['SMA50']) & (df['SMA50']>= df['SMA150']) & (df['SMA150']>= df['SMA200']) & \
+                 (df['Close']>= 1.25*df['Min12M']) & (df['Close']>= 0.75*df['Max12M']) &\
+                 (df['PCT_HL'] <= 15)))
    
     
     df['Breakout'] = ((df['Close']*df['Volume'] >= 3E6) & (df['ValueMA30']> 1E6) &\
