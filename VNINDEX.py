@@ -97,20 +97,20 @@ def getliststocks(typestock = "^VNINDEX"):
     caosu = ['PHR', 'DRC']
     anuong = ['VNM', 'SAB']
     
-    symbolsVN30 = ['BMP', 'CII', 'CTD', 'CTG', 'DHG','DPM', 'FPT', 'GAS', 'GMD',
+    symbolsVN30 = ['BMP', 'CTD', 'CTG', 'DHG','DPM', 'FPT', 'GAS', 'GMD',
                    'HPG','HSG','KDC', 'MBB', 'MSN', 'MWG', 'NVL', 'PLX', 'PNJ',
                    'REE', 'ROS', 'SAB', 'SBT', 'SSI', 'STB', 'VCB',
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     symbolsHNX = ['TNG', 'NVB',  'L14',  
                   'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
-                  'PVS', 'SHB', 'SHS', 'TTB','VC3', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
+                  'PVS', 'SHB', 'SHS', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
                   'VPI', 'AMV', 'DTD',
-                  'TTH', 'TDT', 'DGC', 'MPT', 'HDA', 'AAV']
+                  'TTH', 'TDT', 'DGC', 'MPT', 'HDA']
     
-    symbolsVNI = [ 'KDC','PHC','APG', 'APC', 'ANV', "ASM", "BSI", "BWE", 
-                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CII", "CTD", "CSV", "CTG", 
-               "DCM","DHG", "DIG",  "DPM", "DRH",  "DRC", "DXG", 'DGW',
+    symbolsVNI = [ 'PHC','APC', 'ANV', "ASM", "BSI", "BWE", 
+                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CTD", "CSV", "CTG", 
+               "DCM","DHG", "DIG",  "DPM",  "DRC", "DXG", 'DGW',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
                 'HAX',  "HNG",  "HT1",  'HII', 
                "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LHG', 'HDC',
@@ -118,13 +118,13 @@ def getliststocks(typestock = "^VNINDEX"):
                "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE",  
-                'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'TLD', 'PMG',
-                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VNS" ,  
+                'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'PMG',
+                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                  'PAN','TCH', 'TDH',  'GEX','VCI', 
-                'TDC','TCM',  'SHN', 'AAA','SCR',  'VRC',  
+                'TCM',  'AAA','SCR',  'VRC',  
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
-                'NTL','PET', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB',
-                'HPX','FIR','CRE','HSL','NAF', 'HTN', 'DHC']
+                'NTL', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB',
+                'HPX','FIR','CRE','HSL','NAF', 'DHC']
     
     symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN',  
                     'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA', 'GEG', 'NTC']
@@ -195,7 +195,8 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'Long')
+#            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'Long')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
 #            short_selling(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Short')
@@ -545,7 +546,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 #    
-    symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -588,7 +589,7 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-5", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-5", update = False,  source ="cp68")
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-11-5", update = True,  source ="cp68")

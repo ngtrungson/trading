@@ -204,8 +204,13 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     
 #    ban = (C < Ref(L,-1)AND C < Ref(L,-2)AND C < Ref(L,-3)AND C < Ref(L,-4))
 #OR HHV(C,10) >1.15*C
-    df['Short'] = ((df['Close']< df['Low'].shift(1)) & (df['Close']< df['Low'].shift(2)) & (df['Close']< df['Low'].shift(3)) & (df['Close']< df['Low'].shift(4)))  | \
-                 (df['Max10D'] > 1.15* df['Close'])
+#    df['Short'] = ((df['Close']< df['Low'].shift(1)) & (df['Close']< df['Low'].shift(2)) & (df['Close']< df['Low'].shift(3)) & (df['Close']< df['Low'].shift(4)))  | \
+#                 (df['Max10D'] > 1.15* df['Close'])
+                 
+    df['Short'] =  ((df['Close'] < df['SMA50']) | (df['Close'] < 0.96*df['Close'].shift(1))  \
+                    | ((df['Close'] < 0.97*df['Close'].shift(1)) & (df['Volume'] > df['VolMA30'])) \
+                    | ((df['Close'] < df['Close'].shift(1)) & (df['Close'].shift(1) < df['Close'].shift(2)))   \
+                    | ((df['Close'] >= 1.01*df['Close'].shift(1)) & (1.02*df['Close'].shift(1) >= df['Close'])) & (df['Volume'] >= 1.5*df['VolMA30']))
     
     df['Signal'] = 1* (df['Long']) + -1*df['Short']
     hm_days = ndays
