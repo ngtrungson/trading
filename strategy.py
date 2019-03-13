@@ -185,6 +185,8 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Close']>= 1.25*df['Min12M']) & (df['Close']>= 0.75*df['Max12M']) &\
                  (df['PCT_HL'] <= 15)))
    
+    df['MarkM_tickers'] = (((df['Close'] >= df['SMA50']) & (df['SMA50']>= df['SMA150']) & (df['SMA150']>= df['SMA200']) & \
+                 (df['Close']>= 1.25*df['Min12M']) & (df['Close']>= 0.75*df['Max12M'])))
     
     df['Breakout'] = ((df['Close']*df['Volume'] >= 3E6) & (df['ValueMA30']> 1E6) &\
                   (df['Close'] > 1.02*df['Close'].shift(1))  & (df['Close'] > df['Open']) &\
@@ -224,12 +226,12 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 
-        if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
-                print(" MarkM trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
-                back_test = True
-                print_statistic(df, i)
-                if (market != None):
-                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+        if (df['MarkM_tickers'].iloc[-i] & (typetrade == 'MarkM_tickers')):
+                print(ticker)  
+#                back_test = True
+#                print_statistic(df, i)
+#                if (market != None):
+#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 
         if (df['Bottom'].iloc[-i] & (typetrade == 'Bottom')):
                 print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -645,12 +647,22 @@ def print_statistic(df, i):
     print('  Side ways status last 5 days: ',df['Sideways'].iloc[-i-4], df['Sideways'].iloc[-i-3], df['Sideways'].iloc[-i-2], df['Sideways'].iloc[-i-1], df['Sideways'].iloc[-i])
     print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
     print('  Actual price Close/Low/High/Open:', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
-    print('  PCT_Change last 5 days:',round(100*df['PCT_Change'].iloc[-i-4], 2), 
+    print('  PCT_Change last 7 days:',round(100*df['PCT_Change'].iloc[-i-6], 2),
+                                      round(100*df['PCT_Change'].iloc[-i-5], 2),
+                                      round(100*df['PCT_Change'].iloc[-i-4], 2), 
                                       round(100*df['PCT_Change'].iloc[-i-3], 2),
                                       round(100*df['PCT_Change'].iloc[-i-2], 2),
                                       round(100*df['PCT_Change'].iloc[-i-1], 2), 
                                       round(100*df['PCT_Change'].iloc[-i], 2))
-    print('  Variation last 5 days (H/L): ', round(df['PCT_HL'].iloc[-i-4], 2), round(df['PCT_HL'].iloc[-i-3], 2), round(df['PCT_HL'].iloc[-i-2], 2), round(df['PCT_HL'].iloc[-i-1], 2), round(df['PCT_HL'].iloc[-i], 2))
+    print('  Variation last 7 days (H/L): ', round(df['PCT_HL'].iloc[-i-6], 2), round(df['PCT_HL'].iloc[-i-5], 2),
+          round(df['PCT_HL'].iloc[-i-4], 2), round(df['PCT_HL'].iloc[-i-3], 2), round(df['PCT_HL'].iloc[-i-2], 2), round(df['PCT_HL'].iloc[-i-1], 2), round(df['PCT_HL'].iloc[-i], 2))
+    print('  Volume last 7 days (100K):',round(df['Volume'].iloc[-i-6]/1E5, 2),
+                                  round(df['Volume'].iloc[-i-5]/1E5, 2),
+                                  round(df['Volume'].iloc[-i-4]/1E5, 2), 
+                                  round(df['Volume'].iloc[-i-3]/1E5, 2),
+                                  round(df['Volume'].iloc[-i-2]/1E5, 2),
+                                  round(df['Volume'].iloc[-i-1]/1E5, 2), 
+                                  round(df['Volume'].iloc[-i]/1E5, 2))
     print('  Ratio vs max H4D/3M/6M/9M/12M/all_time:', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i], 2),
