@@ -196,7 +196,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 1, typetrade = 'Long')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Long')
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -542,9 +542,9 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
     
 if __name__ == "__main__":
-#    import sys
-#    old_stdout = sys.stdout
-#    sys.stdout=open("logging.txt","w")
+    import sys
+    old_stdout = sys.stdout
+    sys.stdout=open("logging.txt","w")
 #   
 #    
 #    symbols = get_csv_data(source = "ssi")
@@ -562,7 +562,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2019-3-12"
+    end_date = "2019-3-14"
     start_date = "2018-4-6"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -590,7 +590,7 @@ if __name__ == "__main__":
 #               'BVH', 'TCH', 'PMG',  'VJC', 'GEX', 'MSN',
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-13", update = False,  source ="cp68")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-14", update = False,  source ="cp68")
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-11-5", update = True,  source ="cp68")
@@ -599,7 +599,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-#    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
@@ -623,5 +623,5 @@ if __name__ == "__main__":
 #    for ticker in RSWlist:
 #        ML_strategy(ticker, start ="2011-1-2", end = "2018-5-24")
 #    tickers = pd.Series(symbols)
-#    sys.stdout = old_stdout
+    sys.stdout = old_stdout
     
