@@ -127,7 +127,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'HPX','FIR','CRE','HSL','NAF', 'DHC']
     
     symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN',  
-                    'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA', 'GEG', 'NTC']
+                    'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
     
     if typestock == "ALL":
         symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + futures
@@ -196,7 +196,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Long')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 1, typetrade = 'Long')
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
