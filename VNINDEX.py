@@ -97,18 +97,19 @@ def getliststocks(typestock = "^VNINDEX"):
     caosu = ['PHR', 'DRC']
     anuong = ['VNM', 'SAB']
     
-    symbolsVN30 = ['BMP', 'CTD', 'CTG', 'DHG','DPM', 'FPT', 'GAS', 'GMD',
-                   'HPG','HSG','KDC', 'MBB', 'MSN', 'MWG', 'NVL', 'PLX', 'PNJ',
-                   'REE', 'ROS', 'SAB', 'SBT', 'SSI', 'STB', 'VCB',
+    symbolsVN30 = ['CII','CTD', 'CTG', 'DHG','DPM', 'EIB','FPT', 'GAS', 'GMD',
+                   'HDB','HPG', 'MBB', 'MSN', 'MWG', 'NVL', 'PNJ',
+                   'REE', 'ROS', 'SAB', 'SBT', 'SSI', 'STB', 'TCB', 'VCB', 'VHM',
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
+   
     symbolsHNX = ['TNG', 'NVB',  'L14',  
                   'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
                   'PVS', 'SHB', 'SHS', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
                   'VPI', 'AMV', 'DTD',
                   'TTH', 'TDT', 'DGC', 'MPT', 'HDA']
     
-    symbolsVNI = [ 'PHC','APC', 'ANV', "ASM", "BSI", "BWE", 
+    symbolsVNI = [ 'CII','PHC','APC', 'ANV', "ASM", "BSI", "BWE", 
                    "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CTD", "CSV", "CTG", 
                "DCM","DHG", "DIG",  "DPM",  "DRC", "DXG", 'DGW',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
@@ -178,6 +179,9 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
     if tickers == None:
         tickers = getliststocks(typestock = "TICKER")
         
+    if tickers == 'VN30':
+        tickers = getliststocks(typestock = "VN30")
+        
 #    data = pd.read_csv('fundemental_stocks_all.csv', parse_dates=True, index_col=0)
 #    data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
 #    data['EPS_Price'] = data['EPS']/data['Close']/1000
@@ -196,7 +200,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68"):
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = 'Long')
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 40, typetrade = 'Long')
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -320,7 +324,7 @@ def analysis_stocks(start_date, end_date):
 def analysis_VN30(start_date, end_date):
     
     symbolsVN30 = getliststocks(typestock = "VN30")
-    hsxvn30_res, hsxvn30_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX", symbols = symbolsVN30)
+    hsxvn30_res, hsxvn30_data, hsxvn30_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX", symbols = symbolsVN30)
     
     return hsxvn30_res
 
@@ -375,6 +379,7 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
+    df_result['PCT_Change'] = 100*(df_data[symbols].iloc[-1,:].values - df_data[symbols].iloc[0,:].values)/df_data[symbols].iloc[0,:].values
     df_result['Volume'] = df_volume[symbols].iloc[-1,:].values
     df_result['VolumeMean'] = vol_mean[symbols]
     df_result['Value'] = df_result['Close'] * df_result['Volume']   
@@ -562,8 +567,8 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2019-3-19"
-    start_date = "2018-4-6"
+    end_date = "2019-3-21"
+    start_date = "2019-1-4"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
 #    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
@@ -591,7 +596,7 @@ if __name__ == "__main__":
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-21", update = False,  source ="cp68")
+    analysis_trading(tickers = "VN30", start = "2017-1-2" , end = "2019-3-21", update = False,  source ="cp68")
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-3-14", update = True,  source ="cp68")
