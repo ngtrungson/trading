@@ -1,4 +1,4 @@
- Canslim trading  1 days before  2019-03-25 00:00:00 HNG
+ Canslim trading  2 days before  2019-03-25 00:00:00 HNG
   Volume/volume(MA30) ratio:  6.33
   RSI indicator:  65.98685165460655
   Trading value (billion VND/million USD):  97.21  MA30 : 15.0
@@ -13,9 +13,9 @@
   Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.07 0.98 0.93 0.9 0.9 0.9
   Support S1 S2 S3 : 14.8 14.7 13.6
   Resistance R1 R2 R3 : 16.5 16.95 17.3
-  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : -0.62 nan nan nan
   Back test T+5, T+10: nan nan
   Cutloss <=: 15.1 - 5.92 % Target >=: 18.900000000000006 + 17.76 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 545, '-1': 4, '1': 3}) symbol:  HNG
+Back test result: Counter({'0': 546, '-1': 4, '1': 3}) symbol:  HNG
 ***************************************************************
