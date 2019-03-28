@@ -596,7 +596,7 @@ if __name__ == "__main__":
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-27", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-28", update = False,  source ="cp68")
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-3-14", update = True,  source ="cp68")
