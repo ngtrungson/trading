@@ -552,7 +552,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 #    
-#    symbols = get_csv_data(source = "cp68")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -596,7 +596,7 @@ if __name__ == "__main__":
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-3-29", update = False,  source ="cp68")
+    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-4-1", update = False,  source ="ssi")
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-3-14", update = True,  source ="cp68")
