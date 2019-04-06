@@ -106,11 +106,10 @@ def getliststocks(typestock = "^VNINDEX"):
     symbolsHNX = ['TNG', 'NVB',  'L14',  
                   'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
                   'PVS', 'SHB', 'SHS', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
-                  'VPI', 'AMV', 'DTD',
-                  'TTH', 'TDT', 'DGC', 'MPT', 'HDA']
+                  'VPI', 'AMV', 'DGC']
     
-    symbolsVNI = [ 'CII','PHC','APC', 'ANV', "ASM", "BSI", "BWE", 
-                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CTD", "CSV", "CTG", 
+    symbolsVNI = [ 'CII','PHC','APC', 'ANV',  "BWE", 
+                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CTD", "CSV", "CTG", 'CMX',
                "DCM","DHG", "DIG",  "DPM",  "DRC", "DXG", 'DGW',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
                 'HAX',  "HNG",  "HT1",  'HII', 
@@ -121,14 +120,14 @@ def getliststocks(typestock = "^VNINDEX"):
                 "PPC",  "REE",  
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'PMG',
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                 'PAN','TCH', 'TDH',  'GEX','VCI', 
-                'TCM',  'AAA','SCR',  'VRC',  
+                 'PAN','TCH', 'TDH',  'GEX', 
+                'TCM',  'AAA', 'VRC',  
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB',
-                'HPX','FIR','CRE','HSL','NAF', 'DHC']
+                'HPX','FIR','CRE','NAF', 'DHC']
     
     symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN',  
-                    'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
+                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
     
     if typestock == "ALL":
         symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + futures
@@ -146,6 +145,7 @@ def getliststocks(typestock = "^VNINDEX"):
         symbols = symbolsVN30
 #    symbols =  high_cpm
     symbols = pd.unique(symbols).tolist()
+    
     symbols = sorted(symbols)
     
     
@@ -567,7 +567,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2019-2-28"
+    end_date = "2019-4-5"
     start_date = "2018-4-6"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -596,7 +596,7 @@ if __name__ == "__main__":
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
-    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-4-4", update = False,  source ="ssi")
+#    analysis_trading(tickers = None, start = "2017-1-2" , end = "2019-4-5", update = False,  source ="cp68")
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-3-14", update = True,  source ="cp68")
@@ -605,7 +605,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-#    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)

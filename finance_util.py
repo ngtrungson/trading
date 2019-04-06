@@ -223,7 +223,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_1803.csv')
+    data.to_csv('fundemental_stocks_all_0604.csv')
     
     
     return tickers
@@ -748,11 +748,11 @@ if __name__ == "__main__":
      symbolsHNX = ['TNG', 'NVB',  'L14',  
                   'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
                   'PVS', 'SHB', 'SHS', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
-                  'VPI', 'AMV', 'DTD',
+                  'VPI', 'AMV', 
                   'TTH', 'TDT', 'DGC', 'MPT', 'HDA']
     
-     symbolsVNI = [ 'PHC','APC', 'ANV', "ASM", "BSI", "BWE", 
-                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CTD", "CSV", "CTG", 
+     symbolsVNI = [ 'CII','PHC','APC', 'ANV',  "BWE", 
+                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CTD", "CSV", "CTG", 'CMX',
                "DCM","DHG", "DIG",  "DPM",  "DRC", "DXG", 'DGW',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
                 'HAX',  "HNG",  "HT1",  'HII', 
@@ -763,14 +763,14 @@ if __name__ == "__main__":
                 "PPC",  "REE",  
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'PMG',
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                 'PAN','TCH', 'TDH',  'GEX','VCI', 
+                 'PAN','TCH', 'TDH',  'GEX', 
                 'TCM',  'AAA','SCR',  'VRC',  
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB',
-                'HPX','FIR','CRE','HSL','NAF', 'DHC']
+                'HPX','FIR','CRE','NAF', 'DHC']
     
      symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN',  
-                    'VGT', 'TVB','VIB', 'POW', 'BSR', 'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
+                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
      
@@ -784,7 +784,7 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_1803.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_0604.csv', parse_dates=True, index_col=0)
      data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
      data['EPS_Price'] = data['EPS']/data['Close']/1000
      
