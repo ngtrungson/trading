@@ -788,8 +788,8 @@ if __name__ == "__main__":
      data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
      data['EPS_Price'] = data['EPS']/data['Close']/1000
      
-     df = data.query("MeanVol_13W > 80000")
-     df = df.query("MeanVol_10D> 80000")
+     df = data.query("MeanVol_13W > 50000")
+     df = df.query("MeanVol_10D> 50000")
 ##     df = df.query("MeanVol_10D > 0")
 ###     df = df.query("FVQ > 0")
 ###     df = df.query("CPM > 1.4")
