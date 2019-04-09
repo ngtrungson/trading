@@ -552,7 +552,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 #    
-#    symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -567,7 +567,7 @@ if __name__ == "__main__":
 
     ticker = 'GEX'    
 #
-    end_date = "2019-4-8"
+    end_date = "2019-4-9"
     start_date = "2018-4-6"
 #####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
 ####    
@@ -596,10 +596,12 @@ if __name__ == "__main__":
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="ssi", trade = 'Long')
+#    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
     
-    my_stock = ['DXG', 'GEX', 'HVN','MBS','NDN','PC1','PNJ','PVD', 'VIX', 'VRC']
-    analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = False,  source ="ssi", trade = 'Short')
+#    my_stock = ['DXG', 'GEX', 'HVN','MBS','NDN','PC1','PNJ','PVD', 'VIX', 'VRC']
+    
+    my_stock = ['HDC', 'PHR', 'VRE','PVS','PVB','PPC','NTL']
+    analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Short')
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-3-14", update = True,  source ="cp68")
