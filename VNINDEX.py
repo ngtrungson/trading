@@ -200,7 +200,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 1, typetrade = trade)
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = trade)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -594,14 +594,14 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
 #    ticker = 'GEX'
-    end_date = "2019-4-11"
+    end_date = "2019-4-16"
     start_date = "2018-4-6"
-#    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="ssi", trade = 'Long')
-###    
-    my_stock = ['DXG', 'GEX', 'HVN','MBS','NDN','PC1','PNJ','PVD', 'VIX', 'VRC']
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
+####    
+#    my_stock = ['DXG', 'GEX', 'HVN','MBS','NDN','PC1','PNJ','PVD', 'VIX', 'VRC']
 ###    
 #    my_stock = ['HDC', 'PHR', 'VRE','PVS','PVB','PPC','NTL']
-    analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = False,  source ="ssi", trade = 'Short')
+#    analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = False,  source ="ssi", trade = 'Short')
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-3-14", update = True,  source ="cp68")
