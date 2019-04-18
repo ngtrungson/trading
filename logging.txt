@@ -1,63 +1,61 @@
- Canslim trading  2 days before  2019-04-12 00:00:00 FPT
-  Volume/volume(MA30) ratio:  1.12
-  RSI indicator:  69.2065340335
-  Trading value (billion VND/million USD):  42.18  MA30 : 35.94
-  Money flow in last 5 days:  21.64 47.85 34.29 16.92 42.18
-  Relative strength RSW:  10.7132111316
+ Canslim trading  2 days before  2019-04-17 00:00:00 AST
+  Volume/volume(MA30) ratio:  1.99
+  RSI indicator:  77.00280995194316
+  Trading value (billion VND/million USD):  9.96  MA30 : 4.73
+  Money flow in last 5 days:  5.12 5.59 7.27 4.68 9.96
+  Relative strength RSW:  11.412755271900952
   Side ways status last 5 days:  True True True True True
-  Price max 3M/6M/9M/12M:  47.8 47.8 47.8 53.34
-  Actual price Close/Low/High/Open: 48.2 46.85 48.4 46.85
-  PCT_Change last 7 days: 1.27 0.0 0.0 -1.05 -0.85 0.21 2.55
-  Variation last 7 days (H/L):  6.79 9.05 9.05 9.05 9.73 9.73 9.73
-  Volume last 7 days (100K): 17.16 6.15 4.53 10.12 7.31 3.6 8.75
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 0.99 1.01 1.01 1.01 0.9 0.9
-  Support S1 S2 S3 : 46.75 44.75 44.2
-  Resistance R1 R2 R3 : 50.69 51.69 52.1
-  Loss/gain T+1/T+2/T+3/T+4 : -0.62 nan nan nan
+  Price max 3M/6M/9M/12M:  72.2 72.2 72.2 78.34
+  Actual price Close/Low/High/Open: 75.0 72.3 75.0 72.3
+  PCT_Change last 7 days: 0.28 -1.41 0.86 0.85 1.69 -0.28 4.17
+  Variation last 7 days (H/L):  3.94 2.0 2.15 2.15 2.01 3.44 4.3
+  Volume last 7 days (100K): 0.67 0.71 0.73 0.79 1.01 0.65 1.33
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 1.04 1.04 1.04 0.96 0.96
+  Support S1 S2 S3 : 69.8 68.6 68.52
+  Resistance R1 R2 R3 : 78.53 78.82 79.48
+  Loss/gain T+1/T+2/T+3/T+4 : -0.53 nan nan nan
   Back test T+5, T+10: nan nan
-  Cutloss <=: 46.85 - 3.22 % Target >=: 52.85 + 9.65 %
+  Cutloss <=: 72.3 - 3.6 % Target >=: 83.10000000000001 + 10.8 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 252, '1': 2, '-1': 2}) symbol:  FPT
+Back test result: Counter({'0': 255, '1': 2, '-1': 1}) symbol:  AST
 ***************************************************************
- Canslim trading  2 days before  2019-04-12 00:00:00 HT1
-  Volume/volume(MA30) ratio:  2.29
-  RSI indicator:  62.1129030468
-  Trading value (billion VND/million USD):  8.6  MA30 : 3.66
-  Money flow in last 5 days:  2.13 2.42 2.53 1.73 8.6
-  Relative strength RSW:  29.7096476856
-  Side ways status last 5 days:  False False False False True
-  Price max 3M/6M/9M/12M:  16.5 16.5 16.5 16.5
-  Actual price Close/Low/High/Open: 16.4 15.3 16.45 15.35
-  PCT_Change last 7 days: 6.25 0.31 0.0 -3.7 1.28 0.0 3.8
-  Variation last 7 days (H/L):  11.34 11.34 12.03 12.03 12.03 12.03 12.03
-  Volume last 7 days (100K): 4.6 3.37 1.32 1.55 1.6 1.09 5.25
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.99 0.99 0.99 0.99 0.99
-  Support S1 S2 S3 : 15.5 15.0 14.95
-  Resistance R1 R2 R3 : 16.7 nan nan
-  Loss/gain T+1/T+2/T+3/T+4 : -2.44 nan nan nan
-  Back test T+5, T+10: nan nan
-  Cutloss <=: 15.3 - 7.01 % Target >=: 19.85 + 21.04 %
-----------------------------------------------------------------
-Back test result: Counter({'0': 248, '-1': 5, '1': 3}) symbol:  HT1
-***************************************************************
- Canslim trading  2 days before  2019-04-12 00:00:00 PVI
-  Volume/volume(MA30) ratio:  1.3
-  RSI indicator:  69.8816551186
-  Trading value (billion VND/million USD):  5.62  MA30 : 4.08
-  Money flow in last 5 days:  6.17 6.1 6.33 3.56 5.62
-  Relative strength RSW:  22.8181538768
+ Canslim trading  1 days before  2019-04-18 00:00:00 DHC
+  Volume/volume(MA30) ratio:  1.88
+  RSI indicator:  76.52513960340052
+  Trading value (billion VND/million USD):  8.02  MA30 : 3.92
+  Money flow in last 5 days:  3.99 3.56 3.33 5.85 8.02
+  Relative strength RSW:  24.755434253753307
   Side ways status last 5 days:  True True True True True
-  Price max 3M/6M/9M/12M:  39.8 39.8 39.8 39.8
-  Actual price Close/Low/High/Open: 39.9 38.7 40.1 38.7
-  PCT_Change last 7 days: 2.9 1.54 0.51 -2.51 1.03 -0.77 2.57
-  Variation last 7 days (H/L):  10.0 12.57 13.71 14.57 14.57 14.57 14.57
-  Volume last 7 days (100K): 2.92 1.79 1.55 1.57 1.61 0.91 1.41
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 1.0 1.0 1.0 1.0 1.0
-  Support S1 S2 S3 : 38.5 37.6 35.5
+  Price max 3M/6M/9M/12M:  38.4 38.4 38.4 38.4
+  Actual price Close/Low/High/Open: 39.2 38.4 39.3 38.4
+  PCT_Change last 7 days: 0.28 2.49 1.08 -0.27 0.27 2.4 2.08
+  Variation last 7 days (H/L):  13.03 12.69 9.71 9.86 9.86 9.86 12.61
+  Volume last 7 days (100K): 0.96 2.04 1.06 0.95 0.89 1.52 2.05
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 1.02 1.02 1.02 1.02 1.0
+  Support S1 S2 S3 : 36.8 35.0 34.5
   Resistance R1 R2 R3 : nan nan nan
-  Loss/gain T+1/T+2/T+3/T+4 : 0.25 nan nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
   Back test T+5, T+10: nan nan
-  Cutloss <=: 38.7 - 3.51 % Target >=: 44.1 + 10.53 %
+  Cutloss <=: 38.4 - 2.3 % Target >=: 41.9 + 6.89 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 250, '1': 4, '-1': 2}) symbol:  PVI
+ Canslim trading  2 days before  2019-04-17 00:00:00 DHC
+  Volume/volume(MA30) ratio:  1.47
+  RSI indicator:  73.27002720023259
+  Trading value (billion VND/million USD):  5.85  MA30 : 3.72
+  Money flow in last 5 days:  7.56 3.99 3.56 3.33 5.85
+  Relative strength RSW:  22.241517652142
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  37.5 37.5 37.68 37.68
+  Actual price Close/Low/High/Open: 38.4 37.5 38.85 37.95
+  PCT_Change last 7 days: 0.0 0.28 2.49 1.08 -0.27 0.27 2.4
+  Variation last 7 days (H/L):  12.12 13.03 12.69 9.71 9.86 9.86 9.86
+  Volume last 7 days (100K): 0.34 0.96 2.04 1.06 0.95 0.89 1.52
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 1.02 1.02 1.02 1.02 0.98
+  Support S1 S2 S3 : 36.8 35.0 34.5
+  Resistance R1 R2 R3 : 39.04 nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : 2.08 nan nan nan
+  Back test T+5, T+10: nan nan
+  Cutloss <=: 37.5 - 3.52 % Target >=: 42.45 + 10.55 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 256, '-1': 1, '1': 1}) symbol:  DHC
 ***************************************************************
