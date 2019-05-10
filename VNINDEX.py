@@ -121,12 +121,12 @@ def getliststocks(typestock = "^VNINDEX"):
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'PMG',
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                  'PAN','TCH', 'TDH',  'GEX', 
-                'TCM',  'AAA', 'VRC',  
+                'TCM',  'AAA', 'VRC',  'HVN', 
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB',
                 'HPX','FIR','CRE','NAF', 'DHC']
     
-    symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN',  
+    symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN",  
                     'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
     
     if typestock == "ALL":
@@ -552,7 +552,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 #    
-#    symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -594,7 +594,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
 #    ticker = 'GEX'
-    end_date = "2019-5-3"
+    end_date = "2019-5-10"
     start_date = "2018-4-6"
     analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
