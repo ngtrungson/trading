@@ -223,7 +223,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_0604.csv')
+    data.to_csv('fundemental_stocks_all_1305.csv')
     
     
     return tickers
@@ -748,10 +748,9 @@ if __name__ == "__main__":
      symbolsHNX = ['TNG', 'NVB',  'L14',  
                   'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
                   'PVS', 'SHB', 'SHS', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
-                  'VPI', 'AMV', 
-                  'TTH', 'TDT', 'DGC', 'MPT', 'HDA']
+                  'VPI', 'AMV', 'DGC']
     
-     symbolsVNI = [ 'CII','PHC','APC', 'ANV',  "BWE", 
+     symbolsVNI = [ 'BFC','STK','CII','PHC','APC', 'ANV',  "BWE", 
                    "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CTD", "CSV", "CTG", 'CMX',
                "DCM","DHG", "DIG",  "DPM",  "DRC", "DXG", 'DGW',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
@@ -764,12 +763,12 @@ if __name__ == "__main__":
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'PMG',
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                  'PAN','TCH', 'TDH',  'GEX', 
-                'TCM',  'AAA','SCR',  'VRC',  
+                'TCM',  'AAA', 'VRC',  'HVN', 
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB',
                 'HPX','FIR','CRE','NAF', 'DHC']
     
-     symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN", 'HVN',  
+     symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN",  
                     'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
@@ -784,7 +783,7 @@ if __name__ == "__main__":
     
 #     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_0604.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_1305.csv', parse_dates=True, index_col=0)
      data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
      data['EPS_Price'] = data['EPS']/data['Close']/1000
      
@@ -793,9 +792,9 @@ if __name__ == "__main__":
 ##     df = df.query("MeanVol_10D > 0")
 ###     df = df.query("FVQ > 0")
 ###     df = df.query("CPM > 1.4")
-     df = df.query("EPS >= 1000")
+     df = df.query("EPS >= 1500")
 ###     df = df.query("EPS_52W >= 0")
-     df = df.query("ROE >= 10")
+     df = df.query("ROE >= 15")
 ##     df = df.query("Close > 4")
 #     df = df.query("Beta < 0")
 #     df = df.query("Beta > 0")
