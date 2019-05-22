@@ -594,14 +594,14 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
 #    ticker = 'GEX'
-    end_date = "2019-5-21"
+    end_date = "2019-5-22"
     start_date = "2018-4-6"
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
+#    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
-#    my_stock = ['DXG', 'GEX', 'HVN','MBS','NDN','PC1','PNJ','PVD', 'VIX', 'VRC']
+#    my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','PNJ', 'VIX', 'VRC']
 ###    
 #    my_stock = ['HDC', 'PHR', 'VRE','PVS','PVB','PPC','NTL']
-#    analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = False,  source ="ssi", trade = 'Short')
+#    analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Short')
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-3-14", update = True,  source ="cp68")
