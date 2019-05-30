@@ -105,7 +105,7 @@ def getliststocks(typestock = "^VNINDEX"):
    
     symbolsHNX = ['TNG', 'NVB',  'L14',  
                   'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
-                  'PVS', 'SHB', 'SHS', 'VCG','VCS', 'VGC', 'VIX', 'TVC', 
+                  'PVS', 'SHB', 'SHS', 'VCG','VCS',  'VIX', 'TVC', 
                   'VPI', 'AMV', 'DGC']
     
     symbolsVNI = [ 'BFC','STK','CII','PHC','APC', 'ANV',  "BWE", 
@@ -121,7 +121,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'PMG',
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                  'PAN','TCH', 'TDH',  'GEX', 
-                'TCM',  'AAA', 'VRC',  'HVN', 
+                'TCM',  'AAA', 'VRC',  'HVN', 'VGC',
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB',
                 'HPX','FIR','CRE','NAF', 'DHC', 'MSH','TDM']
@@ -552,7 +552,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 #    
-    symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -594,14 +594,14 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
 #    ticker = 'GEX'
-    end_date = "2019-5-29"
+    end_date = "2019-5-30"
     start_date = "2018-4-6"
 #    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
-#    my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','PNJ', 'VIX', 'VRC']
+    my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
 ###    
 #    my_stock = ['HDC', 'PHR', 'VRE','PVS','PVB','PPC','NTL']
-#    analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Short')
+#    analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = True,  source ="cp68", trade = 'Short')
     
 #    benchVNI = ["^VNINDEX"]
 #    market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-3-14", update = True,  source ="cp68")
