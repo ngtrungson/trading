@@ -250,10 +250,10 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
    
         if (df['Short'].iloc[-i] & (typetrade == 'Short')):
                 print(" Short selling canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-#                print_statistic(df, i)
-#                back_test = True
-#                if (market != None):
-#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
         
         if (df['Breakout'].iloc[-i] & (typetrade == 'Breakout')):
                 print(" Breakout canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
