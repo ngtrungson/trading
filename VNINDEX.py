@@ -105,28 +105,28 @@ def getliststocks(typestock = "^VNINDEX"):
    
     symbolsHNX = ['TNG', 'NVB',  'L14',  
                   'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
-                  'PVS', 'SHB', 'SHS', 'VCG','VCS',  'VIX', 'TVC', 
+                  'PVS',  'VCG','VCS',  'VIX', 'TVC', 
                   'VPI', 'AMV', 'DGC']
     
     symbolsVNI = [ 'BFC','STK','CII','PHC','APC', 'ANV',  "BWE", 
-                   "BID", "BMI", "BMP", "BVH",  'CTS', 'CTI', "CTD", "CSV", "CTG", 'CMX',
-               "DCM","DHG", "DIG",  "DPM",  "DRC", "DXG", 'DGW',
+                   "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'CMX',
+               "DHG",  "DPM",  "DRC", "DXG", 'DGW',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                'HAX',  "HNG",  "HT1",  'HII', 
-               "HSG", "HDG", "HCM", "HPG", "HBC", 'LDG', 'LHG', 'HDC',
-               'IDI', "IJC",  "KBC", "KSB",  "KDH",
-               "MBB", "MSN", "MWG", "NKG", "NLG", "NT2", "NVL",
+                'HAX',  "HNG",  "HT1",   
+                "HDG", "HCM", "HPG", "HBC", 'LHG', 'HDC',
+                "IJC",  "KBC", "KSB",  "KDH",
+               "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE",  
-                'SHI',"SAM","SJD","SJS","STB","SKG",  "SSI", "SBT", "SAB", 'PMG',
+                'SHI',"SAM","SJD","SJS","STB", "SSI", "SBT", "SAB", 'PMG',
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                  'PAN','TCH', 'TDH',  'GEX', 
                 'TCM',  'AAA', 'VRC',  'HVN', 'VGC',
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
-                'NTL', 'AST','DAG', 'HAH', 'VHM', 'VPG', 'PLP', 'TPB', 'TCB',
+                'NTL', 'AST','HAH', 'VHM', 'VPG',  'TPB', 'TCB',
                 'HPX','FIR','CRE','NAF', 'DHC', 'MSH','TDM']
     
-    symbolsUPCOM = ['LPB', 'QNS',  'ACV',   "DVN",  
+    symbolsUPCOM = ['QNS',  'ACV',   "DVN",  
                     'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
     
     if typestock == "ALL":
@@ -552,7 +552,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 #    
-#    symbols = get_csv_data(source = "cp68")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -594,7 +594,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
 #    ticker = 'GEX'
-    end_date = "2019-6-4"
+    end_date = "2019-6-5"
     start_date = "2018-4-6"
     analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    

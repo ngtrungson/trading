@@ -1,4 +1,4 @@
- Canslim trading  2 days before  2019-06-03 00:00:00 EIB
+ Canslim trading  3 days before  2019-06-03 00:00:00 EIB
   Volume/volume(MA30) ratio:  3.18
   RSI indicator:  57.87079823254982
   Trading value (billion VND/million USD):  11.52  MA30 : 3.48
@@ -13,9 +13,9 @@
   Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.99 0.99 0.99 0.99 0.99
   Support S1 S2 S3 : 17.7 17.35 17.0
   Resistance R1 R2 R3 : 19.1 nan nan
-  Loss/gain T+1/T+2/T+3/T+4 : -1.08 nan nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : -1.08 -4.57 nan nan
   Back test T+5, T+10: nan nan
   Cutloss <=: 17.45 - 6.72 % Target >=: 22.35 + 20.16 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 281, '-1': 6, '1': 1}) symbol:  EIB
+Back test result: Counter({'0': 282, '-1': 6, '1': 1}) symbol:  EIB
 ***************************************************************
