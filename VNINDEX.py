@@ -97,6 +97,8 @@ def getliststocks(typestock = "^VNINDEX"):
     caosu = ['PHR', 'DRC']
     anuong = ['VNM', 'SAB']
     
+    stocks2019 =['SZC', 'VGI','GVR','CTR','VTP']
+    
     symbolsVN30 = ['CII','CTD', 'CTG', 'DHG','DPM', 'EIB','FPT', 'GAS', 'GMD',
                    'HDB','HPG', 'MBB', 'MSN', 'MWG', 'NVL', 'PNJ',
                    'REE', 'ROS', 'SAB', 'SBT', 'SSI', 'STB', 'TCB', 'VCB', 'VHM',
@@ -124,9 +126,9 @@ def getliststocks(typestock = "^VNINDEX"):
                 'TCM',  'AAA', 'VRC',  'HVN', 'VGC',
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
                 'NTL', 'AST','HAH', 'VHM', 'VPG',  'TPB', 'TCB',
-                'HPX','FIR','CRE','NAF', 'DHC', 'MSH','TDM']
+                'HPX','FIR','CRE','NAF', 'DHC', 'MSH','TDM', 'SZC']
     
-    symbolsUPCOM = ['QNS',  'ACV',   "DVN",  
+    symbolsUPCOM = ['QNS',  'ACV',   "DVN",  'VGI','GVR','CTR','VTP',
                     'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
     
     if typestock == "ALL":
@@ -596,7 +598,7 @@ if __name__ == "__main__":
 #    ticker = 'GEX'
     end_date = "2019-6-7"
     start_date = "2018-4-6"
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
+#    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
     my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
 ###    
@@ -610,7 +612,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-#    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
