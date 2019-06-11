@@ -596,7 +596,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['GVR']
-    end_date = "2019-6-10"
+    end_date = "2019-6-11"
     start_date = "2018-4-6"
     analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
