@@ -114,7 +114,7 @@ def getliststocks(typestock = "^VNINDEX"):
                    "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'CMX',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                'HAX',  "HNG",  "HT1",   
+                'HAX',  "HNG",  "HT1",   'DPR',
                 "HDG", "HCM", "HPG", "HBC", 'LHG', 'HDC',
                 "IJC",  "KBC", "KSB",  "KDH",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
@@ -596,9 +596,9 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['GVR']
-    end_date = "2019-6-20"
+    end_date = "2019-6-21"
     start_date = "2018-4-6"
-#    analysis_trading(tickers = None, start = start_date , end = end_date, update = True,  source ="cp68", trade = 'Long')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
     my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
 ###    
