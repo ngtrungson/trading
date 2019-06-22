@@ -170,7 +170,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
                  ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
                  (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
-                 (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])) &\
+                 (df['Close'] >= df['SMA200']) & (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])) &\
                  (df['PCT_HL'] <= 15))
     
     
