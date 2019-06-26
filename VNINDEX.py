@@ -598,7 +598,7 @@ if __name__ == "__main__":
     ticker = ['D2D']
     end_date = "2019-6-25"
     start_date = "2018-4-6"
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
+#    analysis_trading(tickers = None, start = start_date , end = end_date, update = True,  source ="cp68", trade = 'Long')
 ####    
     my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
 ###    
