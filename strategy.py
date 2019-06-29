@@ -671,6 +671,10 @@ def print_statistic(df, i):
                                                        round(df['Close'].iloc[-i]/max_all,2),)
     
     T5 = round((df['Close'].shift(-5).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    T6 = round((df['Close'].shift(-6).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    T7 = round((df['Close'].shift(-7).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    T8 = round((df['Close'].shift(-8).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
+    T9 = round((df['Close'].shift(-9).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T10 = round((df['Close'].shift(-10).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T1 = round((df['Close'].shift(-1).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T2 = round((df['Close'].shift(-2).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
@@ -678,7 +682,7 @@ def print_statistic(df, i):
     print('  Support S1 S2 S3 :', S1, S2, S3)
     print('  Resistance R1 R2 R3 :', R1, R2, R3)
     print('  Loss/gain T+1/T+2/T+3/T+4 :', T1, T2, round(df['ROC'].shift(-3).iloc[-i], 2), T4)
-    print('  Back test T+5, T+10:', T5, T10)    
+    print('  Back test T+5 : T+10:', T5, T6, T7, T8, T9, T10)    
     
     R = df['High'].iloc[-i] - df['Low'].iloc[-i]
     target3R = round(3*R /df['Close'].iloc[-i]*100, 2)

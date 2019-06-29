@@ -99,37 +99,67 @@ def getliststocks(typestock = "^VNINDEX"):
     
     stocks2019 =['SZC', 'VGI','GVR','CTR','VTP']
     
+# Danh muc co phieu khong co quy mua, han che va khong nen mua
+# VIX MBS VRC HTN CMX SZC IDC ACL FIR HAX  PMG L14 AMV
+# TVC VPG DGC DVN SHI PHC
+# NVB TCH VPI CVT VNG 
+# (GVR TDM MSH ACV BWE NTC VEA CTR ANV)
+    
     symbolsVN30 = ['CII','CTD', 'CTG', 'DHG','DPM', 'EIB','FPT', 'GAS', 'GMD',
                    'HDB','HPG', 'MBB', 'MSN', 'MWG', 'NVL', 'PNJ',
                    'REE', 'ROS', 'SAB', 'SBT', 'SSI', 'STB', 'TCB', 'VCB', 'VHM',
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
-   
-    symbolsHNX = ['TNG', 'NVB',  'L14',  
-                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
-                  'PVS',  'VCG','VCS',  'VIX', 'TVC', 
-                  'VPI', 'AMV', 'DGC']
     
-    symbolsVNI = [ 'BFC','STK','CII','PHC','APC', 'ANV',  "BWE", 'HTN', 'C32', 'ACL', 'LCG',
-                   "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'CMX','D2D',
+    symbolsHNX = ['TNG', 'ACB',  'CEO', 'DBC',  'NDN', 'PVI', 'PVB',
+                  'PVS',  'VCG','VCS']
+    
+    symbolsVNI = [ 'BFC','STK','CII', 'APC', 'ANV',  "BWE",  'C32',  'LCG',
+                   "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                'HAX',  "HNG",  "HT1",   'DPR',
+                 "HNG",  "HT1",   'DPR',
                 "HDG", "HCM", "HPG", "HBC", 'LHG', 'HDC',
                 "IJC",  "KBC", "KSB",  "KDH",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE",  
-                'SHI',"SAM","SJD","SJS","STB", "SSI", "SBT", "SAB", 'PMG',
+                "SAM","SJD","SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                 'PAN','TCH', 'TDH',  'GEX', 
-                'TCM',  'AAA', 'VRC',  'HVN', 'VGC',
-                'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
-                'NTL', 'AST','HAH', 'VHM', 'VPG',  'TPB', 'TCB',
-                'HPX','FIR','CRE','NAF', 'DHC', 'MSH','TDM', 'SZC']
+                 'PAN', 'TDH',  'GEX', 
+                'TCM',  'AAA',  'HVN', 'VGC',
+                'EIB','VPB','VRE','ROS',"VND", "HDB",  
+                'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB',
+                'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 'SZC', 'TIP', 'VPG']
     
-    symbolsUPCOM = ['QNS',  'ACV',   "DVN",  'VGI','GVR','CTR','VTP',
-                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
+    symbolsUPCOM = ['QNS',  'ACV',   'VGI','GVR','CTR','VTP',
+                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC'] 
+   
+#    symbolsHNX = ['TNG', 'NVB',  'L14',  
+#                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
+#                  'PVS',  'VCG','VCS',  'VIX', 'TVC', 
+#                  'VPI', 'AMV', 'DGC']
+#    
+#    symbolsVNI = [ 'BFC','STK','CII','PHC','APC', 'ANV',  "BWE", 'HTN', 'C32', 'ACL', 'LCG',
+#                   "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'CMX','D2D',
+#               "DHG",  "DPM",  "DRC", "DXG", 'DGW',
+#                "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
+#                'HAX',  "HNG",  "HT1",   'DPR',
+#                "HDG", "HCM", "HPG", "HBC", 'LHG', 'HDC',
+#                "IJC",  "KBC", "KSB",  "KDH",
+#               "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
+#                "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
+#                "PPC",  "REE",  
+#                'SHI',"SAM","SJD","SJS","STB", "SSI", "SBT", "SAB", 'PMG',
+#                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
+#                 'PAN','TCH', 'TDH',  'GEX', 
+#                'TCM',  'AAA', 'VRC',  'HVN', 'VGC',
+#                'EIB','VPB','VRE','ROS',"VND", "HDB",  "CVT",'VNG',
+#                'NTL', 'AST','HAH', 'VHM', 'VPG',  'TPB', 'TCB',
+#                'HPX','FIR','CRE','NAF', 'DHC', 'MSH','TDM', 'SZC']
+#    
+#    symbolsUPCOM = ['QNS',  'ACV',   "DVN",  'VGI','GVR','CTR','VTP',
+#                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
     
     if typestock == "ALL":
         symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + futures
@@ -202,7 +232,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 50, typetrade = trade)
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 15, typetrade = trade)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -598,7 +628,7 @@ if __name__ == "__main__":
     ticker = ['NAF','DBC','ACV','NDN','HNG']
     end_date = "2019-6-28"
     start_date = "2018-4-6"
-    analysis_trading(tickers = ticker, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
     my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
 ###    
