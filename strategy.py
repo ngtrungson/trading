@@ -226,12 +226,13 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 
-        if (df['MarkM_tickers'].iloc[-i] & (typetrade == 'MarkM_tickers')):
-                print(ticker)  
-#                back_test = True
-#                print_statistic(df, i)
-#                if (market != None):
-#                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+        if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
+                print(" Mark Minervini trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+#                print(ticker)  
+                back_test = True
+                print_statistic(df, i)
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 
         if (df['Bottom'].iloc[-i] & (typetrade == 'Bottom')):
                 print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
