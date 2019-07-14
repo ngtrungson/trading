@@ -1,68 +1,84 @@
-Optimization terminated successfully.    (Exit mode 0)
-            Current function value: -3.988506848298123
-            Iterations: 22
-            Function evaluations: 2199
-            Gradient evaluations: 22
-Start Date: 2018-4-6
-End Date: 2019-7-11
-Symbols: ['AAA', 'ANV', 'APC', 'AST', 'BID', 'BMI', 'BMP', 'BVH', 'BWE', 'C32', 'CII', 'CRE', 'CSV', 'CTD', 'CTG', 'CTI', 'D2D', 'DGW', 'DHC', 'DHG', 'DPM', 'DPR', 'DRC', 'DXG', 'EIB', 'FCN', 'FMC', 'FPT', 'GAS', 'GEX', 'GMD', 'GTN', 'HAH', 'HBC', 'HCM', 'HDB', 'HDC', 'HDG', 'HNG', 'HPG', 'HPX', 'HT1', 'HVN', 'IJC', 'KBC', 'KDH', 'KSB', 'LCG', 'LHG', 'MBB', 'MSH', 'MSN', 'MWG', 'NAF', 'NLG', 'NT2', 'NTL', 'NVL', 'PAN', 'PC1', 'PDR', 'PHR', 'PLX', 'PNJ', 'PPC', 'PTB', 'PVD', 'PVT', 'REE', 'ROS', 'SAB', 'SAM', 'SBT', 'SJD', 'SJS', 'SSI', 'STB', 'STK', 'SZC', 'TCB', 'TCM', 'TDH', 'TDM', 'TIP', 'TPB', 'VCB', 'VGC', 'VHC', 'VHM', 'VIC', 'VJC', 'VND', 'VNM', 'VPB', 'VPG', 'VRE', 'VSC']
-Optimal allocations: [9.33940573e-15 1.77677648e-15 8.89003581e-16 1.46213884e-14
- 3.57585649e-14 4.57016603e-15 7.53488608e-15 1.09909967e-15
- 9.02027125e-15 3.27566458e-15 2.15976840e-15 1.39572152e-14
- 9.62396259e-15 5.54575697e-16 4.91134544e-14 2.11247790e-15
- 1.33818109e-01 2.17035309e-15 1.82563597e-14 8.58017927e-15
- 8.78468302e-16 2.06042023e-02 1.92737527e-14 5.85979638e-14
- 1.13598876e-02 1.34424496e-14 2.17752394e-15 5.98396226e-15
- 2.42306304e-14 1.92661385e-14 2.67761371e-15 1.36347580e-14
- 9.18135593e-15 4.52935438e-14 5.60823559e-14 2.22590027e-14
- 2.38446617e-15 8.14201324e-16 8.22439369e-02 1.50389961e-14
- 1.17897958e-01 7.63188918e-15 2.17332182e-14 7.03916167e-15
- 3.59251223e-15 1.01941312e-15 1.67679488e-14 3.84314888e-15
- 1.66604204e-14 2.86800882e-14 6.68112523e-02 1.32885658e-14
- 5.26924594e-15 4.02396470e-02 1.30739834e-14 1.44199244e-14
- 9.31922221e-02 5.73634460e-15 1.21649095e-14 2.05258611e-15
- 1.30257655e-15 2.44472960e-02 2.19648054e-14 2.16209042e-14
- 3.18159206e-02 4.06223970e-15 1.00410728e-14 3.81545523e-15
- 8.67638107e-15 4.54314184e-14 2.88194105e-02 1.11341500e-14
- 8.20419704e-15 1.53577794e-14 9.09263316e-15 3.36271798e-14
- 2.24247869e-14 3.79370063e-02 1.12741182e-01 8.09233531e-15
- 3.88718672e-16 4.14786978e-15 3.26133167e-02 9.24357173e-02
- 6.22466590e-15 5.25087516e-15 1.47496997e-14 1.08758525e-14
- 1.07567337e-14 9.32210378e-15 3.28849723e-15 4.31279178e-14
- 5.69614985e-15 5.17981763e-14 7.30229348e-02 1.53571468e-14
- 1.52993301e-15]
-Sharpe Ratio: 3.988506848298123
-Volatility (stdev of daily returns): 0.008494056817055893
-Average Daily Return: 0.002130761202860446
-Cumulative Return: 0.9332681694763938
-Optimization terminated successfully.    (Exit mode 0)
-            Current function value: -1.5528075292065597
-            Iterations: 5
-            Function evaluations: 61
-            Gradient evaluations: 5
-Start Date: 2018-4-6
-End Date: 2019-7-11
-Symbols: ['ACB', 'CEO', 'DBC', 'NDN', 'PVB', 'PVI', 'PVS', 'TNG', 'VCG', 'VCS']
-Optimal allocations: [1.02930216e-16 0.00000000e+00 6.27374529e-02 2.46966649e-16
- 6.48820052e-17 5.33258237e-17 1.61739424e-16 9.37262547e-01
- 2.36268701e-17 0.00000000e+00]
-Sharpe Ratio: 1.5528075292065597
-Volatility (stdev of daily returns): 0.02799338203050723
-Average Daily Return: 0.0027338978031409746
-Cumulative Return: 1.0933218232590902
-Optimization terminated successfully.    (Exit mode 0)
-            Current function value: -3.7105369003280444
-            Iterations: 9
-            Function evaluations: 142
-            Gradient evaluations: 9
-Start Date: 2018-4-6
-End Date: 2019-7-11
-Symbols: ['ACV', 'CTR', 'GEG', 'GVR', 'MPC', 'NTC', 'POW', 'QNS', 'VEA', 'VGI', 'VGT', 'VIB', 'VTP']
-Optimal allocations: [2.08514585e-16 3.74154073e-02 2.69184529e-01 5.75334191e-16
- 0.00000000e+00 1.87846909e-01 2.23848726e-16 3.90709705e-16
- 1.71568623e-01 5.63786232e-03 8.42665565e-16 0.00000000e+00
- 3.28346670e-01]
-Sharpe Ratio: 3.7105369003280444
-Volatility (stdev of daily returns): 0.011350909022496693
-Average Daily Return: 0.002648967771196482
-Cumulative Return: 1.2553895956292807
+ Canslim trading  2 days before  2019-07-11 00:00:00 ACB
+  Volume/volume(MA30) ratio:  2.26
+  RSI indicator:  64.06744018606952
+  Trading value (billion VND/million USD):  62.9  MA30 : 26.93
+  Money flow in last 5 days:  23.36 12.43 82.81 33.19 62.9
+  Relative strength RSW:  0.04404579822110399
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  30.5 31.9 34.0 34.52
+  Actual price Close/Low/High/Open: 30.2 29.6 30.4 29.6
+  PCT_Change last 7 days: -0.35 1.39 0.0 -0.68 2.76 -0.67 2.03
+  Variation last 7 days (H/L):  5.26 5.26 5.26 5.26 5.26 5.26 5.26
+  Volume last 7 days (100K): 6.44 9.26 8.0 4.29 27.79 11.21 20.83
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.99 0.95 0.89 0.87 0.68
+  Support S1 S2 S3 : 28.9 28.7 28.5
+  Resistance R1 R2 R3 : 30.6 31.0 31.4
+  Loss/gain T+1/T+2/T+3/T+4 : -0.33 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 29.6 - 2.65 % Target >=: 32.599999999999994 + 7.95 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 316}) symbol:  ACB
+***************************************************************
+ Canslim trading  2 days before  2019-07-11 00:00:00 BID
+  Volume/volume(MA30) ratio:  3.29
+  RSI indicator:  60.982714867859556
+  Trading value (billion VND/million USD):  82.32  MA30 : 24.13
+  Money flow in last 5 days:  39.52 18.36 13.16 22.65 82.32
+  Relative strength RSW:  5.497944020265453
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  35.75 37.3 37.3 37.3
+  Actual price Close/Low/High/Open: 33.45 32.4 33.5 32.6
+  PCT_Change last 7 days: 0.16 2.18 0.0 -0.76 0.15 -0.61 3.24
+  Variation last 7 days (H/L):  5.1 5.1 5.1 5.73 5.73 5.73 5.73
+  Volume last 7 days (100K): 4.1 11.47 12.05 5.64 4.04 6.99 24.61
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.94 0.9 0.9 0.9 0.74
+  Support S1 S2 S3 : 32.4 32.0 31.4
+  Resistance R1 R2 R3 : 33.6 33.9 35.0
+  Loss/gain T+1/T+2/T+3/T+4 : -0.15 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 32.4 - 3.29 % Target >=: 36.75000000000001 + 9.87 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 314, '1': 1, '-1': 1}) symbol:  BID
+***************************************************************
+ Canslim trading  2 days before  2019-07-11 00:00:00 HPX
+  Volume/volume(MA30) ratio:  1.43
+  RSI indicator:  53.2143729175606
+  Trading value (billion VND/million USD):  13.73  MA30 : 9.54
+  Money flow in last 5 days:  7.57 8.77 9.52 5.91 13.73
+  Relative strength RSW:  14.38438305993638
+  Side ways status last 5 days:  True False False False False
+  Price max 3M/6M/9M/12M:  27.55 27.55 27.55 nan
+  Actual price Close/Low/High/Open: 26.6 25.5 26.6 25.6
+  PCT_Change last 7 days: -0.93 0.19 -1.69 -0.76 -3.46 1.59 4.31
+  Variation last 7 days (H/L):  9.49 9.49 9.49 9.49 5.45 7.97 7.57
+  Volume last 7 days (100K): 2.85 4.47 2.89 3.37 3.79 2.32 5.16
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 0.97 0.97 0.97 nan 0.97
+  Support S1 S2 S3 : 25.1 24.75 23.85
+  Resistance R1 R2 R3 : 27.0 27.1 27.7
+  Loss/gain T+1/T+2/T+3/T+4 : -0.38 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 25.5 - 4.14 % Target >=: 29.900000000000006 + 12.41 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 238}) symbol:  HPX
+***************************************************************
+ Canslim trading  2 days before  2019-07-11 00:00:00 VCB
+  Volume/volume(MA30) ratio:  1.63
+  RSI indicator:  64.32858331745679
+  Trading value (billion VND/million USD):  95.24  MA30 : 55.57
+  Money flow in last 5 days:  30.9 51.57 48.07 46.34 95.24
+  Relative strength RSW:  21.06901457502292
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  73.0 73.0 73.0 73.0
+  Actual price Close/Low/High/Open: 74.0 72.6 74.6 72.6
+  PCT_Change last 7 days: -1.28 4.17 0.14 -1.79 0.84 0.83 2.07
+  Variation last 7 days (H/L):  11.14 11.14 9.66 8.21 8.21 7.89 7.89
+  Volume last 7 days (100K): 7.97 11.25 4.26 7.23 6.69 6.39 12.87
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 1.01 1.01 1.01 1.01 1.0
+  Support S1 S2 S3 : 70.6 69.6 68.4
+  Resistance R1 R2 R3 : nan nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : -0.41 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 72.6 - 2.7 % Target >=: 80.0 + 8.11 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 310, '1': 4, '-1': 2}) symbol:  VCB
+***************************************************************
