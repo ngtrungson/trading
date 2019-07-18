@@ -648,6 +648,7 @@ def print_statistic(df, i):
     print('  Side ways status last 5 days: ',df['Sideways'].iloc[-i-4], df['Sideways'].iloc[-i-3], df['Sideways'].iloc[-i-2], df['Sideways'].iloc[-i-1], df['Sideways'].iloc[-i])
     print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
     print('  Actual price Close/Low/High/Open:', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
+    print('  Variation today :', round(100*(df['High'].iloc[-i]-df['Low'].iloc[-i])/df['Low'].iloc[-i], 2))
     print('  PCT_Change last 7 days:',round(100*df['PCT_Change'].iloc[-i-6], 2),
                                       round(100*df['PCT_Change'].iloc[-i-5], 2),
                                       round(100*df['PCT_Change'].iloc[-i-4], 2), 
