@@ -626,7 +626,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['NAF','DBC','ACV','NDN','HNG']
-    end_date = "2019-7-22"
+    end_date = "2019-7-23"
     start_date = "2018-1-2"
     analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
