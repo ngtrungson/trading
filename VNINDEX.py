@@ -625,10 +625,10 @@ if __name__ == "__main__":
 #              'DGW',    'PNJ',  'PAN', 'GAS', 'DXG', 'IDI', 'VIC', 'ANV',
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
-    ticker = ['NAF','DBC','ACV','NDN','HNG']
-    end_date = "2019-7-23"
+    ticker = ['CTR','VGI','BWE','TDM']
+    end_date = "2019-7-29"
     start_date = "2018-1-2"
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
+#    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
     my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
 ###    
@@ -642,7 +642,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-#    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
