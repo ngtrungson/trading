@@ -105,7 +105,7 @@ def getliststocks(typestock = "^VNINDEX"):
 # NVB TCH VPI CVT VNG 
 # (GVR TDM MSH ACV BWE NTC VEA CTR ANV)
     
-    symbolsVN30 = ['CII','CTD', 'CTG', 'DHG','DPM', 'EIB','FPT', 'GAS', 'GMD',
+    symbolsVN30 = ['BID','BVH','CTD', 'CTG', 'DPM', 'EIB','FPT', 'GAS', 'GMD',
                    'HDB','HPG', 'MBB', 'MSN', 'MWG', 'NVL', 'PNJ',
                    'REE', 'ROS', 'SAB', 'SBT', 'SSI', 'STB', 'TCB', 'VCB', 'VHM',
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
@@ -626,9 +626,9 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2019-8-5"
+    end_date = "2019-8-6"
     start_date = "2018-4-6"
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="ssi", trade = 'Long')
 ####    
     my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
 ###    

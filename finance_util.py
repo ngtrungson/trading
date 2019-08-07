@@ -223,7 +223,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_2906.csv')
+    data.to_csv('fundemental_stocks_all_0608.csv')
     
     
     return tickers
@@ -745,12 +745,12 @@ if __name__ == "__main__":
 #     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
 #                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
      
-     symbolsHNX = ['TNG', 'ACB',  'CEO', 'DBC',  'NDN', 'PVI', 'PVB',
+     symbolsHNX = ['TNG', 'ACB',  'CEO',   'NDN', 'PVI', 'PVB',
                   'PVS',  'VCG','VCS']
     
-     symbolsVNI = [ 'BFC','STK','CII', 'APC', 'ANV',  "BWE",  'C32',  'LCG',
+     symbolsVNI = [ 'STK','CII', 'APC', 'ANV',  "BWE",  'C32',  'LCG', 'CMG',
                    "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'D2D',
-               "DHG",  "DPM",  "DRC", "DXG", 'DGW',
+               "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
                  "HNG",  "HT1",   'DPR',
                 "HDG", "HCM", "HPG", "HBC", 'LHG', 'HDC',
@@ -764,10 +764,10 @@ if __name__ == "__main__":
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  
                 'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB',
-                'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 'SZC']
+                'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 'SZC', 'TIP', 'VPG']
     
      symbolsUPCOM = ['QNS',  'ACV',   'VGI','GVR','CTR','VTP',
-                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC'] 
+                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC']  
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
      
@@ -779,9 +779,9 @@ if __name__ == "__main__":
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
-#     tickers = save_and_analyse_vnindex_tickers()
+     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_2906.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_0608.csv', parse_dates=True, index_col=0)
      data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
      data['EPS_Price'] = data['EPS']/data['Close']/1000
      

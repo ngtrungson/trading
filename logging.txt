@@ -1,9 +1,9 @@
- Canslim trading  1 days before  2019-08-05 00:00:00 ACV
+ Canslim trading  2 days before  2019-08-05 00:00:00 ACV
   Volume/volume(MA30) ratio:  2.64
-  RSI indicator:  55.44506013288757
+  RSI indicator:  55.06113116881386
   Trading value (billion VND/million USD):  29.42  MA30 : 11.31
   Money flow in last 5 days:  14.63 12.29 7.68 4.69 29.42
-  Relative strength RSW:  3.14398296537028
+  Relative strength RSW:  2.217830510626202
   Side ways status last 5 days:  True True True True True
   Price max 3M/6M/9M/12M:  97.0 97.0 97.0 97.0
   Actual price Close/Low/High/Open: 84.5 81.6 85.4 81.6
@@ -13,76 +13,104 @@
   Volume last 7 days (100K): 0.34 1.14 1.74 1.48 0.92 0.57 3.48
   Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.87 0.87 0.87 0.87 0.87
   Support S1 S2 S3 : 81.1 80.0 79.6
-  Resistance R1 R2 R3 : 97.0 nan nan
-  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Resistance R1 R2 R3 : 97.0 97.1 nan
+  Loss/gain T+1/T+2/T+3/T+4 : -0.59 nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 81.6 - 4.5 % Target >=: 95.90000000000003 + 13.49 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 328, '-1': 4}) symbol:  ACV
+Back test result: Counter({'0': 334, '-1': 4, '1': 1}) symbol:  ACV
 ***************************************************************
- Canslim trading  2 days before  2019-08-02 00:00:00 GTN
-  Volume/volume(MA30) ratio:  2.89
-  RSI indicator:  69.16352516211232
-  Trading value (billion VND/million USD):  13.79  MA30 : 4.45
-  Money flow in last 5 days:  4.73 2.86 2.83 7.35 13.79
-  Relative strength RSW:  51.129635086722075
-  Side ways status last 5 days:  True False False True True
-  Price max 3M/6M/9M/12M:  19.7 20.05 20.05 20.05
-  Actual price Close/Low/High/Open: 19.6 18.5 19.7 18.7
-  Variation today : 6.49
-  PCT_Change last 7 days: 1.71 0.28 1.4 -0.83 0.28 4.16 4.26
-  Variation last 7 days (H/L):  10.79 10.79 10.79 10.79 10.79 9.04 9.62
-  Volume last 7 days (100K): 1.52 2.09 2.6 1.59 1.57 3.91 7.04
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.99 0.98 0.98 0.98 0.98
-  Support S1 S2 S3 : 17.7 17.15 17.1
-  Resistance R1 R2 R3 : 19.7 19.8 20.75
-  Loss/gain T+1/T+2/T+3/T+4 : -3.06 nan nan nan
-  Back test T+5 : T+10: nan nan nan nan nan nan
-  Cutloss <=: 18.5 - 6.12 % Target >=: 23.2 + 18.37 %
-----------------------------------------------------------------
-Back test result: Counter({'0': 329, '1': 2, '-1': 1}) symbol:  GTN
-***************************************************************
- Canslim trading  1 days before  2019-08-05 00:00:00 HDC
+ Canslim trading  2 days before  2019-08-05 00:00:00 HDC
   Volume/volume(MA30) ratio:  2.72
-  RSI indicator:  69.80816778101472
+  RSI indicator:  67.88839666723506
   Trading value (billion VND/million USD):  18.44  MA30 : 6.34
   Money flow in last 5 days:  8.57 4.06 15.17 13.98 18.44
-  Relative strength RSW:  44.541908031635785
+  Relative strength RSW:  20.189404854549295
   Side ways status last 5 days:  True True True True True
-  Price max 3M/6M/9M/12M:  16.45 16.45 16.45 16.45
+  Price max 3M/6M/9M/12M:  16.9 17.5 17.5 17.5
   Actual price Close/Low/High/Open: 16.9 16.25 17.3 16.25
   Variation today : 6.46
   PCT_Change last 7 days: -0.62 0.93 -3.07 0.95 3.13 -0.3 3.05
   Variation last 7 days (H/L):  11.49 11.49 12.84 12.84 12.84 12.84 12.84
   Volume last 7 days (100K): 4.13 10.56 5.42 2.55 9.22 8.52 10.91
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 1.03 1.03 1.03 1.03 1.0
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 1.0 0.97 0.97 0.97 0.92
   Support S1 S2 S3 : 15.6 14.95 14.8
-  Resistance R1 R2 R3 : nan nan nan
-  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Resistance R1 R2 R3 : 17.0 17.1 18.0
+  Loss/gain T+1/T+2/T+3/T+4 : 2.96 nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 16.25 - 6.21 % Target >=: 20.05 + 18.64 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 329, '-1': 2, '1': 1}) symbol:  HDC
+Back test result: Counter({'0': 325, '-1': 2, '1': 2}) symbol:  HDC
 ***************************************************************
- Canslim trading  2 days before  2019-08-02 00:00:00 PNJ
-  Volume/volume(MA30) ratio:  2.61
-  RSI indicator:  68.36334902140834
-  Trading value (billion VND/million USD):  96.99  MA30 : 34.77
-  Money flow in last 5 days:  31.41 38.58 22.81 55.34 96.99
-  Relative strength RSW:  12.919018598761092
+ Canslim trading  1 days before  2019-08-06 00:00:00 KBC
+  Volume/volume(MA30) ratio:  2.56
+  RSI indicator:  64.92767071974701
+  Trading value (billion VND/million USD):  102.82  MA30 : 38.1
+  Money flow in last 5 days:  34.27 29.28 40.32 24.4 102.82
+  Relative strength RSW:  23.489010508821103
   Side ways status last 5 days:  True True True True True
-  Price max 3M/6M/9M/12M:  81.19 81.19 81.19 81.19
-  Actual price Close/Low/High/Open: 80.4 77.2 80.4 77.5
-  Variation today : 4.15
-  PCT_Change last 7 days: 1.96 0.0 -0.51 -1.93 0.66 1.82 2.81
-  Variation last 7 days (H/L):  7.85 8.95 8.95 8.95 8.95 8.95 9.23
-  Volume last 7 days (100K): 8.32 4.6 4.04 5.06 2.97 7.08 12.06
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.99 0.99 0.99 0.99 0.86
-  Support S1 S2 S3 : 76.0 72.24 72.14
-  Resistance R1 R2 R3 : 80.74 81.78 89.3
-  Loss/gain T+1/T+2/T+3/T+4 : 0.37 nan nan nan
+  Price max 3M/6M/9M/12M:  15.6 15.6 15.6 15.6
+  Actual price Close/Low/High/Open: 16.0 14.6 16.05 14.8
+  Variation today : 9.93
+  PCT_Change last 7 days: -0.65 -3.27 -0.34 2.37 0.99 -1.64 6.67
+  Variation last 7 days (H/L):  6.85 6.85 6.85 6.85 6.85 6.85 6.85
+  Volume last 7 days (100K): 14.16 26.8 23.23 19.39 26.44 16.27 64.26
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 1.03 1.03 1.03 1.03 1.0
+  Support S1 S2 S3 : 14.7 14.6 14.1
+  Resistance R1 R2 R3 : nan nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
-  Cutloss <=: 77.2 - 3.98 % Target >=: 90.00000000000001 + 11.94 %
+  Cutloss <=: 14.6 - 9.06 % Target >=: 20.35 + 27.19 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 327, '-1': 4, '1': 1}) symbol:  PNJ
+Back test result: Counter({'0': 325, '-1': 4}) symbol:  KBC
 ***************************************************************
+ Canslim trading  1 days before  2019-08-06 00:00:00 NDN
+  Volume/volume(MA30) ratio:  1.51
+  RSI indicator:  68.94806896743198
+  Trading value (billion VND/million USD):  27.42  MA30 : 16.67
+  Money flow in last 5 days:  16.47 12.43 8.32 16.51 27.42
+  Relative strength RSW:  43.21239523051506
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  17.7 17.7 17.7 17.7
+  Actual price Close/Low/High/Open: 18.3 17.4 18.6 17.5
+  Variation today : 6.9
+  PCT_Change last 7 days: -1.72 -1.75 2.98 1.16 0.0 1.14 3.39
+  Variation last 7 days (H/L):  10.62 9.94 9.26 7.93 7.93 7.93 7.23
+  Volume last 7 days (100K): 4.5 9.01 9.52 7.1 4.76 9.33 14.98
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 1.03 1.03 1.03 1.03 0.89
+  Support S1 S2 S3 : 17.1 16.7 16.6
+  Resistance R1 R2 R3 : 19.3 19.4 19.5
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 17.4 - 6.56 % Target >=: 21.90000000000001 + 19.67 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 337, '-1': 1, '1': 1}) symbol:  NDN
+***************************************************************
+ Canslim trading  2 days before  2019-08-05 00:00:00 VIB
+  Volume/volume(MA30) ratio:  2.17
+  RSI indicator:  65.0321485641908
+  Trading value (billion VND/million USD):  18.42  MA30 : 8.1
+  Money flow in last 5 days:  13.38 5.32 9.59 11.58 18.42
+  Relative strength RSW:  -6.733077500644329
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  19.1 19.8 27.6 29.6
+  Actual price Close/Low/High/Open: 19.2 18.8 19.3 18.8
+  Variation today : 2.66
+  PCT_Change last 7 days: 0.0 -0.52 -2.11 0.54 1.6 -1.05 2.13
+  Variation last 7 days (H/L):  14.88 14.88 14.88 14.88 14.88 13.53 10.29
+  Volume last 7 days (100K): 2.46 6.04 7.2 2.84 5.04 6.16 9.59
+  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.97 0.7 0.65 0.46
+  Support S1 S2 S3 : 18.5 18.4 18.3
+  Resistance R1 R2 R3 : 19.3 19.5 19.6
+  Loss/gain T+1/T+2/T+3/T+4 : -0.52 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 18.8 - 2.6 % Target >=: 20.7 + 7.81 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 339}) symbol:  VIB
+***************************************************************
+real is not double
+Error in reading symbol:  ^HASTC
+real is not double
+Error in reading symbol:  ^UPCOM
+real is not double
+Error in reading symbol:  ^VNINDEX
