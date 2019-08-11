@@ -112,7 +112,7 @@ def getliststocks(typestock = "^VNINDEX"):
     
     
     symbolsHNX = ['TNG', 'ACB',  'CEO',   'NDN', 'PVI', 'PVB',
-                  'PVS',  'VCG','VCS']
+                  'PVS',  'VCG','VCS','L14', 'SCI']
     
     symbolsVNI = [ 'STK','CII', 'APC', 'ANV',  "BWE",  'C32',  'LCG', 'CMG',
                    "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'D2D',
@@ -130,10 +130,10 @@ def getliststocks(typestock = "^VNINDEX"):
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  
                 'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB',
-                'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 'SZC', 'TIP', 'VPG']
+                'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 'SZC', 'TIP', 'VPG', 'VPD', 'DPG','SZL', 'LGL', 'HVH']
     
     symbolsUPCOM = ['QNS',  'ACV',   'VGI','GVR','CTR','VTP',
-                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC'] 
+                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'BCM'] 
    
 #    symbolsHNX = ['TNG', 'NVB',  'L14',  
 #                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
@@ -232,7 +232,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 2, typetrade = trade)
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 1, typetrade = trade)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -626,9 +626,9 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2019-8-6"
+    end_date = "2019-8-9"
     start_date = "2018-4-6"
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="ssi", trade = 'Long')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
     my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
 ###    
