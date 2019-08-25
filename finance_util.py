@@ -251,8 +251,20 @@ def fundemental_analysis(tickers):
     
 
 def get_info_stock(ticker):
-    url = 'http://www.cophieu68.vn/snapshot.php?id=' + ticker    
+    url = 'http://www.cophieu68.vn/snapshot.php?id=' + ticker   
+    
+    cookies = {'uid': 'sonngtrung@gmail.com', 'pass': '29011985',
+               '__cfduid': '6Lc7GnoUAAAAAHZYpAVQPW-Vr9Q-5c7BbeMni_H8'}
+#    try:
+#        page = requests.get(url, cookies=cookies, timeout=100).content
+#        soup = bs. BeautifulSoup(page, 'lxml')
+#        print(soup)
+#    except Exception as e:
+#            print(" Error ..... : ", e)             
+#            pass
+        
     resp = requests.get(url)
+    print(resp.text)
     soup = bs.BeautifulSoup(resp.text, 'lxml') 
     df = pd.DataFrame(columns = ['Ticker',
                              'Close',
@@ -279,6 +291,7 @@ def get_info_stock(ticker):
 
     value_number = []
     stockexchange = 'HSX'
+   
     for line in soup.find('div', {'class':'listHeader'}).stripped_strings:
         line = line.replace(',','').replace('%','').replace(':','').replace(ticker,'').replace(' ','')
         line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','').replace('(','').replace(')','')       
@@ -773,13 +786,13 @@ if __name__ == "__main__":
      
      symbols = pd.unique(symbols).tolist()
      
-#     df_temp = get_info_stock('BVH')
+     df_temp = get_info_stock('VNM')
 # 
 #     data = fundemental_analysis(symbols)
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
-     tickers = save_and_analyse_vnindex_tickers()
+#     tickers = save_and_analyse_vnindex_tickers()
     
      data = pd.read_csv('fundemental_stocks_all_0608.csv', parse_dates=True, index_col=0)
      data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
