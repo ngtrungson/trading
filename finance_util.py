@@ -253,8 +253,8 @@ def fundemental_analysis(tickers):
 def get_info_stock(ticker):
     url = 'http://www.cophieu68.vn/snapshot.php?id=' + ticker   
     
-    cookies = {'uid': 'sonngtrung@gmail.com', 'pass': '29011985',
-               '__cfduid': '6Lc7GnoUAAAAAHZYpAVQPW-Vr9Q-5c7BbeMni_H8'}
+#    cookies = {'uid': 'sonngtrung@gmail.com', 'pass': '29011985',
+#               '__cfduid': '6Lc7GnoUAAAAAHZYpAVQPW-Vr9Q-5c7BbeMni_H8'}
 #    try:
 #        page = requests.get(url, cookies=cookies, timeout=100).content
 #        soup = bs. BeautifulSoup(page, 'lxml')
