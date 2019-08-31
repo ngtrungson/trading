@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import urllib3
 import bs4 as bs
 import pickle
 import requests
@@ -253,19 +254,14 @@ def fundemental_analysis(tickers):
 def get_info_stock(ticker):
     url = 'http://www.cophieu68.vn/snapshot.php?id=' + ticker   
     
-#    cookies = {'uid': 'sonngtrung@gmail.com', 'pass': '29011985',
-#               '__cfduid': '6Lc7GnoUAAAAAHZYpAVQPW-Vr9Q-5c7BbeMni_H8'}
-#    try:
-#        page = requests.get(url, cookies=cookies, timeout=100).content
-#        soup = bs. BeautifulSoup(page, 'lxml')
-#        print(soup)
-#    except Exception as e:
-#            print(" Error ..... : ", e)             
-#            pass
+    http = urllib3.PoolManager()
+    r = http.request('GET', url)
+    soup = bs.BeautifulSoup(r.data, 'lxml')
         
-    resp = requests.get(url)
-    print(resp.text)
-    soup = bs.BeautifulSoup(resp.text, 'lxml') 
+#    resp = requests.get(url)
+#    print(resp.text)
+#    soup = bs.BeautifulSoup(resp.text, 'lxml') 
+    
     df = pd.DataFrame(columns = ['Ticker',
                              'Close',
                              'Close_1D',
