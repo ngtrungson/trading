@@ -111,29 +111,30 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['TNG', 'ACB',  'CEO',   'NDN', 'PVI', 'PVB',
-                  'PVS',  'VCG','VCS','L14', 'SCI']
+    symbolsHNX = ['ACB',  'CEO',   'NDN', 'PVI', 'PVB',
+                  'PVS',  'VCG','VCS','L14']
     
-    symbolsVNI = [ 'STK','CII', 'APC', 'ANV',  "BWE",  'C32',  'LCG', 'CMG',
+    symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",  'C32',  'LCG', 'CMG',
                    "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                 "HNG",  "HT1",   'DPR',
-                "HDG", "HCM", "HPG", "HBC", 'LHG', 'HDC',
-                "IJC",  "KBC", "KSB",  "KDH",
+                 "HNG",  "HT1",   'DPR', 'GEG',
+                "HDG", "HCM", "HPG", 'LHG', 'HDC',
+                "IJC",  "KBC",  "KDH",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
-                "PPC",  "REE",  
+                "PPC",  "REE",  "LDG", "DBD", "CVT",
                 "SAM","SJD","SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                  'PAN', 'TDH',  'GEX', 
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  
-                'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB',
-                'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 'SZC', 'TIP', 'VPG', 'VPD', 'DPG','SZL', 'LGL', 'HVH']
+                'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB', 
+                'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 
+                'TIP', 'VPG', 'VPD', 'DPG','SZL', 'LGL', 'SMB']
     
     symbolsUPCOM = ['QNS',  'ACV',   'VGI','GVR','CTR','VTP',
-                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'BCM'] 
+                    'VGT', 'VIB', 'POW',  'VEA', 'NTC', 'BCM'] 
    
 #    symbolsHNX = ['TNG', 'NVB',  'L14',  
 #                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
@@ -232,7 +233,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = trade)
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 7, typetrade = trade)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -583,7 +584,7 @@ if __name__ == "__main__":
     old_stdout = sys.stdout
     sys.stdout=open("logging.txt","w")
 #   
-#    
+##    
 #    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
@@ -626,7 +627,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2019-9-10"
+    end_date = "2019-11-18"
     start_date = "2018-4-6"
     analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
