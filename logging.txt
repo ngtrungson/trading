@@ -1,0 +1,69 @@
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: -3.3246523893144193
+            Iterations: 23
+            Function evaluations: 2482
+            Gradient evaluations: 23
+Start Date: 2018-4-6
+End Date: 2020-1-3
+Symbols: ['AAA', 'ANV', 'AST', 'BID', 'BMI', 'BMP', 'BVH', 'BWE', 'C32', 'CII', 'CMG', 'CRE', 'CSV', 'CTD', 'CTG', 'CTI', 'CVT', 'D2D', 'DBC', 'DBD', 'DGW', 'DHC', 'DHG', 'DPG', 'DPM', 'DPR', 'DRC', 'DXG', 'EIB', 'FCN', 'FMC', 'FPT', 'GAS', 'GEG', 'GEX', 'GMD', 'GTN', 'HAH', 'HCM', 'HDB', 'HDC', 'HDG', 'HNG', 'HPG', 'HPX', 'HT1', 'HVN', 'IJC', 'KBC', 'KDH', 'LCG', 'LDG', 'LGL', 'LHG', 'MBB', 'MSH', 'MSN', 'MWG', 'NAF', 'NLG', 'NT2', 'NTL', 'NVL', 'PAN', 'PC1', 'PDR', 'PHR', 'PLX', 'PNJ', 'PPC', 'PTB', 'PVD', 'PVT', 'REE', 'ROS', 'SAB', 'SAM', 'SBT', 'SJD', 'SJS', 'SMB', 'SSI', 'STB', 'STK', 'SZL', 'TCB', 'TCM', 'TDH', 'TDM', 'TIP', 'TNA', 'TPB', 'VCB', 'VGC', 'VHC', 'VHM', 'VIC', 'VJC', 'VND', 'VNM', 'VPB', 'VPD', 'VPG', 'VRE', 'VSC']
+Optimal allocations: [  1.38160203e-14   3.25426594e-15   3.91649228e-02   7.35177416e-15
+   1.45400029e-15   5.78334753e-15   4.66235867e-15   9.49815813e-15
+   3.43486816e-15   3.64216602e-15   1.63437323e-14   2.04178931e-14
+   7.78073544e-15   9.42425072e-15   2.06156354e-14   6.96606063e-15
+   1.41853438e-14   3.19951874e-02   2.32460056e-14   2.09817212e-14
+   1.61099529e-15   5.68547746e-04   7.91785763e-15   1.07284710e-15
+   5.80001193e-16   4.76754420e-02   9.07906816e-16   2.53951988e-14
+   2.31303777e-14   9.23579585e-15   5.01757033e-15   3.83066280e-15
+   1.09702282e-14   1.60630347e-01   7.65487860e-15   2.50159809e-15
+   1.85454876e-14   1.05189343e-14   2.32517905e-14   1.48914379e-14
+   3.22847364e-02   5.88611962e-15   2.15005303e-02   1.08675146e-14
+   1.17230488e-01   1.44347997e-14   1.66440203e-14   4.16577798e-02
+   6.29524746e-15   5.53360346e-16   7.15690380e-16   2.44427373e-14
+   1.21390436e-14   4.40501012e-15   1.02653949e-14   2.28500674e-14
+   1.16217337e-14   1.05128251e-14   1.24826550e-01   6.29512867e-15
+   2.01257849e-14   6.99561693e-02   2.99230773e-15   6.84702310e-15
+   8.52503037e-16   1.13472952e-15   3.14635112e-15   1.10800945e-14
+   6.25270412e-15   9.63115168e-04   5.05889301e-15   8.22896499e-15
+   3.81873041e-15   2.76040647e-15   2.07971560e-14   2.47180979e-14
+   1.69975471e-14   1.52999547e-14   1.80506266e-14   7.80403818e-15
+   9.99736629e-02   1.96051587e-14   1.17398608e-14   2.54085154e-14
+   1.23361790e-03   5.41455412e-15   1.84313374e-15   4.79233209e-15
+   1.09728322e-02   1.87247668e-14   5.58662140e-02   3.93958174e-15
+   2.55506449e-15   8.47868276e-15   1.43556199e-14   1.27701522e-14
+   1.22280392e-14   1.19867646e-15   1.95732618e-14   7.47291923e-15
+   2.20042366e-14   6.56657624e-02   7.78340947e-02   9.31628240e-15
+   1.94933226e-15]
+Sharpe Ratio: 3.32465238931
+Volatility (stdev of daily returns): 0.00703568605788
+Average Daily Return: 0.00147182854427
+Cumulative Return: 0.886740809016
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: -0.5277982547683354
+            Iterations: 6
+            Function evaluations: 66
+            Gradient evaluations: 6
+Start Date: 2018-4-6
+End Date: 2020-1-3
+Symbols: ['ACB', 'CEO', 'L14', 'NDN', 'PVB', 'PVI', 'PVS', 'VCG', 'VCS']
+Optimal allocations: [  0.00000000e+00   0.00000000e+00   1.02001740e-15   0.00000000e+00
+   1.00000000e+00   1.51586821e-16   6.22745822e-17   6.29175460e-17
+   7.94722134e-17]
+Sharpe Ratio: 0.527798254768
+Volatility (stdev of daily returns): 0.0269039105811
+Average Daily Return: 0.000893486274648
+Cumulative Return: 0.264767199444
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: -2.3432619599227107
+            Iterations: 8
+            Function evaluations: 117
+            Gradient evaluations: 8
+Start Date: 2018-4-6
+End Date: 2020-1-3
+Symbols: ['ACV', 'BCM', 'CTR', 'GVR', 'NTC', 'POW', 'QNS', 'VEA', 'VGI', 'VGT', 'VIB', 'VTP']
+Optimal allocations: [  1.02419258e-16   2.25462996e-16   8.24246474e-02   1.79768915e-16
+   3.21977570e-01   1.02463287e-16   5.52710106e-17   2.17060053e-01
+   1.33114677e-16   3.07459954e-16   3.31331791e-16   3.78537729e-01]
+Sharpe Ratio: 2.34326195992
+Volatility (stdev of daily returns): 0.013021446306
+Average Daily Return: 0.00191992644909
+Cumulative Return: 1.23697283094

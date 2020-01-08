@@ -131,7 +131,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'EIB','VPB','VRE','ROS',"VND", "HDB",  
                 'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB', 
                 'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 
-                'TIP', 'VPG', 'VPD', 'DPG','SZL', 'LGL', 'SMB']
+                'TIP', 'VPG', 'VPD', 'DPG','SZL', 'LGL', 'SMB','TNA']
     
     symbolsUPCOM = ['QNS',  'ACV',   'VGI','GVR','CTR','VTP',
                     'VGT', 'VIB', 'POW',  'VEA', 'NTC', 'BCM'] 
@@ -627,7 +627,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2019-31-12"
+    end_date = "2020-1-3"
     start_date = "2018-4-6"
 #    analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    

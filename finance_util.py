@@ -224,7 +224,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_1111.csv')
+    data.to_csv('fundemental_stocks_all_0501.csv')
     
     
     return tickers
@@ -789,9 +789,9 @@ if __name__ == "__main__":
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
-#     tickers = save_and_analyse_vnindex_tickers()
+     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_1111.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_0501.csv', parse_dates=True, index_col=0)
      data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
      data['EPS_Price'] = data['EPS']/data['Close']/1000
      
