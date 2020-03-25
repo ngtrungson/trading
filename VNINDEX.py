@@ -112,7 +112,7 @@ def getliststocks(typestock = "^VNINDEX"):
     
     
     symbolsHNX = ['ACB',  'CEO',   'NDN', 'PVI', 'PVB',
-                  'PVS',  'VCG','VCS','L14']
+                  'PVS',  'VCG','VCS','L14', 'NRC','TIG', 'TNG','PLC']
     
     symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",  'C32',  'LCG', 'CMG',
                    "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'D2D',
@@ -122,19 +122,20 @@ def getliststocks(typestock = "^VNINDEX"):
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
                 "IJC",  "KBC",  "KDH",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
-                "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
+                "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE",  "LDG", "DBD", "CVT",
                 "SAM","SJD","SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                  'PAN', 'TDH',  'GEX', 
                 'TCM',  'AAA',  'HVN', 'VGC',
-                'EIB','VPB','VRE','ROS',"VND", "HDB",  
+                'EIB','VPB','VRE', "VND", "HDB",  
                 'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB', 
-                'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 
-                'TIP', 'VPG', 'VPD', 'DPG','SZL', 'LGL', 'SMB','TNA']
+                'HPX', 'CRE','NAF', 'DHC', 'TDM', 
+                 'VPG', 'VPD', 'SZL',  'SMB','TNA','GVR', 
+                'IMP','PET','VCI','FRT']
     
-    symbolsUPCOM = ['QNS',  'ACV',   'VGI','GVR','CTR','VTP',
-                    'VGT', 'VIB', 'POW',  'VEA', 'NTC', 'BCM'] 
+    symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
+                    'VGT', 'VIB', 'POW',  'VEA', 'NTC'] 
    
 #    symbolsHNX = ['TNG', 'NVB',  'L14',  
 #                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
@@ -233,7 +234,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 15, typetrade = trade)
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = trade)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -627,7 +628,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-3-16"
+    end_date = "2020-3-25"
     start_date = "2018-4-6"
     analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Bottom')
 ####    
