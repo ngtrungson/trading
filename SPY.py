@@ -268,17 +268,17 @@ if __name__ == "__main__":
 #                          investment = 200, 
 #                          margin = 50)
 #
-    end_date = "2018-10-17"
-    start_date = "2015-1-1"
+    end_date = "2020-4-3"
+    start_date = "2009-4-3"
     
     symbols = getliststocks(typestock = "RTS_IND")
 
-#    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
-#    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
+    get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
+    stock_res, stock_data = analysis_stocks_RTS(start_date = start_date, end_date = end_date)
 #    analysis_stock(symbols, stock_data, start_date, end_date)
 
 #    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^IXIC")
-    analysis_trading(symbols, start = start_date , end = end_date, update = True, source = "yahoo")
+    analysis_trading(symbols, start = start_date , end = end_date, update = False, source = "yahoo")
 #    ticker = 'NVDA'    
 #    shortselling = short_selling(ticker, start_date, end_date, realtime = False, source ="yahoo")    
 #    plot_hedgefund_trading(ticker, hedgefund)

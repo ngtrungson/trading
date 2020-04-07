@@ -1,23 +1,22 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon May 28 08:21:12 2018
-
-@author: sonng
-"""
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+import urllib3
+import bs4 as bs
+import pickle
 import requests
+import webbrowser
+import datetime as dt
+import scipy.optimize as spo
+from statsmodels import regression
+import statsmodels.api as sm
 
-#This URL will be the URL that your login form points to with the "action" tag.
-POST_LOGIN_URL = 'http://www.cophieu68.vn/account/login.php'
+from pandas_datareader import data as pdr
 
-#This URL is the page you actually want to pull down with requests.
-REQUEST_URL = 'http://www.cophieu68.vn/export/excelfull.php?id=ACB'
-
-payload = {
-    'username': 'sonngtrung@gmail.com',
-    'pass': '29011985'
-}
-
-with requests.Session() as session:
-    post = session.post(POST_LOGIN_URL, data=payload)
-    r = session.get(REQUEST_URL)
-    print(r.text)   #or whatever else you want to do with the request data!
+import yfinance as yf
+if __name__ == "__main__":
+    start = '2017-11-01'
+    end = '2019-11-01'
+    ticker = 'AAPL'
+    df = pdr.get_data_yahoo(ticker, start=start, end=end)  

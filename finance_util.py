@@ -18,10 +18,10 @@ import scipy.optimize as spo
 from statsmodels import regression
 import statsmodels.api as sm
 
-from alpha_vantage.timeseries import TimeSeries
+# from alpha_vantage.timeseries import TimeSeries
 from pandas_datareader import data as pdr
 
-import fix_yahoo_finance as yf
+import yfinance as yf
 
 
 def get_symbols_rts():

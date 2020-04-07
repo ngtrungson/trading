@@ -10,7 +10,7 @@ import pandas as pd
 import talib
 import datetime
 from collections import Counter
-import fix_yahoo_finance as yf
+import yfinance as yf
 
 from pandas_datareader import data as pdr
 from alpha_vantage.timeseries import TimeSeries
@@ -55,7 +55,8 @@ def get_statistic_index(days, start, end, update = False, source = "cp68", excha
             print('  PCT_Change last 3 days: ', round(100*df['PCT_Change'].iloc[-days-2],2),round(100*df['PCT_Change'].iloc[-days-1],2), round(100*df['PCT_Change'].iloc[-days],2))
             print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-days]/df['VolMA30'].iloc[-days],2))
             print('  RSI indicator: ', df['RSI'].iloc[-days])
-            print('  Rate of change last 3 days: ', df['ROC'].iloc[-days])    
+            print('  Rate of change last 3 days: ', df['ROC'].iloc[-days]) 
+            
             if ((df['Close'].iloc[-days] > df['EMA18'].iloc[-days] > df['EMA50'].iloc[-days])):
                 print('  Market UPTREND!')
             else:
@@ -672,6 +673,7 @@ def print_statistic(df, i):
                                                        round(df['Close'].iloc[-i]/df['Max12M'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/max_all,2),)
     
+    print('  Hurst exponent in this period ', hurst_f(df['Close']))
     T5 = round((df['Close'].shift(-5).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T6 = round((df['Close'].shift(-6).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T7 = round((df['Close'].shift(-7).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
@@ -1122,6 +1124,18 @@ def bollinger_bands(ticker, start, end, realtime = False, source = "cp68",):
         run_backtest(df, ticker,  typetrade = 'Long')
 #    
     return df
+
+def hurst_f(input_ts, lags_to_test = 20):
+    tau = []
+    lagvec = []
+    for lag in range(2, lags_to_test):
+        pp = np.subtract(input_ts[lag:],input_ts[:-lag])
+        lagvec.append(lag)
+        tau.append(np.sqrt(np.std(pp)))
+    m = np.polyfit(np.log10(lagvec), np.log10(tau),1)
+    hurst = m[0]*2
+    return hurst
+
 
 def compute_MACD(df, n_fast, n_slow, nema = 9):  
     EMAfast = pd.Series(pd.Series.ewm(df['Close'], span = n_fast, min_periods = n_fast - 1).mean())  

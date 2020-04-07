@@ -2,3 +2,4 @@
 [0422/065804.984:ERROR:file_io_win.cc(243)] SetEndOfFile: L’opération demandée n’a pu s’accomplir sur un fichier ayant une section mappée utilisateur ouverte. (0x4C8)
 [0509/233559.350:ERROR:file_io_win.cc(243)] SetEndOfFile: L’opération demandée n’a pu s’accomplir sur un fichier ayant une section mappée utilisateur ouverte. (0x4C8)
 [0528/183122.736:ERROR:file_io_win.cc(243)] SetEndOfFile: L’opération demandée n’a pu s’accomplir sur un fichier ayant une section mappée utilisateur ouverte. (0x4C8)
+[0404/092734.885:ERROR:persistent_memory_allocator.cc(843)] Corruption detected in shared-memory segment.
