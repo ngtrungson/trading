@@ -18,7 +18,7 @@ import scipy.optimize as spo
 from statsmodels import regression
 import statsmodels.api as sm
 
-# from alpha_vantage.timeseries import TimeSeries
+from alpha_vantage.timeseries import TimeSeries
 from pandas_datareader import data as pdr
 
 import yfinance as yf

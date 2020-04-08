@@ -673,7 +673,7 @@ def print_statistic(df, i):
                                                        round(df['Close'].iloc[-i]/df['Max12M'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/max_all,2),)
     
-    print('  Hurst exponent in this period ', hurst_f(df['Close']))
+#    print('  Hurst exponent in this period ', hurst_f(df['Close']))
     T5 = round((df['Close'].shift(-5).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T6 = round((df['Close'].shift(-6).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T7 = round((df['Close'].shift(-7).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
