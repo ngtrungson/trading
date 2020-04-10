@@ -627,7 +627,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-4-9"
+    end_date = "2020-4-10"
     start_date = "2018-4-6"
 #    analysis_trading(tickers = None, start = start_date , end = end_date, update = True,  source ="cp68", trade = 'Bottom')
 ####    

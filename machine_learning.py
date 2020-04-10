@@ -8,6 +8,7 @@ Created on Sun Feb 11 08:55:26 2018
 import numpy as np
 import pandas as pd
 import talib
+import os
 from finance_util import symbol_to_path
 from sklearn import svm, neighbors
 from sklearn.model_selection import train_test_split
@@ -24,6 +25,62 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC
 import matplotlib.dates as mdates
+import altair as alt
+
+
+import logging
+import coloredlogs
+
+from trading_bot.agent import Agent
+from trading_bot.utils import show_eval_result, switch_k_backend_device, show_train_result
+from trading_bot.methods import train_model, evaluate_model
+
+
+
+def visualize(df, history, title="trading session"):
+    # add history to dataframe
+    position = [history[0][0]] + [x[0] for x in history]
+    actions = ['HOLD'] + [x[1] for x in history]
+    df.loc[:,'position'] = position
+    df.loc[:,'action'] = actions
+    
+    # specify y-axis scale for stock prices
+    scale = alt.Scale(domain=(min(min(df['Close']), min(df['position'])) - 50, max(max(df['Close']), max(df['position'])) + 50), clamp=True)
+    
+    # plot a line chart for stock positions
+    actual = alt.Chart(df).mark_line(color='green', opacity=0.5 ).encode( x='date:T',
+        y=alt.Y('position', axis=alt.Axis(format='.2f', title='Price'), scale=scale)).interactive(bind_y=False)
+    
+    # plot the BUY and SELL actions as points
+    points = alt.Chart(df).transform_filter(
+        alt.datum.action != 'HOLD').mark_point(filled=True).encode(
+        x=alt.X('date:T', axis=alt.Axis(title='Date')),
+        y=alt.Y('position', axis=alt.Axis(format='.2f', title='Price'), scale=scale),
+        color='action').interactive(bind_y=False)
+
+    # merge the two charts
+    chart = alt.layer(actual, points, title=title).properties(height=300, width=1000)
+    
+    return chart
+
+#def plot_result(df, history, title="trading session"):
+#    # add history to dataframe
+#    position = [history[0][0]] + [x[0] for x in history]
+#    actions = ['HOLD'] + [x[1] for x in history]
+#    df.loc[:,'position'] = position
+#    df.loc[:,'action'] = actions
+#    
+#        
+#    plt.figure(figsize=(10, 10))
+#    plt.plot(df['date'], df['Close'])
+#    plt.scatter(df['date'].loc[df['action']=='BUY'], df['Close'].loc[df['action']=='BUY'], c='g', marker="^", s=50)
+#    plt.scatter(df['date'].loc[df['action']=='BUY'], df['Close'].loc[df['action']=='SELL'], c='r', marker="v", s=50)
+#    plt.title(title)
+#    plt.legend(['close', 'buy', 'sell'], loc='upper left')
+#    plt.show()
+#    
+   
+
 
 ###################################### Machine learning ###################################
 def process_data_for_labels(df, ticker):
@@ -135,6 +192,82 @@ def compute_indicator_stoch(df):
     df['k'], df['d'] = talib.STOCH(df['High'].values, df['Low'].values, df['Close'].values, 
       fastk_period=14, slowk_period=1, slowd_period=5)
     return df['d']
+
+def auto_trading(ticker, start, end, validation_size = 180):
+    file_path = symbol_to_path(ticker)
+    
+    df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
+                 usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
+    df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
+                              '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
+  
+    # columns order for backtrader type
+    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest"]
+    # change the index by new index
+    df = df.reindex(columns = columnsOrder)  
+    # change date index to increasing order
+    df = df.sort_index()   
+    # take a part of dataframe
+    df = df.loc[start:end]
+    
+    df_train = df[:-validation_size]
+    df_val = df[-validation_size:]
+    
+    strategy = "t-dqn"
+    window_size = 20
+    ep_count = 50
+    batch_size = 32
+    debug = False
+    model_name = ticker
+#    trainedmodel = os.path.join('models', ticker + '_'+ str(ep_count))
+    trainedmodel = "models/{}_{}".format(ticker, ep_count)
+#    print(trainedmodel)
+    pretrained = os.path.exists(trainedmodel)
+#    print(pretrained)
+    train_data =  list(df_train['Close'])
+    
+    val_data =  list(df_val['Close'])
+    
+    initial_offset = val_data[1] - val_data[0]
+    
+    
+    coloredlogs.install(level="DEBUG")
+    switch_k_backend_device()
+    
+    if  pretrained == False:
+        print(" No training data ! ")
+        try:
+            agent = Agent(window_size, strategy=strategy, pretrained=False, model_name=model_name)            
+            for episode in range(1, ep_count + 1):
+                train_result = train_model(agent, episode, train_data, ep_count=ep_count,
+                                           batch_size=batch_size, window_size=window_size)
+                val_result, _ = evaluate_model(agent, val_data, window_size, debug)
+                show_train_result(train_result, val_result, initial_offset)
+        except KeyboardInterrupt:
+            print("Aborted!")  
+    else: 
+        model_name = model_name + '_'+ str(ep_count)
+        agent = Agent(window_size, pretrained=True, model_name=model_name)
+
+
+    
+    test_result, history = evaluate_model(agent, val_data, window_size, debug)
+    show_eval_result(model_name, test_result, initial_offset)
+    
+    
+#    df = df[['Date', 'Close']]
+    # rename feature column names
+#    df_val = df_val.rename(columns={'Close': 'actual'})    
+#    df_val['actual'] = df_val['Close']  
+    df_val.loc[:,'date'] = df_val.index.values
+    
+#    plot_result(df_val, history, title= ticker)
+    
+    chart = visualize(df_val, history, title= ticker)
+    chart.save('results/{}_robot.html'.format(ticker))
+    
+    return  df_val, history, test_result
+
 
 def price_predictions(ticker, start, end, forecast_out):
     file_path = symbol_to_path(ticker)
@@ -400,3 +533,15 @@ def ML_strategy(ticker, start, end):
     plt.suptitle(ticker.upper())
     plt.legend(loc='best')
     plt.show()
+    
+if __name__ == "__main__":
+    ticker = 'PNJ' 
+    start ="2010-3-18"
+    end = "2020-4-8"
+    df_test, history, result = auto_trading(ticker, start, end)
+    
+    
+    
+    
+    
+    
