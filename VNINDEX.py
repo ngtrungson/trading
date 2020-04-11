@@ -4,7 +4,7 @@ Created on Fri Dec  8 14:35:57 2017
 
 @author: sonng
 """
-import pandas as pd
+
 import numpy as np
 import datetime
 from collections import Counter
@@ -13,7 +13,7 @@ from finance_util import get_data, fill_missing_values, optimize_portfolio, comp
 from strategy import process_data, ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, get_statistic_index
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
-
+import pandas as pd
 
 def my_portfolio(start = "2018-7-10" , end = "2018-10-16"):
     dates = pd.date_range(start, end)

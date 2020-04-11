@@ -1,18 +1,37 @@
-import os
-import logging
 
+import logging
+import math
 import numpy as np
 
 from tqdm import tqdm
 
-from .utils import (
-    format_currency,
-    format_position
-)
-from .ops import (
-    get_state
-)
+# Formats Position
+format_position = lambda price: ('-$' if price < 0 else '+$') + '{0:.2f}'.format(abs(price))
 
+# Formats Currency
+format_currency = lambda price: '${0:.2f}'.format(abs(price))
+
+
+def sigmoid(x):
+    """Performs sigmoid operation
+    """
+    try:
+        if x < 0:
+            return 1 - 1 / (1 + math.exp(x))
+        return 1 / (1 + math.exp(-x))
+    except Exception as err:
+        print("Error in sigmoid: " + err)
+
+
+def get_state(data, t, n_days):
+    """Returns an n-day state representation ending at time t
+    """
+    d = t - n_days + 1
+    block = data[d: t + 1] if d >= 0 else -d * [data[0]] + data[0: t + 1]  # pad with t0
+    res = []
+    for i in range(n_days - 1):
+        res.append(sigmoid(block[i + 1] - block[i]))
+    return np.array([res])
 
 def train_model(agent, episode, data, ep_count=100, batch_size=32, window_size=10):
     total_profit = 0
