@@ -35,7 +35,11 @@ from trading_bot.agent import Agent
 from trading_bot.utils import show_eval_result, switch_k_backend_device, show_train_result
 from trading_bot.methods import train_model, evaluate_model
 
+import sys
+import warnings
 
+if not sys.warnoptions:
+    warnings.simplefilter("ignore")
 
 def visualize(df, history, title="trading session"):
     # add history to dataframe
@@ -63,22 +67,44 @@ def visualize(df, history, title="trading session"):
     
     return chart
 
-#def plot_result(df, history, title="trading session"):
-#    # add history to dataframe
-#    position = [history[0][0]] + [x[0] for x in history]
-#    actions = ['HOLD'] + [x[1] for x in history]
-#    df.loc[:,'position'] = position
-#    df.loc[:,'action'] = actions
-#    
-#        
-#    plt.figure(figsize=(10, 10))
-#    plt.plot(df['date'], df['Close'])
-#    plt.scatter(df['date'].loc[df['action']=='BUY'], df['Close'].loc[df['action']=='BUY'], c='g', marker="^", s=50)
-#    plt.scatter(df['date'].loc[df['action']=='BUY'], df['Close'].loc[df['action']=='SELL'], c='r', marker="v", s=50)
-#    plt.title(title)
-#    plt.legend(['close', 'buy', 'sell'], loc='upper left')
-#    plt.show()
-#    
+def plot_result(df, history, title="trading session"):
+    # add history to dataframe
+    position = [history[0][0]] + [x[0] for x in history]
+    actions = ['HOLD'] + [x[1] for x in history]
+    df.loc[:,'position'] = position
+    df.loc[:,'action'] = actions
+    
+    df['date'] = df['date'].map(mdates.date2num)
+    
+#    df['date'] = df['date'].map(mdates.date2num)
+    buy = df[df['action']=='BUY']
+    sell = df[df['action']=='SELL']    
+#    plt.figure(figsize=(8, 8))
+#    ax = plt.gca()
+#    formatter = mdates.DateFormatter("%Y-%m")
+#    ax.xaxis.set_major_formatter(formatter)
+#    locator = mdates.DayLocator()
+#    ax.xaxis.set_major_locator(locator)
+    
+    
+    plt.plot(df['date'], df['Close'].values)
+    plt.plot(buy['date'], buy['Close'].values, "go")
+    plt.plot(sell['date'], sell['Close'].values, "ro")
+    
+#    df['Close'].plot(label="close")
+#    buy['Close'].plot(kind = 'line', marker='o', markersize=8, markerfacecolor='g', label="buy")
+#    sell['Close'].plot(kind = 'line', marker='o', markersize=8, markerfacecolor='r', label="sell")
+
+
+    ax = plt.gca()    
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    plt.legend(['close', 'buy', 'sell'], loc='upper left')
+    plt.xlabel("Date")
+    plt.ylabel("1K VND price")
+    plt.title(title)
+    plt.grid(True)
+    plt.show()
+    
    
 
 
@@ -231,8 +257,8 @@ def auto_trading(ticker, start, end, validation_size = 180):
     initial_offset = val_data[1] - val_data[0]
     
     
-    coloredlogs.install(level="DEBUG")
-    switch_k_backend_device()
+#    coloredlogs.install(level="DEBUG")
+#    switch_k_backend_device()
     
     if  pretrained == False:
         print(" No training data ! ")
@@ -261,10 +287,10 @@ def auto_trading(ticker, start, end, validation_size = 180):
 #    df_val['actual'] = df_val['Close']  
     df_val.loc[:,'date'] = df_val.index.values
     
-#    plot_result(df_val, history, title= ticker)
+    plot_result(df_val, history, title= "Auto trading " + ticker)
     
-    chart = visualize(df_val, history, title= ticker)
-    chart.save('results/{}_robot.html'.format(ticker))
+#    chart = visualize(df_val, history, title= ticker)
+#    chart.save('results/{}_robot.html'.format(ticker))
     
     return  df_val, history, test_result
 

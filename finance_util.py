@@ -815,7 +815,7 @@ if __name__ == "__main__":
      listB = df.index.tolist()
      common = list(set(listA) & set(listB))
      listC = list(set(listB).difference(set(listA)))
-     df2 = data.loc[symbols]
+#     df2 = data.loc[symbols]
 ##     
 #     end_date = "2018-5-29"
 #     start_date = "2017-1-2"
