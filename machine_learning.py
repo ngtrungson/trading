@@ -429,7 +429,14 @@ if __name__ == "__main__":
     ticker = 'PNJ' 
     start ="2010-3-18"
     end = "2020-4-10"
-    df_test, history, result = auto_trading(ticker, start, end)
+    investing = ['SHB', 'MWG','FPT', 'PNJ']
+    
+    for ticker in investing:
+        print('Prediction of ticker .................' , ticker)
+        price_predictions(ticker, start, end, forecast_out = 5)
+        print(' End of prediction ticker ...................', ticker)
+    
+     
     
     
     
