@@ -585,7 +585,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    # symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -627,9 +627,9 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-4-14"
+    end_date = "2020-4-15"
     start_date = "2018-4-6"
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True,  source ="cp68", trade = 'Bottom')
+#    analysis_trading(tickers = None, start = start_date , end = end_date, update = True,  source ="cp68", trade = 'Long')
 ####    
     my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
 ###    

@@ -21,7 +21,7 @@ import datetime as dt
 import numpy as np
 
 from finance_util import get_info_stock
-# from keras.utils.vis_utils import plot_model
+from keras.utils.vis_utils import plot_model
 from numpy import savetxt
 
 if not sys.warnoptions:
@@ -345,7 +345,7 @@ if __name__ == "__main__":
     
     strategy = "t-dqn"
     window_size = 20
-    ep_count = 50
+    ep_count = 80
     batch_size = 32
     debug = True
     model_name = ticker + strategy
@@ -387,7 +387,7 @@ if __name__ == "__main__":
         agent = Agent(window_size, pretrained=True, model_name=model_name)
 
     agent.model.summary()
-    # plot_model(agent.model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
+    plot_model(agent.model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
     test_result, history = evaluate_model(agent, val_data, window_size, debug)
     show_eval_result(model_name, test_result, initial_offset)
     
