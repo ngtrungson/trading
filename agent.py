@@ -68,8 +68,8 @@ class Agent:
         """Creates the model
         """
         model = Sequential()
-        model.add(Dense(units=64, activation="relu", input_dim=self.state_size))
-        model.add(Dense(units=32, activation="relu"))
+        model.add(Dense(units=32, activation="relu", input_dim=self.state_size))
+        model.add(Dense(units=64, activation="relu"))
         model.add(Dense(units=16, activation="relu"))
         # model.add(Dense(units=8, activation="relu"))
         model.add(Dense(units=self.action_size))

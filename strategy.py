@@ -274,6 +274,62 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     return df
 
 
+def momentum_strategy(ticker, start, end, realtime = False, source = "cp68", market = None):
+    
+    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
+    
+    
+    df['SMA15'] = df['Close'].rolling(window=15).mean()
+    df['SMA30'] = df['Close'].rolling(window=30).mean()
+    
+    
+    df['SMA50'] = df['Close'].rolling(window=50).mean()
+    df['SMA150'] = df['Close'].rolling(window=150).mean()
+    df['SMA200'] = df['Close'].rolling(window=200).mean()
+    
+    
+    df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
+    
+    
+    df['MID'] = (df['High'] + df['Low']) /2
+  
+    
+    
+    df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
+                  (df['Close'] > (df['High'] + df['Low'])/2)  &\
+                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
+                 ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
+                 (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
+                 (df['Close'] >= df['SMA200']) & (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])) &\
+                 (df['PCT_HL'] <= 15))
+    
+    # df['Long4D'] = ((df['Close'] > df['High'].shift(1)) & (df['High'].shift(1) > df['High'].shift(2)) & (df['High'].shift(2) > df['High'].shift(3)))
+    
+    df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+        
+   
+    df['Bottom'] = ((df['Close'] > df['Open']) & (df['Close']*df['Volume'] > 1E7) & 
+#                  ((df['RSI'] < 31) | ((df['RSI'].shift(1) < df['RSI']) & df['RSI'].shift(1) < 31)) & 
+                  ((df['RSI'] < 31) | (df['RSI'].shift(1) < 31)) & (df['RSI'].shift(1) < df['RSI']) &
+                  ((df['ROC4'].shift(1) <-10)| (df['ROC'].shift(1) <-10)))
+    
+#    ban = (C < Ref(L,-1)AND C < Ref(L,-2)AND C < Ref(L,-3)AND C < Ref(L,-4))
+#OR HHV(C,10) >1.15*C
+#    df['Short'] = ((df['Close']< df['Low'].shift(1)) & (df['Close']< df['Low'].shift(2)) & (df['Close']< df['Low'].shift(3)) & (df['Close']< df['Low'].shift(4)))  | \
+#                 (df['Max10D'] > 1.15* df['Close'])
+                 
+    df['Short'] =  (((df['Close'] < df['Low']).shift(1)) & ((df['Close'] < df['Low']).shift(2)) &\
+                    ((df['Close'] < df['Low']).shift(2)) & ((df['Close'] < df['Low']).shift(3))) |\
+                    (df['Max10D'] > 1.15* df['Close'])
+                    
+                    
+    df['Buy'] = 1* (df['Long'] + df['Bottom'])
+    df['Sell'] = -1*(df['Short'])
+        
+   
+    return df
+
+
 def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", market = None, ndays = 2):
     
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)

@@ -23,6 +23,7 @@ import numpy as np
 from finance_util import get_info_stock
 from keras.utils.vis_utils import plot_model
 from numpy import savetxt
+from numpy import loadtxt
 
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
@@ -81,13 +82,16 @@ def symbol_to_path(symbol, filetype="cp68"):
 
 
 def plot_result(df, history, title="trading session"):
+    
+    df = df.reset_index()
     # add history to dataframe
     position = [history[0][0]] + [x[0] for x in history]
     actions = ['HOLD'] + [x[1] for x in history]
     df.loc[:,'position'] = position
     df.loc[:,'action'] = actions
     
-    df['date'] = df['date'].map(mdates.date2num)
+    df.loc[:,'day'] = df['Date'].values
+    # df['day'] = df['day'].map(mdates.date2num)
     
 #    df['date'] = df['date'].map(mdates.date2num)
     buy = df[df['action']=='BUY']
@@ -101,9 +105,9 @@ def plot_result(df, history, title="trading session"):
     
     
     
-    plt.plot(buy['date'], buy['Close'].values, "go")
-    plt.plot(sell['date'], sell['Close'].values, "ro")
-    plt.plot(df['date'], df['Close'].values)
+    plt.plot(buy['day'], buy['Close'].values, "go")
+    plt.plot(sell['day'], sell['Close'].values, "ro")
+    plt.plot(df['day'], df['Close'].values)
     
 #    df['Close'].plot(label="close")
 #    buy['Close'].plot(kind = 'line', marker='o', markersize=8, markerfacecolor='g', label="buy")
@@ -226,7 +230,7 @@ def auto_trading(ticker, start, end, validation_size = 10, update = True):
     
     strategy = "t-dqn"
     window_size = 20
-    ep_count = 5
+    ep_count = 50
     batch_size = 32
     debug = True
     model_name = ticker + strategy
@@ -263,31 +267,30 @@ def auto_trading(ticker, start, end, validation_size = 10, update = True):
                 total_losses.append(train_result[3])
                 
             # plot_loss_reward(total_rewards, total_losses)
-                
+            savetxt("models/{}_{}_total_rewards.csv".format(model_name, ep_count), total_rewards, delimiter=',')
+            savetxt("models/{}_{}_total_losses.csv".format(model_name, ep_count), total_losses, delimiter=',')    
         except KeyboardInterrupt:
             print("Aborted!")  
     else: 
-        model_name = model_name +'_'+ str(ep_count)
+        model_name = model_name +'_'+ str(ep_count)        
         agent = Agent(window_size, pretrained=True, model_name=model_name)
+        try:
+            total_rewards = loadtxt("models/{}_total_rewards.csv".format(model_name), delimiter=',')
+            total_losses = loadtxt("models/{}_total_losses.csv".format(model_name), delimiter=',')
+            plot_loss_reward(total_rewards, total_losses)
+        except OSError:
+            print(" File not found total_rewards, total_losses! ")  
 
-
+    agent.model.summary()
     test_result, history = evaluate_model(agent, val_data, window_size, debug)
     show_eval_result(model_name, test_result, initial_offset)
     
     
-#    df = df[['Date', 'Close']]
-    # rename feature column names
-#    df_val = df_val.rename(columns={'Close': 'actual'})    
-#    df_val['actual'] = df_val['Close']  
-    df_val.loc[:,'date'] = df_val.index.values
-    
-    plot_result(df_val, history, title= "Auto trading " + model_name)
+    # df_val.loc[:,'date'] = df_val.index.values
     
     
     
-#    chart = visualize(df_val, history, title= ticker)
-#    chart.save('results/{}_robot.html'.format(ticker))
-    
+        
     return  agent, history, df_val, test_result, total_rewards, total_losses
 
 
@@ -295,9 +298,9 @@ def auto_trading(ticker, start, end, validation_size = 10, update = True):
 if __name__ == "__main__":    
    
     
-    ticker = 'vnm' 
+    ticker = 'hdg' 
     start ="2006-1-19"
-    end = "2020-4-10"
+    end = "2020-4-17"
     update = False
     validation_size = 10
     
@@ -345,7 +348,7 @@ if __name__ == "__main__":
     
     strategy = "t-dqn"
     window_size = 20
-    ep_count = 80
+    ep_count = 40
     batch_size = 32
     debug = True
     model_name = ticker + strategy
@@ -391,14 +394,23 @@ if __name__ == "__main__":
     test_result, history = evaluate_model(agent, val_data, window_size, debug)
     show_eval_result(model_name, test_result, initial_offset)
     
-    df_val.loc[:,'date'] = df_val.index.values
+    # df_val.loc[:,'day'] = df_val.index.values
     
     plot_result(df_val, history, title= "Auto trading " + model_name)
+    print('Number episode ', ep_count, 'Deep Q network strategy', strategy, 'Window size', window_size, 'Batch size', batch_size)
+    
     if  pretrained == False:
         plot_loss_reward(total_rewards, total_losses)
         savetxt("models/{}_{}_total_rewards.csv".format(model_name, ep_count), total_rewards, delimiter=',')
         savetxt("models/{}_{}_total_losses.csv".format(model_name, ep_count), total_losses, delimiter=',')
-    print(' Final profits: ', test_result)
+    else:
+        try:
+            total_rewards = loadtxt("models/{}_total_rewards.csv".format(model_name), delimiter=',')
+            total_losses = loadtxt("models/{}_total_losses.csv".format(model_name), delimiter=',')
+            plot_loss_reward(total_rewards, total_losses)
+        except OSError:
+            print(" File not found total_rewards, total_losses! ")
+    print('Final profits: ', test_result)
     
     # sys.stdout = old_stdout
     

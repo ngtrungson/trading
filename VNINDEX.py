@@ -10,10 +10,13 @@ import datetime
 from collections import Counter
 from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta,get_info_stock
-from strategy import process_data, ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, get_statistic_index
+from strategy import process_data, momentum_strategy, ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, get_statistic_index
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 from machine_learning import price_predictions, ML_strategy
 import pandas as pd
+import matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+from trade_bot import auto_trading, plot_result
 
 def my_portfolio(start = "2018-7-10" , end = "2018-10-16"):
     dates = pd.date_range(start, end)
@@ -111,7 +114,7 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['ACB','CEO','NDN','PVI','PVS','VCG','VCS','L14','NRC','TIG','TNG','PLC']
+    symbolsHNX = ['ACB','CEO','NDN','PVI','PVS','VCG','VCS','L14','NRC','TIG','TNG','PLC','SHB','SHS']
     
     symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",  'C32',   'CMG',
                    "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'D2D',
@@ -131,7 +134,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB', 
                 'HPX', 'CRE','NAF', 'DHC', 'TDM', 
                  'VPG', 'VPD', 'SZL',  'SMB','TNA','GVR', 
-                'IMP','PET','VCI']
+                'IMP','PET','VCI', 'MSN']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
                     'VGT', 'VIB', 'POW',  'VEA', 'NTC'] 
@@ -233,7 +236,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 7, typetrade = trade)
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 15, typetrade = trade)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -242,6 +245,29 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
             print (e)
             print("Error in reading symbol: ", ticker)
             pass
+
+def canslim_strategy(ticker, start, end, update = False, source = "cp68"):               
+    df = momentum_strategy(ticker, start, end, realtime = update, source = source)#
+    df = df.reset_index()
+    buy = df[df['Buy'] == 1]
+    sell = df[df['Sell'] == -1]
+    df['Date'] = df['Date'].map(mdates.date2num)
+    plt.plot(sell['Date'], sell['Close'].values, "ro")
+    plt.plot(buy['Date'], buy['Close'].values, "go")
+    plt.plot(df['Date'], df['Close'].values)
+    ax = plt.gca()    
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    plt.legend(['sell', 'buy', 'close'], loc='upper right')
+    plt.xlabel("Date")
+    plt.ylabel("1K VND price")
+    plt.title("Canslim trading for {} ".format(ticker))
+    plt.grid(True)
+    plt.show()   
+
+    return df         
+    
+   
+    
     
 def analysis_market(tickers, start, end, update = False, market = "^VNINDEX", source = "cp68"):
     
@@ -585,7 +611,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-#    symbols = get_csv_data(source = "ssi")
+    # symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -627,11 +653,15 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-4-15"
+    end_date = "2020-4-17"
     start_date = "2018-4-6"
-#    analysis_trading(tickers = None, start = start_date , end = end_date, update = True,  source ="cp68", trade = 'Long')
+    canslim_strategy(ticker = 'HDG', start = start_date , end = end_date, update = False,  source ="cp68")
+    # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
+    # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
+    # print('Final profits: ', test_result)
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
 ####    
-    my_stock = ['DXG', 'GEX', 'HVN','MBS','PC1','HDG', 'VIX', 'VRC']
+    
 ###    
 #    my_stock = ['HDC', 'PHR', 'VRE','PVS','PVB','PPC','NTL']
     # analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = True,  source ="cp68", trade = 'Short')
@@ -643,7 +673,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
