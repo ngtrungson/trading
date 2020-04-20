@@ -92,9 +92,10 @@ class Agent:
         if self.first_iter:
             self.first_iter = False
             return 1 # make a definite buy on the first iter
-
+       
         action_probs = self.model.predict(state)
-        return np.argmax(action_probs[0])
+        
+        return np.argmax(action_probs, axis = 1)
 
     def train_experience_replay(self, batch_size):
         """Train on previous experiences in memory
@@ -139,6 +140,17 @@ class Agent:
 
                 X_train.append(state[0])
                 y_train.append(q_values[0])
+                
+                
+                # next_q_values = self.online_network.predict_on_batch(next_states)
+                # best_actions = np.argmax(next_q_values, axis=1)
+                # next_q_values_target = self.target_network.predict_on_batch(next_states)
+                # target_q_values = next_q_values_target[[self.idx, best_actions]]
+                # targets = rewards + not_done * self.gamma * target_q_values
+                # q_values = self.online_network.predict_on_batch(states)
+                # q_values[[self.idx, actions]] = targets
+                # loss = self.online_network.train_on_batch(x=states, y=q_values)
+                # self.losses.append(loss)
 
         # Double DQN
         elif self.strategy == "double-dqn":

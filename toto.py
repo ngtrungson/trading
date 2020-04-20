@@ -27,3 +27,11 @@ if __name__ == "__main__":
     data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     # save to csv file
     savetxt('data.csv', data, delimiter=',')
+    
+    # open a file, where you ant to store the data
+    import pickle
+    file = open('DDQNAgent_fpt', 'wb')    
+    # dump information to that file
+    pickle.dump(ddqn, file)    
+    # close the file
+    file.close()

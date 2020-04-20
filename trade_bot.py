@@ -298,7 +298,7 @@ def auto_trading(ticker, start, end, validation_size = 10, update = True):
 if __name__ == "__main__":    
    
     
-    ticker = 'hdg' 
+    ticker = 'vic' 
     start ="2006-1-19"
     end = "2020-4-17"
     update = False

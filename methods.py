@@ -41,6 +41,7 @@ def train_model(agent, episode, data, ep_count=100, batch_size=32, window_size=1
     avg_loss = []
 
     state = get_state(data, 0, window_size + 1)
+    
 
     for t in tqdm(range(data_length), total=data_length, leave=True, desc='Episode {}/{}'.format(episode, ep_count)):        
         reward = 0
@@ -48,7 +49,8 @@ def train_model(agent, episode, data, ep_count=100, batch_size=32, window_size=1
 
         # select an action
         action = agent.act(state)
-
+        
+        
         # BUY
         if action == 1:
             agent.inventory.append(data[t])
