@@ -16,6 +16,10 @@ from pandas_datareader import data as pdr
 from numpy import asarray
 from numpy import savetxt
 
+import random
+
+from collections import deque
+
 import yfinance as yf
 if __name__ == "__main__":
     start = '2017-11-01'
@@ -23,15 +27,23 @@ if __name__ == "__main__":
     ticker = 'AAPL'
     # df = pdr.get_data_yahoo(ticker, start=start, end=end)
     
-    # define data
-    data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    # save to csv file
-    savetxt('data.csv', data, delimiter=',')
+    # # define data
+    # data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    # # save to csv file
+    # savetxt('data.csv', data, delimiter=',')
     
     # open a file, where you ant to store the data
-    import pickle
-    file = open('DDQNAgent_fpt', 'wb')    
-    # dump information to that file
-    pickle.dump(ddqn, file)    
-    # close the file
-    file.close()
+    # import pickle
+    # file = open('DDQNAgent_fpt', 'wb')    
+    # # dump information to that file
+    # pickle.dump(ddqn, file)    
+    # # close the file
+    # file.close()
+    memory = deque(maxlen=10000)
+    memory.append(('a','b','c','d','e'))
+    memory.append(('a1','b1','c1','d1','e1'))
+    memory.append(('a2','b2','c2','d2','e2'))
+    batch_size = 2
+    minibatch = map(np.array, zip(random.sample(memory, batch_size)))
+    a, b, c, d, e = minibatch
+    

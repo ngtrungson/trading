@@ -95,7 +95,7 @@ class Agent:
        
         action_probs = self.model.predict(state)
         
-        return np.argmax(action_probs, axis = 1)
+        return np.argmax(action_probs[0])
 
     def train_experience_replay(self, batch_size):
         """Train on previous experiences in memory
