@@ -41,7 +41,6 @@ trading_environment.env.ticker = 'fpt'
 trading_environment.seed(42)
 
 
-
 state_dim = trading_environment.observation_space.shape[0]  
 num_actions = trading_environment.action_space.n
 max_episode_steps = trading_environment.spec.max_episode_steps

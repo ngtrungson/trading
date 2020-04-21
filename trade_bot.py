@@ -91,7 +91,7 @@ def plot_result(df, history, title="trading session"):
     df.loc[:,'action'] = actions
     
     df.loc[:,'day'] = df['Date'].values
-    # df['day'] = df['day'].map(mdates.date2num)
+    df['day'] = df['day'].map(mdates.date2num)
     
 #    df['date'] = df['date'].map(mdates.date2num)
     buy = df[df['action']=='BUY']
@@ -298,10 +298,10 @@ def auto_trading(ticker, start, end, validation_size = 10, update = True):
 if __name__ == "__main__":    
    
     
-    ticker = 'vic' 
+    ticker = 'fpt' 
     start ="2006-1-19"
-    end = "2020-4-17"
-    update = False
+    end = "2020-4-20"
+    update = True
     validation_size = 10
     
     # agent, history, val_df, val_profits, train_rewards, train_losses = auto_trading(ticker, start, end, update = False)
@@ -348,7 +348,7 @@ if __name__ == "__main__":
     
     strategy = "t-dqn"
     window_size = 20
-    ep_count = 40
+    ep_count = 50
     batch_size = 32
     debug = True
     model_name = ticker + strategy

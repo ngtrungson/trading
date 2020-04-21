@@ -249,12 +249,16 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
 def canslim_strategy(ticker, start, end, update = False, source = "cp68"):               
     df = momentum_strategy(ticker, start, end, realtime = update, source = source)#
     df = df.reset_index()
+    df.loc[:,'day'] = df['Date'].values
+    df['day'] = df['day'].map(mdates.date2num)
+    
     buy = df[df['Buy'] == 1]
     sell = df[df['Sell'] == -1]
-    df['Date'] = df['Date'].map(mdates.date2num)
-    plt.plot(sell['Date'], sell['Close'].values, "ro")
-    plt.plot(buy['Date'], buy['Close'].values, "go")
-    plt.plot(df['Date'], df['Close'].values)
+#    df['Date'] = df['Date'].map(mdates.date2num)
+    
+    plt.plot(sell['day'], sell['Close'].values, "ro")
+    plt.plot(buy['day'], buy['Close'].values, "go")
+    plt.plot(df['day'], df['Close'].values)
     ax = plt.gca()    
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     plt.legend(['sell', 'buy', 'close'], loc='upper right')
@@ -611,7 +615,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    # symbols = get_csv_data(source = "ssi")
+#    symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -653,9 +657,9 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-4-20"
+    end_date = "2020-4-21"
     start_date = "2018-4-6"
-    # canslim_strategy(ticker = 'HDG', start = start_date , end = end_date, update = False,  source ="cp68")
+#    canslim_strategy(ticker = 'FPT', start = start_date , end = end_date, update = True,  source ="cp68")
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
