@@ -111,6 +111,10 @@ class DDQNAgent:
             return
         minibatch = map(np.array, zip(*sample(self.experience, self.batch_size)))
         states, actions, rewards, next_states, not_done = minibatch
+        
+        # print(type(states),states.shape)
+        # print(type(next_states),next_states.shape)
+        
 
         next_q_values = self.online_network.predict_on_batch(next_states)
         

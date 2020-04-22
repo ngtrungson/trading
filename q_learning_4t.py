@@ -27,11 +27,11 @@ from DDQNAgent import DDQNAgent
 
 sns.set_style('whitegrid')
 
-register(
-    id='trading-v0',
-    entry_point='trading_env:TradingEnvironment',
-    max_episode_steps=1000
-)
+# register(
+#     id='trading-v0',
+#     entry_point='trading_env:TradingEnvironment',
+#     max_episode_steps=1000
+# )
 
 
 trading_environment = gym.make('trading-v0')
@@ -95,15 +95,13 @@ def track_results(episode, episode_nav,
 for episode in range(1, max_episodes + 1):
     this_state = trading_environment.reset()
     for episode_step in range(max_episode_steps):
-        # print('-----------debugging --------------')
-        # print(this_state.shape)
-        # print('-----------end debugging --------------')
-        # print(this_state.reshape(-1, state_dim).shape)
-        # break;
+       
         action = ddqn.epsilon_greedy_policy(this_state.reshape(-1, state_dim))
         next_state, reward, done, _ = trading_environment.step(action)
         ddqn.memorize_transition(this_state, action, reward, next_state,
                                   0.0 if done else 1.0)
+        
+               
         if ddqn.train:
             ddqn.experience_replay()
         if done:

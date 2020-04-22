@@ -5,7 +5,7 @@ from collections import deque
 import numpy as np
 import tensorflow as tf
 import keras.backend as K
-
+from random import sample
 from keras.models import Sequential
 from keras.models import load_model, clone_model
 from keras.layers import Dense
@@ -28,17 +28,16 @@ def huber_loss(y_true, y_pred, clip_delta=1.0):
 class Agent:
     """ Stock Trading Bot """
 
-    def __init__(self, state_size, strategy="t-dqn", reset_every=1000, pretrained=False, model_name=None):
+    def __init__(self, state_dim, strategy="t-dqn", reset_every=1000, pretrained=False, model_name=None):
         self.strategy = strategy
 
         # agent config
-        self.state_size = state_size    	# normalized previous days
+        self.state_dim = state_dim    	# normalized 
         self.action_size = 3           		# [sit, buy, sell]
         self.model_name = model_name
         self.inventory = []
         self.memory = deque(maxlen=10000)
         self.first_iter = True
-
         # model config
         self.model_name = model_name
         self.gamma = 0.95 # affinity for long term reward
@@ -68,7 +67,7 @@ class Agent:
         """Creates the model
         """
         model = Sequential()
-        model.add(Dense(units=32, activation="relu", input_dim=self.state_size))
+        model.add(Dense(units=32, activation="relu", input_dim=self.state_dim))
         model.add(Dense(units=64, activation="relu"))
         model.add(Dense(units=16, activation="relu"))
         # model.add(Dense(units=8, activation="relu"))
@@ -80,7 +79,9 @@ class Agent:
     def remember(self, state, action, reward, next_state, done):
         """Adds relevant data to memory
         """
-        self.memory.append((state, action, reward, next_state, done))
+        not_done = 0.0 if done else 1.0
+        
+        self.memory.append((state, action, reward, next_state, not_done))
 
     def act(self, state, is_eval=False):
         """Take action from given possible set of actions
@@ -92,93 +93,61 @@ class Agent:
         if self.first_iter:
             self.first_iter = False
             return 1 # make a definite buy on the first iter
-       
+
         action_probs = self.model.predict(state)
+        action = np.argmax(action_probs[0])
         
-        return np.argmax(action_probs[0])
+        return action
 
     def train_experience_replay(self, batch_size):
         """Train on previous experiences in memory
         """
-        mini_batch = random.sample(self.memory, batch_size)
-        X_train, y_train = [], []
+        minibatch = random.sample(self.memory,batch_size)
+        idx = np.arange(batch_size)
+        states, actions, rewards, next_states, not_done = map(np.array, zip(*minibatch)) 
+        
         
         # DQN
         if self.strategy == "dqn":
-            for state, action, reward, next_state, done in mini_batch:
-                if done:
-                    target = reward
-                else:
-                    # approximate deep q-learning equation
-                    target = reward + self.gamma * np.amax(self.model.predict(next_state)[0])
-
-                # estimate q-values based on current state
-                q_values = self.model.predict(state)
-                # update the target for current action based on discounted reward
-                q_values[0][action] = target
-
-                X_train.append(state[0])
-                y_train.append(q_values[0])
-
+            next_q_values = self.model.predict(next_states) 
+            best_actions = np.argmax(next_q_values, axis=1)                 
+            targets = rewards + not_done* self.gamma * next_q_values[[idx, best_actions]]
+            # targets = rewards + not_done* self.gamma * np.amax(next_q_values, axis=1)  
+            
+            q_values = self.model.predict(states) 
+            q_values[[idx, actions]] = targets
         # DQN with fixed targets
         elif self.strategy == "t-dqn":
             if self.n_iter % self.reset_every == 0:
                 # reset target model weights
-                self.target_model.set_weights(self.model.get_weights())
-
-            for state, action, reward, next_state, done in mini_batch:
-                if done:
-                    target = reward
-                else:
-                    # approximate deep q-learning equation with fixed targets
-                    target = reward + self.gamma * np.amax(self.target_model.predict(next_state)[0])
-
-                # estimate q-values based on current state
-                q_values = self.model.predict(state)
-                # update the target for current action based on discounted reward
-                q_values[0][action] = target
-
-                X_train.append(state[0])
-                y_train.append(q_values[0])
-                
-                
-                # next_q_values = self.online_network.predict_on_batch(next_states)
-                # best_actions = np.argmax(next_q_values, axis=1)
-                # next_q_values_target = self.target_network.predict_on_batch(next_states)
-                # target_q_values = next_q_values_target[[self.idx, best_actions]]
-                # targets = rewards + not_done * self.gamma * target_q_values
-                # q_values = self.online_network.predict_on_batch(states)
-                # q_values[[self.idx, actions]] = targets
-                # loss = self.online_network.train_on_batch(x=states, y=q_values)
-                # self.losses.append(loss)
-
+                self.target_model.set_weights(self.model.get_weights()) 
+            next_q_values_targets = self.target_model.predict(next_states)
+            best_actions = np.argmax(next_q_values_targets, axis=1)            
+            targets = rewards + not_done* self.gamma * next_q_values_targets[[idx, best_actions]]
+            # targets = rewards + not_done* self.gamma * np.amax(next_q_values_targets, axis=1)  
+           
+            q_values = self.model.predict(states) 
+            q_values[[idx, actions]] = targets
         # Double DQN
         elif self.strategy == "double-dqn":
             if self.n_iter % self.reset_every == 0:
                 # reset target model weights
                 self.target_model.set_weights(self.model.get_weights())
-
-            for state, action, reward, next_state, done in mini_batch:
-                if done:
-                    target = reward
-                else:
-                    # approximate double deep q-learning equation
-                    target = reward + self.gamma * self.target_model.predict(next_state)[0][np.argmax(self.model.predict(next_state)[0])]
-
-                # estimate q-values based on current state
-                q_values = self.model.predict(state)
-                # update the target for current action based on discounted reward
-                q_values[0][action] = target
-
-                X_train.append(state[0])
-                y_train.append(q_values[0])
+            next_q_values = self.model.predict(next_states)
+            best_actions = np.argmax(next_q_values, axis=1)
+            next_q_values_targets = self.target_model.predict(next_states)
+            target_q_values = next_q_values_targets[[idx, best_actions]]
+            targets = rewards + not_done* self.gamma * target_q_values  
+            
+            q_values = self.model.predict(states) 
+            q_values[[idx, actions]] = targets
                 
         else:
             raise NotImplementedError()
 
         # update q-function parameters based on huber loss gradient
         loss = self.model.fit(
-            np.array(X_train), np.array(y_train),
+            x= states, y=q_values,
             epochs=1, verbose=0
         ).history["loss"][0]
 

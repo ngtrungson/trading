@@ -16,7 +16,7 @@ from machine_learning import price_predictions, ML_strategy
 import pandas as pd
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
-from trade_bot import auto_trading, plot_result
+
 
 def my_portfolio(start = "2018-7-10" , end = "2018-10-16"):
     dates = pd.date_range(start, end)
@@ -249,8 +249,9 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
 def canslim_strategy(ticker, start, end, update = False, source = "cp68"):               
     df = momentum_strategy(ticker, start, end, realtime = update, source = source)#
     df = df.reset_index()
+    
     df.loc[:,'day'] = df['Date'].values
-    df['day'] = df['day'].map(mdates.date2num)
+    # df['day'] = df['day'].map(mdates.date2num)
     
     buy = df[df['Buy'] == 1]
     sell = df[df['Sell'] == -1]
@@ -615,7 +616,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-#    symbols = get_csv_data(source = "ssi")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
