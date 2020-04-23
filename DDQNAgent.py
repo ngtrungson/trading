@@ -8,7 +8,7 @@ from random import sample
 import numpy as np
 import pandas as pd
 
-# import tensorflow as tf
+import tensorflow as tf
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
@@ -56,8 +56,8 @@ class DDQNAgent:
         self.batch_size = batch_size
         self.tau = tau
         self.losses = []
-        # self.idx = tf.range(batch_size)
-        self.idx = np.arange(batch_size)
+        self.idx = tf.range(batch_size)
+        # self.idx = np.arange(batch_size)
         self.results_dir = results_dir
         self.train = True
 
@@ -119,17 +119,17 @@ class DDQNAgent:
         next_q_values = self.online_network.predict_on_batch(next_states)
         
         
-        best_actions = np.argmax(next_q_values, axis=1)
-        # best_actions = tf.argmax(next_q_values, axis=1)
+        # best_actions = np.argmax(next_q_values, axis=1)
+        best_actions = tf.argmax(next_q_values, axis=1)
 
         next_q_values_target = self.target_network.predict_on_batch(next_states)
-        # target_q_values = tf.gather_nd(next_q_values_target,
-        #                                tf.stack((self.idx, tf.cast(best_actions, tf.int32)), axis=1))
+        target_q_values = tf.gather_nd(next_q_values_target,
+                                        tf.stack((self.idx, tf.cast(best_actions, tf.int32)), axis=1))
         
-        target_q_values = next_q_values_target[[self.idx, best_actions]]
+        # target_q_values = next_q_values_target[[self.idx, best_actions]]
         targets = rewards + not_done * self.gamma * target_q_values
-        q_values = self.online_network.predict_on_batch(states)
-        # q_values = self.online_network.predict_on_batch(states).numpy()       
+        # q_values = self.online_network.predict_on_batch(states)
+        q_values = self.online_network.predict_on_batch(states).numpy()       
         q_values[[self.idx, actions]] = targets
 
         loss = self.online_network.train_on_batch(x=states, y=q_values)

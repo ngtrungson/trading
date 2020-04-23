@@ -75,7 +75,7 @@ ddqn = DDQNAgent(state_dim=state_dim,
                  batch_size=batch_size)
 
 total_steps = 0
-max_episodes = 6000
+max_episodes = 1000
 
 episode_time, navs, market_navs, diffs, episode_eps = [], [], [], [], []
 
