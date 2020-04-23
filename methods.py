@@ -61,7 +61,7 @@ def momentum(data, window=100):
 def preprocess_data(data, normalize=True):
     """calculate returns and percentiles, then removes missing values"""
     
-    data['olhc_pct'] = (data.close - data.open)/(data.high - data.low)
+    data['olhc_pct'] = (data.high - data.low)/data.close
     # data['pct_change'] = (data.close - data.open) / data.open
     
     data = data.drop(['date','open','high','low'], axis = 1) 

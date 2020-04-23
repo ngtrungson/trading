@@ -18,7 +18,7 @@ import sys
 import warnings
 # import coloredlogs
 import datetime as dt
-import numpy as np
+#import numpy as np
 
 from keras.utils.vis_utils import plot_model
 from numpy import savetxt
@@ -237,7 +237,7 @@ if __name__ == "__main__":
     
     ticker = 'fpt' 
     start ="2006-1-19"
-    end = "2020-4-22"
+    end = "2020-4-23"
     update = False
     validation_size = 10
     

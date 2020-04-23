@@ -27,11 +27,11 @@ from DDQNAgent import DDQNAgent
 
 sns.set_style('whitegrid')
 
-# register(
-#     id='trading-v0',
-#     entry_point='trading_env:TradingEnvironment',
-#     max_episode_steps=1000
-# )
+register(
+     id='trading-v0',
+     entry_point='trading_env:TradingEnvironment',
+     max_episode_steps=1000
+)
 
 
 trading_environment = gym.make('trading-v0')

@@ -2,16 +2,24 @@ keras==2.3.1
 tensorflow==1.14.0
 pandas==1.0.3
 numpy==1.14.6
-tqdm==4.41.1
-scipy==1.1.0
-statsmodels==0.10.1
-matplotlib==3.1.1 
-seaborn==0.9.0
+tqdm==4.45.0
+scipy==1.4.1
+statsmodels==0.11.0
+matplotlib==3.1.3 
+seaborn==0.10.0
 python==3.6.9
-yfinance==0.1.54
-scikitlearn==0.22.1
-pandas_datareader==0.8.1
-talib==0.4.9
-alpha-vantage==2.1.3
+scikit-learn==0.22.1
+pandas-datareader==0.8.1
 beautifulsoup4==4.8.2
 pydot==1.4.1
+talib==0.4.9
+gym==0.17.1
+yfinance==0.1.54
+alpha-vantage==2.1.3
+pytables==3.6.1
+
+conda install -c quantopian ta-lib
+pip install yfinance
+pip install alpha-vantage
+pip install gym
+conda create -n quant369 python=3.6.9 keras=2.3.1 tensorflow=1.14.0 pandas=1.0.3 numpy=1.14.6 tqdm=4.45.0 scipy=1.4.1 statsmodels=0.11.0 matplotlib=3.1.3 seaborn=0.10.0 beautifulsoup4=4.8.2 pydot=1.4.1 scikit-learn=0.22.1 pandas-datareader=0.8.1
