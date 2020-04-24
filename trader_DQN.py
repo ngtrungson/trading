@@ -184,7 +184,7 @@ def plot_result(df, history, title="trading session"):
     df.loc[:,'action'] = actions
     
     df.loc[:,'day'] = df['date'].values
-    df['day'] = df['day'].map(mdates.date2num)
+    # df['day'] = df['day'].map(mdates.date2num)
     
 #    df['date'] = df['date'].map(mdates.date2num)
     buy = df[df['action']=='BUY']
@@ -235,7 +235,7 @@ def plot_loss_reward(total_rewards, total_losses):
 if __name__ == "__main__":    
    
     
-    ticker = 'dpr' 
+    ticker = 'vre' 
     start ="2006-1-19"
     end = "2020-4-23"
     update = False
@@ -287,7 +287,7 @@ if __name__ == "__main__":
     strategy = "t-dqn"
     state_dim = normalized_data.shape[1]
     
-    ep_count = 50
+    ep_count = 100
     batch_size = 32
     debug = True
     model_name = ticker + strategy

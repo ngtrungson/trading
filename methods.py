@@ -60,15 +60,17 @@ def momentum(data, window=100):
     
 def preprocess_data(data, normalize=True):
     """calculate returns and percentiles, then removes missing values"""
-    
-    data['olhc_pct'] = (data.high - data.low)/data.close
-    # data['pct_change'] = (data.close - data.open) / data.open
-    
+    data['returns'] = data.close.pct_change()
+    data['hl_pct'] = (data.high - data.low)/data.close
+    pct_change = (data.close - data.open) / data.open
+    vol_ma30 = momentum(data.volume, window = 30)
+    data['volume_ratio'] = vol_ma30/data.volume
+    data['volume_returns'] = pct_change*data['volume_ratio']
     data = data.drop(['date','open','high','low'], axis = 1) 
     # make volume positive and pre-scale
     data.volume = np.log(data.volume.replace(0, 1))
     
-    data['returns'] = data.close.pct_change()
+    
     data['close_pct_100'] = momentum(data.close, window=100)
     data['volume_pct_100'] = momentum(data.volume, window=100)
     data['close_pct_20'] = momentum(data.close, window=20)
