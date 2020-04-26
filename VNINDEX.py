@@ -134,7 +134,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB', 
                 'HPX', 'CRE','NAF', 'DHC', 'TDM', 
                  'VPG', 'VPD', 'SZL',  'SMB','TNA','GVR', 
-                'IMP','PET','VCI', 'MSN']
+                'IMP','PET','VCI', 'TLG','MSH']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
                     'VGT', 'VIB', 'POW',  'VEA', 'NTC'] 
@@ -210,7 +210,7 @@ def get_stocks_highcpm(download = True, source = "ssi"):
     return tickers
     
     
-def analysis_trading(tickers, start, end, update = False, source = "cp68", trade = 'Long'):
+def analysis_trading(tickers, start, end, update = False, nbdays = 15, source = "cp68", trade = 'Long'):
     
     if tickers == None:
         tickers = getliststocks(typestock = "TICKER")
@@ -236,7 +236,7 @@ def analysis_trading(tickers, start, end, update = False, source = "cp68", trade
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 15, typetrade = trade)
+            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = nbdays, typetrade = trade)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -658,13 +658,13 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-4-24"
+    end_date = "2020-4-17"
     start_date = "2018-4-6"
-    # canslim_strategy(ticker = 'DPR', start = start_date , end = end_date, update = False,  source ="cp68")
+    # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Long')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    
