@@ -86,18 +86,18 @@ def getliststocks(typestock = "^VNINDEX"):
     nganhang = ['ACB','CTG','VPB','VCB','NVB', 'LPB', 'VIB', 'BID','HDB', 'EIB', 'MBB', 'SHB', 'STB']
     
     thuysan = ['VHC', 'ANV']
-    daukhi = ['PVS','PVD','PVB','PLX', 'BSR', 'POW','TDG','GAS']
+    daukhi = ['PVS','PVD','PVB','PLX', 'BSR', 'POW','TDG','GAS', 'PLC']
     batdongsan =['HAR', 'HLD', 'DXG', 'NVL', 'KDH', 'CEO', 'VIC','NDN','PDR','VPI', 'VRE','ASM','EVG','NBB' ]
     chungkhoan = ['HCM', 'SSI', 'VND', 'TVB','TVS', 'BVS','MBS','FTS', 'HCM', 'VIX', 'ART','SHS', 'VCI']
     baohiem = ['BVH', 'BMI']
-    xaydung = ['CTD', 'HBC', 'PHC','ROS','FLC','VMC']
+    xaydung = ['CTD', 'HBC', 'PHC','DXG']
     duocpham = ['DVN', 'DHG']
     hangkhong = ['HVN','VJC']
-    thep = ['TVN', 'HPG']
+    thep = ['HSG', 'HPG', 'NKG']
     cntt = ['MWG', 'FPT']
-    nhua = ['BMP']
+    nhua = ['BMP','AAA']
     vatlieuxd = ['VCS']
-    caosu = ['PHR', 'DRC']
+    caosu = ['PHR', 'DRC','GVR']
     anuong = ['VNM', 'SAB']
     
     stocks2019 =['SZC', 'VGI','GVR','CTR','VTP']
@@ -114,10 +114,10 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['ACB','CEO','NDN','PVI','PVS','VCG','VCS','L14','NRC','TIG','TNG','PLC','SHB','SHS']
+    symbolsHNX = ['ACB','NDN','PVI','PVS','VCG','VCS','L14','TNG','PLC','SHB','SHS']
     
     symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",  'C32',   'CMG',
-                   "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'D2D',
+                   "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
                  "HNG",  "HT1",   'DPR', 'GEG',
@@ -126,15 +126,15 @@ def getliststocks(typestock = "^VNINDEX"):
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE",  "DBD", "CVT",
-                "SAM","SJD","SJS","STB", "SSI", "SBT", "SAB", 
+                "SJD","SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                  'PAN', 'TDH',  'GEX', 
                 'TCM',  'AAA',  'HVN', 'VGC',
-                'EIB','VPB','VRE', "VND", "HDB",  
-                'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB', 
-                'HPX', 'CRE','NAF', 'DHC', 'TDM', 
+                'VPB','VRE',  "HDB",  
+                'NTL', 'AST','HAH', 'VHM',  'TCB', 
+                'HPX', 'NAF', 'DHC', 'TDM', 
                  'VPG', 'VPD', 'SZL',  'SMB','TNA','GVR', 
-                'IMP','PET','VCI', 'TLG','MSH']
+                'IMP', 'TLG','MSH']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
                     'VGT', 'VIB', 'POW',  'VEA', 'NTC'] 
@@ -658,13 +658,13 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-4-27"
+    end_date = "2020-4-28"
     start_date = "2018-4-6"
     # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    
