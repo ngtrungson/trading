@@ -102,6 +102,7 @@ class Agent:
     def train_experience_replay(self, batch_size):
         """Train on previous experiences in memory
         """
+        
         minibatch = random.sample(self.memory,batch_size)
         idx = np.arange(batch_size)
         states, actions, rewards, next_states, not_done = map(np.array, zip(*minibatch)) 
