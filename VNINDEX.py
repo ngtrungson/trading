@@ -114,9 +114,9 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['ACB','NDN','PVI','PVS','VCG','VCS','L14','TNG','PLC','SHB','SHS']
+    symbolsHNX = ['ACB','NDN','PVI','PVS','VCG','VCS','L14','TNG','SHB','SHS']
     
-    symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",  'C32',   'CMG',
+    symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",     'CMG',
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
@@ -126,18 +126,18 @@ def getliststocks(typestock = "^VNINDEX"):
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE",  "DBD", "CVT",
-                "SJD","SJS","STB", "SSI", "SBT", "SAB", 
+                "SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                  'PAN', 'TDH',  'GEX', 
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'VPB','VRE',  "HDB",  
                 'NTL', 'AST','HAH', 'VHM',  'TCB', 
                 'HPX', 'NAF', 'DHC', 'TDM', 
-                 'VPG', 'VPD', 'SZL',  'SMB','TNA','GVR', 
-                'IMP', 'TLG','MSH','PAC','DMC']
+                 'VPG',  'SZL',  'TNA','GVR', 
+                'IMP', 'MSH', 'POW']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
-                    'VGT', 'VIB', 'POW',  'VEA', 'NTC'] 
+                     'VIB', 'VEA', 'NTC'] 
    
 #    symbolsHNX = ['TNG', 'NVB',  'L14',  
 #                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
@@ -166,7 +166,7 @@ def getliststocks(typestock = "^VNINDEX"):
 #                    'VGT', 'VIB', 'POW',  'MPC', 'VEA', 'GEG', 'NTC', 'IDC']
     
     if typestock == "ALL":
-        symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM + futures
+        symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM 
     if typestock == "^VNINDEX":
         symbols = symbolsVNI
     if typestock == "^HASTC":
@@ -492,7 +492,7 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
 #    df_market['Dec'] = dec
     df_market[market+'Adv_Dec'] = adv - dec
     df_market[market+'Dec/Adv'] = dec/adv
-    strength = pd.Series(index = marketVNI.index)
+    strength = pd.Series(index = marketVNI.index, dtype="float64")
     strength[(df_market[market+'Adv_Dec']> 0) & (df_market[market+'PCT_Index'] > 0)] = 1
     strength[(df_market[market+'Adv_Dec']< 0) & (df_market[market+'PCT_Index'] < 0)] = -1
     strength[(df_market[market+'Adv_Dec']< 0) & (df_market[market+'PCT_Index'] > 0)] = 0
@@ -616,7 +616,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    # symbols = get_csv_data(source = "cp68")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -658,13 +658,13 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-4-29"
+    end_date = "2020-5-4"
     start_date = "2018-4-6"
     # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    
@@ -678,7 +678,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
