@@ -664,7 +664,7 @@ if __name__ == "__main__":
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'LongShortTrend')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 7, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    
