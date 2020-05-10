@@ -12,6 +12,7 @@ import logging
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from agent import Agent
+# from duelingagent import DuelingAgent
 from methods import train_model, evaluate_model, format_position, preprocess_data
 import keras.backend as K
 import sys
@@ -235,11 +236,12 @@ def plot_loss_reward(total_rewards, total_losses):
 if __name__ == "__main__":    
    
     
-    ticker = 'mwg' 
+    ticker = 'fpt' 
     start ="2006-1-19"
-    end = "2020-4-29"
+    end = "2020-5-8"
     update = False
     validation_size = 10
+    dueling_type = 'avg'
     
     # agent, history, val_df, val_profits, train_rewards, train_losses = auto_trading(ticker, start, end, update = False)
     file_path = symbol_to_path(ticker)
@@ -310,7 +312,7 @@ if __name__ == "__main__":
     if  pretrained == False:
         print(" No training data ! ")
         try:
-            agent = Agent(state_dim, strategy=strategy, pretrained=False, model_name=model_name)            
+            agent = Agent(state_dim, strategy=strategy, dueling_type= dueling_type, pretrained=False, model_name=model_name)            
             for episode in range(1, ep_count + 1):
                 train_result = train_model(agent, episode, normalized_data, train_data, ep_count=ep_count,
                                            batch_size=batch_size)
@@ -324,7 +326,7 @@ if __name__ == "__main__":
             print("Aborted!")  
     else: 
         model_name = model_name +'_'+ str(ep_count)
-        agent = Agent(state_dim, pretrained=True, model_name=model_name)
+        agent = Agent(state_dim, dueling_type= dueling_type, pretrained=True, model_name=model_name)
 
     agent.model.summary()
     plot_model(agent.model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)

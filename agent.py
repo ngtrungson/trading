@@ -6,9 +6,9 @@ import numpy as np
 import tensorflow as tf
 import keras.backend as K
 from random import sample
-from keras.models import Sequential
+from keras.models import Sequential, Model
 from keras.models import load_model, clone_model
-from keras.layers import Dense
+from keras.layers import Dense, Lambda, Layer, Input, Flatten
 from keras.optimizers import Adam
 
 
@@ -28,7 +28,7 @@ def huber_loss(y_true, y_pred, clip_delta=1.0):
 class Agent:
     """ Stock Trading Bot """
 
-    def __init__(self, state_dim, strategy="t-dqn", reset_every=1000, pretrained=False, model_name=None):
+    def __init__(self, state_dim, strategy="t-dqn", dueling_type='no', reset_every=1000, pretrained=False, model_name=None):
         self.strategy = strategy
 
         # agent config
@@ -48,12 +48,15 @@ class Agent:
         self.loss = huber_loss
         self.custom_objects = {"huber_loss": huber_loss}  # important for loading the model from memory
         self.optimizer = Adam(lr=self.learning_rate)
+        self.dueling_type = dueling_type
 
         if pretrained and self.model_name is not None:
             self.model = self.load()
         else:
             self.model = self._model()
 
+       
+        
         # strategy config
         if self.strategy in ["t-dqn", "double-dqn"]:
             self.n_iter = 1
@@ -66,13 +69,43 @@ class Agent:
     def _model(self):
         """Creates the model
         """
+       
         model = Sequential()
         model.add(Dense(units=32, activation="relu", input_dim=self.state_dim))
         model.add(Dense(units=64, activation="relu"))
         model.add(Dense(units=16, activation="relu"))
         # model.add(Dense(units=8, activation="relu"))
         model.add(Dense(units=self.action_size))
-
+            
+        if self.dueling_type == 'avg':
+            layer = model.layers[-2]  # Get the second last layer of the model
+            nb_action = model.output._keras_shape[-1]  #  remove the last layer
+            y = Dense(nb_action + 1, activation='linear')(layer.output)
+             # lambda a: a[:, :] — k.mean(a[:, :], keepdims=True)
+            outputlayer = Lambda(lambda a: K.expand_dims(a[:, 0], -1) + a[:, 1:] - K.mean(a[:, 1:], keepdims=True),
+                                 output_shape=(nb_action,))(y)  #  Using the avg dueling type
+            model = Model(inputs=model.input, outputs=outputlayer)
+        elif self.dueling_type == 'max':
+            layer = model.layers[-2]  # Get the second last layer of the model
+            nb_action = model.output._keras_shape[-1]  #  remove the last layer
+            y = Dense(nb_action + 1, activation='linear')(layer.output)
+             # lambda a: a[:, :] — k.mean(a[:, :], keepdims=True)
+            outputlayer = Lambda(lambda a: K.expand_dims(a[:, 0], -1) + a[:, 1:] - K.max(a[:, 1:], keepdims=True),
+                                 output_shape=(nb_action,))(y)  #  Using the max dueling type
+            model = Model(inputs=model.input, outputs=outputlayer)
+        elif self.dueling_type == 'naive':
+            layer = model.layers[-2]  # Get the second last layer of the model
+            nb_action = model.output._keras_shape[-1]  #  remove the last layer
+            y = Dense(nb_action + 1, activation='linear')(layer.output)
+             # lambda a: a[:, :] — k.mean(a[:, :], keepdims=True)
+            outputlayer = Lambda(lambda a: K.expand_dims(a[:, 0], -1) + a[:, 1:],
+                                 output_shape=(nb_action,))(y)  #  Using the naive dueling type
+            model = Model(inputs=model.input, outputs=outputlayer)
+        else:    
+            
+            print("Dueling disabled, otherwise dueling_type must be one of {'avg','max','naive'}")
+            
+            
         model.compile(loss=self.loss, optimizer=self.optimizer)
         return model
 

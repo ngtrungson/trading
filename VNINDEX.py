@@ -8,7 +8,7 @@ Created on Fri Dec  8 14:35:57 2017
 import numpy as np
 import datetime
 from collections import Counter
-from finance_util import get_data, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
+from finance_util import get_data, get_RSI, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta,get_info_stock
 from strategy import process_data, momentum_strategy, ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, get_statistic_index
 from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
@@ -16,6 +16,7 @@ from machine_learning import price_predictions, ML_strategy
 import pandas as pd
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
+
 
 
 def my_portfolio(start = "2018-7-10" , end = "2018-10-16"):
@@ -114,7 +115,7 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['ACB','NDN','PVI','PVS','VCG','VCS','L14','TNG','SHB','SHS']
+    symbolsHNX = ['ACB','NDN','PVS','VCG','VCS','L14','TNG','SHB','SHS']
     
     symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",     'CMG',
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
@@ -133,7 +134,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'VPB','VRE',  "HDB",  
                 'NTL', 'AST','HAH', 'VHM',  'TCB', 
                 'HPX', 'NAF', 'DHC', 'TDM', 
-                 'VPG',  'SZL',  'TNA','GVR', 
+                   'SZL',  'TNA','GVR', 
                 'IMP', 'MSH', 'POW']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
@@ -377,7 +378,7 @@ def analysis_stocks(start_date, end_date):
     frames = [hsx_res, hnx_res, upcom_res]
 #    frames = [hnx_res]
     df_result  = pd.concat(frames)
-    
+    # df_rsi = pd.concat([hsx_rsi, hnx_rsi, upcom_rsi])
     df_market = pd.DataFrame(index=hsx_market.index)
     df_market = df_market.join(hsx_market)
     df_market = df_market.join(hnx_market)
@@ -392,6 +393,11 @@ def analysis_VN30(start_date, end_date):
     
     return hsxvn30_res
 
+#Relative Strength Index  
+
+
+
+
 def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
 
     if symbols == None:
@@ -399,11 +405,13 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
     
     dates = pd.date_range(start_date, end_date)  # date range as index
     df_data = get_data(symbols, dates, benchmark = market)  # get data for each symbol
+    # Fill missing values
+    fill_missing_values(df_data)
     
     df_volume = get_data(symbols, dates, benchmark = market, colname = '<Volume>')  # get data for each symbol
     df_high = get_data(symbols, dates, benchmark = market, colname = '<High>')
     df_low = get_data(symbols, dates, benchmark = market, colname = '<Low>')
-    
+    df_rsi = get_RSI(symbols, df_data)
 #    covariance = numpy.cov(asset , SPY)[0][1]  
 #    variance = numpy.var(asset)
 #    
@@ -411,22 +419,22 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
     df_volume = df_volume.fillna(0)
     df_value = (df_volume*df_data).fillna(0)
     valueM30 = df_value.rolling(window =30).mean()
+    volumeM30 = df_volume.rolling(window =30).mean()
     
     vol_mean = pd.Series(df_volume.mean(),name = 'Volume')
     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
     min_low = pd.Series(df_low.min(), name = 'MinLow')
-    cpm = pd.Series(max_high/min_low, name = 'CPM')
+    # cpm = pd.Series(max_high/min_low, name = 'CPM')
     value_mean = pd.Series(df_value.mean(), name = 'ValueMean')
     
     
-    # Fill missing values
-    fill_missing_values(df_data)
+    
 
     
     # Assess the portfolio
     
     allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start_date, ed = end_date,
-        syms = symbols,  benchmark = market, gen_plot = True)
+        syms = symbols,  benchmark = market, gen_plot = False)
 
      # Print statistics
     print ("Start Date:", start_date)
@@ -443,26 +451,31 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
-    df_result['PCT_Change'] = 100*(df_data[symbols].iloc[-1,:].values - df_data[symbols].iloc[0,:].values)/df_data[symbols].iloc[0,:].values
+    df_result['PCT_C'] = 100*(df_data[symbols].iloc[-1,:].values - df_data[symbols].iloc[0,:].values)/df_data[symbols].iloc[0,:].values
     df_result['Volume'] = df_volume[symbols].iloc[-1,:].values
-    df_result['VolumeMean'] = vol_mean[symbols]
+    df_result['VolMean'] = vol_mean[symbols]
+    df_result['VolMA30'] = volumeM30[symbols].iloc[-1,:].values
     df_result['Value'] = df_result['Close'] * df_result['Volume']   
-    df_result['ValueMean'] = value_mean[symbols]    
-    df_result['ValueMA30'] = valueM30[symbols].iloc[-1,:].values
+    df_result['ValMean'] = value_mean[symbols]    
+    df_result['ValMA30'] = valueM30[symbols].iloc[-1,:].values
     #    df_result['MaxH'] = max_high
 #    df_result['MinL'] = min_low
-    df_result['CPM'] = cpm[symbols]
-    df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
+    # df_result['CPM'] = cpm[symbols]
+    # df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)    
+    # df_result ['Volatility'] = df_data[symbols].pct_change().std() 
+    # alpha_beta = analysis_alpha_beta(df_data, symbols, market)
+    # df_result['Alpha'] = alpha_beta['Alpha']
+    # df_result['Beta'] = alpha_beta['Beta']
+   
+    df_result ['PCT_2D'] = df_data[symbols].pct_change().iloc[-3,:].values*100
+    df_result ['PCT_1D'] = df_data[symbols].pct_change().iloc[-2,:].values*100
+    df_result ['PCT_0D'] = df_data[symbols].pct_change().iloc[-1,:].values*100
     
-    df_result ['Volatility'] = df_data[symbols].pct_change().std() 
+    df_result['Vol_ratio'] = df_volume[symbols].iloc[-1,:].values/volumeM30[symbols].iloc[-1,:].values
+   
+    df_result['Vrx0D'] = df_result['Vol_ratio']*df_result ['PCT_0D']
     
-    df_result ['PCT_Change0D'] = df_data[symbols].pct_change().iloc[-1,:].values*100
-    df_result ['PCT_Change1D'] = df_data[symbols].pct_change().iloc[-2,:].values*100
-    df_result ['PCT_Change2D'] = df_data[symbols].pct_change().iloc[-3,:].values*100
     
-    alpha_beta = analysis_alpha_beta(df_data, symbols, market)
-    df_result['Alpha'] = alpha_beta['Alpha']
-    df_result['Beta'] = alpha_beta['Beta']
     
     relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
                      + 20*df_data[symbols].pct_change(periods = 126).fillna(0) \
@@ -476,7 +489,7 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
     
     df_result ['RSW1M'] = relative_strength1M.iloc[-1,:].values
     df_result ['RSW2M'] = relative_strength2M.iloc[-1,:].values
-    
+    df_result['RSI'] = df_rsi[symbols].iloc[-1,:].values
     
     marketVNI = df_data[symbols].pct_change() 
     advances = marketVNI[marketVNI > 0] 
@@ -658,13 +671,13 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-5-7"
+    end_date = "2020-5-8"
     start_date = "2018-4-6"
     # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    
@@ -678,7 +691,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)

@@ -20,7 +20,7 @@ import statsmodels.api as sm
 
 from alpha_vantage.timeseries import TimeSeries
 from pandas_datareader import data as pdr
-
+import talib
 import yfinance as yf
 
 
@@ -471,6 +471,16 @@ def get_data(symbols, dates, benchmark = '^VNINDEX', colname = '<CloseFixed>'):
             
 #    fill_missing_values(df_final)
     
+    return df_final
+
+
+
+def get_RSI(symbols, df):
+    """Read stock data (adjusted close) for given symbols from CSV files."""
+    df_final = pd.DataFrame(index=df.index)   
+    for symbol in symbols:
+        df_final[symbol] = talib.RSI(df[symbol].values, timeperiod = 14) 
+    fill_missing_values(df_final)    
     return df_final
 
 def linreg(x,y):
