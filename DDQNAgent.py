@@ -87,6 +87,7 @@ class DDQNAgent:
 
         if np.random.rand() <= self.epsilon:
             return np.random.choice(self.num_actions)
+        
         q = self.online_network.predict(state)
         return np.argmax(q, axis=1).squeeze()
 
@@ -99,10 +100,10 @@ class DDQNAgent:
             self.rewards_history.append(self.episode_reward)
             self.steps_per_episode.append(self.episode_length)
             self.episode_reward, self.episode_length = 0, 0
-            # print(f'{self.episodes:03} | '
-            #       f'Steps: {np.mean(self.steps_per_episode[-100:]):5.1f} | '
-            #       f'Rewards: {np.mean(self.rewards_history[-100:]):8.2f} | '
-            #       f'epsilon: {self.epsilon:.4f}')
+            print(f'{self.episodes:03} | '
+                  f'Steps: {np.mean(self.steps_per_episode[-100:]):5.1f} | '
+                  f'Rewards: {np.mean(self.rewards_history[-100:]):8.2f} | '
+                  f'epsilon: {self.epsilon:.4f}')
 
         self.experience.append((s, a, r, s_prime, not_done))
 
@@ -144,7 +145,6 @@ class DDQNAgent:
             path.mkdir()
         result = pd.DataFrame({'rewards': self.rewards_history,
                                'steps'  : self.steps_per_episode,
-                               'epsilon': self.epsilon_history},
-                              index=list(range(1, len(self.rewards_history + 1))))
+                               'epsilon': self.epsilon_history})
 
         result.to_csv(path / 'results.csv', index=False)

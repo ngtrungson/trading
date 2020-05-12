@@ -28,12 +28,12 @@ def huber_loss(y_true, y_pred, clip_delta=1.0):
 class Agent:
     """ Stock Trading Bot """
 
-    def __init__(self, state_dim, strategy="t-dqn", dueling_type='no', reset_every=1000, pretrained=False, model_name=None):
+    def __init__(self, state_dim, action_size = 3, strategy="t-dqn", dueling_type='no', reset_every=100, pretrained=False, model_name=None):
         self.strategy = strategy
 
         # agent config
         self.state_dim = state_dim    	# normalized 
-        self.action_size = 3           		# [sit, buy, sell]
+        self.action_size = action_size           		# default = 3 [sit, buy, sell]
         self.model_name = model_name
         self.inventory = []
         self.memory = deque(maxlen=10000)
@@ -49,7 +49,7 @@ class Agent:
         self.custom_objects = {"huber_loss": huber_loss}  # important for loading the model from memory
         self.optimizer = Adam(lr=self.learning_rate)
         self.dueling_type = dueling_type
-
+        self.pretrained = pretrained
         if pretrained and self.model_name is not None:
             self.model = self.load()
         else:
@@ -123,19 +123,22 @@ class Agent:
         if not is_eval and random.random() <= self.epsilon:
             return random.randrange(self.action_size)
 
-        if self.first_iter:
-            self.first_iter = False
-            return 1 # make a definite buy on the first iter
+        # if self.first_iter:
+        #     self.first_iter = False
+        #     return 1 # make a definite buy on the first iter
 
+        self.n_iter += 1 
         action_probs = self.model.predict(state)
-        action = np.argmax(action_probs[0])
         
+        # action = np.argmax(action_probs[0])
+        action = np.argmax(action_probs, axis=1).squeeze()
         return action
 
     def train_experience_replay(self, batch_size):
         """Train on previous experiences in memory
         """
-        
+        if batch_size > len(self.memory):
+            return
         minibatch = random.sample(self.memory,batch_size)
         idx = np.arange(batch_size)
         states, actions, rewards, next_states, not_done = map(np.array, zip(*minibatch)) 
