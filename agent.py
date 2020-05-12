@@ -10,7 +10,7 @@ from keras.models import Sequential, Model
 from keras.models import load_model, clone_model
 from keras.layers import Dense, Lambda, Layer, Input, Flatten
 from keras.optimizers import Adam
-
+from keras.regularizers import l2
 
 def huber_loss(y_true, y_pred, clip_delta=1.0):
     """Huber loss - Custom Loss Function for Q Learning
@@ -28,7 +28,14 @@ def huber_loss(y_true, y_pred, clip_delta=1.0):
 class Agent:
     """ Stock Trading Bot """
 
-    def __init__(self, state_dim, action_size = 3, strategy="t-dqn", dueling_type='no', reset_every=100, pretrained=False, model_name=None):
+    def __init__(self, state_dim, 
+                 action_size = 3, 
+                 strategy="t-dqn", 
+                 dueling_type='no', 
+                 epsilon_start = 1.0,
+                 epsilon_end = 0.05,
+                 epsilon_decay_steps = 25000,
+                 reset_every=100, pretrained=False, model_name=None):
         self.strategy = strategy
 
         # agent config
@@ -37,19 +44,35 @@ class Agent:
         self.model_name = model_name
         self.inventory = []
         self.memory = deque(maxlen=10000)
-        self.first_iter = True
+        self.first_iter_trading = False
+        
+        self.total_steps = 0
+        self.episodes = self.episode_length = 0
+        self.steps_per_episode = []
+        self.episode_reward = 0
+        self.rewards_history = []
+        self.losses = []
+        
+        self.epsilon =  epsilon_start
+        self.epsilon_decay_steps = epsilon_decay_steps
+        self.epsilon_decay = (epsilon_start - epsilon_end) / epsilon_decay_steps
+        self.epsilon_history = []
+        
+        
         # model config
         self.model_name = model_name
         self.gamma = 0.95 # affinity for long term reward
-        self.epsilon = 1.0
-        self.epsilon_min = 0.01
-        self.epsilon_decay = 0.995
+        self.l2_reg = 1e-6
+        # self.epsilon = 1.0
+        # self.epsilon_min = 0.01
+        # self.epsilon_decay = 0.995
         self.learning_rate = 0.001
         self.loss = huber_loss
         self.custom_objects = {"huber_loss": huber_loss}  # important for loading the model from memory
         self.optimizer = Adam(lr=self.learning_rate)
         self.dueling_type = dueling_type
         self.pretrained = pretrained
+        
         if pretrained and self.model_name is not None:
             self.model = self.load()
         else:
@@ -59,7 +82,7 @@ class Agent:
         
         # strategy config
         if self.strategy in ["t-dqn", "double-dqn"]:
-            self.n_iter = 1
+            self.total_steps = 1
             self.reset_every = reset_every
 
             # target network
@@ -71,9 +94,11 @@ class Agent:
         """
        
         model = Sequential()
-        model.add(Dense(units=32, activation="relu", input_dim=self.state_dim))
-        model.add(Dense(units=64, activation="relu"))
-        model.add(Dense(units=16, activation="relu"))
+        model.add(Dense(units=256, activation="relu",  input_dim=self.state_dim))
+        model.add(Dense(units=256, activation="relu"))
+        # model.add(Dense(units=32, activation="relu",  input_dim=self.state_dim))
+        # model.add(Dense(units=64, activation="relu"))
+        # model.add(Dense(units=16, activation="relu"))
         # model.add(Dense(units=8, activation="relu"))
         model.add(Dense(units=self.action_size))
             
@@ -109,25 +134,46 @@ class Agent:
         model.compile(loss=self.loss, optimizer=self.optimizer)
         return model
 
-    def remember(self, state, action, reward, next_state, done):
+    def remember(self, state, action, reward, next_state, not_done):
         """Adds relevant data to memory
         """
-        not_done = 0.0 if done else 1.0
+        if not_done:
+            self.episode_reward += reward
+            self.episode_length += 1
+        else:
+            self.episodes += 1
+            self.rewards_history.append(self.episode_reward)
+            self.steps_per_episode.append(self.episode_length)
+            self.episode_reward, self.episode_length = 0, 0
+            print(f'{self.episodes:03} | '
+                  f'Steps: {np.mean(self.steps_per_episode[-100:]):5.1f} | '
+                  f'Rewards: {np.mean(self.rewards_history[-100:]):8.2f} | '
+                  f'epsilon: {self.epsilon:.4f}')
+        
+        # not_done = 0.0 if done else 1.0
         
         self.memory.append((state, action, reward, next_state, not_done))
 
     def act(self, state, is_eval=False):
         """Take action from given possible set of actions
         """
+        self.total_steps += 1 
+        if not self.pretrained:
+            if self.total_steps < self.epsilon_decay_steps:
+                self.epsilon -= self.epsilon_decay
         # take random action in order to diversify experience at the beginning
-        if not is_eval and random.random() <= self.epsilon:
-            return random.randrange(self.action_size)
+        # if not is_eval and random.random() <= self.epsilon:
+        #     return random.randrange(self.action_size)
 
-        # if self.first_iter:
-        #     self.first_iter = False
-        #     return 1 # make a definite buy on the first iter
 
-        self.n_iter += 1 
+        if not is_eval and np.random.rand() <= self.epsilon:
+            return np.random.choice(self.action_size)
+        
+        if self.first_iter_trading:
+            self.first_iter_trading = False
+            return 1 # make a definite buy on the first iter
+
+        
         action_probs = self.model.predict(state)
         
         # action = np.argmax(action_probs[0])
@@ -137,8 +183,8 @@ class Agent:
     def train_experience_replay(self, batch_size):
         """Train on previous experiences in memory
         """
-        if batch_size > len(self.memory):
-            return
+        # if batch_size > len(self.memory):
+        #     return
         minibatch = random.sample(self.memory,batch_size)
         idx = np.arange(batch_size)
         states, actions, rewards, next_states, not_done = map(np.array, zip(*minibatch)) 
@@ -153,11 +199,15 @@ class Agent:
             
             q_values = self.model.predict(states) 
             q_values[[idx, actions]] = targets
+            
+            loss = self.model.fit(
+                x= states, y=q_values,
+                epochs=1, verbose=0
+            ).history["loss"][0]
+            
         # DQN with fixed targets
         elif self.strategy == "t-dqn":
-            if self.n_iter % self.reset_every == 0:
-                # reset target model weights
-                self.target_model.set_weights(self.model.get_weights()) 
+           
             next_q_values_targets = self.target_model.predict(next_states)
             best_actions = np.argmax(next_q_values_targets, axis=1)            
             targets = rewards + not_done* self.gamma * next_q_values_targets[[idx, best_actions]]
@@ -165,11 +215,19 @@ class Agent:
            
             q_values = self.model.predict(states) 
             q_values[[idx, actions]] = targets
+             # update q-function parameters based on huber loss gradient
+            loss = self.model.fit(
+                x= states, y=q_values,
+                epochs=1, verbose=0
+            ).history["loss"][0]
+            
+            if self.total_steps % self.reset_every == 0:
+                # reset target model weights
+                self.target_model.set_weights(self.model.get_weights())  
         # Double DQN
         elif self.strategy == "double-dqn":
-            if self.n_iter % self.reset_every == 0:
-                # reset target model weights
-                self.target_model.set_weights(self.model.get_weights())
+            
+                
             next_q_values = self.model.predict(next_states)
             best_actions = np.argmax(next_q_values, axis=1)
             next_q_values_targets = self.target_model.predict(next_states)
@@ -178,20 +236,27 @@ class Agent:
             
             q_values = self.model.predict(states) 
             q_values[[idx, actions]] = targets
+             # update q-function parameters based on huber loss gradient
+            loss = self.model.fit(
+                x= states, y=q_values,
+                epochs=1, verbose=0
+            ).history["loss"][0]
+            
+            if self.total_steps % self.reset_every == 0:
+                # reset target model weights
+                self.target_model.set_weights(self.model.get_weights())
                 
         else:
             raise NotImplementedError()
 
-        # update q-function parameters based on huber loss gradient
-        loss = self.model.fit(
-            x= states, y=q_values,
-            epochs=1, verbose=0
-        ).history["loss"][0]
-
+       
+        
+        self.losses.append(loss)
+        
         # as the training goes on we want the agent to
         # make less random and more optimal decisions
-        if self.epsilon > self.epsilon_min:
-            self.epsilon *= self.epsilon_decay
+        # if self.epsilon > self.epsilon_min:
+        #     self.epsilon *= self.epsilon_decay
 
         return loss
 

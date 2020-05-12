@@ -54,7 +54,7 @@ results_dir = Path('results')
 monitor_path = results_dir / 'monitor'
 video_freq = 50
 
-strategy = "t-dqn"
+strategy = "double-dqn"
 dueling_type = 'no'
 ep_count = 100
 batch_size = 512
@@ -67,7 +67,7 @@ agent = Agent(state_dim=state_dim,
               pretrained=False, 
               model_name=model_name)            
           
-
+agent.model.summary()
 # ddqn = DDQNAgent(state_dim=state_dim,
 #                  num_actions=num_actions,
 #                  learning_rate=learning_rate,
@@ -89,24 +89,24 @@ env = wrappers.Monitor(env,
                       force=True)
 
 
-tf.keras.backend.clear_session()
+# tf.keras.backend.clear_session()
 
 
 max_episodes = 750
 test_episodes = 0
 
+avg_loss = []
 
-while agent.n_iter < max_episodes:
+while agent.episodes < max_episodes:
     this_state = env.reset()
     done = False
     while not done:
         action = agent.act(this_state.reshape(-1, state_dim))
         next_state, reward, done, _ = env.step(action)
-        agent.remember(this_state, action, reward, next_state, done)
-        if True:
-            agent.train_experience_replay(batch_size)
-        if done:            
-            break
+        agent.remember(this_state, action, reward, next_state, 0.0 if done else 1.0)
+        if len(agent.memory) > batch_size:
+            loss = agent.train_experience_replay(batch_size)
+            avg_loss.append(loss)        
         this_state = next_state
 
 env.close()
