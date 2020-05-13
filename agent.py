@@ -1,11 +1,15 @@
 import random
 
 from collections import deque
+from pathlib import Path
+
 
 import numpy as np
+import pandas as pd
+
 import tensorflow as tf
 import keras.backend as K
-from random import sample
+
 from keras.models import Sequential, Model
 from keras.models import load_model, clone_model
 from keras.layers import Dense, Lambda, Layer, Input, Flatten
@@ -61,17 +65,19 @@ class Agent:
         
         # model config
         self.model_name = model_name
-        self.gamma = 0.95 # affinity for long term reward
+        self.gamma = 0.99 # affinity for long term reward
         self.l2_reg = 1e-6
         # self.epsilon = 1.0
         # self.epsilon_min = 0.01
         # self.epsilon_decay = 0.995
-        self.learning_rate = 0.001
+        self.learning_rate = 0.0001
         self.loss = huber_loss
         self.custom_objects = {"huber_loss": huber_loss}  # important for loading the model from memory
         self.optimizer = Adam(lr=self.learning_rate)
         self.dueling_type = dueling_type
+        
         self.pretrained = pretrained
+        self.results_dir ='results'
         
         if pretrained and self.model_name is not None:
             self.model = self.load()
@@ -95,7 +101,7 @@ class Agent:
        
         model = Sequential()
         model.add(Dense(units=256, activation="relu",  input_dim=self.state_dim))
-        model.add(Dense(units=256, activation="relu"))
+        model.add(Dense(units=128, activation="relu"))
         # model.add(Dense(units=32, activation="relu",  input_dim=self.state_dim))
         # model.add(Dense(units=64, activation="relu"))
         # model.add(Dense(units=16, activation="relu"))
@@ -144,6 +150,7 @@ class Agent:
             self.episodes += 1
             self.rewards_history.append(self.episode_reward)
             self.steps_per_episode.append(self.episode_length)
+            self.epsilon_history.append(self.epsilon)
             self.episode_reward, self.episode_length = 0, 0
             print(f'{self.episodes:03} | '
                   f'Steps: {np.mean(self.steps_per_episode[-100:]):5.1f} | '
@@ -207,7 +214,10 @@ class Agent:
             
         # DQN with fixed targets
         elif self.strategy == "t-dqn":
-           
+            # update q-function parameters based on huber loss gradient
+            if self.total_steps % self.reset_every == 0:
+                # reset target model weights
+                self.target_model.set_weights(self.model.get_weights())  
             next_q_values_targets = self.target_model.predict(next_states)
             best_actions = np.argmax(next_q_values_targets, axis=1)            
             targets = rewards + not_done* self.gamma * next_q_values_targets[[idx, best_actions]]
@@ -215,18 +225,14 @@ class Agent:
            
             q_values = self.model.predict(states) 
             q_values[[idx, actions]] = targets
-             # update q-function parameters based on huber loss gradient
-            loss = self.model.fit(
-                x= states, y=q_values,
-                epochs=1, verbose=0
-            ).history["loss"][0]
             
-            if self.total_steps % self.reset_every == 0:
-                # reset target model weights
-                self.target_model.set_weights(self.model.get_weights())  
+            
         # Double DQN
         elif self.strategy == "double-dqn":
-            
+            # update q-function parameters based on huber loss gradient
+            if self.total_steps % self.reset_every == 0:
+                # reset target model weights
+                self.target_model.set_weights(self.model.get_weights())
                 
             next_q_values = self.model.predict(next_states)
             best_actions = np.argmax(next_q_values, axis=1)
@@ -236,20 +242,14 @@ class Agent:
             
             q_values = self.model.predict(states) 
             q_values[[idx, actions]] = targets
-             # update q-function parameters based on huber loss gradient
-            loss = self.model.fit(
-                x= states, y=q_values,
-                epochs=1, verbose=0
-            ).history["loss"][0]
-            
-            if self.total_steps % self.reset_every == 0:
-                # reset target model weights
-                self.target_model.set_weights(self.model.get_weights())
                 
         else:
             raise NotImplementedError()
 
-       
+        loss = self.model.fit(
+                x= states, y=q_values,
+                epochs=1, verbose=0
+            ).history["loss"][0]
         
         self.losses.append(loss)
         
@@ -265,3 +265,13 @@ class Agent:
 
     def load(self):
         return load_model("models/" + self.model_name, custom_objects=self.custom_objects)
+    
+    def store_results(self):
+        path = Path(self.results_dir)
+        if not path.exists():
+            path.mkdir()
+        result = pd.DataFrame({'rewards': self.rewards_history,
+                               'steps'  : self.steps_per_episode,
+                               'epsilon': self.epsilon_history})
+
+        result.to_csv(path / 'results.csv', index=False)

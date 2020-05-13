@@ -11,8 +11,7 @@ warnings.filterwarnings('ignore')
 from pathlib import Path
 from collections import deque
 from random import sample, shuffle
-import numpy as np
-import pandas as pd
+
 from itertools import product
 
 import tensorflow as tf
@@ -20,7 +19,8 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
-
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from DDQNAgent import DDQNAgent
@@ -70,10 +70,10 @@ ddqn = DDQNAgent(state_dim=state_dim,
                  results_dir=results_dir)
 
 
-env = wrappers.Monitor(env,
-                       directory=monitor_path.as_posix(),
-                       video_callable=lambda count: count % video_freq == 0,
-                      force=True)
+# env = wrappers.Monitor(env,
+#                        directory=monitor_path.as_posix(),
+#                        video_callable=lambda count: count % video_freq == 0,
+#                       force=True)
 
 
 tf.keras.backend.clear_session()

@@ -162,7 +162,7 @@ def train_model(agent, episode, normalized_data, data, ep_count=100, batch_size=
 
         done = (t == data_length - 1)
         
-        agent.remember(state, action, reward, next_state, done)
+        agent.remember(state, action, reward, next_state, 0.0 if done else 1.0)
         
        
         if len(agent.memory) > batch_size:
@@ -218,7 +218,7 @@ def evaluate_model(agent, normalized_data, data, debug):
             history.append((data[t], "HOLD"))
 
         done = (t == data_length - 1)
-        agent.memory.append((state, action, reward, next_state, done))
+        agent.memory.append((state, action, reward, next_state, 0.0 if done else 1.0))
 
         state = next_state
         if done:

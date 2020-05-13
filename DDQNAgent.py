@@ -99,6 +99,7 @@ class DDQNAgent:
             self.episodes += 1
             self.rewards_history.append(self.episode_reward)
             self.steps_per_episode.append(self.episode_length)
+            self.epsilon_history.append(self.epsilon)
             self.episode_reward, self.episode_length = 0, 0
             print(f'{self.episodes:03} | '
                   f'Steps: {np.mean(self.steps_per_episode[-100:]):5.1f} | '

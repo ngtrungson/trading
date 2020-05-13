@@ -9,20 +9,9 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from pathlib import Path
-from collections import deque
-from random import sample, shuffle
-import numpy as np
 import pandas as pd
-from itertools import product
-
-import tensorflow as tf
-from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.regularizers import l2
-
 import matplotlib.pyplot as plt
-import seaborn as sns
+
 from agent import Agent
 
 import gym
@@ -83,19 +72,19 @@ agent.model.summary()
 #                  results_dir=results_dir)
 
 
-env = wrappers.Monitor(env,
-                       directory=monitor_path.as_posix(),
-                       video_callable=lambda count: count % video_freq == 0,
-                      force=True)
+# env = wrappers.Monitor(env,
+#                        directory=monitor_path.as_posix(),
+#                        video_callable=lambda count: count % video_freq == 0,
+#                       force=True)
 
 
 # tf.keras.backend.clear_session()
 
 
-max_episodes = 750
+max_episodes = 1000
 test_episodes = 0
 
-avg_loss = []
+
 
 while agent.episodes < max_episodes:
     this_state = env.reset()
@@ -105,26 +94,26 @@ while agent.episodes < max_episodes:
         next_state, reward, done, _ = env.step(action)
         agent.remember(this_state, action, reward, next_state, 0.0 if done else 1.0)
         if len(agent.memory) > batch_size:
-            loss = agent.train_experience_replay(batch_size)
-            avg_loss.append(loss)        
+            agent.train_experience_replay(batch_size)
+                 
         this_state = next_state
 
 env.close()
-# ddqn.store_results()
+agent.store_results()
 
-# results = pd.read_csv(results_dir / 'results.csv').rename(columns=str.capitalize)
-# results['MA100'] = results.rolling(window=100, min_periods=25).Rewards.mean()
+results = pd.read_csv(results_dir / 'results.csv').rename(columns=str.capitalize)
+results['MA100'] = results.rolling(window=100, min_periods=25).Rewards.mean()
 
-# results.info()
+results.info()
 
-# fig, axes = plt.subplots(ncols=2, figsize=(14, 4), sharex=True)
-# results[['Rewards', 'MA100']].plot(ax=axes[0])
-# axes[0].set_ylabel('Rewards')
-# axes[0].set_xlabel('Episodes')
-# axes[0].axhline(200, c='k', ls='--', lw=1)
-# results[['Steps', 'Epsilon']].plot(secondary_y='Epsilon', ax=axes[1]);
-# axes[1].set_xlabel('Episodes')
-# fig.suptitle('Double Deep Q-Network Agent | Lunar Lander', fontsize=16)
-# fig.tight_layout()
-# fig.subplots_adjust(top=.9)
-# fig.savefig('figures/ddqn_lunarlander', dpi=300)
+fig, axes = plt.subplots(ncols=2, figsize=(14, 4), sharex=True)
+results[['Rewards', 'MA100']].plot(ax=axes[0])
+axes[0].set_ylabel('Rewards')
+axes[0].set_xlabel('Episodes')
+axes[0].axhline(200, c='k', ls='--', lw=1)
+results[['Steps', 'Epsilon']].plot(secondary_y='Epsilon', ax=axes[1]);
+axes[1].set_xlabel('Episodes')
+fig.suptitle('Double Deep Q-Network Agent | Lunar Lander', fontsize=16)
+fig.tight_layout()
+fig.subplots_adjust(top=.9)
+fig.savefig('figures/ddqn_lunarlander', dpi=300)
