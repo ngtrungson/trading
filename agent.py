@@ -37,7 +37,7 @@ class Agent:
                  strategy="t-dqn", 
                  dueling_type='no', 
                  epsilon_start = 1.0,
-                 epsilon_end = 0.05,
+                 epsilon_end = 0.01,
                  epsilon_decay_steps = 25000,
                  reset_every=100, pretrained=False, model_name=None):
         self.strategy = strategy
@@ -47,7 +47,7 @@ class Agent:
         self.action_size = action_size           		# default = 3 [sit, buy, sell]
         self.model_name = model_name
         self.inventory = []
-        self.memory = deque(maxlen=10000)
+        self.memory = deque(maxlen=100000)
         self.first_iter_trading = False
         
         self.total_steps = 0
@@ -67,6 +67,8 @@ class Agent:
         self.model_name = model_name
         self.gamma = 0.99 # affinity for long term reward
         self.l2_reg = 1e-6
+        self.dueling_type = dueling_type
+        
         # self.epsilon = 1.0
         # self.epsilon_min = 0.01
         # self.epsilon_decay = 0.995
@@ -74,7 +76,7 @@ class Agent:
         self.loss = huber_loss
         self.custom_objects = {"huber_loss": huber_loss}  # important for loading the model from memory
         self.optimizer = Adam(lr=self.learning_rate)
-        self.dueling_type = dueling_type
+        
         
         self.pretrained = pretrained
         self.results_dir ='results'
@@ -100,13 +102,16 @@ class Agent:
         """
        
         model = Sequential()
-        model.add(Dense(units=256, activation="relu",  input_dim=self.state_dim))
-        model.add(Dense(units=128, activation="relu"))
+        # Lunar Lander neural networks 256/128
+        model.add(Dense(units=256, activation="relu", kernel_regularizer=l2(self.l2_reg), input_dim=self.state_dim))
+        model.add(Dense(units=128, activation="relu", kernel_regularizer=l2(self.l2_reg)))
+        
         # model.add(Dense(units=32, activation="relu",  input_dim=self.state_dim))
         # model.add(Dense(units=64, activation="relu"))
         # model.add(Dense(units=16, activation="relu"))
         # model.add(Dense(units=8, activation="relu"))
-        model.add(Dense(units=self.action_size))
+        
+        model.add(Dense(units=self.action_size, activation='linear'))
             
         if self.dueling_type == 'avg':
             layer = model.layers[-2]  # Get the second last layer of the model
@@ -151,6 +156,7 @@ class Agent:
             self.rewards_history.append(self.episode_reward)
             self.steps_per_episode.append(self.episode_length)
             self.epsilon_history.append(self.epsilon)
+            #reset some parameters after done
             self.episode_reward, self.episode_length = 0, 0
             print(f'{self.episodes:03} | '
                   f'Steps: {np.mean(self.steps_per_episode[-100:]):5.1f} | '
@@ -207,11 +213,7 @@ class Agent:
             q_values = self.model.predict(states) 
             q_values[[idx, actions]] = targets
             
-            loss = self.model.fit(
-                x= states, y=q_values,
-                epochs=1, verbose=0
-            ).history["loss"][0]
-            
+           
         # DQN with fixed targets
         elif self.strategy == "t-dqn":
             # update q-function parameters based on huber loss gradient

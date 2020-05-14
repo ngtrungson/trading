@@ -11,7 +11,7 @@ warnings.filterwarnings('ignore')
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import numpy as np
 from agent import Agent
 
 import gym
@@ -45,7 +45,7 @@ video_freq = 50
 
 strategy = "double-dqn"
 dueling_type = 'no'
-ep_count = 100
+
 batch_size = 512
 model_name = 'LunarLander' + strategy
 
@@ -86,16 +86,22 @@ test_episodes = 0
 
 
 
-while agent.episodes < max_episodes:
+while agent.episodes < max_episodes and test_episodes < 100:
     this_state = env.reset()
     done = False
     while not done:
         action = agent.act(this_state.reshape(-1, state_dim))
         next_state, reward, done, _ = env.step(action)
         agent.remember(this_state, action, reward, next_state, 0.0 if done else 1.0)
-        if len(agent.memory) > batch_size:
+        if (len(agent.memory) > batch_size) and not agent.pretrained:
             agent.train_experience_replay(batch_size)
-                 
+        if done:
+            if not agent.pretrained:
+                if np.mean(agent.rewards_history[-100:]) > 200:
+                    agent.pretrained = True
+            else:
+                test_episodes += 1
+            break         
         this_state = next_state
 
 env.close()
