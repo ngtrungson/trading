@@ -81,7 +81,7 @@ agent.model.summary()
 # tf.keras.backend.clear_session()
 
 
-max_episodes = 1000
+max_episodes = 10
 test_episodes = 0
 
 
@@ -94,7 +94,8 @@ while agent.episodes < max_episodes and test_episodes < 100:
         next_state, reward, done, _ = env.step(action)
         agent.remember(this_state, action, reward, next_state, 0.0 if done else 1.0)
         if (len(agent.memory) > batch_size) and not agent.pretrained:
-            agent.train_experience_replay(batch_size)
+            loss = agent.train_experience_replay(batch_size)
+            
         if done:
             if not agent.pretrained:
                 if np.mean(agent.rewards_history[-100:]) > 200:
@@ -103,6 +104,7 @@ while agent.episodes < max_episodes and test_episodes < 100:
                 test_episodes += 1
             break         
         this_state = next_state
+    # print("Episode: ", agent.episodes, " Losses:", np.mean(np.array(avg_loss)))
 
 env.close()
 agent.store_results()

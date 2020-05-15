@@ -4,20 +4,19 @@ Created on Fri Dec  8 14:35:57 2017
 
 @author: sonng
 """
-
-import numpy as np
 import datetime
-from collections import Counter
 from finance_util import get_data, get_RSI, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta,get_info_stock
-from strategy import process_data, momentum_strategy, ninja_trading, hedgefund_trading, bollinger_bands, short_selling, hung_canslim, mean_reversion, get_statistic_index
-from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
-from machine_learning import price_predictions, ML_strategy
+from strategy import process_data, momentum_strategy,  short_selling, hung_canslim, mean_reversion
+# from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
+# from machine_learning import price_predictions, ML_strategy
 import pandas as pd
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
-
-
+import sys
+import warnings
+if not sys.warnoptions:
+    warnings.simplefilter("ignore")
 
 def my_portfolio(start = "2018-7-10" , end = "2018-10-16"):
     dates = pd.date_range(start, end)
@@ -629,7 +628,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    symbols = get_csv_data(source = "ssi")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -671,13 +670,13 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-5-14"
+    end_date = "2020-5-15"
     start_date = "2018-4-6"
     # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    

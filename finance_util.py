@@ -251,16 +251,95 @@ def fundemental_analysis(tickers):
     return df
     
 
-def get_info_stock(ticker):
-    url = 'http://www.cophieu68.vn/snapshot.php?id=' + ticker   
+def get_info_stock_bsc(ticker):
+    url = 'https://www.bsc.com.vn/Companies/Overview/{}'.format(ticker)   
+    resp = requests.get(url, verify =False)
+    # print(resp.text)
+    soup = bs.BeautifulSoup(resp.text, 'lxml') 
     
-    http = urllib3.PoolManager()
-    r = http.request('GET', url)
-    soup = bs.BeautifulSoup(r.data, 'lxml')
+    df = pd.DataFrame(columns = ['Ticker',
+                             'Close',
+                             'Close_1D',
+                             'Open',
+                             'Low',
+                             'High', 
+                             'Volume'])
+   
+        # print(line)
+    # print(soup)
+    tables = soup.find_all('table')
+    data = tableDataText(tables[0])
+    line2 = data[2][1].replace('(','').replace(')','').replace('/',' ').replace(',','.').split()
+    line3 = data[3][1].replace(',','.').replace('-','').split()
+    line4 = data[4][1].replace('.','')
+    volume = float(line4)
+    low = float(line3[0])
+    high = float(line3[1])
+    close = float(line2[0])
+    close1D = close - float(line2[1]) 
+
+    
+    df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+                        'Close': close,
+                        'Close_1D' : close1D,
+                          'Open' : close1D,
+                          'Low' : low,
+                          'High': high, 
+                          'Volume': volume,                       
+                          }, ignore_index = True)
+  
+    return df  
+
+def get_info_stock_vssc(ticker):
+    url = 'http://ra.vcsc.com.vn/?lang=vi-VN&ticker={}'.format(ticker)  
+    resp = requests.get(url)
+    # print(resp.text)
+    soup = bs.BeautifulSoup(resp.text, 'lxml') 
+    
+    df = pd.DataFrame(columns = ['Ticker',
+                             'Close',
+                             'Close_1D',
+                             'Open',
+                             'Low',
+                             'High', 
+                             'Volume'])
+   
+    value_number = []
+    data = soup.find('div', {'class':'home-block2'}).stripped_strings
+    for line in data:
+        line = line.replace('.','').replace(',','')
+        if isfloat(line): 
+            value_number.append(float(line)) 
+    
+    close1D = value_number[0]/1000.0 
+    open0D = value_number[1]/1000.0 
+    high = value_number[2]/1000.0 
+    low = value_number[3]/1000.0     
+    close = value_number[4]/1000.0 
+    volume = value_number[5]
+    
+    df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+                        'Close': close,
+                        'Close_1D' : close1D,
+                          'Open' : open0D,
+                          'Low' : low,
+                          'High': high, 
+                          'Volume': volume,                       
+                          }, ignore_index = True)
+  
+    return df  
+
+
+def get_info_stock(ticker):
+    url = 'https://www.cophieu68.vn/snapshot.php?id={}'.format(ticker)   
+    
+    # http = urllib3.PoolManager()
+    # r = http.request('GET', url)
+    # soup = bs.BeautifulSoup(r.data, 'lxml')
         
-#    resp = requests.get(url)
-#    print(resp.text)
-#    soup = bs.BeautifulSoup(resp.text, 'lxml') 
+    resp = requests.get(url, verify =False)
+    # print(resp.text)
+    soup = bs.BeautifulSoup(resp.text, 'lxml') 
     
     df = pd.DataFrame(columns = ['Ticker',
                              'Close',
@@ -287,7 +366,8 @@ def get_info_stock(ticker):
 
     value_number = []
     stockexchange = 'HSX'
-   
+    
+    
     for line in soup.find('div', {'class':'listHeader'}).stripped_strings:
         line = line.replace(',','').replace('%','').replace(':','').replace(ticker,'').replace(' ','')
         line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','').replace('(','').replace(')','')       
@@ -306,10 +386,6 @@ def get_info_stock(ticker):
             value_number.append(float(line)) 
 #        print(line) 
 #    print(value_number)   
-#    link href="http://www.cophieu68.vn/css/screen.css?date=20180212
-#    for line in soup.find(l)
-
-    
     
     df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
                         'Close': value_number[0],
@@ -334,11 +410,23 @@ def get_info_stock(ticker):
                          'FVQ': value_number[13]/value_number[6]*1E6,
                          'Exchange': stockexchange}, ignore_index = True)
   
-    return df  
+    return df 
+
+def tableDataText(table):       
+    rows = []
+    trs = table.find_all('tr')
+    headerow = [td.get_text(strip=True) for td in trs[0].find_all('th')] # header row
+    if headerow: # if there is a header row include first
+        rows.append(headerow)
+        trs = trs[1:]
+    for tr in trs: # for every table row
+        rows.append([td.get_text(strip=True) for td in tr.find_all('td')]) # data row
+    return rows    
     
-def get_info_stock_ssi(ticker):
-    url = 'http://www.cophieu68.vn/snapshot.php?id=' + ticker    
-    resp = requests.get(url)
+def get_info_stock_cp68_mobile(ticker):
+    
+    url = 'https://m.cophieu68.vn/snapshot.php?id={}&s_search=Go'.format(ticker)
+    resp = requests.get(url, verify =False)
     soup = bs.BeautifulSoup(resp.text, 'lxml') 
     df = pd.DataFrame(columns = ['Ticker',
                              'Close',
@@ -346,69 +434,36 @@ def get_info_stock_ssi(ticker):
                              'Open',
                              'Low',
                              'High', 
-                             'Volume',
-                             'MeanVol_13W', 
-                             'MeanVol_10D',
-                             'High52W', 
-                             'Low52W', 
-                             'EPS', 
-                             'PE',
-                             'Market capital', 
-                             'Float', 
-                             'BookValue', 
-                             'Beta', 
-                             'ROE', 
-                             'EPS_52W',
-                             'CPM', 'FVQ','Exchange'])
+                             'Volume'])
    
+        # print(line)
    
-
-    value_number = []
-    stockexchange = 'HSX'
-    for line in soup.find('div', {'class':'listHeader'}).stripped_strings:
-        line = line.replace(',','').replace('%','').replace(':','').replace(ticker,'').replace(' ','')
-        line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','').replace('(','').replace(')','')       
-        if isfloat(line): 
-            value_number.append(float(line)) 
-         
-        if ((line == 'HSX')| (line == 'HNX') | (line == 'UPCOM') | (line == 'HOSE')):
-            stockexchange = line
-     
-#    print(stockexchange)
-    for line in soup.find('div', {'id':'snapshot_trading'}).stripped_strings:
-        line = line.replace(',','').replace('%','')
-        line = line.replace('triá»\x87u','').replace('ngÃ\xa0n','')        
-        if isfloat(line): 
-            value_number.append(float(line)) 
-#        print(line) 
-#    print(value_number)   
-#    link href="http://www.cophieu68.vn/css/screen.css?date=20180212
-#    for line in soup.find(l)
-
+    # for line in soup.find(id="stockname_change").stripped_strings:
+    #     line = line.replace(' ','').replace('\xa0\xa0\r','').replace('\n',' ').split()
+    #     if isfloat(line[0]): 
+    #         value_number.append(float(line[0])) 
     
+    # hard coding for Close, Close_1D, Open, High, Low, Volume   
+    value_number = []
+    for line in soup.find(id="stockname_close").stripped_strings:
+        if isfloat(line): 
+            value_number.append(float(line)) 
+    tables = soup.find_all('table')
+    data = tableDataText(tables[2])
+    value_number.append(float(data[0][1])) # close
+    value_number.append(float(data[1][1])) # close-1D
+    value_number.append(float(data[2][1])) # high
+    value_number.append(float(data[3][1])) # low
+    value_number.append(float(data[4][1].replace(',',''))) # volume
     
     df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
                         'Close': value_number[0],
                         'Close_1D' : value_number[1],
                          'Open' : value_number[2],
-                         'Low' : value_number[3],
-                         'High': value_number[4], 
-                         'Volume': value_number[5],
-                         'MeanVol_13W' : value_number[6], 
-                         'MeanVol_10D' : value_number[7],
-                         'High52W' : value_number[8], 
-                         'Low52W' : value_number[9], 
-                         'EPS' : value_number[10]*1E3, 
-                         'PE' : value_number[11],
-                         'Market capital' : value_number[12]*1E9, 
-                         'Float' : value_number[13]*1E6, 
-                         'BookValue' : value_number[14], 
-                         'ROE' : value_number[15], 
-                         'Beta' : value_number[16], 
-                         'EPS_52W' : value_number[17],
-                         'CPM': value_number[8]/value_number[9],
-                         'FVQ': value_number[13]/value_number[6]*1E6,
-                         'Exchange': stockexchange}, ignore_index = True)
+                         'Low' : value_number[4],
+                         'High': value_number[3], 
+                         'Volume': value_number[5],                       
+                         }, ignore_index = True)
   
     return df  
  
@@ -802,35 +857,43 @@ if __name__ == "__main__":
     
      # tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_0205.csv', parse_dates=True, index_col=0)
-     data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
-     data['EPS_Price'] = data['EPS']/data['Close']/1000
+     # data = pd.read_csv('fundemental_stocks_all_0205.csv', parse_dates=True, index_col=0)
+     # data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
+     # data['EPS_Price'] = data['EPS']/data['Close']/1000
      
-     df = data.query("MeanVol_13W > 50000")
-     df = df.query("MeanVol_10D> 50000")
-##     df = df.query("MeanVol_10D > 0")
-###     df = df.query("FVQ > 0")
-###     df = df.query("CPM > 1.4")
-     df = df.query("EPS >= 2000")
-###     df = df.query("EPS_52W >= 0")
-     df = df.query("ROE >= 15")
-#     df = df.query("Close > 4")
-#     df = df.query("Beta < 0")
-#     df = df.query("Beta > 0")
-#     df = df.query("Diff_Price < 0")
-#     df.to_csv('investment_stock3.csv')
-#     print(df.index)
+#      df = data.query("MeanVol_13W > 50000")
+#      df = df.query("MeanVol_10D> 50000")
+# ##     df = df.query("MeanVol_10D > 0")
+# ###     df = df.query("FVQ > 0")
+# ###     df = df.query("CPM > 1.4")
+#      df = df.query("EPS >= 2000")
+# ###     df = df.query("EPS_52W >= 0")
+#      df = df.query("ROE >= 15")
+# #     df = df.query("Close > 4")
+# #     df = df.query("Beta < 0")
+# #     df = df.query("Beta > 0")
+# #     df = df.query("Diff_Price < 0")
+# #     df.to_csv('investment_stock3.csv')
+# #     print(df.index)
      
-     listA = symbols
-     listB = df.index.tolist()
-     common = list(set(listA) & set(listB))
-     listC = list(set(listB).difference(set(listA)))
+#      listA = symbols
+#      listB = df.index.tolist()
+#      common = list(set(listA) & set(listB))
+#      listC = list(set(listB).difference(set(listA)))
 #     df2 = data.loc[symbols]
 ##     
 #     end_date = "2018-5-29"
 #     start_date = "2017-1-2"
      
-#     df = get_info_stock("^VNINDEX")
+     
+     ticker = 'FPT'
+     url = 'https://www.bsc.com.vn/Companies/Overview/{}'.format(ticker) 
+     url2 = 'http://ra.vcsc.com.vn/?lang=vi-VN&ticker={}'.format(ticker)
+     url3 = 'http://data.vdsc.com.vn/vi/Stock/{}'.format(ticker)
+     df1 = get_info_stock_cp68_mobile("FPT")
+     df2 = get_info_stock_vssc("FPT")
+     
+     dfs = pd.read_html(url3)
 #     data = yf.download("SPY", start="2017-01-2", end="2018-05-29")
 #     get_data_from_web(tickers = ['MSFT'], start = start_date, end = end_date, source ='yahoo')
 #     yf.pdr_override()

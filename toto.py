@@ -39,11 +39,6 @@ if __name__ == "__main__":
     # pickle.dump(ddqn, file)    
     # # close the file
     # file.close()
-    memory = deque(maxlen=10000)
-    memory.append(('a','b','c','d','e'))
-    memory.append(('a1','b1','c1','d1','e1'))
-    memory.append(('a2','b2','c2','d2','e2'))
-    batch_size = 2
-    minibatch = map(np.array, zip(random.sample(memory, batch_size)))
-    a, b, c, d, e = minibatch
+    text = '-0.70 -1.44%'
+    print(text.split())
     

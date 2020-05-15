@@ -106,10 +106,10 @@ class Agent:
         model.add(Dense(units=256, activation="relu", kernel_regularizer=l2(self.l2_reg), input_dim=self.state_dim))
         model.add(Dense(units=128, activation="relu", kernel_regularizer=l2(self.l2_reg)))
         
-        # model.add(Dense(units=32, activation="relu",  input_dim=self.state_dim))
-        # model.add(Dense(units=64, activation="relu"))
-        # model.add(Dense(units=16, activation="relu"))
-        # model.add(Dense(units=8, activation="relu"))
+        # model.add(Dense(units=32, activation="relu", kernel_regularizer=l2(self.l2_reg), input_dim=self.state_dim))
+        # model.add(Dense(units=64, activation="relu", kernel_regularizer=l2(self.l2_reg)))
+        # model.add(Dense(units=16, activation="relu", kernel_regularizer=l2(self.l2_reg)))
+        # model.add(Dense(units=8, activation="relu", kernel_regularizer=l2(self.l2_reg)))
         
         model.add(Dense(units=self.action_size, activation='linear'))
             
@@ -161,7 +161,8 @@ class Agent:
             print(f'{self.episodes:03} | '
                   f'Steps: {np.mean(self.steps_per_episode[-100:]):5.1f} | '
                   f'Rewards: {np.mean(self.rewards_history[-100:]):8.2f} | '
-                  f'epsilon: {self.epsilon:.4f}')
+                  f'epsilon: {self.epsilon:.4f} | '
+                  f'loss: {np.mean(self.losses[-100:]):8.4f} ')
         
         # not_done = 0.0 if done else 1.0
         
@@ -248,11 +249,8 @@ class Agent:
         else:
             raise NotImplementedError()
 
-        loss = self.model.fit(
-                x= states, y=q_values,
-                epochs=1, verbose=0
-            ).history["loss"][0]
-        
+        loss  = self.model.fit(x= states, y=q_values, epochs=1, verbose=0).history["loss"][0]
+       
         self.losses.append(loss)
         
         # as the training goes on we want the agent to
