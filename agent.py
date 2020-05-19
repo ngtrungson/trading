@@ -117,13 +117,13 @@ class Agent:
        
         model = Sequential()
         # Lunar Lander neural networks 256/128
-        model.add(Dense(units=256, activation="relu", kernel_regularizer=l2(self.l2_reg), input_dim=self.state_dim))
-        model.add(Dense(units=128, activation="relu", kernel_regularizer=l2(self.l2_reg)))
+        # model.add(Dense(units=256, activation="relu", kernel_regularizer=l2(self.l2_reg), input_dim=self.state_dim))
+        # model.add(Dense(units=128, activation="relu", kernel_regularizer=l2(self.l2_reg)))
         
-        # model.add(Dense(units=32, activation="relu", kernel_regularizer=l2(self.l2_reg), input_dim=self.state_dim))
-        # model.add(Dense(units=64, activation="relu", kernel_regularizer=l2(self.l2_reg)))
-        # model.add(Dense(units=16, activation="relu", kernel_regularizer=l2(self.l2_reg)))
-        # model.add(Dense(units=8, activation="relu", kernel_regularizer=l2(self.l2_reg)))
+        model.add(Dense(units=32, activation="relu", kernel_regularizer=l2(self.l2_reg), input_dim=self.state_dim))
+        model.add(Dense(units=64, activation="relu", kernel_regularizer=l2(self.l2_reg)))
+        model.add(Dense(units=16, activation="relu", kernel_regularizer=l2(self.l2_reg)))
+        model.add(Dense(units=8, activation="relu", kernel_regularizer=l2(self.l2_reg)))
         
         model.add(Dense(units=self.action_size, activation='linear'))
             
