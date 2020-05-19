@@ -81,7 +81,7 @@ agent.model.summary()
 # tf.keras.backend.clear_session()
 
 
-max_episodes = 10
+max_episodes = 1000
 test_episodes = 0
 
 
@@ -93,7 +93,7 @@ while agent.episodes < max_episodes and test_episodes < 100:
         action = agent.act(this_state.reshape(-1, state_dim))
         next_state, reward, done, _ = env.step(action)
         agent.remember(this_state, action, reward, next_state, 0.0 if done else 1.0)
-        if (len(agent.memory) > batch_size) and not agent.pretrained:
+        if (agent.get_exp_replay_size() > batch_size) and not agent.pretrained:
             loss = agent.train_experience_replay(batch_size)
             
         if done:

@@ -891,9 +891,12 @@ if __name__ == "__main__":
      url2 = 'http://ra.vcsc.com.vn/?lang=vi-VN&ticker={}'.format(ticker)
      url3 = 'http://data.vdsc.com.vn/vi/Stock/{}'.format(ticker)
      df1 = get_info_stock_cp68_mobile("FPT")
+     print("done 1")
      df2 = get_info_stock_vssc("FPT")
+     print("done 2")
      
      dfs = pd.read_html(url3)
+     print("done 3")
 #     data = yf.download("SPY", start="2017-01-2", end="2018-05-29")
 #     get_data_from_web(tickers = ['MSFT'], start = start_date, end = end_date, source ='yahoo')
 #     yf.pdr_override()

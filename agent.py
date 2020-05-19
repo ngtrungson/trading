@@ -12,9 +12,11 @@ import keras.backend as K
 
 from keras.models import Sequential, Model
 from keras.models import load_model, clone_model
-from keras.layers import Dense, Lambda, Layer, Input, Flatten
+from keras.layers import Dense, Lambda 
 from keras.optimizers import Adam
 from keras.regularizers import l2
+
+from memorybuffer import MemoryBuffer
 
 def huber_loss(y_true, y_pred, clip_delta=1.0):
     """Huber loss - Custom Loss Function for Q Learning
@@ -36,6 +38,7 @@ class Agent:
                  action_size = 3, 
                  strategy="t-dqn", 
                  dueling_type='no', 
+                 use_PER = 'True',
                  epsilon_start = 1.0,
                  epsilon_end = 0.01,
                  epsilon_decay_steps = 25000,
@@ -47,7 +50,7 @@ class Agent:
         self.action_size = action_size           		# default = 3 [sit, buy, sell]
         self.model_name = model_name
         self.inventory = []
-        self.memory = deque(maxlen=100000)
+       
         self.first_iter_trading = False
         
         self.total_steps = 0
@@ -77,6 +80,7 @@ class Agent:
         self.custom_objects = {"huber_loss": huber_loss}  # important for loading the model from memory
         self.optimizer = Adam(lr=self.learning_rate)
         
+        self.with_per = use_PER
         
         self.pretrained = pretrained
         self.results_dir ='results'
@@ -96,6 +100,16 @@ class Agent:
             # target network
             self.target_model = clone_model(self.model)
             self.target_model.set_weights(self.model.get_weights())
+        else:
+            self.with_per = False
+        
+        # Memory Buffer for Experience Replay
+        if self.with_per:
+            self.buffer = MemoryBuffer(int(100000))
+            print("Agent with Prioritized Experience Replay")
+        else:
+            self.memory = deque(maxlen=100000)
+        
 
     def _model(self):
         """Creates the model
@@ -164,9 +178,15 @@ class Agent:
                   f'epsilon: {self.epsilon:.4f} | '
                   f'loss: {np.mean(self.losses[-100:]):8.4f} ')
         
+        if(self.with_per): 
+            experience = state, action, reward, next_state, not_done
+            self.buffer.store(experience)
+        else:
+            self.memory.append((state, action, reward, next_state, not_done))
+        
         # not_done = 0.0 if done else 1.0
         
-        self.memory.append((state, action, reward, next_state, not_done))
+       
 
     def act(self, state, is_eval=False):
         """Take action from given possible set of actions
@@ -199,10 +219,17 @@ class Agent:
         """
         # if batch_size > len(self.memory):
         #     return
-        minibatch = random.sample(self.memory,batch_size)
+       
         idx = np.arange(batch_size)
-        states, actions, rewards, next_states, not_done = map(np.array, zip(*minibatch)) 
         
+        if self.with_per:            
+            tree_idx, minibatch = self.buffer.sample(batch_size)
+        else:
+            minibatch = random.sample(self.memory,batch_size)
+        
+        states, actions, rewards, next_states, not_done = map(np.array, zip(*minibatch))  
+        q_values = self.model.predict(states) 
+        old_q_values = np.array(q_values)
         
         # DQN
         if self.strategy == "dqn":
@@ -210,8 +237,6 @@ class Agent:
             best_actions = np.argmax(next_q_values, axis=1)                 
             targets = rewards + not_done* self.gamma * next_q_values[[idx, best_actions]]
             # targets = rewards + not_done* self.gamma * np.amax(next_q_values, axis=1)  
-            
-            q_values = self.model.predict(states) 
             q_values[[idx, actions]] = targets
             
            
@@ -225,10 +250,7 @@ class Agent:
             best_actions = np.argmax(next_q_values_targets, axis=1)            
             targets = rewards + not_done* self.gamma * next_q_values_targets[[idx, best_actions]]
             # targets = rewards + not_done* self.gamma * np.amax(next_q_values_targets, axis=1)  
-           
-            q_values = self.model.predict(states) 
             q_values[[idx, actions]] = targets
-            
             
         # Double DQN
         elif self.strategy == "double-dqn":
@@ -243,12 +265,17 @@ class Agent:
             target_q_values = next_q_values_targets[[idx, best_actions]]
             targets = rewards + not_done* self.gamma * target_q_values  
             
-            q_values = self.model.predict(states) 
             q_values[[idx, actions]] = targets
                 
         else:
             raise NotImplementedError()
 
+        if self.with_per:
+            absolute_errors = np.abs(old_q_values[idx, actions]-q_values[idx, actions])
+            # Update priority
+            self.buffer.batch_update(tree_idx, absolute_errors)
+           
+        
         loss  = self.model.fit(x= states, y=q_values, epochs=1, verbose=0).history["loss"][0]
        
         self.losses.append(loss)
@@ -275,3 +302,9 @@ class Agent:
                                'epsilon': self.epsilon_history})
 
         result.to_csv(path / 'results.csv', index=False)
+
+    def get_exp_replay_size(self):
+        if self.with_per:
+            return self.buffer.size()
+        else:
+            return len(self.memory)
