@@ -659,8 +659,7 @@ if __name__ == "__main__":
 ##    
 ##    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
 ##    
-#    canslim = hung_canslim(ticker, start_date, end_date, realtime = True,  source ="cp68", ndays = 10, typetrade = 'Long') 
-#    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
+    #    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 ###    plot_canslim_trading(ticker, canslim)
 
 #    RSWlist= ['CVN', 'TTB', 'NDN', 'HLD', 'CEO',  'ACB', 'MBS', 'PHC', 'PGS', 'PVB', 
@@ -670,13 +669,16 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-5-19"
+    end_date = "2020-5-20"
     start_date = "2018-4-6"
+    ticker = 'DPM'
+    # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'LongShortTrend') 
+
     # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    

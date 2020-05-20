@@ -11,7 +11,7 @@
   Variation last 7 days max/min (H/L):  17.1 15.81 12.3 10.23 9.35 9.35 9.35
   Variation last 7 days  (H/L) :  1.57 2.07 2.92 1.37 2.08 1.39 6.53
   Volume last 7 days (100K): 3.71 3.85 5.11 4.82 4.34 2.99 7.18
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.98 0.78 0.73 0.63 0.63
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.02 1.01 0.98 0.78 0.73 0.63 0.63
   Support S1 S2 S3 : 57.5 57.3 56.7
   Resistance R1 R2 R3 : 62.0 63.0 70.0
   Loss/gain T+1/T+2/T+3/T+4 : 2.31 nan nan nan
@@ -33,14 +33,36 @@ Back test result: Counter({'0': 516, '-1': 11, '1': 2}) symbol:  ACV
   Variation last 7 days max/min (H/L):  17.66 17.66 18.48 19.29 19.29 17.38 17.38
   Variation last 7 days  (H/L) :  3.11 4.56 3.78 1.87 3.6 3.14 2.98
   Volume last 7 days (100K): 76.54 65.77 69.59 58.28 73.03 52.05 110.23
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.83 0.8 0.8 0.8 0.59
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.03 1.02 0.83 0.8 0.8 0.8 0.59
   Support S1 S2 S3 : 20.7 19.55 18.7
   Resistance R1 R2 R3 : 25.05 26.85 26.95
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 21.8 - 2.91 % Target >=: 24.249999999999996 + 8.74 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 516, '1': 8, '-1': 5}) symbol:  CTG
+Back test result: Counter({'0': 515, '1': 9, '-1': 5}) symbol:  CTG
+***************************************************************
+ Short trend trading  1 days before  2020-05-20 00:00:00 DPM
+  Volume/volume(MA30) ratio:  1.92
+  RSI indicator:  56.23422713869337
+  Trading value (billion VND/million USD):  79.43  MA30 : 40.54
+  Money flow in last 5 days:  36.91 60.84 35.55 27.94 79.43
+  Relative strength RSW:  8.769975229175659
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  15.18 15.18 15.18 17.47
+  Actual price Close/Low/High/Open: 14.25 13.55 14.45 13.7
+  PCT_Change last 7 days: 6.5 -1.69 -3.1 -2.85 0.37 -0.36 4.4
+  Variation last 7 days max/min (H/L):  16.03 15.51 15.51 15.51 15.51 11.61 11.61
+  Variation last 7 days  (H/L) :  6.5 3.15 2.49 3.66 2.99 2.2 6.64
+  Volume last 7 days (100K): 49.58 23.7 26.27 44.57 25.95 20.47 55.74
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.01 0.99 0.94 0.94 0.94 0.82 0.66
+  Support S1 S2 S3 : 13.4 13.35 13.29
+  Resistance R1 R2 R3 : 14.8 14.9 15.42
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 13.55 - 6.32 % Target >=: 16.949999999999996 + 18.95 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 507, '-1': 12, '1': 10}) symbol:  DPM
 ***************************************************************
  Short trend trading  2 days before  2020-05-19 00:00:00 GEX
   Volume/volume(MA30) ratio:  5.0
@@ -55,14 +77,14 @@ Back test result: Counter({'0': 516, '1': 8, '-1': 5}) symbol:  CTG
   Variation last 7 days max/min (H/L):  16.04 16.04 16.04 12.63 11.95 15.02 15.02
   Variation last 7 days  (H/L) :  1.3 1.64 2.32 5.81 3.37 5.02 4.46
   Volume last 7 days (100K): 13.4 13.54 17.57 60.46 35.63 42.21 98.04
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.92 0.82 0.75 0.75 0.62
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.92 0.82 0.75 0.75 0.62
   Support S1 S2 S3 : 15.95 15.1 14.65
   Resistance R1 R2 R3 : 17.7 18.15 18.7
   Loss/gain T+1/T+2/T+3/T+4 : -2.89 nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 16.8 - 4.34 % Target >=: 19.55 + 13.01 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 517, '-1': 7, '1': 5}) symbol:  GEX
+Back test result: Counter({'0': 515, '-1': 9, '1': 5}) symbol:  GEX
 ***************************************************************
  Short trend trading  3 days before  2020-05-18 00:00:00 HDC
   Volume/volume(MA30) ratio:  2.4
@@ -77,14 +99,14 @@ Back test result: Counter({'0': 517, '-1': 7, '1': 5}) symbol:  GEX
   Variation last 7 days max/min (H/L):  15.11 15.11 15.11 15.11 17.04 17.04 13.04
   Variation last 7 days  (H/L) :  3.82 1.46 3.77 4.6 1.99 3.42 3.07
   Volume last 7 days (100K): 7.6 5.75 10.96 12.23 6.57 10.14 15.11
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.82 0.74 0.74 0.74 0.74
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.82 0.74 0.74 0.74 0.74
   Support S1 S2 S3 : 17.55 17.0 16.5
   Resistance R1 R2 R3 : 19.55 20.8 22.6
   Loss/gain T+1/T+2/T+3/T+4 : 2.72 2.18 nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 17.9 - 3.0 % Target >=: 20.000000000000004 + 8.99 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 511, '-1': 10, '1': 8}) symbol:  HDC
+Back test result: Counter({'0': 510, '-1': 11, '1': 8}) symbol:  HDC
 ***************************************************************
  Short trend trading  3 days before  2020-05-18 00:00:00 HPG
   Volume/volume(MA30) ratio:  1.6
@@ -99,14 +121,14 @@ Back test result: Counter({'0': 511, '-1': 10, '1': 8}) symbol:  HDC
   Variation last 7 days max/min (H/L):  19.49 22.28 19.85 19.85 20.1 19.21 15.24
   Variation last 7 days  (H/L) :  3.21 3.43 2.14 3.86 1.69 2.78 4.58
   Volume last 7 days (100K): 124.85 72.2 105.28 96.08 65.17 79.32 134.92
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 1.04 0.95 0.95 0.95 0.74
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.04 1.04 1.04 0.95 0.95 0.95 0.74
   Support S1 S2 S3 : 23.3 21.0 20.15
   Resistance R1 R2 R3 : 26.85 27.38 27.85
   Loss/gain T+1/T+2/T+3/T+4 : 4.18 5.38 nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 24.0 - 4.38 % Target >=: 28.400000000000006 + 13.15 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 516, '1': 8, '-1': 5}) symbol:  HPG
+Back test result: Counter({'0': 514, '1': 8, '-1': 7}) symbol:  HPG
 ***************************************************************
  Short trend trading  3 days before  2020-05-18 00:00:00 MWG
   Volume/volume(MA30) ratio:  1.34
@@ -121,7 +143,7 @@ Back test result: Counter({'0': 516, '1': 8, '-1': 5}) symbol:  HPG
   Variation last 7 days max/min (H/L):  12.86 13.93 11.41 11.41 11.41 11.41 9.01
   Variation last 7 days  (H/L) :  3.49 2.15 2.79 3.7 2.2 2.2 4.39
   Volume last 7 days (100K): 23.62 12.57 19.38 16.74 10.4 11.06 21.84
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.77 0.7 0.67 0.67 0.67
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.02 1.01 0.77 0.7 0.67 0.67 0.67
   Support S1 S2 S3 : 81.1 78.8 77.1
   Resistance R1 R2 R3 : 106.6 107.8 108.4
   Loss/gain T+1/T+2/T+3/T+4 : 1.99 1.17 nan nan
@@ -143,14 +165,14 @@ Back test result: Counter({'0': 512, '1': 12, '-1': 5}) symbol:  MWG
   Variation last 7 days max/min (H/L):  22.22 22.22 22.22 25.73 26.32 26.32 26.32
   Variation last 7 days  (H/L) :  2.18 6.26 6.97 5.88 2.42 4.37 3.3
   Volume last 7 days (100K): 73.01 134.76 74.9 76.72 67.84 72.7 78.33
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.81 0.66 0.58 0.56 0.55
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.81 0.66 0.58 0.56 0.55
   Support S1 S2 S3 : 10.3 9.5 8.55
   Resistance R1 R2 R3 : 11.4 12.85 13.65
   Loss/gain T+1/T+2/T+3/T+4 : 2.29 0.46 nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 10.6 - 3.21 % Target >=: 11.95 + 9.63 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 511, '1': 10, '-1': 8}) symbol:  PVD
+Back test result: Counter({'0': 510, '1': 10, '-1': 9}) symbol:  PVD
 ***************************************************************
  Short trend trading  2 days before  2020-05-19 00:00:00 QNS
   Volume/volume(MA30) ratio:  3.04
@@ -165,16 +187,16 @@ Back test result: Counter({'0': 511, '1': 10, '-1': 8}) symbol:  PVD
   Variation last 7 days max/min (H/L):  6.33 6.33 5.88 6.79 7.69 7.17 7.17
   Variation last 7 days  (H/L) :  1.74 0.87 1.72 1.28 1.7 0.85 21.0
   Volume last 7 days (100K): 3.61 3.11 4.3 3.23 1.99 3.17 8.54
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 0.9 0.87 0.86 0.8 0.71
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.9 0.87 0.86 0.8 0.71
   Support S1 S2 S3 : 20.0 18.76 nan
   Resistance R1 R2 R3 : 24.21 24.96 26.46
   Loss/gain T+1/T+2/T+3/T+4 : -0.42 nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 20.0 - 17.5 % Target >=: 36.599999999999994 + 52.5 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 519, '-1': 8, '1': 2}) symbol:  QNS
+Back test result: Counter({'0': 518, '-1': 8, '1': 3}) symbol:  QNS
 ***************************************************************
- Short trend trading  1 days before  2020-05-20 16:41:15.406443 STB
+ Short trend trading  1 days before  2020-05-20 00:00:00 STB
   Volume/volume(MA30) ratio:  2.31
   RSI indicator:  66.42151221527455
   Trading value (billion VND/million USD):  253.36  MA30 : 100.33
@@ -187,7 +209,7 @@ Back test result: Counter({'0': 519, '-1': 8, '1': 2}) symbol:  QNS
   Variation last 7 days max/min (H/L):  13.86 12.83 16.27 17.98 15.34 15.34 15.34
   Variation last 7 days  (H/L) :  3.07 6.28 5.21 4.08 1.76 2.94 7.0
   Volume last 7 days (100K): 113.12 190.03 125.78 92.11 99.65 154.37 243.62
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.83 0.83 0.83 0.83 0.63
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.02 1.01 0.83 0.83 0.83 0.83 0.63
   Support S1 S2 S3 : 9.68 9.46 8.93
   Resistance R1 R2 R3 : 10.55 11.5 12.7
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
@@ -196,7 +218,7 @@ Back test result: Counter({'0': 519, '-1': 8, '1': 2}) symbol:  QNS
 ----------------------------------------------------------------
 Back test result: Counter({'0': 519, '-1': 7, '1': 3}) symbol:  STB
 ***************************************************************
- Short trend trading  1 days before  2020-05-20 16:41:21.023613 TNA
+ Short trend trading  1 days before  2020-05-20 00:00:00 TNA
   Volume/volume(MA30) ratio:  1.91
   RSI indicator:  65.27386390013037
   Trading value (billion VND/million USD):  5.9  MA30 : 2.85
@@ -209,7 +231,7 @@ Back test result: Counter({'0': 519, '-1': 7, '1': 3}) symbol:  STB
   Variation last 7 days max/min (H/L):  11.64 11.99 12.33 12.33 12.33 14.04 12.88
   Variation last 7 days  (H/L) :  6.86 5.81 2.87 1.59 10.63 2.22 6.6
   Volume last 7 days (100K): 4.17 2.39 0.38 0.39 4.2 3.06 3.48
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.02 0.87 0.63 0.63 0.63 0.63
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.87 0.63 0.63 0.63 0.63
   Support S1 S2 S3 : 15.05 15.0 14.9
   Resistance R1 R2 R3 : 19.2 20.0 22.7
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
@@ -218,7 +240,7 @@ Back test result: Counter({'0': 519, '-1': 7, '1': 3}) symbol:  STB
 ----------------------------------------------------------------
 Back test result: Counter({'0': 515, '1': 10, '-1': 3}) symbol:  TNA
 ***************************************************************
- Short trend trading  1 days before  2020-05-20 16:41:24.539412 VEA
+ Short trend trading  1 days before  2020-05-20 00:00:00 VEA
   Volume/volume(MA30) ratio:  1.51
   RSI indicator:  68.11367644032389
   Trading value (billion VND/million USD):  20.55  MA30 : 11.83
@@ -231,7 +253,7 @@ Back test result: Counter({'0': 515, '1': 10, '-1': 3}) symbol:  TNA
   Variation last 7 days max/min (H/L):  24.06 24.06 24.06 24.06 18.51 18.15 17.99
   Variation last 7 days  (H/L) :  1.83 2.35 1.83 2.93 3.51 5.54 6.06
   Volume last 7 days (100K): 1.74 2.15 2.49 1.81 1.02 4.75 4.98
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.96 0.9 0.79 0.7 0.7
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.96 0.9 0.79 0.7 0.7
   Support S1 S2 S3 : 37.0 36.6 32.0
   Resistance R1 R2 R3 : 43.0 43.8 44.0
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
@@ -251,14 +273,14 @@ Back test result: Counter({'0': 515, '1': 10, '-1': 3}) symbol:  TNA
   Variation last 7 days max/min (H/L):  23.75 24.06 24.06 24.06 24.06 18.51 18.15
   Variation last 7 days  (H/L) :  3.39 1.83 2.35 1.83 2.93 3.51 5.54
   Volume last 7 days (100K): 3.73 1.74 2.15 2.49 1.81 1.02 4.75
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.0 0.91 0.85 0.75 0.66 0.66
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.01 1.0 0.91 0.85 0.75 0.66 0.66
   Support S1 S2 S3 : 37.0 36.6 32.0
   Resistance R1 R2 R3 : 39.7 40.4 43.0
   Loss/gain T+1/T+2/T+3/T+4 : 5.36 nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 37.9 - 5.36 % Target >=: 45.50000000000001 + 16.07 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 456, '-1': 8, '1': 7}) symbol:  VEA
+Back test result: Counter({'0': 455, '-1': 9, '1': 7}) symbol:  VEA
 ***************************************************************
  Short trend trading  3 days before  2020-05-18 00:00:00 VGC
   Volume/volume(MA30) ratio:  2.2
@@ -273,7 +295,7 @@ Back test result: Counter({'0': 456, '-1': 8, '1': 7}) symbol:  VEA
   Variation last 7 days max/min (H/L):  10.83 10.83 10.83 10.83 10.83 9.78 6.1
   Variation last 7 days  (H/L) :  1.16 1.75 3.29 2.69 2.37 1.76 2.05
   Volume last 7 days (100K): 2.74 0.96 1.71 1.71 1.8 1.22 5.57
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.94 0.93 0.87 0.84 0.75
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.94 0.93 0.87 0.84 0.75
   Support S1 S2 S3 : 16.7 16.45 16.4
   Resistance R1 R2 R3 : 18.2 18.7 18.75
   Loss/gain T+1/T+2/T+3/T+4 : 0.0 -0.57 nan nan
@@ -282,7 +304,7 @@ Back test result: Counter({'0': 456, '-1': 8, '1': 7}) symbol:  VEA
 ----------------------------------------------------------------
 Back test result: Counter({'0': 508, '1': 8, '-1': 7}) symbol:  VGC
 ***************************************************************
- Short trend trading  1 days before  2020-05-20 16:41:25.978326 VGI
+ Short trend trading  1 days before  2020-05-20 00:00:00 VGI
   Volume/volume(MA30) ratio:  3.18
   RSI indicator:  72.20417647229237
   Trading value (billion VND/million USD):  75.54  MA30 : 20.68
@@ -295,7 +317,7 @@ Back test result: Counter({'0': 508, '1': 8, '-1': 7}) symbol:  VGC
   Variation last 7 days max/min (H/L):  23.08 23.08 23.08 23.08 15.2 16.8 16.8
   Variation last 7 days  (H/L) :  3.66 4.41 2.95 2.59 9.36 8.15 9.12
   Volume last 7 days (100K): 6.83 8.03 6.75 4.34 18.9 7.71 24.61
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.05 1.02 0.98 0.81 0.81 0.81
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.05 1.05 1.02 0.98 0.81 0.81 0.81
   Support S1 S2 S3 : 26.7 25.0 23.4
   Resistance R1 R2 R3 : 31.7 32.1 32.4
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
@@ -315,16 +337,16 @@ Back test result: Counter({'0': 508, '1': 8, '-1': 7}) symbol:  VGC
   Variation last 7 days max/min (H/L):  19.66 23.08 23.08 23.08 23.08 23.08 15.2
   Variation last 7 days  (H/L) :  5.88 3.33 3.66 4.41 2.95 2.59 9.36
   Volume last 7 days (100K): 9.88 9.44 6.83 8.03 6.75 4.34 18.9
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.01 0.95 0.91 0.76 0.76 0.76
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.95 0.91 0.76 0.76 0.76
   Support S1 S2 S3 : 26.7 25.0 23.4
   Resistance R1 R2 R3 : 29.2 30.6 31.7
   Loss/gain T+1/T+2/T+3/T+4 : -1.75 7.34 nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 26.7 - 8.74 % Target >=: 36.1 + 26.22 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 401, '1': 8, '-1': 2}) symbol:  VGI
+Back test result: Counter({'0': 399, '1': 8, '-1': 4}) symbol:  VGI
 ***************************************************************
- Short trend trading  1 days before  2020-05-20 16:41:26.690746 VHC
+ Short trend trading  1 days before  2020-05-20 00:00:00 VHC
   Volume/volume(MA30) ratio:  1.61
   RSI indicator:  71.62149013209938
   Trading value (billion VND/million USD):  35.09  MA30 : 19.1
@@ -337,16 +359,36 @@ Back test result: Counter({'0': 401, '1': 8, '-1': 2}) symbol:  VGI
   Variation last 7 days max/min (H/L):  27.0 29.09 29.09 29.09 28.11 28.11 22.56
   Variation last 7 days  (H/L) :  6.09 2.77 3.77 2.35 2.68 1.84 3.96
   Volume last 7 days (100K): 8.54 8.8 6.92 6.41 4.83 8.01 10.29
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.97 0.84 0.81 0.71 0.63
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.97 0.84 0.81 0.71 0.63
   Support S1 S2 S3 : 31.7 31.6 28.6
   Resistance R1 R2 R3 : 35.5 37.05 39.8
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 32.85 - 3.81 % Target >=: 37.99999999999999 + 11.44 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 520, '-1': 5, '1': 4}) symbol:  VHC
+ Short trend trading  2 days before  2020-05-19 00:00:00 VHC
+  Volume/volume(MA30) ratio:  1.27
+  RSI indicator:  67.82038020751615
+  Trading value (billion VND/million USD):  26.43  MA30 : 18.51
+  Money flow in last 5 days:  28.7 22.14 20.66 15.58 26.43
+  Relative strength RSW:  -13.786944772283505
+  Side ways status last 5 days:  False True True True True
+  Price max 3M/6M/9M/12M:  35.2 40.7 42.0 48.0
+  Actual price Close/Low/High/Open: 33.0 32.55 33.15 32.7
+  PCT_Change last 7 days: 1.71 1.99 -2.1 -1.84 0.78 0.0 2.33
+  Variation last 7 days max/min (H/L):  27.0 27.0 29.09 29.09 29.09 28.11 28.11
+  Variation last 7 days  (H/L) :  5.7 6.09 2.77 3.77 2.35 2.68 1.84
+  Volume last 7 days (100K): 6.95 8.54 8.8 6.92 6.41 4.83 8.01
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.0 0.99 0.94 0.81 0.79 0.69 0.61
+  Support S1 S2 S3 : 31.7 31.6 28.6
+  Resistance R1 R2 R3 : 35.5 37.05 39.8
+  Loss/gain T+1/T+2/T+3/T+4 : 3.33 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 32.55 - 1.82 % Target >=: 34.800000000000004 + 5.45 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 519, '-1': 6, '1': 4}) symbol:  VHC
 ***************************************************************
- Short trend trading  1 days before  2020-05-20 16:41:27.381567 VHM
+ Short trend trading  1 days before  2020-05-20 00:00:00 VHM
   Volume/volume(MA30) ratio:  2.35
   RSI indicator:  68.74977519355964
   Trading value (billion VND/million USD):  331.4  MA30 : 126.47
@@ -359,14 +401,14 @@ Back test result: Counter({'0': 520, '-1': 5, '1': 4}) symbol:  VHC
   Variation last 7 days max/min (H/L):  16.75 16.75 16.75 16.75 16.75 16.75 18.01
   Variation last 7 days  (H/L) :  2.64 2.96 1.42 2.13 2.4 3.32 5.91
   Volume last 7 days (100K): 17.69 33.73 22.68 15.56 16.56 36.89 42.98
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.03 0.89 0.79 0.77 0.77 0.77
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.89 0.79 0.77 0.77 0.77
   Support S1 S2 S3 : 70.4 63.4 63.3
   Resistance R1 R2 R3 : 81.5 87.3 88.6
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 72.8 - 5.58 % Target >=: 89.99999999999999 + 16.73 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 491, '-1': 6, '1': 4}) symbol:  VHM
+Back test result: Counter({'0': 490, '-1': 6, '1': 5}) symbol:  VHM
 ***************************************************************
  Short trend trading  3 days before  2020-05-18 00:00:00 VPB
   Volume/volume(MA30) ratio:  2.18
@@ -381,12 +423,12 @@ Back test result: Counter({'0': 491, '-1': 6, '1': 4}) symbol:  VHM
   Variation last 7 days max/min (H/L):  18.95 20.26 27.11 27.37 27.37 27.37 24.1
   Variation last 7 days  (H/L) :  6.28 4.09 3.64 4.99 2.36 2.13 6.13
   Volume last 7 days (100K): 147.24 85.08 68.34 73.06 50.56 50.62 117.46
-  Ratio vs max H4D/3M/6M/9M/12M/all_time: 1.04 0.87 0.87 0.87 0.87 0.59
+  Ratio vs max H3D, H4D/3M/6M/9M/12M/all_time: 1.04 1.04 0.87 0.87 0.87 0.87 0.59
   Support S1 S2 S3 : 23.05 19.5 19.0
   Resistance R1 R2 R3 : 26.0 26.5 28.45
   Loss/gain T+1/T+2/T+3/T+4 : -0.4 -1.99 nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
   Cutloss <=: 23.65 - 5.78 % Target >=: 29.45000000000001 + 17.33 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 520, '1': 5, '-1': 4}) symbol:  VPB
+Back test result: Counter({'0': 517, '1': 7, '-1': 5}) symbol:  VPB
 ***************************************************************

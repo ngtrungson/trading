@@ -177,13 +177,13 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Close'] >= df['SMA200']) & (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])) &\
                  (df['PCT_HL'] <= 15))
     
-    df['LongShortTrend'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
+    df['LongShortTrend'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] >= df['Open'])  & \
                   (df['Close'] > (df['High'] + df['Low'])/2)  &\
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
                  ((df['Close']*df['Volume'] >= 3E6)) &\
                  (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
-                 (df['Close'] >= df['SMA20']) & (df['Close'] >= df['SMA30']) & (df['Close']>= df['High4D']) &\
-                 (df['PCT_HL'] <= 27))    
+                 (df['Close'] >= df['SMA20']) & (df['Close'] >= df['SMA30']) & ((df['Close']>= df['High3D']) | (df['Close']>= df['High3D'])) &\
+                 (df['PCT_HL'] <= 30))    
         
     
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
@@ -330,7 +330,7 @@ def momentum_strategy(ticker, start, end, realtime = False, source = "cp68", mar
                  ((df['Close']*df['Volume'] >= 3E6)) &\
                  (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
                  (df['Close'] >= df['SMA20']) & (df['Close'] >= df['SMA30']) & (df['Close']>= df['High4D']) &\
-                 (df['PCT_HL'] <= 27))       
+                 (df['PCT_HL'] <= 30))       
     
     # df['Long4D'] = ((df['Close'] > df['High'].shift(1)) & (df['High'].shift(1) > df['High'].shift(2)) & (df['High'].shift(2) > df['High'].shift(3)))
     
@@ -636,6 +636,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['Min12M'] = df['Close'].shift(1).rolling(window = 252).min() 
     
     df['High4D'] = df['High'].shift(1).rolling(window = 4).max()
+    df['High3D'] = df['High'].shift(1).rolling(window = 3).max()
     
     df['EMA3'] = pd.Series(pd.Series.ewm(df['Close'], span = 3, min_periods = 3-1).mean()) 
     df['EMA6'] = pd.Series(pd.Series.ewm(df['Close'], span = 6, min_periods = 6-1).mean()) 
@@ -758,7 +759,8 @@ def print_statistic(df, i):
                                   round(df['Volume'].iloc[-i-2]/1E5, 2),
                                   round(df['Volume'].iloc[-i-1]/1E5, 2), 
                                   round(df['Volume'].iloc[-i]/1E5, 2))
-    print('  Ratio vs max H4D/3M/6M/9M/12M/all_time:', round(df['Close'].iloc[-i]/df['High4D'].iloc[-i], 2),
+    print('  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time:', round(df['Close'].iloc[-i]/df['High3D'].iloc[-i], 2),
+                                                      round(df['Close'].iloc[-i]/df['High4D'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max6M'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max9M'].iloc[-i], 2),
