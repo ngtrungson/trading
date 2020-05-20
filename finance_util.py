@@ -894,7 +894,7 @@ if __name__ == "__main__":
      print("done 1")
      df2 = get_info_stock_vssc("FPT")
      print("done 2")
-     
+     url4 ='https://www.maybank-kimeng.com.vn/kimengportal/corporate/view.do?id=65'
      dfs = pd.read_html(url3)
      print("done 3")
 #     data = yf.download("SPY", start="2017-01-2", end="2018-05-29")

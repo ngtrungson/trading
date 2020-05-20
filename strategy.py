@@ -4,7 +4,7 @@ Created on Sun Feb 11 08:47:17 2018
 
 @author: sonng
 """
-from finance_util import symbol_to_path, get_info_stock, get_info_stock_cp68_mobile
+from finance_util import symbol_to_path, get_info_stock, get_info_stock_cp68_mobile, get_info_stock_bsc
 import numpy as np
 import pandas as pd
 import talib
@@ -582,6 +582,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
 #        print(ticker)
         # actual_price = get_info_stock(ticker)
         actual_price = get_info_stock_cp68_mobile(ticker)
+        # actual_price = get_info_stock_bsc(ticker)
         today = datetime.datetime.today()
         next_date = today
         df.loc[next_date] = ({ 'Open' : actual_price['Open'].iloc[-1],
