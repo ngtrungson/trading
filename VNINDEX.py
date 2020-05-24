@@ -9,7 +9,7 @@ from finance_util import get_data, get_RSI, fill_missing_values, optimize_portfo
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta,get_info_stock
 from strategy import process_data, momentum_strategy,  short_selling, hung_canslim, mean_reversion
 # from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
-# from machine_learning import price_predictions, ML_strategy
+from machine_learning import price_predictions, ML_strategy
 import pandas as pd
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
@@ -628,7 +628,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    # symbols = get_csv_data(source = "cp68")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -641,25 +641,6 @@ if __name__ == "__main__":
 #    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
     
 
-    
-#####    bollingerbands = bollinger_bands(ticker, start_date, end_date, realtime = False, source = "cp68")
-####    
-#    hedgefund = hedgefund_trading(ticker, start_date, end_date, realtime = False, source ="cp68")    
-#    plot_hedgefund_trading(ticker, hedgefund)
-#####    
-#####    shortsell = short_selling(ticker, start_date, end_date, realtime = False, source ="ssi")    
-#####    plot_shortselling_trading(ticker, shortsell)
-#####    
-#####
-#####    
-#    ninja = ninja_trading(ticker, start_date, end_date, realtime = False,  source ="cp68")    
-#    plot_ninja_trading(ticker, ninja)
-    
-##    plot_trading_weekly(ticker, hedgefund)
-##    
-##    investment_stocks = ['CII', 'HPG', 'NBB', 'STB', 'PAN', 'VND' ]
-##    
-    #    meanrevert = mean_reversion(ticker, start_date, end_date, realtime = False,  source ="cp68") 
 ###    plot_canslim_trading(ticker, canslim)
 
 #    RSWlist= ['CVN', 'TTB', 'NDN', 'HLD', 'CEO',  'ACB', 'MBS', 'PHC', 'PGS', 'PVB', 
@@ -669,11 +650,11 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-5-21"
+    end_date = "2020-5-22"
     start_date = "2018-4-6"
     ticker = 'DPM'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'LongShortTrend') 
-
+    watchlist =[]
     # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
@@ -697,24 +678,6 @@ if __name__ == "__main__":
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
 #    
-    
-#    symbolsVNI = getliststocks(typestock = "^VNINDEX")
-#    symbolsHNX = getliststocks(typestock = "^HASTC")
-#    ALLOC_opt = rebalancing_porfolio(symbols = symbolsVNI, bench = '^VNINDEX')
-#    stock_alloc, stock_data = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
-#    active_strategy(start_date = start_date, end_date = end_date, update = False, source = "cp68", market = "^VNINDEX")
-#    dates = pd.date_range(start_date, end_date)  # date range as index
-#    df_data = get_data(symbolsVNI, dates, benchmark = "^VNINDEX")  # get data for each symbol
-#    fill_missing_values(df_data)
-#    df_alphabeta = analysis_alpha_beta(df_data, symbols = symbolsVNI, market =  "^VNINDEX" )
-#    port = portfolio_management()
-    
-#    get_statistic_index(days = 1, start = "2017-1-2" , end = "2018-5-23", update = True,  source ="cp68")
-    
-#    investing = ['SHB', 'ACB','MBS', 'CTG', 'BID']
-#    predict_stocks(investing, start ="2010-3-18", end = "2018-7-5")
-#    for ticker in RSWlist:
-#        ML_strategy(ticker, start ="2011-1-2", end = "2018-5-24")
-#    tickers = pd.Series(symbols)
+
     sys.stdout = old_stdout
     
