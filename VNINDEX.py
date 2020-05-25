@@ -461,7 +461,7 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
 #    df_result['MinL'] = min_low
     # df_result['CPM'] = cpm[symbols]
     # df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)    
-    # df_result ['Volatility'] = df_data[symbols].pct_change().std() 
+    df_result ['Volatility'] = df_data[symbols].pct_change().std() 
     # alpha_beta = analysis_alpha_beta(df_data, symbols, market)
     # df_result['Alpha'] = alpha_beta['Alpha']
     # df_result['Beta'] = alpha_beta['Beta']
@@ -628,7 +628,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    # symbols = get_csv_data(source = "ssi")
+    # symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -659,7 +659,7 @@ if __name__ == "__main__":
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'LongShortTrend')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 5, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    
