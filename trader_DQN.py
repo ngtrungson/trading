@@ -236,9 +236,9 @@ def plot_loss_reward(total_rewards, total_losses):
 if __name__ == "__main__":    
    
     
-    ticker = 'fpt' 
+    ticker = 'vcb' 
     start ="2006-1-19"
-    end = "2020-5-8"
+    end = "2020-5-22"
     update = False
     validation_size = 10
     dueling_type = 'no'
