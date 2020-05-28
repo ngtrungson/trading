@@ -1,44 +1,44 @@
- Short trend trading  1 days before  2020-05-27 00:00:00 CTD
-  Volume/volume(MA30) ratio:  3.23
-  RSI indicator:  69.35168048852728
-  Trading value (billion VND/million USD):  88.74  MA30 : 24.2
-  Money flow in last 5 days:  19.1 18.68 14.12 26.14 88.74
-  Relative strength RSW:  -3.9508638992520417
-  Side ways status last 5 days:  True True True True True
-  Price max 3M/6M/9M/12M:  70.6 70.9 96.97 111.52
-  Actual price Close/Low/High/Open: 74.1 69.6 74.1 69.9
-  PCT_Change last 7 days: -0.73 2.5 -0.29 -2.01 -0.15 1.91 6.93
-  Variation last 7 days max/min (H/L):  30.45 21.68 21.68 21.68 21.68 21.68 18.69
-  Variation last 7 days  (H/L) :  3.82 5.55 3.68 2.79 1.33 3.1 6.47
-  Volume last 7 days (100K): 3.33 3.55 2.75 2.74 2.08 3.77 11.98
-  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.06 1.05 1.05 1.05 0.76 0.66 0.45
-  Support S1 S2 S3 : 67.5 66.7 66.4
-  Resistance R1 R2 R3 : 75.8 80.0 84.0
+ Short trend trading  1 days before  2020-05-28 00:00:00 HAH
+  Volume/volume(MA30) ratio:  3.18
+  RSI indicator:  74.64402092635702
+  Trading value (billion VND/million USD):  3.57  MA30 : 1.02
+  Money flow in last 5 days:  0.38 0.47 1.78 0.77 3.57
+  Relative strength RSW:  -2.1161297411083724
+  Side ways status last 5 days:  False False False False True
+  Price max 3M/6M/9M/12M:  11.4 13.0 15.9 15.9
+  Actual price Close/Low/High/Open: 11.9 11.55 12.0 11.55
+  PCT_Change last 7 days: -0.45 0.0 -0.46 0.46 4.11 -0.44 4.85
+  Variation last 7 days max/min (H/L):  9.71 9.71 9.18 9.18 9.18 12.08 10.48
+  Variation last 7 days  (H/L) :  1.85 1.83 2.34 2.8 5.94 2.2 3.9
+  Volume last 7 days (100K): 0.48 0.73 0.35 0.43 1.57 0.67 3.0
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 1.04 0.92 0.75 0.75 0.75
+  Support S1 S2 S3 : 10.7 10.35 10.3
+  Resistance R1 R2 R3 : 12.0 12.2 12.35
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
-  Cutloss <=: 69.6 - 6.07 % Target >=: 87.6 + 18.22 %
+  Cutloss <=: 11.55 - 3.78 % Target >=: 13.249999999999998 + 11.34 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 522, '1': 7, '-1': 5}) symbol:  CTD
+Back test result: Counter({'0': 528, '-1': 5, '1': 2}) symbol:  HAH
 ***************************************************************
- Short trend trading  1 days before  2020-05-27 00:00:00 VTP
-  Volume/volume(MA30) ratio:  1.7
-  RSI indicator:  75.62547439338893
-  Trading value (billion VND/million USD):  13.87  MA30 : 7.46
-  Money flow in last 5 days:  3.6 4.96 7.79 10.44 13.87
-  Relative strength RSW:  5.674917828037415
+ Short trend trading  1 days before  2020-05-28 00:00:00 PDR
+  Volume/volume(MA30) ratio:  2.35
+  RSI indicator:  78.6253614299819
+  Trading value (billion VND/million USD):  42.73  MA30 : 16.66
+  Money flow in last 5 days:  20.37 16.65 15.28 31.94 42.73
+  Relative strength RSW:  17.271667079106255
   Side ways status last 5 days:  True True True True True
-  Price max 3M/6M/9M/12M:  126.9 130.0 138.6 151.2
-  Actual price Close/Low/High/Open: 134.5 126.7 137.0 126.9
-  PCT_Change last 7 days: 0.8 0.4 0.0 -1.19 0.8 0.71 5.99
-  Variation last 7 days max/min (H/L):  10.96 14.04 14.04 14.04 14.04 14.04 14.04
-  Variation last 7 days  (H/L) :  4.0 1.03 2.3 1.6 0.96 1.44 8.13
-  Volume last 7 days (100K): 0.62 0.49 0.28 0.4 0.62 0.82 1.03
-  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.06 1.04 1.06 1.03 0.97 0.89 0.89
-  Support S1 S2 S3 : 124.8 124.1 114.0
-  Resistance R1 R2 R3 : 135.0 136.9 139.1
+  Price max 3M/6M/9M/12M:  24.96 24.96 24.96 24.96
+  Actual price Close/Low/High/Open: 26.0 24.7 26.0 24.7
+  PCT_Change last 7 days: 0.57 0.36 -0.44 -1.21 1.22 0.2 4.42
+  Variation last 7 days max/min (H/L):  14.36 14.36 13.22 11.43 11.43 11.43 10.16
+  Variation last 7 days  (H/L) :  2.35 1.09 1.62 1.83 1.22 1.42 5.26
+  Volume last 7 days (100K): 6.16 5.82 8.2 6.78 6.15 12.83 16.43
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.04 1.04 1.04 1.04 1.04 1.04 1.0
+  Support S1 S2 S3 : 24.55 24.29 22.48
+  Resistance R1 R2 R3 : nan nan nan
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
-  Cutloss <=: 126.7 - 7.66 % Target >=: 165.39999999999998 + 22.97 %
+  Cutloss <=: 24.7 - 5.0 % Target >=: 29.900000000000002 + 15.0 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 365, '1': 4, '-1': 4}) symbol:  VTP
+Back test result: Counter({'0': 520, '-1': 10, '1': 5}) symbol:  PDR
 ***************************************************************

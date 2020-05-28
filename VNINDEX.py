@@ -628,7 +628,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    # symbols = get_csv_data(source = "cp68")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -650,7 +650,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-5-27"
+    end_date = "2020-5-28"
     start_date = "2018-4-6"
     ticker = 'DPM'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'LongShortTrend') 
