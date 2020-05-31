@@ -1,44 +1,108 @@
- Short trend trading  1 days before  2020-05-28 00:00:00 HAH
-  Volume/volume(MA30) ratio:  3.18
-  RSI indicator:  74.64402092635702
-  Trading value (billion VND/million USD):  3.57  MA30 : 1.02
-  Money flow in last 5 days:  0.38 0.47 1.78 0.77 3.57
-  Relative strength RSW:  -2.1161297411083724
-  Side ways status last 5 days:  False False False False True
-  Price max 3M/6M/9M/12M:  11.4 13.0 15.9 15.9
-  Actual price Close/Low/High/Open: 11.9 11.55 12.0 11.55
-  PCT_Change last 7 days: -0.45 0.0 -0.46 0.46 4.11 -0.44 4.85
-  Variation last 7 days max/min (H/L):  9.71 9.71 9.18 9.18 9.18 12.08 10.48
-  Variation last 7 days  (H/L) :  1.85 1.83 2.34 2.8 5.94 2.2 3.9
-  Volume last 7 days (100K): 0.48 0.73 0.35 0.43 1.57 0.67 3.0
-  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 1.04 0.92 0.75 0.75 0.75
-  Support S1 S2 S3 : 10.7 10.35 10.3
-  Resistance R1 R2 R3 : 12.0 12.2 12.35
-  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
-  Back test T+5 : T+10: nan nan nan nan nan nan
-  Cutloss <=: 11.55 - 3.78 % Target >=: 13.249999999999998 + 11.34 %
-----------------------------------------------------------------
-Back test result: Counter({'0': 528, '-1': 5, '1': 2}) symbol:  HAH
-***************************************************************
- Short trend trading  1 days before  2020-05-28 00:00:00 PDR
-  Volume/volume(MA30) ratio:  2.35
-  RSI indicator:  78.6253614299819
-  Trading value (billion VND/million USD):  42.73  MA30 : 16.66
-  Money flow in last 5 days:  20.37 16.65 15.28 31.94 42.73
-  Relative strength RSW:  17.271667079106255
+ Short trend trading  1 days before  2020-05-29 00:00:00 HNG
+  Volume/volume(MA30) ratio:  2.92
+  RSI indicator:  77.43463996038827
+  Trading value (billion VND/million USD):  29.73  MA30 : 9.33
+  Money flow in last 5 days:  7.4 11.93 11.02 4.7 29.73
+  Relative strength RSW:  4.699137728361354
   Side ways status last 5 days:  True True True True True
-  Price max 3M/6M/9M/12M:  24.96 24.96 24.96 24.96
-  Actual price Close/Low/High/Open: 26.0 24.7 26.0 24.7
-  PCT_Change last 7 days: 0.57 0.36 -0.44 -1.21 1.22 0.2 4.42
-  Variation last 7 days max/min (H/L):  14.36 14.36 13.22 11.43 11.43 11.43 10.16
-  Variation last 7 days  (H/L) :  2.35 1.09 1.62 1.83 1.22 1.42 5.26
-  Volume last 7 days (100K): 6.16 5.82 8.2 6.78 6.15 12.83 16.43
-  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.04 1.04 1.04 1.04 1.04 1.04 1.0
-  Support S1 S2 S3 : 24.55 24.29 22.48
-  Resistance R1 R2 R3 : nan nan nan
+  Price max 3M/6M/9M/12M:  14.6 14.8 17.6 19.0
+  Actual price Close/Low/High/Open: 15.35 14.35 15.35 14.35
+  PCT_Change last 7 days: 2.82 -0.68 -1.03 0.35 -0.35 0.0 6.97
+  Variation last 7 days max/min (H/L):  18.8 18.8 18.8 16.93 16.93 16.93 16.93
+  Variation last 7 days  (H/L) :  3.86 2.44 2.11 1.41 1.74 1.39 6.97
+  Volume last 7 days (100K): 8.37 4.01 5.16 8.28 7.68 3.27 19.37
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.05 1.05 1.05 1.04 0.87 0.81 0.81
+  Support S1 S2 S3 : 14.35 14.2 13.8
+  Resistance R1 R2 R3 : 15.45 15.8 16.95
   Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
   Back test T+5 : T+10: nan nan nan nan nan nan
-  Cutloss <=: 24.7 - 5.0 % Target >=: 29.900000000000002 + 15.0 %
+  Cutloss <=: 14.35 - 6.51 % Target >=: 18.35 + 19.54 %
 ----------------------------------------------------------------
-Back test result: Counter({'0': 520, '-1': 10, '1': 5}) symbol:  PDR
+Back test result: Counter({'0': 520, '1': 12, '-1': 4}) symbol:  HNG
 ***************************************************************
+ Short trend trading  1 days before  2020-05-29 00:00:00 SJS
+  Volume/volume(MA30) ratio:  4.4
+  RSI indicator:  78.99462827689788
+  Trading value (billion VND/million USD):  10.42  MA30 : 2.1
+  Money flow in last 5 days:  0.94 7.74 10.03 2.74 10.42
+  Relative strength RSW:  22.697629484136623
+  Side ways status last 5 days:  False True False False False
+  Price max 3M/6M/9M/12M:  21.05 21.05 21.05 21.05
+  Actual price Close/Low/High/Open: 22.5 20.55 22.5 21.05
+  PCT_Change last 7 days: 0.0 0.26 1.05 6.75 2.19 0.24 6.89
+  Variation last 7 days max/min (H/L):  13.39 13.39 13.39 13.39 17.09 17.38 17.38
+  Variation last 7 days  (H/L) :  2.12 1.85 1.85 7.87 5.53 2.87 9.49
+  Volume last 7 days (100K): 0.5 0.56 0.49 3.76 4.77 1.3 4.63
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 1.07 1.07 1.07 1.07 0.82
+  Support S1 S2 S3 : 18.9 18.7 17.55
+  Resistance R1 R2 R3 : 23.26 23.31 23.84
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 20.55 - 8.67 % Target >=: 28.349999999999998 + 26.0 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 522, '1': 9, '-1': 5}) symbol:  SJS
+***************************************************************
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: -2.2526465199643675
+            Iterations: 14
+            Function evaluations: 1315
+            Gradient evaluations: 14
+Start Date: 2018-4-6
+End Date: 2020-5-29
+Symbols: ['AAA', 'ANV', 'AST', 'BID', 'BMI', 'BMP', 'BVH', 'BWE', 'CII', 'CMG', 'CSV', 'CTD', 'CTG', 'CVT', 'D2D', 'DBC', 'DBD', 'DGW', 'DHC', 'DHG', 'DPM', 'DPR', 'DRC', 'DXG', 'FCN', 'FMC', 'FPT', 'GAS', 'GEG', 'GEX', 'GMD', 'GTN', 'GVR', 'HAH', 'HCM', 'HDB', 'HDC', 'HDG', 'HNG', 'HPG', 'HPX', 'HT1', 'HVN', 'IJC', 'IMP', 'KBC', 'KDH', 'LHG', 'MBB', 'MSH', 'MSN', 'MWG', 'NAF', 'NLG', 'NT2', 'NTL', 'NVL', 'PAN', 'PC1', 'PDR', 'PHR', 'PLX', 'PNJ', 'POW', 'PPC', 'PVD', 'PVT', 'REE', 'SAB', 'SBT', 'SJS', 'SSI', 'STB', 'STK', 'SZL', 'TCB', 'TCH', 'TCM', 'TDH', 'TDM', 'TNA', 'VCB', 'VGC', 'VHC', 'VHM', 'VIC', 'VJC', 'VNM', 'VPB', 'VRE', 'VSC']
+Optimal allocations: [3.63513465e-15 1.02430519e-15 5.69675344e-16 2.86074232e-15
+ 3.41629269e-16 8.11209490e-16 3.08893187e-15 3.14562632e-16
+ 5.63052039e-16 8.62962475e-16 6.59826791e-16 8.10837920e-16
+ 4.94482057e-15 4.32638540e-15 9.55852166e-16 1.19359960e-01
+ 7.65900898e-16 4.37955087e-16 8.97228715e-16 7.45073279e-16
+ 4.00838816e-16 1.24262621e-01 3.65864798e-16 3.48205410e-15
+ 3.59571668e-15 1.29629122e-16 2.91776417e-16 2.13789715e-15
+ 1.60150509e-01 7.33783389e-16 1.97809032e-15 6.75985204e-16
+ 9.31817893e-17 3.54048787e-16 7.98251681e-15 3.82374110e-15
+ 7.49941820e-16 2.65466862e-15 6.30593604e-02 1.36043385e-15
+ 2.71998599e-01 5.71324785e-16 4.69996414e-15 6.70668322e-16
+ 7.81529214e-16 3.93789598e-16 4.68188032e-16 9.51153587e-16
+ 4.78366424e-15 3.89030681e-16 2.78323187e-15 6.07420527e-16
+ 1.89447089e-01 1.87236895e-15 8.24332164e-16 4.58644011e-02
+ 1.63756755e-16 3.10577891e-15 3.55269143e-16 7.76540295e-16
+ 1.29570436e-02 2.46363058e-15 3.96614284e-15 3.97238152e-15
+ 1.29004174e-02 3.08272671e-15 4.24394809e-16 5.47958784e-16
+ 6.86630907e-16 5.06525466e-16 9.20596441e-16 6.88944728e-15
+ 2.54956673e-15 1.00403863e-15 3.92034725e-16 1.24509473e-15
+ 9.90667283e-16 9.90519542e-16 3.60238753e-15 9.41029932e-16
+ 7.12111689e-16 1.73169403e-16 3.32682157e-16 1.16682281e-16
+ 5.06176439e-16 5.03760021e-16 9.63076885e-16 2.97603902e-16
+ 8.51901812e-15 3.12260965e-15 2.24444025e-16]
+Sharpe Ratio: 2.2526465199643675
+Volatility (stdev of daily returns): 0.008709872790067557
+Average Daily Return: 0.0012348070103729671
+Cumulative Return: 0.8987644839652895
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: -0.6486541130102739
+            Iterations: 5
+            Function evaluations: 55
+            Gradient evaluations: 5
+Start Date: 2018-4-6
+End Date: 2020-5-29
+Symbols: ['ACB', 'L14', 'NDN', 'PVS', 'SHB', 'SHS', 'TNG', 'VCG', 'VCS']
+Optimal allocations: [5.73434146e-17 1.62075634e-16 0.00000000e+00 7.25974410e-17
+ 0.00000000e+00 1.57634130e-16 1.00000000e+00 1.28459593e-17
+ 0.00000000e+00]
+Sharpe Ratio: 0.6486541130102739
+Volatility (stdev of daily returns): 0.03112281113137753
+Average Daily Return: 0.0012705337887448515
+Cumulative Return: 0.528089887640449
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: -1.9936693197105841
+            Iterations: 10
+            Function evaluations: 102
+            Gradient evaluations: 10
+Start Date: 2018-4-6
+End Date: 2020-5-29
+Symbols: ['ACV', 'CTR', 'NTC', 'QNS', 'VEA', 'VGI', 'VIB', 'VTP']
+Optimal allocations: [0.00000000e+00 2.59602627e-02 4.83259871e-01 1.28913774e-16
+ 1.16373122e-01 4.14848236e-17 0.00000000e+00 3.74406745e-01]
+Sharpe Ratio: 1.9936693197105841
+Volatility (stdev of daily returns): 0.016128310483549867
+Average Daily Return: 0.0020236538462161807
+Cumulative Return: 1.7566697018220943

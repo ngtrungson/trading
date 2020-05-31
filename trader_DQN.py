@@ -238,7 +238,7 @@ if __name__ == "__main__":
     
     ticker = 'vcb' 
     start ="2006-1-19"
-    end = "2020-5-22"
+    end = "2020-5-28"
     update = False
     validation_size = 10
     dueling_type = 'no'
