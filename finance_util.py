@@ -290,6 +290,48 @@ def get_info_stock_bsc(ticker):
   
     return df  
 
+def get_info_stock_ssi(ticker):
+    url = 'https://ivt.ssi.com.vn/CorporateSnapshot.aspx?ticket={}'.format(ticker)   
+    resp = requests.get(url, verify =False)
+    # print(resp.text)
+    soup = bs.BeautifulSoup(resp.text, 'lxml') 
+    
+    df = pd.DataFrame(columns = ['Ticker',
+                             'Close',
+                             'Close_1D',
+                             'Open',
+                             'Low',
+                             'High', 
+                             'Volume'])
+   
+        # print(line)
+    # print(soup)
+    tables = soup.find_all('table')
+    data = tableDataText(tables[4])
+    # print(data)
+    line2 = data[1][0].replace(')','').replace('(',' ').replace(',','.').split()
+    # line3 = data[3].replace(',','.').split()
+    # line1 = data[1][2].replace(',','.')
+    volume = float(data[3][0])*1000
+    low = float(data[3][2].replace(',','.'))
+    high = float(data[1][2].replace(',','.'))
+    open0D = float(data[1][1].replace(',','.'))
+    close = float(data[3][1].replace(',','.'))
+    close1D = close - float(line2[0]) 
+
+    
+    df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+                        'Close': close,
+                        'Close_1D' : close1D,
+                          'Open' : open0D,
+                          'Low' : low,
+                          'High': high, 
+                          'Volume': volume,                       
+                          }, ignore_index = True)
+  
+    return df  
+
+
 def get_info_stock_vssc(ticker):
     url = 'http://ra.vcsc.com.vn/?lang=vi-VN&ticker={}'.format(ticker)  
     resp = requests.get(url)
@@ -892,11 +934,11 @@ if __name__ == "__main__":
      url3 = 'http://data.vdsc.com.vn/vi/Stock/{}'.format(ticker)
      df1 = get_info_stock_cp68_mobile("FPT")
      print("done 1")
-     df2 = get_info_stock_vssc("FPT")
+     df2 = get_info_stock_ssi("FPT")
      print("done 2")
-     url4 ='https://www.maybank-kimeng.com.vn/kimengportal/corporate/view.do?id=65'
-     url5 = 'http://canslim.vn'
-     dfs = pd.read_html(url5)
+     url4 ='https://ivt.ssi.com.vn/CorporateSnapshot.aspx?ticket=vcs'
+     
+     # dfs = pd.read_html(url4)
      print("done 3")
 #     data = yf.download("SPY", start="2017-01-2", end="2018-05-29")
 #     get_data_from_web(tickers = ['MSFT'], start = start_date, end = end_date, source ='yahoo')

@@ -1,0 +1,65 @@
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: -2.207102137347692
+            Iterations: 14
+            Function evaluations: 1353
+            Gradient evaluations: 14
+Start Date: 2018-4-6
+End Date: 2020-6-5
+Symbols: ['AAA', 'ANV', 'AST', 'BID', 'BMI', 'BMP', 'BVH', 'BWE', 'CII', 'CMG', 'CSV', 'CTD', 'CTG', 'CVT', 'D2D', 'DBC', 'DBD', 'DGW', 'DHC', 'DHG', 'DIG', 'DPM', 'DRC', 'DXG', 'FCN', 'FMC', 'FPT', 'FRT', 'GAS', 'GEG', 'GEX', 'GMD', 'GTN', 'GVR', 'HAH', 'HBC', 'HCM', 'HDB', 'HDC', 'HDG', 'HNG', 'HPG', 'HPX', 'HT1', 'HVN', 'IJC', 'IMP', 'KBC', 'KDH', 'KSB', 'LHG', 'MBB', 'MSH', 'MSN', 'MWG', 'NLG', 'NT2', 'NTL', 'NVL', 'PAN', 'PC1', 'PDR', 'PHR', 'PLX', 'PNJ', 'POW', 'PPC', 'PVD', 'PVT', 'REE', 'SAB', 'SBT', 'SJS', 'SSI', 'STB', 'STK', 'SZL', 'TCB', 'TCH', 'TCM', 'TDH', 'TDM', 'TNA', 'VCB', 'VCI', 'VGC', 'VHC', 'VHM', 'VIC', 'VJC', 'VNM', 'VPB', 'VRE', 'VSC']
+Optimal allocations: [3.87487678e-15 2.68237185e-16 0.00000000e+00 3.01525634e-15
+ 1.18024873e-15 1.04565874e-15 8.88328678e-16 0.00000000e+00
+ 1.59904572e-15 5.57589730e-16 0.00000000e+00 2.93239195e-15
+ 5.90537641e-15 5.14367096e-15 0.00000000e+00 2.20155919e-01
+ 0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
+ 4.94134334e-15 0.00000000e+00 4.32850798e-15 5.65989752e-15
+ 2.77595328e-15 0.00000000e+00 0.00000000e+00 3.08502523e-15
+ 3.59109817e-15 1.91275580e-01 2.70662079e-17 1.56806863e-15
+ 0.00000000e+00 0.00000000e+00 0.00000000e+00 4.12602006e-15
+ 9.85336501e-15 2.34075313e-15 0.00000000e+00 8.56286493e-16
+ 7.95135226e-02 1.48094095e-15 3.50950609e-01 0.00000000e+00
+ 2.81195067e-15 0.00000000e+00 0.00000000e+00 0.00000000e+00
+ 0.00000000e+00 1.60549898e-15 1.47626478e-15 2.78472472e-15
+ 0.00000000e+00 2.44063614e-15 0.00000000e+00 2.13087837e-15
+ 0.00000000e+00 6.08488009e-02 0.00000000e+00 1.62920911e-15
+ 0.00000000e+00 0.00000000e+00 3.70029247e-02 6.84084120e-15
+ 7.02473528e-15 2.09752552e-15 6.02526444e-02 2.40386215e-15
+ 9.30707004e-16 0.00000000e+00 0.00000000e+00 0.00000000e+00
+ 6.05006980e-16 4.59154267e-15 1.51919922e-15 0.00000000e+00
+ 0.00000000e+00 2.93539577e-15 0.00000000e+00 0.00000000e+00
+ 0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
+ 1.31902527e-14 0.00000000e+00 0.00000000e+00 0.00000000e+00
+ 0.00000000e+00 5.71203704e-16 0.00000000e+00 3.86139663e-15
+ 2.25690344e-15 0.00000000e+00]
+Sharpe Ratio: 2.207102137347692
+Volatility (stdev of daily returns): 0.010225095275222699
+Average Daily Return: 0.001420325131679547
+Cumulative Return: 1.0954322901098723
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: -0.9663149713536776
+            Iterations: 8
+            Function evaluations: 113
+            Gradient evaluations: 8
+Start Date: 2018-4-6
+End Date: 2020-6-5
+Symbols: ['ACB', 'DGC', 'L14', 'NDN', 'PLC', 'PVS', 'SHB', 'SHS', 'TIG', 'TNG', 'VCG', 'VCS']
+Optimal allocations: [0.00000000e+00 6.31033224e-01 2.42784230e-16 2.18952589e-16
+ 0.00000000e+00 2.21934629e-17 8.92452435e-02 0.00000000e+00
+ 1.32931330e-01 1.46790203e-01 0.00000000e+00 0.00000000e+00]
+Sharpe Ratio: 0.9663149713536776
+Volatility (stdev of daily returns): 0.016849093706589977
+Average Daily Return: 0.0010246917292253974
+Cumulative Return: 0.6119965832950267
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: -1.9841369259038864
+            Iterations: 10
+            Function evaluations: 102
+            Gradient evaluations: 10
+Start Date: 2018-4-6
+End Date: 2020-6-5
+Symbols: ['ACV', 'CTR', 'NTC', 'QNS', 'VEA', 'VGI', 'VIB', 'VTP']
+Optimal allocations: [0.00000000e+00 2.91957646e-02 4.74503441e-01 2.38693258e-16
+ 1.32658779e-01 0.00000000e+00 0.00000000e+00 3.63642016e-01]
+Sharpe Ratio: 1.9841369259038864
+Volatility (stdev of daily returns): 0.015989462825585454
+Average Daily Return: 0.001996657115792015
+Cumulative Return: 1.7458228384006587

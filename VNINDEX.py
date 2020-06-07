@@ -114,13 +114,13 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['ACB','NDN','PVS','VCG','VCS','L14','TNG','SHB','SHS']
+    symbolsHNX = ['ACB','NDN','PVS','VCG','VCS','L14','TNG','SHB','SHS','TIG', 'PLC','DGC']
     
     symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",     'CMG',
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                 "HNG",  "HT1",   'DPR', 'GEG',
+                 "HNG",  "HT1",   'GEG',
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
                 "IJC",  "KBC",  "KDH",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
@@ -132,9 +132,9 @@ def getliststocks(typestock = "^VNINDEX"):
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'VPB','VRE',  "HDB",  
                 'NTL', 'AST','HAH', 'VHM',  'TCB', 
-                'HPX', 'NAF', 'DHC', 'TDM', 
+                'HPX', 'DHC', 'TDM', 
                    'SZL',  'TNA','GVR', 
-                'IMP', 'MSH', 'POW','TCH']
+                'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
                      'VIB', 'VEA', 'NTC'] 
@@ -650,16 +650,16 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-6-2"
+    end_date = "2020-6-5"
     start_date = "2018-4-6"
-    ticker = 'DPM'
+    ticker = 'MSN'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'LongShortTrend') 
     watchlist =[]
     # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'LongShortTrend')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    
@@ -673,7 +673,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
