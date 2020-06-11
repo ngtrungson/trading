@@ -63,18 +63,18 @@ def preprocess_data(data, normalize=True):
     data['returns'] = data.close.pct_change()
     data['hl_pct'] = (data.high - data.low)/data.close
     pct_change = (data.close - data.open) / data.open
-    vol_ma30 = momentum(data.volume, window = 30)
-    data['volume_ratio'] = vol_ma30/data.volume
+    vol_ma15 = momentum(data.volume, window = 15)
+    data['volume_ratio'] = vol_ma15/data.volume
     data['volume_returns'] = pct_change*data['volume_ratio']
     data = data.drop(['date','open','high','low'], axis = 1) 
     # make volume positive and pre-scale
     data.volume = np.log(data.volume.replace(0, 1))
     
     
-    data['close_pct_100'] = momentum(data.close, window=100)
-    data['volume_pct_100'] = momentum(data.volume, window=100)
-    data['close_pct_20'] = momentum(data.close, window=20)
-    data['volume_pct_20'] = momentum(data.volume, window=20)
+    data['close_pct_50'] = momentum(data.close, window=50)
+    data['volume_pct_50'] = momentum(data.volume, window=50)
+    data['close_pct_30'] = momentum(data.close, window=30)
+    data['volume_pct_30'] = momentum(data.volume, window=30)
     data['return_5'] = data.returns.pct_change(5)
     data['return_21'] = data.returns.pct_change(21)
     data['rsi'] = rsi(data.close)

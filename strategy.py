@@ -170,19 +170,19 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     
     
     df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
-                  (df['Close'] > (df['High'] + df['Low'])/2)  &\
+                  (df['Close'] >= (df['High'] + df['Low'])/2)  &\
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
                  ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
-                 (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
-                 (df['Close'] >= df['SMA200']) & (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])) &\
+                 (((df['Volume'] >= 1.3*df['VolMA15']) |(df['Volume'] > 2*250000))) &\
+                 (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])) &\
                  (df['PCT_HL'] <= 15))
     
     df['LongShortTrend'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] >= df['Open'])  & \
-                  (df['Close'] > (df['High'] + df['Low'])/2)  &\
+                  (df['Close'] >= (df['High'] + df['Low'])/2)  &\
                  (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
                  ((df['Close']*df['Volume'] >= 3E6)) &\
-                 (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
-                 (df['Close'] >= df['SMA20']) & (df['Close'] >= df['SMA30']) & ((df['Close']>= df['High3D']) | (df['Close']>= df['High3D'])) &\
+                 (((df['Volume'] >= 1.3*df['VolMA15']) |(df['Volume'] > 2*250000))) &\
+                 (df['Close'] >= df['SMA30']) & ((df['Close']>= df['High3D']) | (df['Close']>= df['High4D'])) &\
                  (df['PCT_HL'] <= 30))    
         
     
@@ -598,6 +598,8 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
         df = df.set_index('Date')
         
     df['VolMA30'] = df['Volume'].rolling(window = 30, center = False).mean()
+    df['VolMA15'] = df['Volume'].rolling(window = 15, center = False).mean()
+    
     df['Volatility'] = df['Close'].rolling(window=5,center=False).std()
     df['PCT_Change'] = df['Close'].pct_change()
     df['Value'] = df['Volume']*df['Close']   
@@ -725,7 +727,7 @@ def print_statistic(df, i):
     S1, S2, S3, R1, R2, R3 = compute_support_resistance(df, i)
     
     
-    print('  Volume/volume(MA30) ratio: ', round(df['Volume'].iloc[-i]/df['VolMA30'].iloc[-i],2))
+    print('  Volume/volume(MA15) ratio: ', round(df['Volume'].iloc[-i]/df['VolMA15'].iloc[-i],2))
     print('  RSI indicator: ', df['RSI'].iloc[-i])
 #    print('  Rate of change last 3 days: ', df['ROC'].iloc[-i])
     print('  Trading value (billion VND/million USD): ', round(df['Value'].iloc[-i]/1E6, 2), ' MA30 :', round(df['ValueMA30'].iloc[-i]/1E6, 2))
