@@ -134,7 +134,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'NTL', 'AST','HAH', 'VHM',  'TCB', 
                 'HPX', 'DHC', 'TDM', 
                    'SZL',  'TNA','GVR', 
-                'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC']
+                'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
                      'VIB', 'VEA', 'NTC'] 
@@ -367,11 +367,11 @@ def get_csv_data(source = "cp68"):
 #         price_predictions(ticker, start, end, forecast_out = 5)
 #         print(' End of prediction ticker ...................', ticker)
 
-def analysis_stocks(start_date, end_date):
+def analysis_stocks(start_date, end_date, realtime = True, source ='cp68'):
     
-    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
-    hnx_res, hnx_data, hnx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC")
-    upcom_res, upcom_data, upcom_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^UPCOM")
+    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX", realtime = realtime, source = source)
+    hnx_res, hnx_data, hnx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^HASTC", realtime = realtime, source = source)
+    upcom_res, upcom_data, upcom_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^UPCOM", realtime = realtime, source = source)
     
     
     frames = [hsx_res, hnx_res, upcom_res]
@@ -397,19 +397,22 @@ def analysis_VN30(start_date, end_date):
 
 
 
-def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
+def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None, realtime = True, source = 'cp68'):
 
     if symbols == None:
         symbols = getliststocks(typestock = market)
-    
+        
+    if realtime:
+        end_date = datetime.datetime.today()
+        
     dates = pd.date_range(start_date, end_date)  # date range as index
-    df_data = get_data(symbols, dates, benchmark = market)  # get data for each symbol
+    df_data = get_data(symbols, dates, benchmark = market, realtime = realtime, source = source)  # get data for each symbol
     # Fill missing values
     fill_missing_values(df_data)
     
-    df_volume = get_data(symbols, dates, benchmark = market, colname = '<Volume>')  # get data for each symbol
-    df_high = get_data(symbols, dates, benchmark = market, colname = '<High>')
-    df_low = get_data(symbols, dates, benchmark = market, colname = '<Low>')
+    df_volume = get_data(symbols, dates, benchmark = market, colname = '<Volume>', realtime = realtime, source = source)  # get data for each symbol
+    df_high = get_data(symbols, dates, benchmark = market, colname = '<High>', realtime = realtime, source = source)
+    df_low = get_data(symbols, dates, benchmark = market, colname = '<Low>', realtime = realtime, source = source)
     df_rsi = get_RSI(symbols, df_data)
 #    covariance = numpy.cov(asset , SPY)[0][1]  
 #    variance = numpy.var(asset)
@@ -421,8 +424,8 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
     volumeM30 = df_volume.rolling(window =30).mean()
     
     vol_mean = pd.Series(df_volume.mean(),name = 'Volume')
-    max_high = pd.Series(df_high.max(), name = 'MaxHigh')
-    min_low = pd.Series(df_low.min(), name = 'MinLow')
+    # max_high = pd.Series(df_high.max(), name = 'MaxHigh')
+    # min_low = pd.Series(df_low.min(), name = 'MinLow')
     # cpm = pd.Series(max_high/min_low, name = 'CPM')
     value_mean = pd.Series(df_value.mean(), name = 'ValueMean')
     
@@ -432,23 +435,23 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None):
     
     # Assess the portfolio
     
-    allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start_date, ed = end_date,
-        syms = symbols,  benchmark = market, gen_plot = False)
+    # allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start_date, ed = end_date,
+    #     syms = symbols,  benchmark = market, gen_plot = False)
 
-     # Print statistics
-    print ("Start Date:", start_date)
-    print ("End Date:", end_date)
-    print ("Symbols:", symbols)
-    print ("Optimal allocations:", allocations)
-    print ("Sharpe Ratio:", sr)
-    print ("Volatility (stdev of daily returns):", sddr)
-    print ("Average Daily Return:", adr)
-    print ("Cumulative Return:", cr)
+    #  # Print statistics
+    # print ("Start Date:", start_date)
+    # print ("End Date:", end_date)
+    # print ("Symbols:", symbols)
+    # print ("Optimal allocations:", allocations)
+    # print ("Sharpe Ratio:", sr)
+    # print ("Volatility (stdev of daily returns):", sddr)
+    # print ("Average Daily Return:", adr)
+    # print ("Cumulative Return:", cr)
     
-    investment = 50000000
+    # investment = 50000000
     df_result = pd.DataFrame(index = symbols)    
-    df_result['Opt allocs'] = allocations
-    df_result['Cash'] = allocations * investment
+    # df_result['Opt allocs'] = allocations
+    # df_result['Cash'] = allocations * investment
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
     df_result['PCT_C'] = 100*(df_data[symbols].iloc[-1,:].values - df_data[symbols].iloc[0,:].values)/df_data[symbols].iloc[0,:].values
     df_result['Volume'] = df_volume[symbols].iloc[-1,:].values
@@ -628,7 +631,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    symbols = get_csv_data(source = "cp68")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -650,8 +653,8 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-6-10"
-    start_date = "2018-4-6"
+    end_date = "2020-6-12"
+    start_date = "2019-4-6"
     ticker = 'SHS'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 15, typetrade = 'LongShortTrend') 
     watchlist =[]
@@ -659,7 +662,7 @@ if __name__ == "__main__":
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'LongShortTrend')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 10, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    
@@ -673,7 +676,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
 
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date)
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = True, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
