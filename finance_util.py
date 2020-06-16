@@ -552,7 +552,7 @@ def symbol_to_path(symbol, base_dir="cp68"):
 #
 #    return df_final
 
-def get_data(symbols, dates, benchmark = '^VNINDEX', colname = '<CloseFixed>', realtime = True, source ='cp68'):
+def get_data(symbols, dates, benchmark = '^VNINDEX', colname = '<CloseFixed>', realtime = False, source ='cp68'):
     """Read stock data (adjusted close) for given symbols from CSV files."""
     df_final = pd.DataFrame(index=dates)
     if (benchmark not in symbols) and isinstance(benchmark, str):  # add SPY for reference, if absent
@@ -562,30 +562,36 @@ def get_data(symbols, dates, benchmark = '^VNINDEX', colname = '<CloseFixed>', r
         file_path = symbol_to_path(symbol)
         df_temp = pd.read_csv(file_path, parse_dates=True, index_col="<DTYYYYMMDD>",
             usecols=["<DTYYYYMMDD>", colname], na_values=["nan"])
-        df_temp = df_temp.rename(columns={"<DTYYYYMMDD>": "Date", colname: symbol})
-        
-        # realtime = True
-        # source = 'cp68'
-        if (realtime & ((source == 'cp68') | (source == 'ssi'))):
-        # actual_price = get_info_stock(ticker)
-            actual_price = get_info_stock_cp68_mobile(symbol)
-            # actual_price = get_info_stock_bsc(ticker)
-            today = datetime.datetime.today()
-            next_date = today
-            if colname == '<Volume>':
-                df_temp.loc[next_date] = ({symbol : actual_price['Volume'].iloc[-1]})
-            elif colname == '<High>':
-                df_temp.loc[next_date] = ({symbol : actual_price['High'].iloc[-1]})
-            elif colname == '<Low>':
-                df_temp.loc[next_date] = ({symbol : actual_price['Low'].iloc[-1]})
-            else:
-                df_temp.loc[next_date] = ({symbol : actual_price['Close'].iloc[-1]})
-            # print(df_temp.loc[next_date])    
+        df_temp = df_temp.rename(columns={"<DTYYYYMMDD>": "Date", colname: symbol})        
+          
         df_final = df_final.join(df_temp)
         if symbol == benchmark:  # drop dates SPY did not trade
             df_final = df_final.dropna(subset=[benchmark])
             
 #    fill_missing_values(df_final)
+    
+        
+    if (realtime & ((source == 'cp68') | (source == 'ssi'))):
+        today_data = []
+        for symbol in symbols:
+            actual_price = get_info_stock_cp68_mobile(symbol)
+            # actual_price = get_info_stock_bsc(ticker)
+            today = datetime.datetime.today()
+            next_date = today
+            if colname == '<Volume>':
+                today_data.append(actual_price['Volume'].iloc[-1])
+                # df_temp.loc[next_date] = ({symbol : actual_price['Volume'].iloc[-1]})
+            elif colname == '<High>':
+                today_data.append(actual_price['High'].iloc[-1])
+                # df_temp.loc[next_date] = ({symbol : actual_price['High'].iloc[-1]})
+            elif colname == '<Low>':
+                today_data.append(actual_price['Low'].iloc[-1])
+                # df_temp.loc[next_date] = ({symbol : actual_price['Low'].iloc[-1]})
+            else:
+                today_data.append(actual_price['Close'].iloc[-1])
+                # df_temp.loc[next_date] = ({symbol : actual_price['Close'].iloc[-1]})
+            # print(df_temp.loc[next_date])  
+        df_final.loc[next_date] = today_data
     
     return df_final
 
