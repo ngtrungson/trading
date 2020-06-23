@@ -32,7 +32,9 @@ def run_backtest(df, ticker, trade = 'Long'):
         if (trade == 'Breakout'):
             df['Buy'] = df['Breakout']
         if (trade == 'LongShortTrend'):
-            df['Buy'] = df['LongShortTrend']    
+            df['Buy'] = df['LongShortTrend']  
+        if (trade == 'Sideway'):
+            df['Buy'] = df['Sideway'] 
     df['5Days'] = df['Close'].shift(-5)
     df['10Days'] = df['Close'].shift(-10)
     df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
@@ -185,7 +187,15 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['Close'] >= df['SMA30']) & ((df['Close']>= df['High3D']) | (df['Close']>= df['High4D'])) &\
                  (df['PCT_HL'] <= 30))    
         
-    
+    df['T4'] = ((df['Close']> df['Close'].shift(1)) & (df['Close'] > df['Close'].shift(4))  &\
+                  (df['Close'] > df['Close'].shift(2))  & (df['Close'] > df['Close'].shift(3)) &\
+                 (df['PCT_HL'] <= 50)) 
+        
+    df['MA30'] = ((df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] >= df['Open']) & (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
+                 (df['PCT_HL'] <= 50))  
+        
+    df['Sideway'] = df['T4'] +  df['MA30']
+        
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
     
     df['MarkM'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
@@ -245,7 +255,13 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 
-        
+        if (df['Sideway'].iloc[-i] & (typetrade == 'Sideway')):
+                print(" Sideway trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+                back_test = True
+                print_statistic(df, i)
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+
         
         if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
                 print(" Mark Minervini trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
