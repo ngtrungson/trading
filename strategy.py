@@ -194,7 +194,10 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     df['MA30'] = ((df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] >= df['Open']) & (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
                  (df['PCT_HL'] <= 50))  
         
-    df['Sideway'] = df['T4'] +  df['MA30']
+    df['Sideway'] = ((df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Close'].shift(4))  &\
+                  (df['Close'] > df['Close'].shift(2))  & (df['Close'] > df['Close'].shift(3)) &\
+                  (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
+                    (df['PCT_HL'] <= 50)) 
         
     df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
     
@@ -615,6 +618,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
         
     df['VolMA30'] = df['Volume'].rolling(window = 30, center = False).mean()
     df['VolMA15'] = df['Volume'].rolling(window = 15, center = False).mean()
+    df['VolTMA3'] = 3*df['Volume'].rolling(window = 3, center = False).mean()
     
     df['Volatility'] = df['Close'].rolling(window=5,center=False).std()
     df['PCT_Change'] = df['Close'].pct_change()
@@ -777,6 +781,13 @@ def print_statistic(df, i):
                                   round(df['Volume'].iloc[-i-2]/1E5, 2),
                                   round(df['Volume'].iloc[-i-1]/1E5, 2), 
                                   round(df['Volume'].iloc[-i]/1E5, 2))
+    print('  Volume MA3 last 7 days (100K):',round(df['VolTMA3'].iloc[-i-6]/1E5, 2),
+                                  round(df['VolTMA3'].iloc[-i-5]/1E5, 2),
+                                  round(df['VolTMA3'].iloc[-i-4]/1E5, 2), 
+                                  round(df['VolTMA3'].iloc[-i-3]/1E5, 2),
+                                  round(df['VolTMA3'].iloc[-i-2]/1E5, 2),
+                                  round(df['VolTMA3'].iloc[-i-1]/1E5, 2), 
+                                  round(df['VolTMA3'].iloc[-i]/1E5, 2))
     print('  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time:', round(df['Close'].iloc[-i]/df['High3D'].iloc[-i], 2),
                                                       round(df['Close'].iloc[-i]/df['High4D'].iloc[-i], 2),
                                                        round(df['Close'].iloc[-i]/df['Max3M'].iloc[-i], 2),
