@@ -128,10 +128,10 @@ def getliststocks(typestock = "^VNINDEX"):
                 "PPC",  "REE",  "DBD", "CVT",
                 "SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                 'PAN', 'TDH',  'GEX', 
+                 'TDH',  'GEX', 
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'VPB','VRE',  "HDB",  
-                'NTL', 'AST','HAH', 'VHM',  'TCB', 
+                'NTL', 'AST', 'VHM',  'TCB', 
                 'HPX', 'DHC', 'TDM', 
                    'SZL',  'TNA','GVR', 
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET']
@@ -631,7 +631,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    # symbols = get_csv_data(source = "cp68")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -653,7 +653,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-7-7"
+    end_date = "2020-7-8"
     start_date = "2019-4-6"
     ticker = 'SHS'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 15, typetrade = 'LongShortTrend') 
@@ -662,7 +662,7 @@ if __name__ == "__main__":
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'Sideway')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'LongShortTrend')
 ####    
     
 ###    
