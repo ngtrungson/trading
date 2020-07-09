@@ -238,7 +238,7 @@ if __name__ == "__main__":
     
     ticker = '^vnindex' 
     start ="2006-1-19"
-    end = "2020-6-16"
+    end = "2020-7-9"
     update = False
     validation_size = 10
     dueling_type = 'no'

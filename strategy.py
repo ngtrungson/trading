@@ -191,10 +191,10 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                   (df['Close'] > df['Close'].shift(2))  & (df['Close'] > df['Close'].shift(3)) &\
                  (df['PCT_HL'] <= 50)) 
         
-    df['MA30'] = ((df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] >= df['Open']) & (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
+    df['MA30'] = ((df['Close']> 1.015*df['Close'].shift(1)) & (df['Close'] >= df['Open']) & (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
                  (df['PCT_HL'] <= 50))  
         
-    df['Sideway'] = ((df['Close']> 1.01*df['Close'].shift(1)) & (df['Close'] > df['Close'].shift(4))  &\
+    df['Sideway'] = ((df['Close']> 1.015*df['Close'].shift(1)) & (df['Close'] > df['Close'].shift(4))  &\
                   (df['Close'] > df['Close'].shift(2))  & (df['Close'] > df['Close'].shift(3)) &\
                   (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
                     (df['PCT_HL'] <= 50)) 
