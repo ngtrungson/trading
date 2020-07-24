@@ -653,7 +653,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-7-21"
+    end_date = "2020-7-24"
     start_date = "2019-4-6"
     ticker = 'SHS'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 15, typetrade = 'LongShortTrend') 
@@ -663,11 +663,11 @@ if __name__ == "__main__":
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'LongShortTrend')
-####    
+###    
     
 ###    
 #    my_stock = ['HDC', 'PHR', 'VRE','PVS','PVB','PPC','NTL']
-    # analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = True,  source ="cp68", trade = 'Short')
+    # analysis_trading(tickers = my_stock, start = start_date , end = end_date, update = False,  source ="cp68", trade = 'Short')
     
 #    benchVNI = ["^VNINDEX"]
     # market = analysis_all_market(tickers = benchVNI, start = "2017-1-2" , end = "2018-3-14", update = True,  source ="cp68")
