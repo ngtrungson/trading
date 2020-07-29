@@ -472,6 +472,7 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None, 
     df_result ['PCT_2D'] = df_data[symbols].pct_change().iloc[-3,:].values*100
     df_result ['PCT_1D'] = df_data[symbols].pct_change().iloc[-2,:].values*100
     df_result ['PCT_0D'] = df_data[symbols].pct_change().iloc[-1,:].values*100
+    df_result['PCT_Sum4D'] = df_result ['PCT_3D'] + df_result ['PCT_2D'] + df_result ['PCT_1D'] + df_result ['PCT_0D']
     
     df_result['Vol_ratio'] = df_volume[symbols].iloc[-1,:].values/volumeM30[symbols].iloc[-1,:].values
    
@@ -653,7 +654,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-7-24"
+    end_date = "2020-7-29"
     start_date = "2019-4-6"
     ticker = 'SHS'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 15, typetrade = 'LongShortTrend') 
