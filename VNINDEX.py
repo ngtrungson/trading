@@ -654,7 +654,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-8-13"
+    end_date = "2020-8-14"
     start_date = "2019-4-6"
     ticker = 'SHS'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 15, typetrade = 'LongShortTrend') 
