@@ -5,7 +5,7 @@ Created on Fri Dec  8 14:35:57 2017
 @author: sonng
 """
 import datetime
-from finance_util import get_data, get_RSI, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
+from finance_util import get_info_stock_cp68_mobile, get_data, get_RSI, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
                          get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta,get_info_stock
 from strategy import process_data, momentum_strategy,  short_selling, hung_canslim, mean_reversion
 # from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
@@ -26,20 +26,23 @@ def my_portfolio(start = "2018-7-10" , end = "2018-10-16"):
     fill_missing_values(df_data)
     plot_normalized_data(df_data, title= " Daily porfolio value with VNINDEX ", xlabel="Date", ylabel= " Normalized price ")
 
+
+    
+
 def portfolio_management():
     df = pd.DataFrame()
-    tickers = ['PHC','ANV','GEX', 'TVN', 'ACB', 'MBS']
+    tickers = ['HVN','VRE','DCM', 'KSB']
     # chu y xu ly cac CP nhu PVS (co kha nang thoat hang), ACB, MBS, NVB(ngam lau dai doi thoi),  (HAR, DVN, VIX): sieu lo
-    buy_price = [19.5, 25.85, 38.8, 10.65, 42.6, 17.3]
-    shares_number = [500, 400, 260, 1900, 200, 700]
+    buy_price = [25, 25.75, 8.74, 25.55]
+    shares_number = [2000, 2000, 6000, 2000]
     
-    low_candle = [18.9, 25, 37, 10, 41.3, 16.3]
+    low_candle = [24.1, 25.15, 8.4, 24.3]
     
     df['Ticker'] = tickers
     df = df.set_index('Ticker')    
     df['Buy'] = buy_price
     df['Cut_loss'] = df['Buy']*0.97
-    df['Target'] = df['Buy']*1.15
+    df['Target'] = df['Buy']*1.05
     df['Shares'] = shares_number
     df['Values'] = df['Buy']*df['Shares']
     df['Low'] = low_candle
@@ -50,7 +53,7 @@ def portfolio_management():
     for ticker in tickers:        
         print(ticker)
         try:
-            df_temp = get_info_stock(ticker)
+            df_temp = get_info_stock_cp68_mobile(ticker)
             actual_price.append(df_temp['Close'].iloc[-1]) 
     #        print(df_temp['Close'].iloc[-1])
     #        print(df['Target'][ticker])
@@ -654,7 +657,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-8-14"
+    end_date = "2020-8-17"
     start_date = "2019-4-6"
     ticker = 'SHS'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 15, typetrade = 'LongShortTrend') 
@@ -663,7 +666,7 @@ if __name__ == "__main__":
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
 ###    
     
 ###    
@@ -676,8 +679,8 @@ if __name__ == "__main__":
 #    
 #    
 #    my_portfolio()
-
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
+    portfolio_management()
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = True, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
