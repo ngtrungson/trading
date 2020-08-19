@@ -1,0 +1,891 @@
+ Sideway trading  4 days before  2020-08-14 00:00:00 AAA
+  Volume/volume(MA15) ratio:  3.48
+  RSI indicator:  56.39884129477358
+  Trading value (billion VND/million USD):  86.31  MA30 : 21.61
+  Money flow in last 5 days:  15.79 8.01 60.65 33.31 86.31
+  Relative strength RSW:  -10.425406822665375
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  13.85 13.85 15.65 17.2
+  Actual price Close/Low/High/Open: 12.25 11.95 12.55 12.05
+  PCT_Change last 7 days: -0.43 -0.87 1.32 -0.43 4.35 -0.42 2.51
+  Variation last 7 days max/min (H/L):  22.43 22.43 21.5 20.56 20.09 16.82 16.82
+  Variation last 7 days  (H/L) :  1.75 1.76 2.18 1.31 6.11 2.54 5.02
+  Volume last 7 days (100K): 9.97 7.04 13.67 6.96 50.54 27.88 70.46
+  Volume MA3 last 7 days (100K): 35.99 32.43 30.69 27.68 71.18 85.38 148.88
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.88 0.88 0.78 0.71 0.65
+  Support S1 S2 S3 : 11.35 11.3 10.8
+  Resistance R1 R2 R3 : 12.5 13.1 13.2
+  Loss/gain T+1/T+2/T+3/T+4 : 1.22 0.41 -0.41 nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 11.95 - 4.9 % Target >=: 14.050000000000004 + 14.69 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 338, '-1': 4, '1': 2}) symbol:  AAA
+***************************************************************
+ Sideway trading  4 days before  2020-08-14 00:00:00 AST
+  Volume/volume(MA15) ratio:  1.56
+  RSI indicator:  53.52540292728075
+  Trading value (billion VND/million USD):  6.35  MA30 : 2.95
+  Money flow in last 5 days:  3.31 2.52 3.24 3.09 6.35
+  Relative strength RSW:  -25.20101853276454
+  Side ways status last 5 days:  False False True True False
+  Price max 3M/6M/9M/12M:  57.1401 76.0891 87.8101 87.8101
+  Actual price Close/Low/High/Open: 46.6 45.65 47.5 45.65
+  PCT_Change last 7 days: -1.8 -2.06 0.23 1.98 1.03 3.28 2.08
+  Variation last 7 days max/min (H/L):  25.24 25.24 24.51 24.26 23.53 22.55 22.06
+  Variation last 7 days  (H/L) :  1.83 2.35 3.5 1.5 1.61 3.39 4.05
+  Volume last 7 days (100K): 0.66 0.43 0.77 0.58 0.73 0.68 1.36
+  Volume MA3 last 7 days (100K): 2.3 2.09 1.86 1.77 2.08 1.99 2.77
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.82 0.61 0.53 0.53 0.53
+  Support S1 S2 S3 : 42.5 40.5 39.8516
+  Resistance R1 R2 R3 : 47.5 49.9121 50.0097
+  Loss/gain T+1/T+2/T+3/T+4 : -2.36 -2.58 -3.65 nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 45.65 - 3.97 % Target >=: 52.150000000000006 + 11.91 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 338, '1': 5, '-1': 1}) symbol:  AST
+***************************************************************
+ Sideway trading  4 days before  2020-08-14 00:00:00 BMI
+  Volume/volume(MA15) ratio:  2.55
+  RSI indicator:  61.62062532028768
+  Trading value (billion VND/million USD):  9.17  MA30 : 3.1
+  Money flow in last 5 days:  3.38 2.37 1.42 2.73 9.17
+  Relative strength RSW:  -2.259517156099835
+  Side ways status last 5 days:  False False False False True
+  Price max 3M/6M/9M/12M:  24.0 24.0 24.7075 26.205
+  Actual price Close/Low/High/Open: 22.45 21.6 22.8 21.6
+  PCT_Change last 7 days: 5.77 -1.59 -1.39 0.23 0.23 0.7 3.94
+  Variation last 7 days max/min (H/L):  13.14 14.43 14.43 14.43 14.43 14.43 14.43
+  Variation last 7 days  (H/L) :  6.99 2.8 2.59 1.66 1.42 0.93 5.56
+  Volume last 7 days (100K): 3.1 1.57 1.58 1.11 0.66 1.26 4.09
+  Volume MA3 last 7 days (100K): 5.6 6.28 6.25 4.26 3.35 3.03 6.01
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.04 1.03 0.94 0.94 0.91 0.86 0.86
+  Support S1 S2 S3 : 21.1 19.6 19.4
+  Resistance R1 R2 R3 : 23.2 24.4 24.4736
+  Loss/gain T+1/T+2/T+3/T+4 : -1.34 -2.23 -2.9 nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 21.6 - 5.35 % Target >=: 26.049999999999997 + 16.04 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 337, '1': 5, '-1': 2}) symbol:  BMI
+***************************************************************
+ Sideway trading  3 days before  2020-08-17 00:00:00 BMP
+  Volume/volume(MA15) ratio:  2.78
+  RSI indicator:  63.48259648072116
+  Trading value (billion VND/million USD):  21.81  MA30 : 6.73
+  Money flow in last 5 days:  7.75 6.89 7.15 4.6 21.81
+  Relative strength RSW:  20.616010015010716
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  54.9612 54.9612 54.9612 54.9612
+  Actual price Close/Low/High/Open: 54.3 51.4 54.3 54.3
+  PCT_Change last 7 days: 1.17 0.0 -0.39 0.0 0.39 -0.39 5.03
+  Variation last 7 days max/min (H/L):  14.68 14.26 14.26 14.26 12.77 12.13 12.13
+  Variation last 7 days  (H/L) :  2.55 0.96 1.94 1.55 1.96 0.97 5.64
+  Volume last 7 days (100K): 1.78 1.19 1.5 1.33 1.38 0.89 4.02
+  Volume MA3 last 7 days (100K): 4.78 4.05 4.47 4.02 4.21 3.6 6.29
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.04 1.03 0.99 0.99 0.99 0.99 0.99
+  Support S1 S2 S3 : 51.5 51.0 48.5
+  Resistance R1 R2 R3 : 54.9 55.4519 nan
+  Loss/gain T+1/T+2/T+3/T+4 : -0.55 -0.37 nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 51.4 - 5.34 % Target >=: 62.99999999999999 + 16.02 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 333, '-1': 6, '1': 5}) symbol:  BMP
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 BVH
+  Volume/volume(MA15) ratio:  1.43
+  RSI indicator:  57.16907873181033
+  Trading value (billion VND/million USD):  43.23  MA30 : 24.98
+  Money flow in last 5 days:  21.5 16.53 9.79 15.14 43.23
+  Relative strength RSW:  -19.79337701608179
+  Side ways status last 5 days:  False False True True True
+  Price max 3M/6M/9M/12M:  52.8 58.5 73.2 77.6287
+  Actual price Close/Low/High/Open: 46.95 45.5 47.6 45.5
+  PCT_Change last 7 days: 1.55 -1.41 -0.99 1.11 -0.33 0.44 3.3
+  Variation last 7 days max/min (H/L):  24.74 24.74 24.74 23.47 20.41 20.41 18.11
+  Variation last 7 days  (H/L) :  3.82 1.77 1.9 1.56 1.0 1.67 4.62
+  Volume last 7 days (100K): 8.49 4.46 4.79 3.64 2.16 3.33 9.21
+  Volume MA3 last 7 days (100K): 23.57 20.37 17.74 12.89 10.59 9.13 14.7
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.89 0.8 0.64 0.6 0.5
+  Support S1 S2 S3 : 44.65 39.2 35.35
+  Resistance R1 R2 R3 : 47.6 48.9 49.8
+  Loss/gain T+1/T+2/T+3/T+4 : -2.34 -3.09 -5.01 -3.51
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 45.5 - 4.47 % Target >=: 53.25000000000001 + 13.42 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 338, '-1': 4, '1': 2}) symbol:  BVH
+***************************************************************
+ Sideway trading  2 days before  2020-08-18 00:00:00 CII
+  Volume/volume(MA15) ratio:  2.52
+  RSI indicator:  53.68798010263909
+  Trading value (billion VND/million USD):  45.04  MA30 : 21.97
+  Money flow in last 5 days:  8.14 13.32 16.75 10.78 45.04
+  Relative strength RSW:  -16.522842051654617
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  20.1 23.5 26.0 26.0
+  Actual price Close/Low/High/Open: 18.0 17.55 18.25 17.55
+  PCT_Change last 7 days: 1.44 1.42 -0.84 -0.28 -1.7 0.58 3.15
+  Variation last 7 days max/min (H/L):  10.27 10.27 10.27 9.67 9.37 9.37 9.37
+  Variation last 7 days  (H/L) :  4.32 1.99 1.41 1.13 2.02 2.02 3.99
+  Volume last 7 days (100K): 17.34 9.3 4.6 7.55 9.65 6.18 25.02
+  Volume MA3 last 7 days (100K): 32.42 31.94 31.25 21.45 21.8 23.38 40.85
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.0 0.9 0.77 0.69 0.69 0.69
+  Support S1 S2 S3 : 17.35 17.25 17.05
+  Resistance R1 R2 R3 : 18.3 18.5 18.75
+  Loss/gain T+1/T+2/T+3/T+4 : -0.28 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 17.55 - 3.89 % Target >=: 20.099999999999998 + 11.67 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 336, '-1': 5, '1': 3}) symbol:  CII
+***************************************************************
+ Sideway trading  3 days before  2020-08-17 00:00:00 CTD
+  Volume/volume(MA15) ratio:  0.93
+  RSI indicator:  58.45298731630374
+  Trading value (billion VND/million USD):  52.09  MA30 : 58.58
+  Money flow in last 5 days:  38.01 35.34 43.98 65.89 52.09
+  Relative strength RSW:  7.751775369385362
+  Side ways status last 5 days:  False True True True True
+  Price max 3M/6M/9M/12M:  84.6 84.6 84.6 99.8836
+  Actual price Close/Low/High/Open: 80.0 77.8 80.5 80.0
+  PCT_Change last 7 days: 2.75 -1.78 1.17 -1.41 2.21 -0.25 1.91
+  Variation last 7 days max/min (H/L):  29.35 29.35 26.17 26.17 22.39 21.03 21.03
+  Variation last 7 days  (H/L) :  3.96 3.63 2.49 2.61 1.55 1.92 3.47
+  Volume last 7 days (100K): 9.31 7.07 4.87 4.59 5.59 8.39 6.51
+  Volume MA3 last 7 days (100K): 27.27 23.25 21.25 16.53 15.04 18.57 20.49
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.95 0.95 0.95 0.8 0.59
+  Support S1 S2 S3 : 76.4 66.3 66.1
+  Resistance R1 R2 R3 : 83.4 85.5 90.5
+  Loss/gain T+1/T+2/T+3/T+4 : 0.0 -0.62 nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 77.8 - 3.38 % Target >=: 88.10000000000001 + 10.13 %
+----------------------------------------------------------------
+ Sideway trading  5 days before  2020-08-13 00:00:00 CTD
+  Volume/volume(MA15) ratio:  0.74
+  RSI indicator:  56.350014466524655
+  Trading value (billion VND/million USD):  43.98  MA30 : 62.76
+  Money flow in last 5 days:  73.21 54.59 38.01 35.34 43.98
+  Relative strength RSW:  8.396966649509364
+  Side ways status last 5 days:  False False False True True
+  Price max 3M/6M/9M/12M:  84.6 84.6 84.6 99.8836
+  Actual price Close/Low/High/Open: 78.7 77.6 78.8 77.8
+  PCT_Change last 7 days: 4.22 -0.13 2.75 -1.78 1.17 -1.41 2.21
+  Variation last 7 days max/min (H/L):  29.35 29.35 29.35 29.35 26.17 26.17 22.39
+  Variation last 7 days  (H/L) :  7.7 3.32 3.96 3.63 2.49 2.61 1.55
+  Volume last 7 days (100K): 11.09 6.87 9.31 7.07 4.87 4.59 5.59
+  Volume MA3 last 7 days (100K): 25.11 26.99 27.27 23.25 21.25 16.53 15.04
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 0.98 0.98 0.93 0.93 0.93 0.79 0.58
+  Support S1 S2 S3 : 76.4 66.3 66.1
+  Resistance R1 R2 R3 : 80.6 83.4 85.5
+  Loss/gain T+1/T+2/T+3/T+4 : -0.25 1.65 1.65 1.02
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 77.6 - 1.52 % Target >=: 82.30000000000001 + 4.57 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 342, '1': 2}) symbol:  CTD
+***************************************************************
+ Sideway trading  2 days before  2020-08-18 00:00:00 D2D
+  Volume/volume(MA15) ratio:  1.34
+  RSI indicator:  57.51945184971517
+  Trading value (billion VND/million USD):  17.32  MA30 : 11.83
+  Money flow in last 5 days:  6.24 13.9 14.55 11.63 17.32
+  Relative strength RSW:  -10.296565238960422
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  63.6 63.6 84.514 86.0299
+  Actual price Close/Low/High/Open: 58.7 57.1 59.1 57.5
+  PCT_Change last 7 days: 3.57 0.0 -0.86 1.22 -1.55 0.35 2.09
+  Variation last 7 days max/min (H/L):  20.59 18.82 18.82 18.63 18.63 16.67 16.67
+  Variation last 7 days  (H/L) :  5.87 2.43 2.28 1.56 2.11 2.12 3.5
+  Volume last 7 days (100K): 4.64 1.87 1.09 2.39 2.54 2.02 2.95
+  Volume MA3 last 7 days (100K): 8.41 8.86 7.6 5.34 6.01 6.95 7.51
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.92 0.92 0.69 0.68 0.68
+  Support S1 S2 S3 : 56.6 55.4 53.9
+  Resistance R1 R2 R3 : 59.5 60.5 60.6
+  Loss/gain T+1/T+2/T+3/T+4 : 6.98 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 57.1 - 3.41 % Target >=: 64.7 + 10.22 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 337, '1': 5, '-1': 2}) symbol:  D2D
+***************************************************************
+ Sideway trading  1 days before  2020-08-19 16:29:19.069904 DGC
+  Volume/volume(MA15) ratio:  1.61
+  RSI indicator:  56.341723581731365
+  Trading value (billion VND/million USD):  20.96  MA30 : 12.76
+  Money flow in last 5 days:  7.13 8.37 5.74 3.52 20.96
+  Relative strength RSW:  38.71366556665911
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  35.6928 35.6928 35.6928 35.6928
+  Actual price Close/Low/High/Open: 33.45 31.85 33.95 32.15
+  PCT_Change last 7 days: -0.15 -1.98 0.31 1.24 -0.92 -0.46 4.04
+  Variation last 7 days max/min (H/L):  24.78 24.78 24.78 22.09 22.09 17.25 17.25
+  Variation last 7 days  (H/L) :  1.69 2.52 1.72 2.18 1.4 1.09 6.59
+  Volume last 7 days (100K): 3.26 6.65 2.22 2.57 1.78 1.09 6.27
+  Volume MA3 last 7 days (100K): 11.56 12.94 12.13 11.44 6.56 5.44 9.14
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.94 0.94 0.94 0.94 0.94
+  Support S1 S2 S3 : 32.05 31.8 28.743
+  Resistance R1 R2 R3 : 33.7 35.0922 35.8644
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 31.85 - 6.28 % Target >=: 39.75000000000001 + 18.83 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 336, '-1': 2, '1': 1}) symbol:  DGC
+***************************************************************
+ Sideway trading  2 days before  2020-08-18 00:00:00 DGW
+  Volume/volume(MA15) ratio:  0.68
+  RSI indicator:  57.54506966701219
+  Trading value (billion VND/million USD):  15.4  MA30 : 24.78
+  Money flow in last 5 days:  17.07 15.26 22.9 11.62 15.4
+  Relative strength RSW:  67.94788837285552
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  44.2828 44.2828 44.2828 44.2828
+  Actual price Close/Low/High/Open: 42.65 41.95 42.65 42.3
+  PCT_Change last 7 days: 0.0 0.35 -1.29 0.71 0.0 -1.41 1.79
+  Variation last 7 days max/min (H/L):  19.62 19.62 19.62 18.8 18.8 18.8 14.29
+  Variation last 7 days  (H/L) :  1.64 1.53 2.75 1.78 2.76 2.29 1.67
+  Volume last 7 days (100K): 5.27 5.8 4.05 3.59 5.39 2.77 3.61
+  Volume MA3 last 7 days (100K): 16.08 16.86 15.11 13.43 13.02 11.75 11.77
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 0.99 0.96 0.96 0.96 0.96 0.94
+  Support S1 S2 S3 : 41.55 38.75 36.7
+  Resistance R1 R2 R3 : 43.9 45.1128 nan
+  Loss/gain T+1/T+2/T+3/T+4 : 6.92 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 41.95 - 1.64 % Target >=: 44.749999999999986 + 4.92 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 335, '1': 6, '-1': 3}) symbol:  DGW
+***************************************************************
+ Sideway trading  2 days before  2020-08-18 00:00:00 DIG
+  Volume/volume(MA15) ratio:  1.91
+  RSI indicator:  55.80214054917603
+  Trading value (billion VND/million USD):  25.41  MA30 : 17.02
+  Money flow in last 5 days:  26.96 12.33 10.05 11.61 25.41
+  Relative strength RSW:  0.22157138210835425
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  13.7 13.7 14.0 15.1
+  Actual price Close/Low/High/Open: 12.8 12.6 12.95 12.6
+  PCT_Change last 7 days: 0.0 0.0 2.83 0.0 -0.39 -0.79 1.99
+  Variation last 7 days max/min (H/L):  18.78 14.85 13.97 12.66 12.23 12.23 9.83
+  Variation last 7 days  (H/L) :  1.22 1.22 4.05 1.98 1.59 2.02 2.78
+  Volume last 7 days (100K): 8.59 3.7 21.23 9.71 7.95 9.25 19.85
+  Volume MA3 last 7 days (100K): 25.1 21.67 33.52 34.64 38.88 26.91 37.05
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.93 0.93 0.91 0.85 0.85
+  Support S1 S2 S3 : 12.4 12.25 11.8
+  Resistance R1 R2 R3 : 12.95 13.8 13.95
+  Loss/gain T+1/T+2/T+3/T+4 : 0.39 nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 12.6 - 2.73 % Target >=: 13.85 + 8.2 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 335, '-1': 6, '1': 3}) symbol:  DIG
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 DPM
+  Volume/volume(MA15) ratio:  1.97
+  RSI indicator:  58.92121392461851
+  Trading value (billion VND/million USD):  81.31  MA30 : 32.8
+  Money flow in last 5 days:  23.44 32.31 59.59 26.28 81.31
+  Relative strength RSW:  15.377418721215571
+  Side ways status last 5 days:  False True True True True
+  Price max 3M/6M/9M/12M:  14.5982 14.5982 14.5982 14.5982
+  Actual price Close/Low/High/Open: 14.35 13.85 14.45 13.9
+  PCT_Change last 7 days: 1.47 -1.45 -0.37 0.74 2.93 -1.78 3.99
+  Variation last 7 days max/min (H/L):  14.34 14.34 14.34 14.34 14.34 14.34 13.21
+  Variation last 7 days  (H/L) :  2.57 1.47 1.85 1.47 4.43 2.54 4.33
+  Volume last 7 days (100K): 27.75 15.11 17.3 23.67 42.41 19.04 56.66
+  Volume MA3 last 7 days (100K): 79.4 73.75 60.16 56.08 83.39 85.13 118.12
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.98 0.98 0.98 0.98 0.85
+  Support S1 S2 S3 : 13.55 12.7437 12.601
+  Resistance R1 R2 R3 : 14.408 14.6933 15.0262
+  Loss/gain T+1/T+2/T+3/T+4 : -2.44 -2.09 -0.7 0.0
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 13.85 - 4.18 % Target >=: 16.15 + 12.54 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 334, '-1': 7, '1': 3}) symbol:  DPM
+***************************************************************
+ Sideway trading  3 days before  2020-08-17 00:00:00 FCN
+  Volume/volume(MA15) ratio:  1.26
+  RSI indicator:  54.85331991131993
+  Trading value (billion VND/million USD):  8.43  MA30 : 7.54
+  Money flow in last 5 days:  4.15 5.7 6.08 6.81 8.43
+  Relative strength RSW:  -3.9016104317580935
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  10.95 10.95 11.6 13.1
+  Actual price Close/Low/High/Open: 9.85 9.54 9.85 9.85
+  PCT_Change last 7 days: -1.71 1.09 0.54 0.86 1.06 0.1 3.25
+  Variation last 7 days max/min (H/L):  28.57 28.57 27.98 27.98 26.79 24.4 15.95
+  Variation last 7 days  (H/L) :  2.3 2.72 1.4 2.57 1.06 2.53 3.25
+  Volume last 7 days (100K): 7.04 4.4 4.43 6.05 6.38 7.14 8.56
+  Volume MA3 last 7 days (100K): 21.19 16.11 15.87 14.88 16.87 19.57 22.08
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.9 0.9 0.85 0.75 0.67
+  Support S1 S2 S3 : 9.15 8.4 8.11
+  Resistance R1 R2 R3 : 10.1 10.75 10.8
+  Loss/gain T+1/T+2/T+3/T+4 : 0.81 0.0 nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 9.54 - 3.15 % Target >=: 10.780000000000001 + 9.44 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 336, '-1': 5, '1': 3}) symbol:  FCN
+***************************************************************
+ Sideway trading  3 days before  2020-08-17 00:00:00 FMC
+  Volume/volume(MA15) ratio:  2.04
+  RSI indicator:  57.64687160298661
+  Trading value (billion VND/million USD):  8.27  MA30 : 3.86
+  Money flow in last 5 days:  4.38 2.28 4.03 2.46 8.27
+  Relative strength RSW:  10.568871387607306
+  Side ways status last 5 days:  True False True False True
+  Price max 3M/6M/9M/12M:  29.6724 29.6724 29.6724 29.6724
+  Actual price Close/Low/High/Open: 27.7 26.8 27.7 27.7
+  PCT_Change last 7 days: 1.5 1.3 -0.18 -1.1 1.3 -1.28 2.59
+  Variation last 7 days max/min (H/L):  19.71 19.71 16.98 16.98 15.72 15.72 15.72
+  Variation last 7 days  (H/L) :  2.99 2.61 2.24 1.87 2.42 2.62 3.36
+  Volume last 7 days (100K): 1.4 1.75 1.61 0.85 1.47 0.91 2.98
+  Volume MA3 last 7 days (100K): 3.94 4.1 4.76 4.21 3.92 3.23 5.37
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.93 0.93 0.93 0.93 0.93
+  Support S1 S2 S3 : 26.7 23.85 22.447
+  Resistance R1 R2 R3 : 27.9 28.55 29.0944
+  Loss/gain T+1/T+2/T+3/T+4 : 3.25 3.07 nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 26.8 - 3.25 % Target >=: 30.399999999999995 + 9.75 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 342, '-1': 2}) symbol:  FMC
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 GAS
+  Volume/volume(MA15) ratio:  1.38
+  RSI indicator:  60.45969618367201
+  Trading value (billion VND/million USD):  69.09  MA30 : 42.75
+  Money flow in last 5 days:  40.14 33.08 38.56 69.3 69.09
+  Relative strength RSW:  -11.357273099584958
+  Side ways status last 5 days:  False True True True True
+  Price max 3M/6M/9M/12M:  75.3098 84.3661 103.4318 103.4318
+  Actual price Close/Low/High/Open: 72.6 71.5 72.9 71.5
+  PCT_Change last 7 days: 0.73 1.31 1.01 0.43 -0.71 1.71 1.97
+  Variation last 7 days max/min (H/L):  16.27 15.17 14.53 13.43 13.27 13.11 13.11
+  Variation last 7 days  (H/L) :  1.62 2.05 2.17 1.28 1.58 2.29 1.96
+  Volume last 7 days (100K): 5.66 6.41 5.72 4.69 5.51 9.73 9.52
+  Volume MA3 last 7 days (100K): 14.9 15.94 17.78 16.82 15.92 19.93 24.76
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.96 0.86 0.7 0.7 0.67
+  Support S1 S2 S3 : 69.7 63.8 63.3
+  Resistance R1 R2 R3 : 72.9 73.6 75.7864
+  Loss/gain T+1/T+2/T+3/T+4 : -0.41 -0.83 -0.96 -0.69
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 71.5 - 1.93 % Target >=: 76.80000000000001 + 5.79 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 338, '-1': 3, '1': 3}) symbol:  GAS
+***************************************************************
+ Sideway trading  1 days before  2020-08-19 16:29:39.547285 GVR
+  Volume/volume(MA15) ratio:  1.95
+  RSI indicator:  57.85412731280044
+  Trading value (billion VND/million USD):  27.05  MA30 : 14.2
+  Money flow in last 5 days:  21.56 10.63 8.22 13.47 27.05
+  Relative strength RSW:  -11.33255086987321
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  13.65 13.65 14.2 16.5
+  Actual price Close/Low/High/Open: 11.5 11.15 11.7 11.2
+  PCT_Change last 7 days: -0.45 0.0 -0.9 -0.91 0.46 0.91 4.07
+  Variation last 7 days max/min (H/L):  24.49 23.47 21.43 21.43 16.33 16.33 16.33
+  Variation last 7 days  (H/L) :  2.27 1.36 3.64 3.24 2.34 3.21 4.93
+  Volume last 7 days (100K): 7.38 5.98 19.6 9.75 7.51 12.19 23.52
+  Volume MA3 last 7 days (100K): 42.64 42.29 32.95 35.32 36.86 29.45 43.22
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.01 0.84 0.84 0.81 0.7 0.69
+  Support S1 S2 S3 : 10.7 10.5 10.3
+  Resistance R1 R2 R3 : 11.9 12.45 12.8
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 11.15 - 4.78 % Target >=: 13.149999999999997 + 14.35 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 333, '1': 3, '-1': 2}) symbol:  GVR
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 HCM
+  Volume/volume(MA15) ratio:  1.38
+  RSI indicator:  54.88303275061477
+  Trading value (billion VND/million USD):  59.02  MA30 : 35.78
+  Money flow in last 5 days:  24.44 47.91 54.32 20.34 59.02
+  Relative strength RSW:  -4.830886536179095
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  20.0116 20.0116 24.3224 24.3224
+  Actual price Close/Low/High/Open: 18.2 17.85 18.35 17.9
+  PCT_Change last 7 days: 0.87 -0.86 -0.58 1.17 2.88 -0.56 2.54
+  Variation last 7 days max/min (H/L):  23.44 21.88 21.88 21.25 19.38 18.12 15.94
+  Variation last 7 days  (H/L) :  3.23 2.34 2.06 2.03 3.46 2.27 2.8
+  Volume last 7 days (100K): 19.17 14.45 14.25 27.61 30.43 11.46 32.43
+  Volume MA3 last 7 days (100K): 63.79 58.96 47.87 56.31 72.29 69.5 74.32
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.91 0.91 0.75 0.75 0.73
+  Support S1 S2 S3 : 17.0 16.1 16.0
+  Resistance R1 R2 R3 : 18.35 19.5 19.75
+  Loss/gain T+1/T+2/T+3/T+4 : -1.65 -2.75 -3.3 -2.2
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 17.85 - 2.75 % Target >=: 19.7 + 8.24 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 331, '-1': 9, '1': 4}) symbol:  HCM
+***************************************************************
+ Sideway trading  4 days before  2020-08-14 00:00:00 HT1
+  Volume/volume(MA15) ratio:  2.85
+  RSI indicator:  60.078724815536766
+  Trading value (billion VND/million USD):  21.82  MA30 : 5.17
+  Money flow in last 5 days:  5.34 9.24 3.42 18.2 21.82
+  Relative strength RSW:  -0.8277430581839917
+  Side ways status last 5 days:  False True True True True
+  Price max 3M/6M/9M/12M:  14.9 14.9 15.55 15.7104
+  Actual price Close/Low/High/Open: 14.1 13.7 14.3 13.8
+  PCT_Change last 7 days: 0.74 -0.74 -0.74 -1.49 1.52 2.99 2.17
+  Variation last 7 days max/min (H/L):  19.01 19.01 19.01 18.6 17.77 15.7 14.88
+  Variation last 7 days  (H/L) :  2.6 2.23 1.87 3.03 1.51 3.73 4.38
+  Volume last 7 days (100K): 4.22 2.81 3.98 7.0 2.56 13.19 15.47
+  Volume MA3 last 7 days (100K): 14.84 14.58 11.01 13.79 13.53 22.74 31.22
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.95 0.95 0.91 0.9 0.85
+  Support S1 S2 S3 : 13.2 12.15 12.1
+  Resistance R1 R2 R3 : 14.9 15.0 15.15
+  Loss/gain T+1/T+2/T+3/T+4 : 1.77 2.13 1.42 nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 13.7 - 4.26 % Target >=: 15.900000000000004 + 12.77 %
+----------------------------------------------------------------
+ Sideway trading  5 days before  2020-08-13 00:00:00 HT1
+  Volume/volume(MA15) ratio:  2.74
+  RSI indicator:  56.35240711094154
+  Trading value (billion VND/million USD):  18.2  MA30 : 4.47
+  Money flow in last 5 days:  3.79 5.34 9.24 3.42 18.2
+  Relative strength RSW:  -2.4128114729858585
+  Side ways status last 5 days:  False False True True True
+  Price max 3M/6M/9M/12M:  14.9 14.9 15.55 15.7104
+  Actual price Close/Low/High/Open: 13.8 13.4 13.9 13.4
+  PCT_Change last 7 days: 4.65 0.74 -0.74 -0.74 -1.49 1.52 2.99
+  Variation last 7 days max/min (H/L):  19.01 19.01 19.01 19.01 18.6 17.77 15.7
+  Variation last 7 days  (H/L) :  5.38 2.6 2.23 1.87 3.03 1.51 3.73
+  Volume last 7 days (100K): 7.56 4.22 2.81 3.98 7.0 2.56 13.19
+  Volume MA3 last 7 days (100K): 12.21 14.84 14.58 11.01 13.79 13.53 22.74
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.0 0.93 0.93 0.89 0.88 0.83
+  Support S1 S2 S3 : 13.2 12.15 12.1
+  Resistance R1 R2 R3 : 14.8 14.9 15.0
+  Loss/gain T+1/T+2/T+3/T+4 : 2.17 3.99 4.35 3.62
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 13.4 - 3.62 % Target >=: 15.3 + 10.87 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 339, '-1': 4, '1': 1}) symbol:  HT1
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 HVN
+  Volume/volume(MA15) ratio:  0.94
+  RSI indicator:  55.17702624567967
+  Trading value (billion VND/million USD):  17.99  MA30 : 12.48
+  Money flow in last 5 days:  9.21 12.88 13.25 22.81 17.99
+  Relative strength RSW:  -17.744120406053216
+  Side ways status last 5 days:  False False True True True
+  Price max 3M/6M/9M/12M:  30.15 30.15 36.15 39.3
+  Actual price Close/Low/High/Open: 25.0 24.1 25.0 24.3
+  PCT_Change last 7 days: 4.12 -1.04 -0.42 0.0 -0.42 2.12 3.95
+  Variation last 7 days max/min (H/L):  25.47 25.24 24.53 24.29 23.58 23.11 22.64
+  Variation last 7 days  (H/L) :  4.09 3.45 2.16 1.69 2.13 2.54 3.73
+  Volume last 7 days (100K): 9.26 7.74 3.9 5.44 5.62 9.48 7.2
+  Volume MA3 last 7 days (100K): 23.15 25.2 20.89 17.08 14.96 20.55 22.31
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.83 0.83 0.69 0.64 0.57
+  Support S1 S2 S3 : 23.2 21.25 21.2
+  Resistance R1 R2 R3 : 26.6 26.8 27.1
+  Loss/gain T+1/T+2/T+3/T+4 : -1.6 -3.6 -3.6 -2.8
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 24.1 - 3.6 % Target >=: 27.699999999999996 + 10.8 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 332, '-1': 3, '1': 2}) symbol:  HVN
+***************************************************************
+ Sideway trading  3 days before  2020-08-17 00:00:00 IMP
+  Volume/volume(MA15) ratio:  1.99
+  RSI indicator:  56.15324291113859
+  Trading value (billion VND/million USD):  7.88  MA30 : 3.84
+  Money flow in last 5 days:  2.59 2.02 3.75 13.71 7.88
+  Relative strength RSW:  -1.5128251872033882
+  Side ways status last 5 days:  False False True True True
+  Price max 3M/6M/9M/12M:  53.8922 55.4116 55.4116 55.4116
+  Actual price Close/Low/High/Open: 46.45 44.7 46.7 46.45
+  PCT_Change last 7 days: -0.11 -0.11 0.0 -0.68 0.46 3.42 2.54
+  Variation last 7 days max/min (H/L):  17.68 17.68 16.67 16.16 15.66 13.89 15.78
+  Variation last 7 days  (H/L) :  0.92 1.14 0.57 0.92 0.92 5.16 4.47
+  Volume last 7 days (100K): 0.41 0.59 0.59 0.46 0.86 3.03 1.7
+  Volume MA3 last 7 days (100K): 1.94 1.84 1.59 1.64 1.91 4.35 5.58
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.86 0.84 0.84 0.84 0.84
+  Support S1 S2 S3 : 43.45 39.6 34.9898
+  Resistance R1 R2 R3 : 47.0 53.0879 55.3221
+  Loss/gain T+1/T+2/T+3/T+4 : 0.0 0.11 nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 44.7 - 4.31 % Target >=: 52.45 + 12.92 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 342, '-1': 1}) symbol:  IMP
+***************************************************************
+ Sideway trading  1 days before  2020-08-19 16:29:47.570341 KDH
+  Volume/volume(MA15) ratio:  0.68
+  RSI indicator:  59.26406628686111
+  Trading value (billion VND/million USD):  6.62  MA30 : 11.31
+  Money flow in last 5 days:  8.47 10.2 8.08 8.26 6.62
+  Relative strength RSW:  7.116211770290919
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  23.6518 23.6518 25.2846 25.3779
+  Actual price Close/Low/High/Open: 23.3 23.0 23.4 23.2
+  PCT_Change last 7 days: -0.41 -1.02 1.66 0.0 0.0 0.0 1.72
+  Variation last 7 days max/min (H/L):  10.33 9.45 9.45 9.45 9.45 9.45 8.97
+  Variation last 7 days  (H/L) :  2.07 1.66 1.66 1.43 1.23 0.61 1.74
+  Volume last 7 days (100K): 2.8 3.21 3.7 4.45 3.53 3.61 2.84
+  Volume MA3 last 7 days (100K): 11.58 11.5 9.7 11.36 11.68 11.59 9.97
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.99 0.99 0.92 0.92 0.92
+  Support S1 S2 S3 : 22.7654 22.4388 21.3193
+  Resistance R1 R2 R3 : 23.4185 23.6518 24.2583
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 23.0 - 1.72 % Target >=: 24.499999999999996 + 5.15 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 337, '1': 6, '-1': 1}) symbol:  KDH
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 MWG
+  Volume/volume(MA15) ratio:  0.94
+  RSI indicator:  57.343051499182984
+  Trading value (billion VND/million USD):  75.24  MA30 : 57.35
+  Money flow in last 5 days:  47.71 49.76 31.38 36.06 75.24
+  Relative strength RSW:  -18.75139789268911
+  Side ways status last 5 days:  False True True True True
+  Price max 3M/6M/9M/12M:  90.1 110.6 122.3 128.0
+  Actual price Close/Low/High/Open: 82.2 80.0 82.3 80.1
+  PCT_Change last 7 days: 2.86 0.13 -0.88 0.51 0.63 0.38 3.01
+  Variation last 7 days max/min (H/L):  19.07 18.93 18.93 17.81 17.81 17.81 17.11
+  Variation last 7 days  (H/L) :  3.79 1.92 1.79 1.65 1.27 1.14 2.87
+  Volume last 7 days (100K): 7.35 5.55 6.07 6.3 3.95 4.52 9.15
+  Volume MA3 last 7 days (100K): 22.32 21.31 18.97 17.92 16.32 14.76 17.62
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.91 0.74 0.67 0.64 0.64
+  Support S1 S2 S3 : 76.5 72.5 71.3
+  Resistance R1 R2 R3 : 83.8 84.0 84.8
+  Loss/gain T+1/T+2/T+3/T+4 : 1.09 0.0 -0.97 -0.49
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 80.0 - 2.8 % Target >=: 89.1 + 8.39 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 336, '-1': 5, '1': 3}) symbol:  MWG
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 NT2
+  Volume/volume(MA15) ratio:  0.81
+  RSI indicator:  61.16255148541373
+  Trading value (billion VND/million USD):  6.21  MA30 : 7.28
+  Money flow in last 5 days:  11.57 5.42 7.65 4.12 6.21
+  Relative strength RSW:  9.888408828884684
+  Side ways status last 5 days:  False False True True True
+  Price max 3M/6M/9M/12M:  22.0217 22.0217 22.0217 22.6816
+  Actual price Close/Low/High/Open: 21.95 21.6 22.0 21.65
+  PCT_Change last 7 days: 3.1 0.46 0.46 -0.23 -0.92 0.0 1.62
+  Variation last 7 days max/min (H/L):  13.68 13.68 13.68 13.68 12.69 12.69 12.69
+  Variation last 7 days  (H/L) :  4.55 1.87 1.39 1.83 2.34 1.17 1.85
+  Volume last 7 days (100K): 4.33 5.24 5.3 2.48 3.54 1.91 2.83
+  Volume MA3 last 7 days (100K): 11.16 13.4 14.87 13.02 11.32 7.94 8.28
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 0.99 0.99 1.0 1.0 1.0 0.97 0.86
+  Support S1 S2 S3 : 21.4 20.0 19.7
+  Resistance R1 R2 R3 : 22.0 22.2 22.3958
+  Loss/gain T+1/T+2/T+3/T+4 : -1.14 -1.14 -0.91 -0.23
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 21.6 - 1.82 % Target >=: 23.149999999999995 + 5.47 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 340, '1': 4}) symbol:  NT2
+***************************************************************
+ Sideway trading  3 days before  2020-08-17 00:00:00 NTL
+  Volume/volume(MA15) ratio:  1.17
+  RSI indicator:  56.16912169440897
+  Trading value (billion VND/million USD):  3.69  MA30 : 3.58
+  Money flow in last 5 days:  0.45 1.0 6.71 2.68 3.69
+  Relative strength RSW:  -15.970045516605625
+  Side ways status last 5 days:  False False True False True
+  Price max 3M/6M/9M/12M:  17.7997 19.9237 22.2191 23.4427
+  Actual price Close/Low/High/Open: 15.8 15.45 16.0 15.8
+  PCT_Change last 7 days: -0.33 1.32 -0.32 0.0 1.63 -0.64 1.94
+  Variation last 7 days max/min (H/L):  16.55 16.55 16.55 16.55 15.11 14.75 12.95
+  Variation last 7 days  (H/L) :  2.33 1.97 1.31 1.31 2.3 1.29 3.56
+  Volume last 7 days (100K): 0.84 2.13 0.29 0.65 4.3 1.73 2.34
+  Volume MA3 last 7 days (100K): 4.0 4.32 3.26 3.07 5.25 6.68 8.36
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.89 0.79 0.71 0.67 0.65
+  Support S1 S2 S3 : 15.25 15.05 14.25
+  Resistance R1 R2 R3 : 16.0 16.2 16.5
+  Loss/gain T+1/T+2/T+3/T+4 : 0.0 0.95 nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 15.45 - 3.48 % Target >=: 17.450000000000003 + 10.44 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 337, '-1': 5, '1': 2}) symbol:  NTL
+***************************************************************
+ Sideway trading  1 days before  2020-08-19 16:29:59.599926 PLX
+  Volume/volume(MA15) ratio:  1.5
+  RSI indicator:  60.92194956837132
+  Trading value (billion VND/million USD):  26.46  MA30 : 23.31
+  Money flow in last 5 days:  17.72 23.74 10.44 4.07 26.46
+  Relative strength RSW:  -8.526247945444165
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  48.0 50.5079 56.9638 59.4323
+  Actual price Close/Low/High/Open: 47.0 45.9 47.0 46.05
+  PCT_Change last 7 days: 1.11 1.75 0.22 0.0 -0.86 -0.32 2.06
+  Variation last 7 days max/min (H/L):  13.41 13.17 13.41 14.63 14.63 14.63 14.63
+  Variation last 7 days  (H/L) :  1.33 1.75 1.4 1.08 1.2 0.65 2.4
+  Volume last 7 days (100K): 5.5 6.61 3.8 5.09 2.26 0.88 5.63
+  Volume MA3 last 7 days (100K): 10.82 15.21 15.91 15.5 11.16 8.24 8.77
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.0 0.98 0.93 0.83 0.79 0.75
+  Support S1 S2 S3 : 45.95 44.05 41.0
+  Resistance R1 R2 R3 : 48.3 49.4636 50.7927
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 45.9 - 2.34 % Target >=: 50.300000000000004 + 7.02 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 338, '-1': 4, '1': 2}) symbol:  PLX
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 POW
+  Volume/volume(MA15) ratio:  1.04
+  RSI indicator:  57.40468617977291
+  Trading value (billion VND/million USD):  36.66  MA30 : 28.57
+  Money flow in last 5 days:  19.67 29.85 16.97 37.38 36.66
+  Relative strength RSW:  -11.271605142251339
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  11.25 11.25 13.75 13.75
+  Actual price Close/Low/High/Open: 9.94 9.73 9.95 9.73
+  PCT_Change last 7 days: 2.14 -0.94 -0.53 2.77 -0.72 1.46 2.16
+  Variation last 7 days max/min (H/L):  17.21 16.63 16.63 16.05 14.32 14.32 14.32
+  Variation last 7 days  (H/L) :  2.69 1.49 1.18 4.76 2.63 1.77 2.26
+  Volume last 7 days (100K): 32.36 31.96 20.93 30.9 17.69 38.42 36.89
+  Volume MA3 last 7 days (100K): 87.45 85.15 85.25 83.79 69.52 87.01 93.0
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.88 0.88 0.72 0.72 0.62
+  Support S1 S2 S3 : 9.3 8.66 8.5
+  Resistance R1 R2 R3 : 10.15 10.4 10.7
+  Loss/gain T+1/T+2/T+3/T+4 : 0.5 -0.8 -0.6 2.62
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 9.73 - 2.21 % Target >=: 10.599999999999996 + 6.64 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 338, '-1': 4, '1': 2}) symbol:  POW
+***************************************************************
+ Sideway trading  1 days before  2020-08-19 16:30:06.681564 SHS
+  Volume/volume(MA15) ratio:  2.17
+  RSI indicator:  56.519163351854154
+  Trading value (billion VND/million USD):  50.18  MA30 : 26.55
+  Money flow in last 5 days:  22.52 28.12 21.06 8.65 50.18
+  Relative strength RSW:  47.87489554207246
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  12.5729 12.5729 12.5729 12.5729
+  Actual price Close/Low/High/Open: 11.2 10.6 11.4 10.6
+  PCT_Change last 7 days: 1.9 -0.93 0.94 0.0 0.0 -0.93 5.66
+  Variation last 7 days max/min (H/L):  38.04 38.04 30.43 25.0 19.57 19.57 18.28
+  Variation last 7 days  (H/L) :  3.85 3.81 2.83 3.77 1.9 1.89 7.55
+  Volume last 7 days (100K): 24.6 17.44 21.04 26.28 19.68 8.16 44.81
+  Volume MA3 last 7 days (100K): 60.41 63.08 63.08 64.77 67.01 54.12 72.65
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.89 0.89 0.89 0.89 0.89
+  Support S1 S2 S3 : 10.5 10.4 10.2
+  Resistance R1 R2 R3 : 12.7 13.0284 nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 10.6 - 7.14 % Target >=: 13.600000000000001 + 21.43 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 340, '-1': 4}) symbol:  SHS
+***************************************************************
+ Sideway trading  3 days before  2020-08-17 00:00:00 TCB
+  Volume/volume(MA15) ratio:  1.47
+  RSI indicator:  56.481368370052266
+  Trading value (billion VND/million USD):  54.93  MA30 : 33.82
+  Money flow in last 5 days:  25.95 32.12 31.37 51.26 54.93
+  Relative strength RSW:  -9.457918951469564
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  22.0 23.7 24.9 25.15
+  Actual price Close/Low/High/Open: 20.1 19.75 20.15 20.1
+  PCT_Change last 7 days: -0.26 1.31 0.26 1.03 0.76 0.0 1.52
+  Variation last 7 days max/min (H/L):  18.86 18.0 17.71 17.71 16.0 16.0 15.43
+  Variation last 7 days  (H/L) :  1.57 2.07 1.3 1.29 1.28 2.8 2.03
+  Volume last 7 days (100K): 9.51 27.44 13.34 16.35 15.84 25.89 27.33
+  Volume MA3 last 7 days (100K): 47.29 55.55 50.29 57.12 45.53 58.08 69.06
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.91 0.85 0.81 0.8 0.79
+  Support S1 S2 S3 : 19.3 19.05 18.7
+  Resistance R1 R2 R3 : 20.3 20.6 21.0
+  Loss/gain T+1/T+2/T+3/T+4 : -0.25 0.5 nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 19.75 - 1.99 % Target >=: 21.299999999999997 + 5.97 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 336, '-1': 7, '1': 1}) symbol:  TCB
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 TDH
+  Volume/volume(MA15) ratio:  1.5
+  RSI indicator:  59.53115597738895
+  Trading value (billion VND/million USD):  9.4  MA30 : 5.41
+  Money flow in last 5 days:  3.81 5.11 4.2 10.53 9.4
+  Relative strength RSW:  -4.9234995806520505
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  8.75 8.75 8.9583 9.8333
+  Actual price Close/Low/High/Open: 7.44 7.32 7.5 7.5
+  PCT_Change last 7 days: -0.83 -0.12 0.72 1.55 0.12 0.47 4.54
+  Variation last 7 days max/min (H/L):  20.51 19.71 19.71 19.58 18.51 18.24 17.58
+  Variation last 7 days  (H/L) :  1.7 1.21 1.81 2.51 2.26 1.06 2.46
+  Volume last 7 days (100K): 8.02 4.11 5.47 7.22 5.92 14.8 12.63
+  Volume MA3 last 7 days (100K): 20.36 17.71 17.6 16.81 18.62 27.94 33.35
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.04 1.04 0.85 0.85 0.83 0.76 0.76
+  Support S1 S2 S3 : 7.05 6.4166 6.2583
+  Resistance R1 R2 R3 : 7.4916 7.5417 7.6417
+  Loss/gain T+1/T+2/T+3/T+4 : -2.02 -2.28 -3.36 -4.84
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 7.32 - 2.42 % Target >=: 7.9799999999999995 + 7.26 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 339, '1': 4, '-1': 1}) symbol:  TDH
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 TNA
+  Volume/volume(MA15) ratio:  1.91
+  RSI indicator:  62.600577518363885
+  Trading value (billion VND/million USD):  7.5  MA30 : 3.52
+  Money flow in last 5 days:  2.31 3.35 1.67 1.14 7.5
+  Relative strength RSW:  13.632014298157404
+  Side ways status last 5 days:  False True False False True
+  Price max 3M/6M/9M/12M:  19.3504 19.3504 26.3516 26.3516
+  Actual price Close/Low/High/Open: 17.85 16.4 17.85 16.4
+  PCT_Change last 7 days: 0.0 0.0 1.23 0.61 -0.6 1.21 6.89
+  Variation last 7 days max/min (H/L):  15.29 15.29 14.97 14.65 13.38 13.38 12.74
+  Variation last 7 days  (H/L) :  2.52 2.19 3.12 3.68 1.22 1.21 8.84
+  Volume last 7 days (100K): 3.78 1.32 1.4 2.02 1.01 0.68 4.2
+  Volume MA3 last 7 days (100K): 6.22 6.8 6.49 4.73 4.43 3.71 5.89
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.06 1.06 0.92 0.92 0.68 0.68 0.68
+  Support S1 S2 S3 : 15.9 15.7 14.6344
+  Resistance R1 R2 R3 : 18.1 18.3 19.4477
+  Loss/gain T+1/T+2/T+3/T+4 : -0.84 -2.52 -3.08 -3.08
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 16.4 - 8.12 % Target >=: 22.20000000000001 + 24.37 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 340, '-1': 3, '1': 1}) symbol:  TNA
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 TNG
+  Volume/volume(MA15) ratio:  1.18
+  RSI indicator:  54.18028147565839
+  Trading value (billion VND/million USD):  10.51  MA30 : 7.92
+  Money flow in last 5 days:  5.47 11.14 5.01 4.74 10.51
+  Relative strength RSW:  -9.863649389142934
+  Side ways status last 5 days:  False True True True True
+  Price max 3M/6M/9M/12M:  13.7963 13.7963 13.9271 15.8452
+  Actual price Close/Low/High/Open: 11.9 11.5 12.2 11.5
+  PCT_Change last 7 days: -0.86 -0.87 -0.88 0.0 1.77 0.0 3.48
+  Variation last 7 days max/min (H/L):  29.0 29.0 29.0 28.0 27.0 27.0 25.0
+  Variation last 7 days  (H/L) :  3.51 2.68 3.57 2.68 1.77 1.74 6.09
+  Volume last 7 days (100K): 5.73 5.26 4.84 9.86 4.36 4.12 8.83
+  Volume MA3 last 7 days (100K): 20.06 18.69 15.83 19.95 19.05 18.34 17.31
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.86 0.86 0.85 0.75 0.65
+  Support S1 S2 S3 : 11.2 10.3 10.0
+  Resistance R1 R2 R3 : 12.2 12.5 12.7
+  Loss/gain T+1/T+2/T+3/T+4 : -2.52 -3.36 -4.2 -3.36
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 11.5 - 5.88 % Target >=: 13.999999999999998 + 17.65 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 336, '-1': 7, '1': 1}) symbol:  TNG
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 VCG
+  Volume/volume(MA15) ratio:  2.89
+  RSI indicator:  52.70302937239711
+  Trading value (billion VND/million USD):  7.97  MA30 : 2.33
+  Money flow in last 5 days:  0.96 1.7 1.58 11.08 7.97
+  Relative strength RSW:  3.3097958588575604
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  28.9 28.9 28.9 28.9
+  Actual price Close/Low/High/Open: 26.4 26.4 26.4 26.4
+  PCT_Change last 7 days: 0.77 0.0 -0.38 -0.77 1.55 -8.4 10.0
+  Variation last 7 days max/min (H/L):  10.04 10.04 7.23 6.43 6.43 6.43 11.25
+  Variation last 7 days  (H/L) :  1.56 1.16 0.78 1.55 1.54 11.25 0.0
+  Volume last 7 days (100K): 0.1 0.28 0.37 0.66 0.6 4.62 3.02
+  Volume MA3 last 7 days (100K): 0.54 0.53 0.75 1.31 1.63 5.88 8.24
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 0.99 0.99 0.91 0.91 0.91 0.91 0.82
+  Support S1 S2 S3 : 24.0 23.2 23.0
+  Resistance R1 R2 R3 : 27.4 28.1 30.1
+  Loss/gain T+1/T+2/T+3/T+4 : 9.85 14.39 13.64 22.35
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 26.4 - 0.0 % Target >=: 26.4 + 0.0 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 339, '-1': 4, '1': 1}) symbol:  VCG
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 VHC
+  Volume/volume(MA15) ratio:  0.8
+  RSI indicator:  55.607062342559374
+  Trading value (billion VND/million USD):  15.68  MA30 : 19.51
+  Money flow in last 5 days:  25.73 18.37 9.36 15.43 15.68
+  Relative strength RSW:  3.5891605562580438
+  Side ways status last 5 days:  True False True True True
+  Price max 3M/6M/9M/12M:  39.75 39.75 40.7 42.7312
+  Actual price Close/Low/High/Open: 37.25 36.6 37.35 36.6
+  PCT_Change last 7 days: 0.56 0.0 2.66 0.54 0.0 -0.81 1.78
+  Variation last 7 days max/min (H/L):  19.88 19.58 19.58 19.58 16.84 16.84 16.84
+  Variation last 7 days  (H/L) :  2.25 2.84 2.93 1.63 1.51 1.37 2.05
+  Volume last 7 days (100K): 2.98 3.82 7.01 4.98 2.54 4.22 4.21
+  Volume MA3 last 7 days (100K): 14.2 13.96 13.81 15.81 14.52 11.73 10.96
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.94 0.94 0.92 0.87 0.77
+  Support S1 S2 S3 : 35.2 33.55 32.95
+  Resistance R1 R2 R3 : 37.35 38.5 39.4
+  Loss/gain T+1/T+2/T+3/T+4 : -1.21 -1.34 -0.67 0.13
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 36.6 - 2.01 % Target >=: 39.5 + 6.04 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 337, '-1': 6, '1': 1}) symbol:  VHC
+***************************************************************
+ Sideway trading  5 days before  2020-08-13 00:00:00 VRE
+  Volume/volume(MA15) ratio:  1.11
+  RSI indicator:  52.827112177097824
+  Trading value (billion VND/million USD):  69.65  MA30 : 61.64
+  Money flow in last 5 days:  33.19 44.79 39.79 46.59 69.65
+  Relative strength RSW:  -8.47683619106834
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  28.6 31.75 35.3 35.9
+  Actual price Close/Low/High/Open: 26.85 26.3 27.0 26.4
+  PCT_Change last 7 days: 0.19 0.0 0.19 0.95 -1.31 0.38 1.7
+  Variation last 7 days max/min (H/L):  12.75 12.75 12.75 12.75 12.75 12.75 12.75
+  Variation last 7 days  (H/L) :  3.09 2.49 1.72 1.7 1.9 1.53 2.66
+  Volume last 7 days (100K): 21.55 20.96 12.57 16.81 15.13 17.65 25.94
+  Volume MA3 last 7 days (100K): 56.29 58.53 55.08 50.34 44.51 49.58 58.72
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.94 0.85 0.76 0.75 0.72
+  Support S1 S2 S3 : 25.9 25.1 24.8
+  Resistance R1 R2 R3 : 27.3 28.3 28.9
+  Loss/gain T+1/T+2/T+3/T+4 : 0.0 -1.3 -2.79 -1.86
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 26.3 - 2.61 % Target >=: 28.95 + 7.82 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 337, '-1': 4, '1': 3}) symbol:  VRE
+***************************************************************
+ Sideway trading  3 days before  2020-08-17 00:00:00 VTP
+  Volume/volume(MA15) ratio:  3.27
+  RSI indicator:  65.36324655663641
+  Trading value (billion VND/million USD):  30.27  MA30 : 5.87
+  Money flow in last 5 days:  6.39 4.68 5.89 21.24 30.27
+  Relative strength RSW:  7.127786482996116
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  140.0 140.0 140.0 141.4
+  Actual price Close/Low/High/Open: 138.6 135.0 142.0 139.0
+  PCT_Change last 7 days: 2.08 -1.49 0.79 0.39 0.39 3.52 4.6
+  Variation last 7 days max/min (H/L):  12.2 12.2 25.19 25.19 25.19 25.19 25.19
+  Variation last 7 days  (H/L) :  2.47 15.82 1.6 2.54 1.19 5.39 5.19
+  Volume last 7 days (100K): 0.59 0.61 0.5 0.37 0.46 1.6 2.18
+  Volume MA3 last 7 days (100K): 2.57 1.96 1.7 1.48 1.33 2.43 4.25
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.99 0.99 0.99 0.98 0.92
+  Support S1 S2 S3 : 110.0 109.0 107.0
+  Resistance R1 R2 R3 : 143.5 145.0 149.9
+  Loss/gain T+1/T+2/T+3/T+4 : 3.54 2.16 nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 135.0 - 5.05 % Target >=: 159.6 + 15.15 %
+----------------------------------------------------------------
+ Sideway trading  4 days before  2020-08-14 00:00:00 VTP
+  Volume/volume(MA15) ratio:  2.88
+  RSI indicator:  55.32669416035261
+  Trading value (billion VND/million USD):  21.24  MA30 : 4.93
+  Money flow in last 5 days:  7.66 6.39 4.68 5.89 21.24
+  Relative strength RSW:  2.3430462990153544
+  Side ways status last 5 days:  False True True True True
+  Price max 3M/6M/9M/12M:  140.0 140.0 140.0 141.4
+  Actual price Close/Low/High/Open: 132.5 128.0 134.9 128.0
+  PCT_Change last 7 days: -0.56 2.08 -1.49 0.79 0.39 0.39 3.52
+  Variation last 7 days max/min (H/L):  12.2 12.2 12.2 25.19 25.19 25.19 25.19
+  Variation last 7 days  (H/L) :  1.44 2.47 15.82 1.6 2.54 1.19 5.39
+  Volume last 7 days (100K): 0.77 0.59 0.61 0.5 0.37 0.46 1.6
+  Volume MA3 last 7 days (100K): 2.23 2.57 1.96 1.7 1.48 1.33 2.43
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.95 0.95 0.95 0.94 0.88
+  Support S1 S2 S3 : 110.0 109.0 107.0
+  Resistance R1 R2 R3 : 137.71 138.0 138.1
+  Loss/gain T+1/T+2/T+3/T+4 : 4.6 8.3 6.87 nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 128.0 - 5.21 % Target >=: 153.20000000000002 + 15.62 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 339, '-1': 3, '1': 2}) symbol:  VTP
+***************************************************************
+ Sideway trading  1 days before  2020-08-19 16:30:24.534949 ^HASTC
+  Volume/volume(MA15) ratio:  1.15
+  RSI indicator:  64.1715555435573
+  Trading value (billion VND/million USD):  7847.56  MA30 : 5829.65
+  Money flow in last 5 days:  7699.68 18299.9 6107.13 8010.69 7847.56
+  Relative strength RSW:  12.0170782077147
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  120.68 120.68 120.68 120.68
+  Actual price Close/Low/High/Open: 119.19 116.76 119.52 117.12
+  PCT_Change last 7 days: 2.34 -0.17 0.66 -0.54 0.84 -0.16 1.85
+  Variation last 7 days max/min (H/L):  13.73 13.74 14.45 14.45 14.45 14.63 14.38
+  Variation last 7 days  (H/L) :  2.11 1.33 0.74 1.63 1.45 0.57 2.36
+  Volume last 7 days (100K): 590.31 441.48 658.83 1574.4 521.03 684.56 658.41
+  Volume MA3 last 7 days (100K): 1498.21 1589.32 1690.62 2674.7 2754.25 2779.99 1864.0
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.99 0.99 0.99 0.99 0.99
+  Support S1 S2 S3 : 115.11 112.49 105.87
+  Resistance R1 R2 R3 : 121.85 nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Cutloss <=: 116.76 - 2.32 % Target >=: 127.46999999999997 + 6.95 %
+----------------------------------------------------------------
+Back test result: Counter({'0': 340, '1': 3, '-1': 1}) symbol:  ^HASTC
+***************************************************************
