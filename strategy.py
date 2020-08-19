@@ -35,6 +35,8 @@ def run_backtest(df, ticker, trade = 'Long'):
             df['Buy'] = df['LongShortTrend']  
         if (trade == 'Sideway'):
             df['Buy'] = df['Sideway'] 
+        if (trade == 'EarlySignal'):
+            df['Buy'] = df['EarlySignal'] 
     df['5Days'] = df['Close'].shift(-5)
     df['10Days'] = df['Close'].shift(-10)
     df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
@@ -219,8 +221,9 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  (df['High15D'] > 1.05*df['Low15D'])  & \
                  ((df['Close'] > df['SMA30']) & (df['Close']>= df['High15D'])))
     
-    df['ShortTerm'] = ((df['Close'] > 1.02* df['Close'].shift(1))  & (df['Close'].shift(1) > df['Open'].shift(1)) & (df['RSI'] >=50) & \
-                      (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] > 2*df['VolMA30']))
+    df['EarlySignal'] = ((df['Close'] >= 1.01* df['Close'].shift(1))  &\
+                         (df['Close'].shift(1) < df['Close'].shift(2)) & (df['RSI'] >=50) & \
+                      (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] > 0.7*df['VolMA15']))
   
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
@@ -265,7 +268,13 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 
-        
+        if (df['EarlySignal'].iloc[-i] & (typetrade == 'EarlySignal')):
+                print(" Early breakout signal trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+                back_test = True
+                print_statistic(df, i)
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+
         if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
                 print(" Mark Minervini trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
 #                print(ticker)  
@@ -282,12 +291,12 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 ##   
 
-        if (df['ShortTerm'].iloc[-i] & (typetrade == 'ShortTerm')):
-                print(" ShortTerm filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print_statistic(df, i)
-                back_test = True
-                if (market != None):
-                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+        # if (df['ShortTerm'].iloc[-i] & (typetrade == 'ShortTerm')):
+        #         print(" ShortTerm filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+        #         print_statistic(df, i)
+        #         back_test = True
+        #         if (market != None):
+        #             get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
    
         if (df['Short'].iloc[-i] & (typetrade == 'Short')):
                 print(" Short selling canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
