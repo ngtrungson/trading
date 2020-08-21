@@ -222,8 +222,12 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                  ((df['Close'] > df['SMA30']) & (df['Close']>= df['High15D'])))
     
     df['EarlySignal'] = ((df['Close'] >= 1.01* df['Close'].shift(1))  &\
-                         (df['Close'].shift(1) < df['Close'].shift(2)) & (df['RSI'] >=50) & \
-                      (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] > 0.7*df['VolMA15']))
+                         (df['Close'].shift(1) < 1.05* df['Close'].shift(2)) & (df['RSI'] >=50) & \
+                      (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] >= 0.5*df['VolMA15']))
+  
+    # df['SidewayBreakout'] = ((df['Close'] > df['SMA30']))  &\
+    #                      (df['Close']-df['Low'] & \
+    #                   (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] >= 0.5*df['VolMA15']))
   
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
@@ -648,7 +652,8 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['Max5D'] = df['Close'].shift(1).rolling(window = 5).max() 
     df['Min5D'] = df['Close'].shift(1).rolling(window = 5).min()
     
-    df['Sideways'] = (df['RSI'] >=40) & (df['Close']*df['Volume'] >= 3000000) & (df['Max5D'] <= 1.055*df['Min5D'])
+    df['Sideways'] = (df['RSI'] >=40) & (df['Close']*df['Volume'] >= 3000000) &\
+    (df['Max5D'] <= 1.055*df['Min5D'])
     
     
     df['Low15D'] = df['Low'].shift(1).rolling(window = 15).min()
