@@ -37,6 +37,9 @@ def run_backtest(df, ticker, trade = 'Long'):
             df['Buy'] = df['Sideway'] 
         if (trade == 'EarlySignal'):
             df['Buy'] = df['EarlySignal'] 
+        if (trade == 'SidewayBreakout'):
+            df['Buy'] = df['SidewayBreakout'] 
+            
     df['5Days'] = df['Close'].shift(-5)
     df['10Days'] = df['Close'].shift(-10)
     df['Back_test'] = 1* (df['Buy'] & (df['10Days'] > df['Close']) & (df['5Days'] > df['Close']) ) + -1* (df['Buy'] & (df['10Days'] <= df['Close'])& (df['5Days'] <= df['Close']))
@@ -225,9 +228,8 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                          (df['Close'].shift(1) < 1.05* df['Close'].shift(2)) & (df['RSI'] >=50) & \
                       (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] >= 0.5*df['VolMA15']))
   
-    # df['SidewayBreakout'] = ((df['Close'] > df['SMA30']))  &\
-    #                      (df['Close']-df['Low'] & \
-    #                   (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] >= 0.5*df['VolMA15']))
+    df['SidewayBreakout'] = (((df['Close']-df['Low5D'])/df['Low5D'] <=0.1) & (df['Close'] > df['SMA30'])  &\
+                            (df['Max5D'] < 1.07* df['Min5D']) & (df['Max10D'] < 1.07* df['Min10D']))
   
     
 #    & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']))
@@ -295,12 +297,12 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
 ##   
 
-        # if (df['ShortTerm'].iloc[-i] & (typetrade == 'ShortTerm')):
-        #         print(" ShortTerm filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-        #         print_statistic(df, i)
-        #         back_test = True
-        #         if (market != None):
-        #             get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+        if (df['SidewayBreakout'].iloc[-i] & (typetrade == 'SidewayBreakout')):
+                print(" Sideway filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
    
         if (df['Short'].iloc[-i] & (typetrade == 'Short')):
                 print(" Short selling canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -650,7 +652,11 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
              + 20*df['Close'].pct_change(periods = 252).fillna(0) 
              
     df['Max5D'] = df['Close'].shift(1).rolling(window = 5).max() 
+    df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max() 
     df['Min5D'] = df['Close'].shift(1).rolling(window = 5).min()
+    df['Min10D'] = df['Close'].shift(1).rolling(window = 10).min()
+    
+    df['Low5D'] = df['Low'].shift(1).rolling(window = 5).min()
     
     df['Sideways'] = (df['RSI'] >=40) & (df['Close']*df['Volume'] >= 3000000) &\
     (df['Max5D'] <= 1.055*df['Min5D'])
@@ -695,13 +701,15 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     
     # SUPPORT AND RESISTANCE
    
-    df['Support'] = np.where((df['Low'] >= df['Low'].shift(1)) & (df['Low'].shift(2) >= df['Low'].shift(1)), df['Low'].shift(1), np.nan)
+    # df['Support'] = np.where((df['Low'] >= df['Low'].shift(1)) & (df['Low'].shift(2) >= df['Low'].shift(1)), df['Low'].shift(1), np.nan)
+    df['Support'] = np.where((df['Close'] >= df['Close'].shift(1)) & (df['Close'].shift(2) >= df['Close'].shift(1)), df['Close'].shift(1), np.nan)
     
     df['Support'].fillna(method ="backfill", inplace = True)
     df['Support'].fillna(method ="ffill", inplace = True)
     
     
-    df['Resistance'] = np.where((df['High'].shift(1) >= df['High']) & (df['High'].shift(2) <= df['High'].shift(1)), df['High'].shift(1), np.nan)
+    # df['Resistance'] = np.where((df['High'].shift(1) >= df['High']) & (df['High'].shift(2) <= df['High'].shift(1)), df['High'].shift(1), np.nan)
+    df['Resistance'] = np.where((df['Close'].shift(1) >= df['Close']) & (df['Close'].shift(2) <= df['Close'].shift(1)), df['Close'].shift(1), np.nan)
     
     df['Resistance'].fillna(method ="backfill", inplace = True)
     df['Resistance'].fillna(method ="ffill", inplace = True)

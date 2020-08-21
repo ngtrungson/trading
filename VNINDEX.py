@@ -135,7 +135,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'VPB','VRE',  "HDB",  
                 'NTL', 'AST', 'VHM',  'TCB', 
-                'DHC', 'TDM', 'DCM',
+                'DHC', 'TDM', 'DCM', 'LCG',
                    'SZL',  'TNA','GVR', 
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
     
@@ -667,9 +667,9 @@ if __name__ == "__main__":
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'EarlySignal')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
     
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'LongShortTrend')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'LongShortTrend')
     
 ###    
     
