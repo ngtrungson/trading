@@ -667,9 +667,17 @@ if __name__ == "__main__":
     # agent, history, df_val, test_result, total_rewards, total_losses = auto_trading(ticker='HDG', start="2006-1-19", end= end_date, validation_size = 10, update = False)
     # plot_result(df_val, history, title= "Auto trading " + agent.model_name)
     # print('Final profits: ', test_result)
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
     
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'LongShortTrend')
+    
+    # CHON CO PHIEU SIDEWAY
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
+    
+    #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIA
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'EarlySignal')
+    
+    
+    #CHON CO PHIEU CO DIEM MUA BUNG NO KHOI LUONG
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'LongShortTrend')
     
 ###    
     

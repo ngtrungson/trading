@@ -725,7 +725,7 @@ def compute_support_resistance(df, i):
     R3 = np.nan
     
     support = df['Support'][:-i] 
-    S1 = min(support.iloc[-i], df['Low'].iloc[-i-1], df['Close'].iloc[-i])
+    S1 = min(support.iloc[-i], df['Close'].iloc[-i-1], df['Low'].iloc[-i])
     ind = 1  
     
     while ((support.iloc[-ind] >= S1) & (ind < len(support))):
@@ -740,7 +740,7 @@ def compute_support_resistance(df, i):
     
     
     resistance = df['Resistance'][:-i]   
-    R0 = max(resistance.iloc[-i], df['High'].iloc[-i-1], df['Close'].iloc[-i])    
+    R0 = max(resistance.iloc[-i], df['Close'].iloc[-i-1], df['High'].iloc[-i])    
     ind = 1
 
     while ((resistance.iloc[-ind] <= R0) & (ind < len(resistance))):
@@ -758,7 +758,7 @@ def compute_support_resistance(df, i):
     if (ind < len(resistance)):
         R3 =  resistance.iloc[-ind]
     
-    return S1, S2, S3, R1, R2, R3
+    return S1, S2, S3, R0, R1, R2, R3
 
 def print_statistic(df, i):
 #   
@@ -766,7 +766,7 @@ def print_statistic(df, i):
 #    print('  Volatility last week: ', round(df['Volatility'].iloc[-i],2), "over all: ", round(sddr,2), "ratio  :", round(df['Volatility'].iloc[-i]/sddr,2)) 
     max_all = df['Close'].max()
    
-    S1, S2, S3, R1, R2, R3 = compute_support_resistance(df, i)
+    S1, S2, S3, R0, R1, R2, R3 = compute_support_resistance(df, i)
     
     
     print('  Volume/volume(MA15) ratio: ', round(df['Volume'].iloc[-i]/df['VolMA15'].iloc[-i],2))
@@ -829,14 +829,18 @@ def print_statistic(df, i):
     T2 = round((df['Close'].shift(-2).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     T4 = round((df['Close'].shift(-4).iloc[-i]/df['Close'].iloc[-i]-1)*100, 2)
     print('  Support S1 S2 S3 :', S1, S2, S3)
-    print('  Resistance R1 R2 R3 :', R1, R2, R3)
+    print('  Resistance R0 R1 R2 R3 :', R0, R1, R2, R3)
     print('  Loss/gain T+1/T+2/T+3/T+4 :', T1, T2, round(df['ROC'].shift(-3).iloc[-i], 2), T4)
     print('  Back test T+5 : T+10:', T5, T6, T7, T8, T9, T10)    
     
     R = df['High'].iloc[-i] - df['Low'].iloc[-i]
-    target3R = round(3*R /df['Close'].iloc[-i]*100, 2)
-    cutloss1R = round(R /df['Close'].iloc[-i]*100, 2)
-    print('  Cutloss <=:', df['Low'].iloc[-i], '-', cutloss1R, '%', 'Target >=:', (df['Close'].iloc[-i] + 3*R), '+', target3R, '%')
+    targetR1 = round((R1-df['Close'].iloc[-i]) /df['Close'].iloc[-i]*100, 2)
+    cutlossS1 = round((df['Close'].iloc[-i]-S1) /df['Close'].iloc[-i]*100, 2)
+    print('  Cutloss <=:', S1, '-', cutlossS1, '%', 'Target >=:', R1, '+', targetR1, '%')
+    print('  Risk/ Rewards: ',round(cutlossS1/targetR1,2))
+    print('  Cutloss 1 :', df['Low'].iloc[-i])
+    print('  Cutloss 2 :', S1)
+    print('  Cutloss 3 :', df['Low'].iloc[-i]*0.96)
     
     print('----------------------------------------------------------------')
    
