@@ -117,7 +117,7 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['ACB','NDN','PVS','VCG','VCS','L14','TNG','SHB','SHS','TIG', 'PLC']
+    symbolsHNX = ['ACB','NDN','PVS','VCG','VCS','L14','TNG','SHB','SHS','TIG', 'PLC','SRA']
     
     symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",     'CMG',
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
@@ -136,7 +136,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'VPB','VRE',  "HDB",  
                 'NTL', 'AST', 'VHM',  'TCB', 
                 'DHC', 'TDM', 'DCM', 'LCG',
-                   'SZL',  'TNA','GVR', 
+                   'SZL',  'TNA','GVR', 'GIL', 'BFC', 'SZC', 'DMC',
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
@@ -635,7 +635,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 ##    
-    # symbols = get_csv_data(source = "cp68")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -659,8 +659,8 @@ if __name__ == "__main__":
     ticker = ['CTR','VGI','BWE','TDM']
     end_date = "2020-8-21"
     start_date = "2019-4-6"
-    ticker = 'SHS'
-    # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 15, typetrade = 'LongShortTrend') 
+    ticker = 'CTD'
+    # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
     watchlist =['VCB','PVD','KDC','HDG','NT2','FRT','HPG','QNS']
     
     # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
@@ -677,7 +677,7 @@ if __name__ == "__main__":
     
     
     #CHON CO PHIEU CO DIEM MUA BUNG NO KHOI LUONG
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'LongShortTrend')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 7, source ="cp68", trade = 'LongShortTrend')
     
 ###    
     

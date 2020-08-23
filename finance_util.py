@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-import urllib3
+# import urllib3
 import bs4 as bs
 import pickle
 import requests
@@ -23,8 +23,11 @@ from pandas_datareader import data as pdr
 import talib
 import yfinance as yf
 import datetime
-
-
+import sys
+import warnings
+if not sys.warnoptions:
+    warnings.simplefilter("ignore")
+    
 def get_symbols_rts():
     tickers = ['MMM','AA', 'BABA','AMZN', 'AAPL', 'T', 'AXP','ALB', 'BB', 'BAC',
                    'BA','CAT', 'CSCO', 'C', 'KO', 'CL', 'DIS', 'DB', 'DBX', 'EBAY',
@@ -225,7 +228,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_0205.csv')
+    data.to_csv('fundemental_stocks_all_2308.csv')
     
     
     return tickers
@@ -886,30 +889,30 @@ if __name__ == "__main__":
 #     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
 #                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
      
-     symbolsHNX = ['ACB',  'CEO',   'NDN', 'PVI', 'PVB',
-                  'PVS',  'VCG','VCS','L14']
+     symbolsHNX = ['ACB','NDN','PVS','VCG','VCS','L14','TNG','SHB','SHS','TIG', 'PLC']
     
-     symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",  'C32',  'LCG', 'CMG',
-                   "BID", "BMI", "BMP", "BVH",  'CTI', "CTD", "CSV", "CTG", 'D2D',
+     symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",     'CMG',
+                   "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                 "HNG",  "HT1",   'DPR', 'GEG',
+                 "HNG",  "HT1",   'GEG',
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
                 "IJC",  "KBC",  "KDH",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
-                "PVT","PVD","PHR","PDR","PTB", "PNJ",  "PC1",   "PLX",
-                "PPC",  "REE",  "LDG", "DBD", "CVT",
-                "SAM","SJD","SJS","STB", "SSI", "SBT", "SAB", 
+                "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
+                "PPC",  "REE",  "DBD", "CVT",
+                "SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                 'PAN', 'TDH',  'GEX', 
+                 'TDH',  'GEX', 
                 'TCM',  'AAA',  'HVN', 'VGC',
-                'EIB','VPB','VRE','ROS',"VND", "HDB",  
-                'NTL', 'AST','HAH', 'VHM',  'TPB', 'TCB', 
-                'HPX', 'CRE','NAF', 'DHC', 'MSH','TDM', 
-                'TIP', 'VPG', 'VPD', 'DPG','SZL', 'LGL', 'SMB','TNA''GVR']
-    
+                'VPB','VRE',  "HDB",  
+                'NTL', 'AST', 'VHM',  'TCB', 
+                'DHC', 'TDM', 'DCM', 'LCG',
+                   'SZL',  'TNA','GVR', 
+                'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
+     
      symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
-                    'VGT', 'VIB', 'POW',  'VEA', 'NTC', 'BCM'] 
+                     'VIB', 'VEA', 'NTC'] 
     
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
@@ -918,53 +921,53 @@ if __name__ == "__main__":
      
 #     df_temp = get_info_stock('VNM')
 # 
-#     data = fundemental_analysis(symbols)
+     # data = fundemental_analysis(symbols)
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
      # tickers = save_and_analyse_vnindex_tickers()
     
-     # data = pd.read_csv('fundemental_stocks_all_0205.csv', parse_dates=True, index_col=0)
-     # data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
-     # data['EPS_Price'] = data['EPS']/data['Close']/1000
+     data = pd.read_csv('fundemental_stocks_all_2308.csv', parse_dates=True, index_col=0)
+      # data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
+      # data['EPS_Price'] = data['EPS']/data['Close']/1000
+     data['Value'] = data['Close']* data['MeanVol_10D']
+     df = data.query("MeanVol_13W > 50000")
+     df = df.query("MeanVol_10D> 50000")
+     df = df.query("Value > 3000000")
+###     df = df.query("FVQ > 0")
+###     df = df.query("CPM > 1.4")
+     df = df.query("EPS >= 1500")
+###     df = df.query("EPS_52W >= 0")
+     df = df.query("ROE >= 15")
+#     df = df.query("Close > 4")
+#     df = df.query("Beta < 0")
+#     df = df.query("Beta > 0")
+#     df = df.query("Diff_Price < 0")
+#     df.to_csv('investment_stock3.csv')
+#     print(df.index)
      
-#      df = data.query("MeanVol_13W > 50000")
-#      df = df.query("MeanVol_10D> 50000")
-# ##     df = df.query("MeanVol_10D > 0")
-# ###     df = df.query("FVQ > 0")
-# ###     df = df.query("CPM > 1.4")
-#      df = df.query("EPS >= 2000")
-# ###     df = df.query("EPS_52W >= 0")
-#      df = df.query("ROE >= 15")
-# #     df = df.query("Close > 4")
-# #     df = df.query("Beta < 0")
-# #     df = df.query("Beta > 0")
-# #     df = df.query("Diff_Price < 0")
-# #     df.to_csv('investment_stock3.csv')
-# #     print(df.index)
-     
-#      listA = symbols
-#      listB = df.index.tolist()
-#      common = list(set(listA) & set(listB))
-#      listC = list(set(listB).difference(set(listA)))
-#     df2 = data.loc[symbols]
+     listA = symbols
+     listB = df.index.tolist()
+     common = list(set(listA) & set(listB))
+     listC = list(set(listB).difference(set(listA)))
+     df2 = data.loc[symbols]
 ##     
 #     end_date = "2018-5-29"
 #     start_date = "2017-1-2"
      
      
-     ticker = 'FPT'
-     url = 'https://www.bsc.com.vn/Companies/Overview/{}'.format(ticker) 
-     url2 = 'http://ra.vcsc.com.vn/?lang=vi-VN&ticker={}'.format(ticker)
-     url3 = 'http://data.vdsc.com.vn/vi/Stock/{}'.format(ticker)
-     df1 = get_info_stock_cp68_mobile("FPT")
-     print("done 1")
-     df2 = get_info_stock_ssi("FPT")
-     print("done 2")
-     url4 ='https://ivt.ssi.com.vn/CorporateSnapshot.aspx?ticket=vcs'
+     # ticker = 'FPT'
+     # url = 'https://www.bsc.com.vn/Companies/Overview/{}'.format(ticker) 
+     # url2 = 'http://ra.vcsc.com.vn/?lang=vi-VN&ticker={}'.format(ticker)
+     # url3 = 'http://data.vdsc.com.vn/vi/Stock/{}'.format(ticker)
+     # df1 = get_info_stock_cp68_mobile("FPT")
+     # print("done 1")
+     # df2 = get_info_stock_ssi("FPT")
+     # print("done 2")
+     # url4 ='https://ivt.ssi.com.vn/CorporateSnapshot.aspx?ticket=vcs'
      
-     # dfs = pd.read_html(url4)
-     print("done 3")
+     # # dfs = pd.read_html(url4)
+     # print("done 3")
 #     data = yf.download("SPY", start="2017-01-2", end="2018-05-29")
 #     get_data_from_web(tickers = ['MSFT'], start = start_date, end = end_date, source ='yahoo')
 #     yf.pdr_override()
