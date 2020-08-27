@@ -333,14 +333,6 @@ def momentum_strategy(ticker, start, end, realtime = False, source = "cp68", mar
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
     
-    df['SMA15'] = df['Close'].rolling(window=15).mean()
-    df['SMA20'] = df['Close'].rolling(window=20).mean()
-    df['SMA30'] = df['Close'].rolling(window=30).mean()
-    
-    
-    df['SMA50'] = df['Close'].rolling(window=50).mean()
-    df['SMA150'] = df['Close'].rolling(window=150).mean()
-    df['SMA200'] = df['Close'].rolling(window=200).mean()
     
     
     df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
@@ -635,6 +627,16 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['VolMA15'] = df['Volume'].rolling(window = 15, center = False).mean()
     df['VolTMA3'] = 3*df['Volume'].rolling(window = 3, center = False).mean()
     
+    df['SMA15'] = df['Close'].rolling(window=15).mean()
+    df['SMA20'] = df['Close'].rolling(window=20).mean()
+    df['SMA30'] = df['Close'].rolling(window=30).mean()
+    
+    
+    df['SMA50'] = df['Close'].rolling(window=50).mean()
+    df['SMA150'] = df['Close'].rolling(window=150).mean()
+    df['SMA200'] = df['Close'].rolling(window=200).mean()
+    
+    
     df['Volatility'] = df['Close'].rolling(window=5,center=False).std()
     df['PCT_Change'] = df['Close'].pct_change()
     df['Value'] = df['Volume']*df['Close']   
@@ -680,12 +682,12 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['High4D'] = df['High'].shift(1).rolling(window = 4).max()
     df['High3D'] = df['High'].shift(1).rolling(window = 3).max()
     
-    df['EMA3'] = pd.Series(pd.Series.ewm(df['Close'], span = 3, min_periods = 3-1).mean()) 
-    df['EMA6'] = pd.Series(pd.Series.ewm(df['Close'], span = 6, min_periods = 6-1).mean()) 
-    df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
-    df['EMA50'] = pd.Series(pd.Series.ewm(df['Close'], span = 50,  min_periods = 50-1).mean()) 
-    df['EMA100'] = pd.Series(pd.Series.ewm(df['Close'], span = 100,  min_periods = 100-1).mean())
-    df['EMA200'] = pd.Series(pd.Series.ewm(df['Close'], span = 200,  min_periods = 200-1).mean())
+    # df['EMA3'] = pd.Series(pd.Series.ewm(df['Close'], span = 3, min_periods = 3-1).mean()) 
+    # df['EMA6'] = pd.Series(pd.Series.ewm(df['Close'], span = 6, min_periods = 6-1).mean()) 
+    # df['EMA18'] = pd.Series(pd.Series.ewm(df['Close'], span = 18,  min_periods = 18-1).mean()) 
+    # df['EMA50'] = pd.Series(pd.Series.ewm(df['Close'], span = 50,  min_periods = 50-1).mean()) 
+    # df['EMA100'] = pd.Series(pd.Series.ewm(df['Close'], span = 100,  min_periods = 100-1).mean())
+    # df['EMA200'] = pd.Series(pd.Series.ewm(df['Close'], span = 200,  min_periods = 200-1).mean())
     
     n_fast = 12
     n_slow = 26
@@ -849,6 +851,10 @@ def print_statistic(df, i):
     target = df['Close'].iloc[-i] + 2*risk
     tp_pct = round((target - df['Close'].iloc[-i]) /df['Close'].iloc[-i]*100, 2)
     print('  Support S0 (%) :', cutlossS0, '%', ' Resistance R0 R1 (%) :', targetR0, targetR1) 
+    ma30_pct = round((df['Close'].iloc[-i]- df['SMA30'].iloc[-i]) /df['Close'].iloc[-i]*100, 2)
+    ma50_pct = round((df['Close'].iloc[-i]- df['SMA50'].iloc[-i]) /df['Close'].iloc[-i]*100, 2)    
+    print('  MA30 (%) :', ma30_pct, '%', ' MA50 (%) :', ma50_pct) 
+    
     print('  Stop loss :', stoploss, sl_pct, '%  Take profit:', target, tp_pct, '%')    
     print('----------------------------------------------------------------')
    
