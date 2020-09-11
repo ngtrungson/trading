@@ -789,8 +789,7 @@ def print_statistic(df, i):
     print('  Relative strength RSW: ', df['RSW'].iloc[-i])
     print('  Side ways status last 5 days: ',df['Sideways'].iloc[-i-4], df['Sideways'].iloc[-i-3], df['Sideways'].iloc[-i-2], df['Sideways'].iloc[-i-1], df['Sideways'].iloc[-i])
     print('  Price max 3M/6M/9M/12M: ', df['Max3M'].iloc[-i],df['Max6M'].iloc[-i], df['Max9M'].iloc[-i], df['Max12M'].iloc[-i])
-    print('  Actual price Close/Low/High/Open:', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
-   
+    
     print('  PCT_Change last 7 days:',round(100*df['PCT_Change'].iloc[-i-6], 2),
                                       round(100*df['PCT_Change'].iloc[-i-5], 2),
                                       round(100*df['PCT_Change'].iloc[-i-4], 2), 
@@ -855,7 +854,13 @@ def print_statistic(df, i):
     ma50_pct = round((df['Close'].iloc[-i]- df['SMA50'].iloc[-i]) /df['Close'].iloc[-i]*100, 2)    
     print('  MA30 (%) :', ma30_pct, '%', ' MA50 (%) :', ma50_pct) 
     
-    print('  Stop loss :', stoploss, sl_pct, '%  Take profit:', target, tp_pct, '%')    
+    print('  Stop loss :', stoploss, sl_pct, '%  Take profit:', target, tp_pct, '%')  
+    print('  Actual price Close/Low/High/Open:', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
+    print('  Recommended price range: ', S0, round(S0*1.05,2))
+    if ((df['Close'].iloc[-i] >= S0) & (df['Close'].iloc[-i] <=round(S0*1.05,2))):
+        print('  BUY SIGNAL')
+    else:
+        print('  OVER 5% FROM SUPPORT! RISK')
     print('----------------------------------------------------------------')
    
 
