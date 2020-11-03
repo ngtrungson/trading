@@ -657,7 +657,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-10-29"
+    end_date = "2020-11-3"
     start_date = "2019-4-6"
     ticker = ['VPB']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
@@ -670,7 +670,7 @@ if __name__ == "__main__":
     
     
     # CHON CO PHIEU BAT DAY
-    analysis_trading(tickers = None, start = start_date, end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'Bottom')
+    # analysis_trading(tickers = None, start = start_date, end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'Bottom')
     
     
     # CHON CO PHIEU SIDEWAY
