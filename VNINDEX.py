@@ -677,7 +677,7 @@ if __name__ == "__main__":
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
     
     #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIA
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'EarlySignal')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'EarlySignal')
     
     
     #CHON CO PHIEU CO DIEM MUA BUNG NO KHOI LUONG
