@@ -119,7 +119,7 @@ def getliststocks(typestock = "^VNINDEX"):
     
     symbolsHNX = ['ACB','NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA']
     
-    symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG',
+    symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG', 'VIB', 'LPB',
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
@@ -140,7 +140,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
-                     'VIB', 'VEA', 'NTC'] 
+                      'VEA', 'NTC'] 
    
 #    symbolsHNX = ['TNG', 'NVB',  'L14',  
 #                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
@@ -657,7 +657,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-11-9"
+    end_date = "2020-11-10"
     start_date = "2019-4-6"
     ticker = ['VPB']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
