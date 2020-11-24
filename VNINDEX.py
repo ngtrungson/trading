@@ -657,7 +657,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-11-20"
+    end_date = "2020-11-24"
     start_date = "2019-4-6"
     ticker = ['VPB']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
@@ -677,7 +677,7 @@ if __name__ == "__main__":
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
     
     #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIA
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'EarlySignal')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'EarlySignal')
     
     
     #CHON CO PHIEU CO DIEM MUA BUNG NO KHOI LUONG
