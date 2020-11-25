@@ -198,8 +198,6 @@ def get_data_trading(symbol, start, end):
     # might be wrong and contain NA values ????    
     df = df.loc[start:end]   
     
-     
-        
     return df
 
 ################################# Get data from website ################################################
@@ -493,13 +491,15 @@ def get_info_stock_cp68_mobile(ticker):
     value_number = []
     for line in soup.find(id="stockname_close").stripped_strings:
         if isfloat(line): 
-            value_number.append(float(line)) 
+            value_number.append(float(line))
+        
     tables = soup.find_all('table')
     data = tableDataText(tables[2])
-    value_number.append(float(data[0][1])) # close
-    value_number.append(float(data[1][1])) # close-1D
-    value_number.append(float(data[2][1])) # high
-    value_number.append(float(data[3][1])) # low
+    
+    value_number.append(float(data[0][1].replace(',',''))) # close
+    value_number.append(float(data[1][1].replace(',',''))) # close-1D
+    value_number.append(float(data[2][1].replace(',',''))) # high
+    value_number.append(float(data[3][1].replace(',',''))) # low
     value_number.append(float(data[4][1].replace(',',''))) # volume
     
     df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'

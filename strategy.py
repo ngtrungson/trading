@@ -608,6 +608,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
 #        print(ticker)
         # actual_price = get_info_stock(ticker)
         actual_price = get_info_stock_cp68_mobile(ticker)
+        # print(actual_price)
         # actual_price = get_info_stock_bsc(ticker)
         today = datetime.datetime.today()
         next_date = today
