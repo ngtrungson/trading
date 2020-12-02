@@ -490,10 +490,12 @@ def get_info_stock_cp68_mobile(ticker):
     # hard coding for Close, Close_1D, Open, High, Low, Volume   
     value_number = []
     for line in soup.find(id="stockname_close").stripped_strings:
+        line =  line.replace(',','')
         if isfloat(line): 
             value_number.append(float(line))
         
     tables = soup.find_all('table')
+    
     data = tableDataText(tables[2])
     
     value_number.append(float(data[0][1].replace(',',''))) # close
