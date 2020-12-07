@@ -117,7 +117,7 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['ACB','NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA']
+    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA']
     
     symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG',
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
@@ -131,7 +131,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 "PPC",  "REE",   "CVT",
                 "SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                   'GEX', 
+                   'GEX', 'ACB',
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'VPB','VRE',  "HDB",  
                 'NTL', 'AST', 'VHM',  'TCB', 
@@ -657,7 +657,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2020-12-4"
+    end_date = "2020-12-7"
     start_date = "2019-4-6"
     ticker = ['^VNINDEX']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
@@ -677,7 +677,7 @@ if __name__ == "__main__":
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
     
     #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIA
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'EarlySignal')
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 5, source ="cp68", trade = 'EarlySignal')
     
     
     #CHON CO PHIEU CO DIEM MUA BUNG NO KHOI LUONG
