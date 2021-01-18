@@ -117,7 +117,7 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['ACB','NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA']
+    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA']
     
     symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG',
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
@@ -131,16 +131,16 @@ def getliststocks(typestock = "^VNINDEX"):
                 "PPC",  "REE",   "CVT",
                 "SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                   'GEX', 
+                   'GEX', "VIB",
                 'TCM',  'AAA',  'HVN', 'VGC',
-                'VPB','VRE',  "HDB",  
+                'VPB','VRE',  "HDB",  "ACB",
                 'NTL', 'AST', 'VHM',  'TCB', 
                 'DHC', 'TDM', 'DCM', 'LCG',
                    'SZL',  'TNA','GVR', 'GIL', 'BFC', 'SZC', 'DMC',
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
-                     'VIB', 'VEA', 'NTC'] 
+                     'VEA', 'NTC'] 
    
 #    symbolsHNX = ['TNG', 'NVB',  'L14',  
 #                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
@@ -635,7 +635,7 @@ if __name__ == "__main__":
     sys.stdout=open("logging.txt","w")
 #   
 #    
-    # symbols = get_csv_data(source = "cp68")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -657,7 +657,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-1-8"
+    end_date = "2021-1-15"
     start_date = "2019-4-6"
     ticker = ['^VNINDEX']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
