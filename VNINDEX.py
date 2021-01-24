@@ -455,14 +455,15 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None, 
     df_result = pd.DataFrame(index = symbols)    
     # df_result['Opt allocs'] = allocations
     # df_result['Cash'] = allocations * investment
+    df_result['Ticker'] = symbols
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
     df_result['PCT_C'] = 100*(df_data[symbols].iloc[-1,:].values - df_data[symbols].iloc[0,:].values)/df_data[symbols].iloc[0,:].values
     df_result['Volume'] = df_volume[symbols].iloc[-1,:].values
-    df_result['VolMean'] = vol_mean[symbols]
-    df_result['VolMA30'] = volumeM30[symbols].iloc[-1,:].values
+    # df_result['VolMean'] = vol_mean[symbols]
+    # df_result['VolMA30'] = volumeM30[symbols].iloc[-1,:].values
     df_result['Value'] = df_result['Close'] * df_result['Volume']   
-    df_result['ValMean'] = value_mean[symbols]    
-    df_result['ValMA30'] = valueM30[symbols].iloc[-1,:].values
+    # df_result['ValMean'] = value_mean[symbols]    
+    # df_result['ValMA30'] = valueM30[symbols].iloc[-1,:].values
     #    df_result['MaxH'] = max_high
 #    df_result['MinL'] = min_low
     # df_result['CPM'] = cpm[symbols]
@@ -657,7 +658,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-1-21"
+    end_date = "2021-1-22"
     start_date = "2019-4-6"
     ticker = ['^VNINDEX']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
@@ -677,7 +678,7 @@ if __name__ == "__main__":
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
     
     #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIA
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'EarlySignal')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'EarlySignal')
     
     
     #CHON CO PHIEU CO DIEM MUA BUNG NO KHOI LUONG
@@ -696,7 +697,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
