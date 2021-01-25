@@ -226,7 +226,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_2308.csv')
+    data.to_csv('fundemental_stocks_all_2501.csv')
     
     
     return tickers
@@ -891,30 +891,30 @@ if __name__ == "__main__":
 #     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
 #                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
      
-     symbolsHNX = ['ACB','NDN','PVS','VCG','VCS','L14','TNG','SHB','SHS','TIG', 'PLC']
+     symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA']
     
-     symbolsVNI = [ 'STK','CII', 'ANV',  "BWE",     'CMG',
+     symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG',
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                 "HNG",  "HT1",   'GEG',
+                  "HT1",   "LPB",
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
                 "IJC",  "KBC",  "KDH",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
-                "PPC",  "REE",  "DBD", "CVT",
+                "PPC",  "REE",   "CVT",
                 "SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                 'TDH',  'GEX', 
+                   'GEX', "VIB",
                 'TCM',  'AAA',  'HVN', 'VGC',
-                'VPB','VRE',  "HDB",  
+                'VPB','VRE',  "HDB",  "ACB",
                 'NTL', 'AST', 'VHM',  'TCB', 
                 'DHC', 'TDM', 'DCM', 'LCG',
-                   'SZL',  'TNA','GVR', 
+                   'SZL',  'TNA','GVR', 'GIL', 'BFC', 'SZC', 'DMC',
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
-     
+    
      symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
-                     'VIB', 'VEA', 'NTC'] 
+                     'VEA', 'NTC'] 
     
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
@@ -927,9 +927,9 @@ if __name__ == "__main__":
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
-     # tickers = save_and_analyse_vnindex_tickers()
+     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_2308.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_2501.csv', parse_dates=True, index_col=0)
       # data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
       # data['EPS_Price'] = data['EPS']/data['Close']/1000
      data['Value'] = data['Close']* data['MeanVol_10D']

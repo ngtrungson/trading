@@ -117,15 +117,15 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA']
+    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA','API','NTP']
     
-    symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG',
+    symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG', "AGG", "HTN", "TIP",
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                  "HT1",   "LPB",
+                  "HT1",   "LPB", "HSG", "DVP", "TPB","C32","TCL", "TV2",
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
-                "IJC",  "KBC",  "KDH",
+                "IJC",  "KBC",  "KDH", "VND",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE",   "CVT",
@@ -135,7 +135,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'VPB','VRE',  "HDB",  "ACB",
                 'NTL', 'AST', 'VHM',  'TCB', 
-                'DHC', 'TDM', 'DCM', 'LCG',
+                'DHC', 'TDM', 'DCM', 'LCG', "VIX",
                    'SZL',  'TNA','GVR', 'GIL', 'BFC', 'SZC', 'DMC',
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
     
@@ -658,7 +658,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-1-22"
+    end_date = "2021-1-25"
     start_date = "2019-4-6"
     ticker = ['^VNINDEX']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
@@ -697,7 +697,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
