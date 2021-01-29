@@ -658,7 +658,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-1-25"
+    end_date = "2021-1-29"
     start_date = "2019-4-6"
     ticker = ['^VNINDEX']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
@@ -671,14 +671,14 @@ if __name__ == "__main__":
     
     
     # CHON CO PHIEU BAT DAY
-    # analysis_trading(tickers = None, start = start_date, end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'Bottom')
+    # analysis_trading(tickers = None, start = start_date, end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'Bottom')
     
     
     # CHON CO PHIEU SIDEWAY
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
     
     #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIA
-    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'EarlySignal')
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'EarlyBreakout')
     
     
     #CHON CO PHIEU CO DIEM MUA BUNG NO KHOI LUONG
@@ -697,7 +697,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = True, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
