@@ -658,7 +658,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-1-29"
+    end_date = "2021-2-2"
     start_date = "2019-4-6"
     ticker = ['^VNINDEX']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
@@ -697,7 +697,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = True, source = 'cp68')
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = True, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
