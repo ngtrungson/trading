@@ -634,6 +634,15 @@ if __name__ == "__main__":
     import sys
     old_stdout = sys.stdout
     sys.stdout=open("logging.txt","w")
+    # GTVT, Logistics: GMD, VSC, PVT, HVN, VJC
+    # Dau khi: PVD, PVS, GAS, PLX
+    # Che tao, trang suc: PNJ
+    # BDS VRE, VHM, VIC, NLG, PDR, NVL
+    # Ban le: FRT, MWG, DGW, AST
+    # Thep: HPG, HSG
+    # Duoc: DMC, DHG, IMP, DGC, CSV
+    # VLXD: KSB, VCS
+    
 #   
 #    
     # symbols = get_csv_data(source = "ssi")
@@ -658,7 +667,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-2-9"
+    end_date = "2021-2-17"
     start_date = "2019-4-6"
     ticker = ['^VNINDEX']
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
@@ -671,7 +680,7 @@ if __name__ == "__main__":
     
     
     # CHON CO PHIEU BAT DAY
-    # analysis_trading(tickers = None, start = start_date, end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'Bottom')
+    # analysis_trading(tickers = None, start = start_date, end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'Bottom')
     
     
     # CHON CO PHIEU SIDEWAY
