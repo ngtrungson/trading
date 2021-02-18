@@ -1,0 +1,864 @@
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 AGG
+  Volume/volume(MA15) ratio:  1.21
+  RSI indicator:  63.28804522052693
+  Trading value (billion VND/million USD):  81.81  MA30 : 58.25
+  Money flow in last 5 days:  61.5 41.75 55.59 50.53 81.81
+  Relative strength RSW:  35.57883001629236
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  36.9 36.9 36.9 36.9
+  PCT_Change last 7 days: 2.57 -0.56 -1.12 -2.69 0.15 4.07 1.96
+  Variation last 7 days max/min (H/L):  20.58 20.0 20.0 20.0 20.0 18.67 17.37
+  Variation last 7 days  (H/L) :  6.62 2.71 2.87 4.78 3.61 4.99 3.66
+  Volume last 7 days (100K): 30.88 19.66 17.42 12.16 16.16 14.11 22.41
+  Volume MA3 last 7 days (100K): 74.37 69.91 67.97 49.24 45.74 42.43 52.69
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.99 0.99 0.99 0.99 0.99
+  Support S0 S1 S2 S3 : 34.35 32.0 30.45 29.85
+  Resistance R0 R1 R2 R3 : 36.8 36.9 nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 5.89 %  Resistance R0 R1 (%) : 0.82 1.1
+  MA30 (%) : 8.33 %  MA50 (%) : 12.32
+  Stop loss : 35.5 2.74 %  Take profit: 38.5 5.48 %
+  Actual price Close/Low/High/Open: 36.5 35.5 36.8 36.5
+  Recommended price range:  34.35 36.07
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 254, '1': 11, '-1': 11}) symbol:  AGG
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 API
+  Volume/volume(MA15) ratio:  0.81
+  RSI indicator:  60.95734383051765
+  Trading value (billion VND/million USD):  2.25  MA30 : 3.37
+  Money flow in last 5 days:  1.15 1.5 0.72 0.89 2.25
+  Relative strength RSW:  107.04794266014822
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  21.3 21.3 21.3 21.3
+  PCT_Change last 7 days: 9.47 -2.7 4.44 -2.66 3.28 0.53 1.05
+  Variation last 7 days max/min (H/L):  52.41 52.41 44.44 44.44 44.44 44.44 44.44
+  Variation last 7 days  (H/L) :  9.47 7.78 7.95 11.76 6.18 6.67 3.76
+  Volume last 7 days (100K): 1.43 0.48 0.61 0.82 0.38 0.47 1.17
+  Volume MA3 last 7 days (100K): 4.4 2.52 2.51 1.9 1.81 1.67 2.02
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.9 0.9 0.9 0.9 0.78
+  Support S0 S1 S2 S3 : 18.3 18.0 15.4 15.0
+  Resistance R0 R1 R2 R3 : 19.3 21.3 21.878 22.0716
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 4.69 %  Resistance R0 R1 (%) : 0.52 10.94
+  MA30 (%) : 10.52 %  MA50 (%) : 25.38
+  Stop loss : 18.6 3.12 %  Take profit: 20.399999999999995 6.25 %
+  Actual price Close/Low/High/Open: 19.2 18.6 19.3 18.7
+  Recommended price range:  18.3 19.22
+  BUY SIGNAL
+----------------------------------------------------------------
+Back test result: Counter({'0': 356, '-1': 19, '1': 10}) symbol:  API
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 AST
+  Volume/volume(MA15) ratio:  0.65
+  RSI indicator:  56.17655122616662
+  Trading value (billion VND/million USD):  2.73  MA30 : 5.05
+  Money flow in last 5 days:  1.79 3.15 6.17 2.89 2.73
+  Relative strength RSW:  12.080023203533084
+  Side ways status last 5 days:  False True True False False
+  Price max 3M/6M/9M/12M:  64.0 64.0 64.0 73.6472
+  PCT_Change last 7 days: 0.53 1.75 1.03 -1.88 1.74 1.71 1.18
+  Variation last 7 days max/min (H/L):  21.74 21.74 21.74 21.74 21.74 21.74 21.74
+  Variation last 7 days  (H/L) :  3.24 2.11 1.03 1.58 2.81 3.11 4.27
+  Volume last 7 days (100K): 0.56 0.76 0.3 0.55 1.06 0.48 0.45
+  Volume MA3 last 7 days (100K): 2.09 1.79 1.62 1.61 1.91 2.09 1.99
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.94 0.94 0.94 0.82 0.69
+  Support S0 S1 S2 S3 : 57.5 56.0 55.2 55.0
+  Resistance R0 R1 R2 R3 : 61.0 64.0 77.0658 77.1635
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 4.49 %  Resistance R0 R1 (%) : 1.33 6.31
+  MA30 (%) : 1.99 %  MA50 (%) : 4.3
+  Stop loss : 58.5 2.82 %  Take profit: 63.60000000000001 5.65 %
+  Actual price Close/Low/High/Open: 60.2 58.5 61.0 59.9
+  Recommended price range:  57.5 60.38
+  BUY SIGNAL
+----------------------------------------------------------------
+Back test result: Counter({'0': 417, '1': 27, '-1': 24}) symbol:  AST
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 BFC
+  Volume/volume(MA15) ratio:  0.85
+  RSI indicator:  56.63873544187899
+  Trading value (billion VND/million USD):  4.87  MA30 : 7.63
+  Money flow in last 5 days:  10.88 3.55 4.85 2.07 4.87
+  Relative strength RSW:  31.650461103763956
+  Side ways status last 5 days:  False False False False True
+  Price max 3M/6M/9M/12M:  17.95 17.95 17.95 17.95
+  PCT_Change last 7 days: 4.21 -0.62 1.88 -3.37 1.59 3.12 3.94
+  Variation last 7 days max/min (H/L):  29.62 29.62 29.62 29.62 26.83 21.95 21.95
+  Variation last 7 days  (H/L) :  6.27 2.85 3.82 4.44 2.54 3.12 5.49
+  Volume last 7 days (100K): 2.65 1.57 6.67 2.25 3.03 1.25 2.84
+  Volume MA3 last 7 days (100K): 12.38 11.33 10.9 10.5 11.96 6.54 7.13
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.04 1.04 0.96 0.96 0.96 0.96 0.79
+  Support S0 S1 S2 S3 : 15.75 14.7 14.666 14.424
+  Resistance R0 R1 R2 R3 : 17.3 17.95 18.1391 18.6525
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.16 %  Resistance R0 R1 (%) : 0.87 4.66
+  MA30 (%) : 1.8 %  MA50 (%) : 2.99
+  Stop loss : 16.464 4.0 %  Take profit: 18.522 8.0 %
+  Actual price Close/Low/High/Open: 17.15 16.4 17.3 16.5
+  Recommended price range:  15.75 16.54
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 422, '-1': 27, '1': 19}) symbol:  BFC
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 BID
+  Volume/volume(MA15) ratio:  1.26
+  RSI indicator:  51.16192621849584
+  Trading value (billion VND/million USD):  101.54  MA30 : 89.27
+  Money flow in last 5 days:  53.49 75.18 59.1 60.58 101.54
+  Relative strength RSW:  6.133205524482674
+  Side ways status last 5 days:  False False False True True
+  Price max 3M/6M/9M/12M:  48.9 48.9 48.9 51.1358
+  PCT_Change last 7 days: 5.08 0.36 0.72 -4.07 1.75 3.19 3.09
+  Variation last 7 days max/min (H/L):  35.62 35.62 35.62 34.25 33.15 27.53 27.53
+  Variation last 7 days  (H/L) :  4.53 1.71 1.94 7.55 3.78 3.06 4.32
+  Volume last 7 days (100K): 18.52 13.78 12.8 18.75 14.48 14.39 23.4
+  Volume MA3 last 7 days (100K): 58.94 57.28 45.1 45.33 46.03 47.62 52.27
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.89 0.89 0.89 0.85 0.8
+  Support S0 S1 S2 S3 : 40.1 39.1 38.45 38.401
+  Resistance R0 R1 R2 R3 : 43.5 46.5 48.85 48.9
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 7.6 %  Resistance R0 R1 (%) : 0.23 7.14
+  MA30 (%) : -2.98 %  MA50 (%) : -3.15
+  Stop loss : 41.7 3.92 %  Take profit: 46.79999999999999 7.83 %
+  Actual price Close/Low/High/Open: 43.4 41.7 43.5 42.2
+  Recommended price range:  40.1 42.1
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 395, '1': 41, '-1': 32}) symbol:  BID
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 BMP
+  Volume/volume(MA15) ratio:  0.93
+  RSI indicator:  60.260947405183565
+  Trading value (billion VND/million USD):  13.71  MA30 : 17.89
+  Money flow in last 5 days:  8.15 14.55 9.41 22.7 13.71
+  Relative strength RSW:  35.48822003695557
+  Side ways status last 5 days:  True True True True True
+  Price max 3M/6M/9M/12M:  64.3569 64.3569 64.3569 64.3569
+  PCT_Change last 7 days: 0.65 0.16 1.16 -1.48 0.33 3.16 1.61
+  Variation last 7 days max/min (H/L):  15.79 15.79 14.56 12.46 11.75 11.75 12.39
+  Variation last 7 days  (H/L) :  2.13 1.5 2.84 4.24 3.55 3.16 1.94
+  Volume last 7 days (100K): 1.35 1.14 1.34 2.43 1.57 3.66 2.18
+  Volume MA3 last 7 days (100K): 5.13 4.43 3.82 4.9 5.34 7.66 7.4
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.98 0.98 0.98 0.98 0.98
+  Support S0 S1 S2 S3 : 59.9 55.3566 52.9372 51.7759
+  Resistance R0 R1 R2 R3 : 63.1 64.3569 nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 4.92 %  Resistance R0 R1 (%) : 0.16 2.15
+  MA30 (%) : 4.36 %  MA50 (%) : 3.34
+  Stop loss : 61.9 1.75 %  Take profit: 65.2 3.49 %
+  Actual price Close/Low/High/Open: 63.0 61.9 63.1 62.0
+  Recommended price range:  59.9 62.9
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 405, '1': 36, '-1': 27}) symbol:  BMP
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 CSV
+  Volume/volume(MA15) ratio:  1.08
+  RSI indicator:  56.72991093873022
+  Trading value (billion VND/million USD):  9.48  MA30 : 9.49
+  Money flow in last 5 days:  2.04 3.15 1.4 2.87 9.48
+  Relative strength RSW:  31.191187702803248
+  Side ways status last 5 days:  False False False False True
+  Price max 3M/6M/9M/12M:  31.1 31.1 31.1 31.1
+  PCT_Change last 7 days: 2.77 0.0 2.69 -2.45 1.08 2.84 3.1
+  Variation last 7 days max/min (H/L):  22.87 22.87 22.87 22.87 22.87 22.87 22.87
+  Variation last 7 days  (H/L) :  2.95 1.45 2.88 3.59 2.52 3.2 4.1
+  Volume last 7 days (100K): 1.08 0.97 0.71 1.13 0.5 0.99 3.17
+  Volume MA3 last 7 days (100K): 4.78 3.42 2.76 2.81 2.34 2.62 4.66
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.96 0.96 0.96 0.96 0.96
+  Support S0 S1 S2 S3 : 27.9 27.85 26.85 26.7
+  Resistance R0 R1 R2 R3 : 30.5 31.1 nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 6.69 %  Resistance R0 R1 (%) : 2.01 4.01
+  MA30 (%) : 3.1 %  MA50 (%) : 4.06
+  Stop loss : 29.3 2.01 %  Take profit: 31.099999999999994 4.01 %
+  Actual price Close/Low/High/Open: 29.9 29.3 30.5 29.4
+  Recommended price range:  27.9 29.3
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 423, '-1': 23, '1': 22}) symbol:  CSV
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 D2D
+  Volume/volume(MA15) ratio:  0.99
+  RSI indicator:  52.699033780761454
+  Trading value (billion VND/million USD):  16.27  MA30 : 19.43
+  Money flow in last 5 days:  10.81 13.34 10.0 10.72 16.27
+  Relative strength RSW:  33.994391218271
+  Side ways status last 5 days:  False False True True False
+  Price max 3M/6M/9M/12M:  66.4 66.4 66.4 66.4
+  PCT_Change last 7 days: 5.0 -1.1 0.93 -2.57 2.64 4.04 1.76
+  Variation last 7 days max/min (H/L):  44.85 39.7 39.7 39.7 37.34 29.83 29.83
+  Variation last 7 days  (H/L) :  5.19 2.05 2.06 5.9 3.61 5.18 2.65
+  Volume last 7 days (100K): 2.68 1.91 1.98 2.51 1.84 1.89 2.82
+  Volume MA3 last 7 days (100K): 7.74 6.98 6.58 6.41 6.33 6.24 6.55
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.87 0.87 0.87 0.87 0.87
+  Support S0 S1 S2 S3 : 53.1 51.0 49.6 45.9859
+  Resistance R0 R1 R2 R3 : 58.0 59.9 64.4 66.4
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 7.97 %  Resistance R0 R1 (%) : 0.52 3.81
+  MA30 (%) : -1.9 %  MA50 (%) : -1.7
+  Stop loss : 56.5 2.08 %  Take profit: 60.10000000000001 4.16 %
+  Actual price Close/Low/High/Open: 57.7 56.5 58.0 57.5
+  Recommended price range:  53.1 55.76
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 400, '1': 43, '-1': 25}) symbol:  D2D
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 DBC
+  Volume/volume(MA15) ratio:  0.98
+  RSI indicator:  53.55527879037817
+  Trading value (billion VND/million USD):  130.66  MA30 : 162.7
+  Money flow in last 5 days:  106.83 91.27 66.43 100.23 130.66
+  Relative strength RSW:  69.13101848038221
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  63.5 63.5 63.5 63.5
+  PCT_Change last 7 days: 4.37 0.0 5.92 -5.59 2.04 3.0 4.47
+  Variation last 7 days max/min (H/L):  49.2 49.2 49.2 45.31 41.88 37.53 37.53
+  Variation last 7 days  (H/L) :  6.17 2.91 6.78 7.22 3.7 3.81 7.71
+  Volume last 7 days (100K): 17.36 13.12 20.58 18.63 13.29 19.46 24.29
+  Volume MA3 last 7 days (100K): 59.79 48.78 51.07 52.33 52.5 51.37 57.04
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.85 0.85 0.85 0.85 0.85
+  Support S0 S1 S2 S3 : 49.0 45.0 42.15 41.35
+  Resistance R0 R1 R2 R3 : 54.5 58.6 63.5 nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.92 %  Resistance R0 R1 (%) : 1.3 8.92
+  MA30 (%) : -1.81 %  MA50 (%) : 2.85
+  Stop loss : 51.647999999999996 4.0 %  Take profit: 58.104 8.0 %
+  Actual price Close/Low/High/Open: 53.8 50.6 54.5 51.3
+  Recommended price range:  49.0 51.45
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 398, '-1': 33, '1': 31}) symbol:  DBC
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 DCM
+  Volume/volume(MA15) ratio:  1.81
+  RSI indicator:  55.08372630580883
+  Trading value (billion VND/million USD):  76.41  MA30 : 49.63
+  Money flow in last 5 days:  18.56 27.86 28.46 26.53 76.41
+  Relative strength RSW:  56.17550831549862
+  Side ways status last 5 days:  False False False True True
+  Price max 3M/6M/9M/12M:  15.1 15.1 15.1 15.1
+  PCT_Change last 7 days: 6.78 0.79 1.57 -2.71 -0.4 2.4 6.64
+  Variation last 7 days max/min (H/L):  32.75 32.75 32.75 32.75 32.75 30.57 30.57
+  Variation last 7 days  (H/L) :  5.0 11.91 2.77 5.69 2.43 3.2 7.48
+  Volume last 7 days (100K): 25.48 27.52 14.38 22.2 22.77 20.73 55.98
+  Volume MA3 last 7 days (100K): 92.56 76.02 67.38 64.1 59.35 65.7 99.48
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.05 1.05 0.9 0.9 0.9 0.9 0.9
+  Support S0 S1 S2 S3 : 12.5 11.8 11.5 11.3647
+  Resistance R0 R1 R2 R3 : 13.65 14.4 15.1 nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.42 %  Resistance R0 R1 (%) : 0.0 5.49
+  MA30 (%) : 0.33 %  MA50 (%) : 2.48
+  Stop loss : 13.104 4.0 %  Take profit: 14.742000000000003 8.0 %
+  Actual price Close/Low/High/Open: 13.65 12.7 13.65 12.8
+  Recommended price range:  12.5 13.12
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 421, '1': 24, '-1': 23}) symbol:  DCM
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 DIG
+  Volume/volume(MA15) ratio:  1.01
+  RSI indicator:  55.77924387369425
+  Trading value (billion VND/million USD):  140.85  MA30 : 139.13
+  Money flow in last 5 days:  118.09 148.4 65.24 91.49 140.85
+  Relative strength RSW:  106.1175034952906
+  Side ways status last 5 days:  False False False True False
+  Price max 3M/6M/9M/12M:  34.85 34.85 34.85 34.85
+  PCT_Change last 7 days: 4.69 -1.72 3.86 -2.7 1.22 4.12 1.48
+  Variation last 7 days max/min (H/L):  44.2 44.2 44.2 44.2 40.8 36.8 36.8
+  Variation last 7 days  (H/L) :  5.19 4.26 5.71 11.96 4.98 3.4 3.0
+  Volume last 7 days (100K): 40.69 34.22 39.9 51.53 22.38 30.15 45.73
+  Volume MA3 last 7 days (100K): 126.79 113.85 114.81 125.65 113.8 104.06 98.26
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.0 1.0 0.88 0.88 0.88 0.88 0.88
+  Support S0 S1 S2 S3 : 28.8 28.5 26.8 26.15
+  Resistance R0 R1 R2 R3 : 30.9 33.1 33.35 34.85
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 6.49 %  Resistance R0 R1 (%) : 0.32 7.47
+  MA30 (%) : 0.21 %  MA50 (%) : 5.95
+  Stop loss : 30.0 2.6 %  Take profit: 32.400000000000006 5.19 %
+  Actual price Close/Low/High/Open: 30.8 30.0 30.9 30.45
+  Recommended price range:  28.8 30.24
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 411, '1': 34, '-1': 23}) symbol:  DIG
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 DPM
+  Volume/volume(MA15) ratio:  1.83
+  RSI indicator:  54.0805294879933
+  Trading value (billion VND/million USD):  71.17  MA30 : 47.7
+  Money flow in last 5 days:  23.84 24.72 20.93 30.08 71.17
+  Relative strength RSW:  25.671072257014647
+  Side ways status last 5 days:  False False False True True
+  Price max 3M/6M/9M/12M:  19.3679 19.3679 19.3679 19.3679
+  PCT_Change last 7 days: 5.63 0.0 2.19 -2.45 0.31 2.51 6.42
+  Variation last 7 days max/min (H/L):  37.18 37.18 37.18 37.18 34.5 31.25 31.25
+  Variation last 7 days  (H/L) :  4.58 2.85 1.88 5.13 1.59 4.11 7.38
+  Volume last 7 days (100K): 19.38 14.7 14.62 15.55 13.12 18.4 40.9
+  Volume MA3 last 7 days (100K): 72.6 66.52 48.71 44.87 43.29 47.06 72.42
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.06 1.06 0.9 0.9 0.9 0.9 0.9
+  Support S0 S1 S2 S3 : 15.9 15.1 15.0318 13.4901
+  Resistance R0 R1 R2 R3 : 17.45 18.5489 19.3679 nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.62 %  Resistance R0 R1 (%) : 0.29 6.6
+  MA30 (%) : -0.58 %  MA50 (%) : -0.56
+  Stop loss : 16.703999999999997 4.0 %  Take profit: 18.792 8.0 %
+  Actual price Close/Low/High/Open: 17.4 16.25 17.45 16.4
+  Recommended price range:  15.9 16.7
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 406, '-1': 36, '1': 26}) symbol:  DPM
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 DRC
+  Volume/volume(MA15) ratio:  1.24
+  RSI indicator:  64.3135528799536
+  Trading value (billion VND/million USD):  96.34  MA30 : 52.04
+  Money flow in last 5 days:  47.63 54.66 47.05 44.11 96.34
+  Relative strength RSW:  52.34841719608394
+  Side ways status last 5 days:  False False False False True
+  Price max 3M/6M/9M/12M:  28.7 28.7 28.7 28.7
+  PCT_Change last 7 days: 3.17 3.85 1.85 -2.55 -0.93 3.01 4.75
+  Variation last 7 days max/min (H/L):  33.33 33.33 33.33 33.33 33.33 33.33 25.96
+  Variation last 7 days  (H/L) :  4.96 7.84 4.06 8.38 4.26 3.2 6.65
+  Volume last 7 days (100K): 18.23 29.9 17.32 20.4 17.72 16.13 33.63
+  Volume MA3 last 7 days (100K): 73.61 66.67 65.45 67.62 55.44 54.25 67.48
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.02 1.0 1.0 1.0 1.0 1.0
+  Support S0 S1 S2 S3 : 26.55 24.2 23.6 22.7
+  Resistance R0 R1 R2 R3 : 28.85 nan nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 7.33 %  Resistance R0 R1 (%) : 0.7 nan
+  MA30 (%) : 11.44 %  MA50 (%) : 16.13
+  Stop loss : 27.503999999999998 4.0 %  Take profit: 30.942 8.0 %
+  Actual price Close/Low/High/Open: 28.65 27.05 28.85 27.4
+  Recommended price range:  26.55 27.88
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 397, '1': 42, '-1': 29}) symbol:  DRC
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 DVP
+  Volume/volume(MA15) ratio:  0.71
+  RSI indicator:  54.307689720785234
+  Trading value (billion VND/million USD):  1.82  MA30 : 4.5
+  Money flow in last 5 days:  0.4 1.06 1.89 1.83 1.82
+  Relative strength RSW:  24.716802514536848
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  48.6623 48.6623 48.6623 48.6623
+  PCT_Change last 7 days: 0.69 -0.69 1.39 -0.68 1.95 0.79 2.01
+  Variation last 7 days max/min (H/L):  20.3 17.96 16.79 15.66 15.66 15.66 15.66
+  Variation last 7 days  (H/L) :  2.8 1.39 1.62 2.88 1.95 2.49 2.23
+  Volume last 7 days (100K): 0.35 0.23 0.09 0.24 0.43 0.41 0.4
+  Volume MA3 last 7 days (100K): 1.13 0.86 0.67 0.56 0.76 1.08 1.24
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.94 0.94 0.94 0.94 0.94
+  Support S0 S1 S2 S3 : 43.5 43.2 42.35 41.8
+  Resistance R0 R1 R2 R3 : 45.8 47.7898 48.6623 nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 4.61 %  Resistance R0 R1 (%) : 0.44 4.8
+  MA30 (%) : 0.6 %  MA50 (%) : 0.99
+  Stop loss : 44.8 1.75 %  Take profit: 47.20000000000001 3.51 %
+  Actual price Close/Low/High/Open: 45.6 44.8 45.8 45.4
+  Recommended price range:  43.5 45.68
+  BUY SIGNAL
+----------------------------------------------------------------
+Back test result: Counter({'0': 424, '1': 22, '-1': 22}) symbol:  DVP
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 FMC
+  Volume/volume(MA15) ratio:  1.06
+  RSI indicator:  54.842841414986786
+  Trading value (billion VND/million USD):  6.52  MA30 : 10.68
+  Money flow in last 5 days:  4.03 5.72 4.1 3.3 6.52
+  Relative strength RSW:  26.5036747363945
+  Side ways status last 5 days:  False False False True False
+  Price max 3M/6M/9M/12M:  34.9 34.9 34.9 34.9
+  PCT_Change last 7 days: 2.95 2.02 0.99 -3.59 1.53 4.17 3.21
+  Variation last 7 days max/min (H/L):  26.25 26.25 26.25 26.25 24.82 19.82 19.82
+  Variation last 7 days  (H/L) :  3.12 2.02 1.81 9.47 1.87 4.0 5.14
+  Volume last 7 days (100K): 2.8 2.12 1.32 1.94 1.37 1.06 2.02
+  Volume MA3 last 7 days (100K): 6.03 6.52 6.24 5.38 4.63 4.37 4.45
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.92 0.92 0.92 0.92 0.92
+  Support S0 S1 S2 S3 : 29.5 28.35 26.9553 26.1003
+  Resistance R0 R1 R2 R3 : 32.75 33.0 33.3 34.9
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.39 %  Resistance R0 R1 (%) : 1.71 2.48
+  MA30 (%) : 0.62 %  MA50 (%) : 0.39
+  Stop loss : 31.15 3.26 %  Take profit: 34.30000000000001 6.52 %
+  Actual price Close/Low/High/Open: 32.2 31.15 32.75 31.3
+  Recommended price range:  29.5 30.98
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 415, '1': 28, '-1': 25}) symbol:  FMC
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 GEX
+  Volume/volume(MA15) ratio:  1.05
+  RSI indicator:  51.847199049875904
+  Trading value (billion VND/million USD):  119.64  MA30 : 160.35
+  Money flow in last 5 days:  75.31 97.38 76.06 99.02 119.64
+  Relative strength RSW:  12.833878537276826
+  Side ways status last 5 days:  False False False True False
+  Price max 3M/6M/9M/12M:  24.8 26.05 26.05 26.05
+  PCT_Change last 7 days: 5.22 2.23 1.7 -4.06 0.75 4.94 1.65
+  Variation last 7 days max/min (H/L):  33.97 33.97 33.97 33.7 30.68 27.4 27.4
+  Variation last 7 days  (H/L) :  5.43 6.5 2.68 6.08 4.08 4.39 4.77
+  Volume last 7 days (100K): 44.42 54.64 35.95 48.45 37.56 46.6 55.39
+  Volume MA3 last 7 days (100K): 139.91 142.86 135.01 139.03 121.95 132.6 139.55
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 0.87 0.83 0.83 0.83 0.83
+  Support S0 S1 S2 S3 : 20.1 18.85 18.5 17.3
+  Resistance R0 R1 R2 R3 : 21.95 22.55 22.8 23.85
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 6.94 %  Resistance R0 R1 (%) : 1.62 4.4
+  MA30 (%) : -1.89 %  MA50 (%) : -1.13
+  Stop loss : 20.95 3.01 %  Take profit: 22.900000000000006 6.02 %
+  Actual price Close/Low/High/Open: 21.6 20.95 21.95 21.5
+  Recommended price range:  20.1 21.11
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 418, '1': 28, '-1': 22}) symbol:  GEX
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 IMP
+  Volume/volume(MA15) ratio:  4.93
+  RSI indicator:  63.934167082930635
+  Trading value (billion VND/million USD):  17.57  MA30 : 3.47
+  Money flow in last 5 days:  0.3 0.67 1.79 3.48 17.57
+  Relative strength RSW:  28.301314768460728
+  Side ways status last 5 days:  False False False True True
+  Price max 3M/6M/9M/12M:  59.5 59.5 59.5 59.5
+  PCT_Change last 7 days: 0.92 1.64 0.54 -1.25 1.27 1.25 6.88
+  Variation last 7 days max/min (H/L):  16.8 16.21 16.21 16.21 16.21 16.21 16.21
+  Variation last 7 days  (H/L) :  2.21 5.0 2.17 2.89 4.67 2.7 5.39
+  Volume last 7 days (100K): 0.29 0.2 0.05 0.12 0.32 0.61 2.9
+  Volume MA3 last 7 days (100K): 0.7 0.61 0.54 0.38 0.5 1.06 3.83
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.06 1.06 1.02 1.02 1.02 1.02 1.0
+  Support S0 S1 S2 S3 : 55.3 54.2 52.8 51.4
+  Resistance R0 R1 R2 R3 : 60.6 nan nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.75 %  Resistance R0 R1 (%) : 0.0 nan
+  MA30 (%) : 6.25 %  MA50 (%) : 6.98
+  Stop loss : 58.176 4.0 %  Take profit: 65.44800000000001 8.0 %
+  Actual price Close/Low/High/Open: 60.6 57.5 60.6 58.6
+  Recommended price range:  55.3 58.06
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 416, '-1': 34, '1': 17}) symbol:  IMP
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 MBB
+  Volume/volume(MA15) ratio:  1.35
+  RSI indicator:  59.37836580347634
+  Trading value (billion VND/million USD):  611.67  MA30 : 489.5
+  Money flow in last 5 days:  294.15 532.1 394.36 476.53 611.67
+  Relative strength RSW:  53.47757228030083
+  Side ways status last 5 days:  False False False True False
+  Price max 3M/6M/9M/12M:  26.75 26.75 26.75 26.75
+  PCT_Change last 7 days: 3.85 -0.82 2.91 -3.43 3.56 4.24 1.55
+  Variation last 7 days max/min (H/L):  27.7 27.7 27.7 26.06 23.0 21.83 21.83
+  Variation last 7 days  (H/L) :  4.06 2.31 3.12 5.66 3.99 3.2 2.73
+  Volume last 7 days (100K): 198.38 110.9 118.85 222.64 159.34 184.7 233.46
+  Volume MA3 last 7 days (100K): 503.98 453.24 428.12 452.38 500.82 566.67 577.5
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.98 0.98 0.98 0.98 0.98
+  Support S0 S1 S2 S3 : 23.9 22.0 21.8985 21.304
+  Resistance R0 R1 R2 R3 : 26.3 26.75 nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.78 %  Resistance R0 R1 (%) : 0.38 2.1
+  MA30 (%) : 4.91 %  MA50 (%) : 9.43
+  Stop loss : 25.6 2.29 %  Take profit: 27.399999999999995 4.58 %
+  Actual price Close/Low/High/Open: 26.2 25.6 26.3 26.0
+  Recommended price range:  23.9 25.1
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 410, '1': 37, '-1': 21}) symbol:  MBB
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 MSN
+  Volume/volume(MA15) ratio:  1.0
+  RSI indicator:  59.84812700148531
+  Trading value (billion VND/million USD):  209.9  MA30 : 203.03
+  Money flow in last 5 days:  108.37 193.52 128.46 105.15 209.9
+  Relative strength RSW:  47.94234125954823
+  Side ways status last 5 days:  False False False True False
+  Price max 3M/6M/9M/12M:  97.0 97.0 97.0 97.0
+  PCT_Change last 7 days: 5.83 0.67 0.11 -4.46 3.62 3.72 3.37
+  Variation last 7 days max/min (H/L):  22.75 22.75 22.75 22.75 22.75 22.75 22.75
+  Variation last 7 days  (H/L) :  4.09 3.43 1.01 7.02 5.29 3.6 5.49
+  Volume last 7 days (100K): 15.39 14.15 12.1 22.61 14.48 11.43 22.07
+  Volume MA3 last 7 days (100K): 52.59 48.82 41.64 48.86 49.18 48.52 47.98
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.98 0.98 0.98 0.98 0.98
+  Support S0 S1 S2 S3 : 85.6 82.0 81.0277 79.0514
+  Resistance R0 R1 R2 R3 : 96.0 97.0 nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 9.99 %  Resistance R0 R1 (%) : 0.95 2.0
+  MA30 (%) : 4.69 %  MA50 (%) : 7.69
+  Stop loss : 91.29599999999999 4.0 %  Take profit: 102.708 8.0 %
+  Actual price Close/Low/High/Open: 95.1 91.0 96.0 92.0
+  Recommended price range:  85.6 89.88
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 427, '-1': 21, '1': 20}) symbol:  MSN
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 NLG
+  Volume/volume(MA15) ratio:  1.6
+  RSI indicator:  66.19359335455897
+  Trading value (billion VND/million USD):  123.19  MA30 : 59.34
+  Money flow in last 5 days:  44.89 41.58 86.21 87.13 123.19
+  Relative strength RSW:  60.42357658405459
+  Side ways status last 5 days:  True False False False False
+  Price max 3M/6M/9M/12M:  35.2 35.2 35.2 35.2
+  PCT_Change last 7 days: 1.4 0.0 6.15 -6.38 3.41 4.79 5.71
+  Variation last 7 days max/min (H/L):  18.42 18.42 18.42 18.42 18.42 18.42 17.65
+  Variation last 7 days  (H/L) :  4.69 3.44 6.31 6.97 7.64 4.61 7.95
+  Volume last 7 days (100K): 14.04 7.65 13.01 12.87 25.81 24.9 33.29
+  Volume MA3 last 7 days (100K): 43.81 34.54 34.7 33.54 51.7 63.58 84.0
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.05 1.05 1.05 1.05 1.05 1.05 1.0
+  Support S0 S1 S2 S3 : 32.3 32.0 31.65 29.5
+  Resistance R0 R1 R2 R3 : 37.35 nan nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 12.7 %  Resistance R0 R1 (%) : 0.95 nan
+  MA30 (%) : 11.07 %  MA50 (%) : 15.13
+  Stop loss : 35.519999999999996 4.0 %  Take profit: 39.96000000000001 8.0 %
+  Actual price Close/Low/High/Open: 37.0 34.6 37.35 35.5
+  Recommended price range:  32.3 33.92
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 422, '1': 23, '-1': 23}) symbol:  NLG
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 NTC
+  Volume/volume(MA15) ratio:  0.66
+  RSI indicator:  52.61940161887346
+  Trading value (billion VND/million USD):  15.62  MA30 : 20.62
+  Money flow in last 5 days:  38.32 21.85 14.02 11.92 15.62
+  Relative strength RSW:  85.1946770136876
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  297.0 297.0 297.0 297.0
+  PCT_Change last 7 days: 3.95 4.12 3.38 -1.08 2.61 3.6 2.21
+  Variation last 7 days max/min (H/L):  64.59 63.54 65.27 63.04 63.04 53.43 53.43
+  Variation last 7 days  (H/L) :  8.81 26.19 11.8 7.17 5.71 4.04 5.64
+  Volume last 7 days (100K): 1.33 0.99 1.65 0.95 0.59 0.49 0.62
+  Volume MA3 last 7 days (100K): 3.41 3.7 3.96 3.58 3.19 2.03 1.71
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.84 0.84 0.84 0.84 0.84
+  Support S0 S1 S2 S3 : 230.0 204.4 194.9793 157.7763
+  Resistance R0 R1 R2 R3 : 253.0 266.7 287.0 297.0
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 7.96 %  Resistance R0 R1 (%) : 1.24 6.72
+  MA30 (%) : -3.17 %  MA50 (%) : -5.09
+  Stop loss : 239.904 4.0 %  Take profit: 269.89200000000005 8.0 %
+  Actual price Close/Low/High/Open: 249.9 239.5 253.0 244.0
+  Recommended price range:  230.0 241.5
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 402, '1': 49, '-1': 17}) symbol:  NTC
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 NTP
+  Volume/volume(MA15) ratio:  1.22
+  RSI indicator:  54.72983983990124
+  Trading value (billion VND/million USD):  2.05  MA30 : 2.44
+  Money flow in last 5 days:  1.65 1.13 0.82 1.17 2.05
+  Relative strength RSW:  26.24240450683788
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  38.6 38.6 38.6 38.6
+  PCT_Change last 7 days: 0.88 -0.87 0.0 -0.29 1.18 0.58 4.05
+  Variation last 7 days max/min (H/L):  21.56 21.56 19.69 18.75 17.5 15.31 15.31
+  Variation last 7 days  (H/L) :  1.47 1.18 2.35 3.25 2.07 1.45 4.61
+  Volume last 7 days (100K): 0.22 0.15 0.48 0.33 0.24 0.34 0.57
+  Volume MA3 last 7 days (100K): 0.69 0.76 0.85 0.97 1.05 0.91 1.14
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.93 0.93 0.93 0.93 0.93
+  Support S0 S1 S2 S3 : 34.0 32.4 32.3507 31.2021
+  Resistance R0 R1 R2 R3 : 36.3 36.9 38.2 38.6
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 5.56 %  Resistance R0 R1 (%) : 0.83 2.5
+  MA30 (%) : 0.26 %  MA50 (%) : -0.24
+  Stop loss : 34.7 3.61 %  Take profit: 38.599999999999994 7.22 %
+  Actual price Close/Low/High/Open: 36.0 34.7 36.3 34.8
+  Recommended price range:  34.0 35.7
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 419, '1': 26, '-1': 23}) symbol:  NTP
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 PNJ
+  Volume/volume(MA15) ratio:  1.16
+  RSI indicator:  59.86575685898241
+  Trading value (billion VND/million USD):  76.06  MA30 : 56.57
+  Money flow in last 5 days:  52.07 52.11 43.69 72.45 76.06
+  Relative strength RSW:  28.420169658491993
+  Side ways status last 5 days:  True False True True False
+  Price max 3M/6M/9M/12M:  87.0 87.0 87.0 87.0
+  PCT_Change last 7 days: 1.72 0.0 1.21 -3.58 3.34 3.47 1.16
+  Variation last 7 days max/min (H/L):  16.0 16.0 16.0 16.0 16.0 16.0 16.0
+  Variation last 7 days  (H/L) :  2.58 2.35 2.56 5.0 4.75 4.07 2.22
+  Volume last 7 days (100K): 6.4 6.5 6.21 6.44 5.23 8.38 8.69
+  Volume MA3 last 7 days (100K): 18.4 18.89 19.1 19.14 17.87 20.04 22.29
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.01 1.01 1.01 1.01 1.01 1.01 0.98
+  Support S0 S1 S2 S3 : 80.9 78.8 77.7 76.9
+  Resistance R0 R1 R2 R3 : 87.5 88.6694 89.3492 nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 7.54 %  Resistance R0 R1 (%) : 0.0 1.34
+  MA30 (%) : 5.65 %  MA50 (%) : 7.95
+  Stop loss : 85.6 2.17 %  Take profit: 91.30000000000001 4.34 %
+  Actual price Close/Low/High/Open: 87.5 85.6 87.5 87.0
+  Recommended price range:  80.9 84.94
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 406, '1': 35, '-1': 27}) symbol:  PNJ
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 SAB
+  Volume/volume(MA15) ratio:  0.87
+  RSI indicator:  54.858759035662665
+  Trading value (billion VND/million USD):  37.63  MA30 : 36.88
+  Money flow in last 5 days:  20.46 24.55 23.41 29.39 37.63
+  Relative strength RSW:  7.624112376816359
+  Side ways status last 5 days:  False False True True True
+  Price max 3M/6M/9M/12M:  207.1 207.1 207.1 207.1
+  PCT_Change last 7 days: 0.0 1.73 -0.11 -4.34 3.56 0.67 6.12
+  Variation last 7 days max/min (H/L):  30.49 29.87 27.03 23.93 23.93 20.96 20.96
+  Variation last 7 days  (H/L) :  1.12 3.35 0.44 6.86 3.97 1.11 6.35
+  Volume last 7 days (100K): 2.4 2.96 1.12 1.41 1.3 1.62 1.96
+  Volume MA3 last 7 days (100K): 8.09 9.96 6.49 5.5 3.84 4.33 4.87
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.05 1.05 0.93 0.93 0.93 0.93 0.69
+  Support S0 S1 S2 S3 : 174.0 161.7 155.384 150.1386
+  Resistance R0 R1 R2 R3 : 192.5 194.0 194.7 207.1
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 9.61 %  Resistance R0 R1 (%) : 0.0 0.78
+  MA30 (%) : 1.06 %  MA50 (%) : -0.97
+  Stop loss : 184.79999999999998 4.0 %  Take profit: 207.90000000000003 8.0 %
+  Actual price Close/Low/High/Open: 192.5 181.0 192.5 181.5
+  Recommended price range:  174.0 182.7
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 423, '1': 24, '-1': 21}) symbol:  SAB
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 SJS
+  Volume/volume(MA15) ratio:  0.89
+  RSI indicator:  79.49911142328497
+  Trading value (billion VND/million USD):  14.25  MA30 : 9.45
+  Money flow in last 5 days:  16.16 16.69 9.52 11.12 14.25
+  Relative strength RSW:  84.60484355542945
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  37.65 37.65 37.65 37.65
+  PCT_Change last 7 days: 5.81 -0.43 3.92 2.79 -1.09 3.43 5.44
+  Variation last 7 days max/min (H/L):  31.85 31.85 31.85 36.48 38.52 37.5 36.92
+  Variation last 7 days  (H/L) :  9.22 3.1 6.81 7.94 3.94 7.61 8.28
+  Volume last 7 days (100K): 5.39 2.44 4.51 4.54 2.62 2.95 3.59
+  Volume MA3 last 7 days (100K): 12.91 10.26 12.34 11.48 11.66 10.1 9.16
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.04 1.04 1.05 1.05 1.05 1.05 1.0
+  Support S0 S1 S2 S3 : 36.4 34.45 32.7 31.9
+  Resistance R0 R1 R2 R3 : 39.9 nan nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.31 %  Resistance R0 R1 (%) : 0.5 nan
+  MA30 (%) : 21.11 %  MA50 (%) : 25.89
+  Stop loss : 38.112 4.0 %  Take profit: 42.876000000000005 8.0 %
+  Actual price Close/Low/High/Open: 39.7 36.85 39.9 36.85
+  Recommended price range:  36.4 38.22
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 409, '1': 31, '-1': 28}) symbol:  SJS
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 TCH
+  Volume/volume(MA15) ratio:  1.25
+  RSI indicator:  55.105848142244795
+  Trading value (billion VND/million USD):  211.94  MA30 : 201.59
+  Money flow in last 5 days:  93.11 181.91 99.17 101.1 211.94
+  Relative strength RSW:  9.096605922766354
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  26.4 26.4 26.4 42.4034
+  PCT_Change last 7 days: 6.9 -0.45 0.89 -6.87 1.43 3.99 6.09
+  Variation last 7 days max/min (H/L):  38.38 38.38 38.38 38.38 33.84 33.84 33.84
+  Variation last 7 days  (H/L) :  6.9 3.41 3.84 7.38 5.34 3.71 8.47
+  Volume last 7 days (100K): 62.82 52.33 41.29 86.62 46.56 45.64 90.19
+  Volume MA3 last 7 days (100K): 202.55 169.93 156.44 180.25 174.48 178.82 182.39
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.04 1.02 0.89 0.89 0.89 0.55 0.55
+  Support S0 S1 S2 S3 : 21.0 20.45 20.05 19.95
+  Resistance R0 R1 R2 R3 : 23.7 25.95 26.4 32.7166
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 10.64 %  Resistance R0 R1 (%) : 0.85 10.43
+  MA30 (%) : 2.32 %  MA50 (%) : 8.71
+  Stop loss : 22.56 4.0 %  Take profit: 25.380000000000003 8.0 %
+  Actual price Close/Low/High/Open: 23.5 21.85 23.7 22.15
+  Recommended price range:  21.0 22.05
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 394, '1': 39, '-1': 35}) symbol:  TCH
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 VCB
+  Volume/volume(MA15) ratio:  1.18
+  RSI indicator:  55.6526363411065
+  Trading value (billion VND/million USD):  172.27  MA30 : 123.99
+  Money flow in last 5 days:  89.74 273.1 289.55 105.41 172.27
+  Relative strength RSW:  21.170338429448876
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  107.0 107.0 107.0 107.0
+  PCT_Change last 7 days: 2.49 0.0 1.11 -5.9 3.29 2.88 2.0
+  Variation last 7 days max/min (H/L):  24.09 23.86 23.86 23.86 23.86 23.86 21.64
+  Variation last 7 days  (H/L) :  2.48 5.43 2.15 7.2 4.62 2.56 4.08
+  Volume last 7 days (100K): 14.55 9.67 8.97 29.02 29.79 10.54 16.89
+  Volume MA3 last 7 days (100K): 38.29 34.86 33.19 47.67 67.78 69.35 57.22
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.95 0.95 0.95 0.95 0.95
+  Support S0 S1 S2 S3 : 94.1 91.1 90.6 90.3591
+  Resistance R0 R1 R2 R3 : 102.0 103.0 103.3 105.6
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 7.75 %  Resistance R0 R1 (%) : 0.0 0.98
+  MA30 (%) : 1.78 %  MA50 (%) : 3.24
+  Stop loss : 98.0 3.92 %  Take profit: 110.0 7.84 %
+  Actual price Close/Low/High/Open: 102.0 98.0 102.0 99.0
+  Recommended price range:  94.1 98.8
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 407, '1': 40, '-1': 21}) symbol:  VCB
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 VGI
+  Volume/volume(MA15) ratio:  1.2
+  RSI indicator:  54.821310300805635
+  Trading value (billion VND/million USD):  49.81  MA30 : 50.18
+  Money flow in last 5 days:  32.17 32.54 23.51 30.5 49.81
+  Relative strength RSW:  43.984186662000816
+  Side ways status last 5 days:  False False False False True
+  Price max 3M/6M/9M/12M:  47.5 47.5 47.5 47.5
+  PCT_Change last 7 days: 6.76 -1.27 -1.79 -3.13 2.16 2.37 5.41
+  Variation last 7 days max/min (H/L):  57.42 57.42 57.42 57.42 57.42 54.84 54.19
+  Variation last 7 days  (H/L) :  9.72 4.68 4.0 9.72 9.14 4.29 8.83
+  Volume last 7 days (100K): 8.48 7.62 8.4 8.77 6.2 7.86 12.18
+  Volume MA3 last 7 days (100K): 23.61 24.37 24.51 24.8 23.37 22.83 26.24
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.04 1.04 0.86 0.86 0.86 0.86 0.86
+  Support S0 S1 S2 S3 : 37.1 35.5 33.8 33.3
+  Resistance R0 R1 R2 R3 : 41.9 47.0 47.5 nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 9.29 %  Resistance R0 R1 (%) : 2.44 14.91
+  MA30 (%) : 2.3 %  MA50 (%) : 9.04
+  Stop loss : 39.263999999999996 4.0 %  Take profit: 44.172000000000004 8.0 %
+  Actual price Close/Low/High/Open: 40.9 38.5 41.9 38.8
+  Recommended price range:  37.1 38.96
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 409, '-1': 30, '1': 29}) symbol:  VGI
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 VHC
+  Volume/volume(MA15) ratio:  0.87
+  RSI indicator:  50.21722201171022
+  Trading value (billion VND/million USD):  42.08  MA30 : 62.25
+  Money flow in last 5 days:  24.55 37.27 22.74 31.81 42.08
+  Relative strength RSW:  5.3254433735224405
+  Side ways status last 5 days:  False False False True False
+  Price max 3M/6M/9M/12M:  46.25 46.25 46.25 46.25
+  PCT_Change last 7 days: 5.38 -0.54 0.27 -2.56 1.38 4.77 2.86
+  Variation last 7 days max/min (H/L):  28.72 28.72 28.72 28.72 29.09 25.33 25.33
+  Variation last 7 days  (H/L) :  5.45 2.3 1.63 7.67 2.93 4.05 4.83
+  Volume last 7 days (100K): 11.43 7.23 6.62 10.31 6.2 8.28 10.65
+  Volume MA3 last 7 days (100K): 36.91 30.4 25.27 24.16 23.13 24.8 25.14
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.03 1.03 0.85 0.85 0.85 0.85 0.85
+  Support S0 S1 S2 S3 : 36.15 35.3 35.1171 34.9737
+  Resistance R0 R1 R2 R3 : 40.15 42.5 43.35 43.6
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.48 %  Resistance R0 R1 (%) : 1.65 7.59
+  MA30 (%) : -1.88 %  MA50 (%) : -5.02
+  Stop loss : 38.3 3.04 %  Take profit: 41.900000000000006 6.08 %
+  Actual price Close/Low/High/Open: 39.5 38.3 40.15 38.8
+  Recommended price range:  36.15 37.96
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 428, '1': 20, '-1': 20}) symbol:  VHC
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 VHM
+  Volume/volume(MA15) ratio:  1.42
+  RSI indicator:  60.392917693245266
+  Trading value (billion VND/million USD):  464.34  MA30 : 294.11
+  Money flow in last 5 days:  223.01 454.85 258.32 373.87 464.34
+  Relative strength RSW:  29.387848707142297
+  Side ways status last 5 days:  False False True True False
+  Price max 3M/6M/9M/12M:  103.4 103.4 103.4 103.4
+  PCT_Change last 7 days: 2.97 1.23 0.91 -4.63 2.22 4.34 2.18
+  Variation last 7 days max/min (H/L):  23.93 22.62 22.62 22.62 22.62 22.62 20.48
+  Variation last 7 days  (H/L) :  4.66 3.89 1.32 7.46 3.62 4.33 3.2
+  Volume last 7 days (100K): 33.66 24.99 22.46 48.03 26.69 37.02 44.99
+  Volume MA3 last 7 days (100K): 87.57 86.22 81.11 95.48 97.18 111.73 108.7
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 1.0 1.0 1.0 1.0 1.0
+  Support S0 S1 S2 S3 : 94.7 88.3 87.4 86.3
+  Resistance R0 R1 R2 R3 : 103.2 103.4 nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.24 %  Resistance R0 R1 (%) : 0.0 0.19
+  MA30 (%) : 5.98 %  MA50 (%) : 10.15
+  Stop loss : 100.0 3.1 %  Take profit: 109.60000000000001 6.2 %
+  Actual price Close/Low/High/Open: 103.2 100.0 103.2 101.0
+  Recommended price range:  94.7 99.44
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 417, '1': 29, '-1': 22}) symbol:  VHM
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 VIC
+  Volume/volume(MA15) ratio:  0.96
+  RSI indicator:  56.436327088323566
+  Trading value (billion VND/million USD):  157.78  MA30 : 144.24
+  Money flow in last 5 days:  99.21 345.67 186.7 135.39 157.78
+  Relative strength RSW:  9.880820159559981
+  Side ways status last 5 days:  False False False False False
+  Price max 3M/6M/9M/12M:  114.4 114.4 114.4 114.4
+  PCT_Change last 7 days: 1.51 -2.33 2.38 -6.05 5.15 1.69 1.85
+  Variation last 7 days max/min (H/L):  23.89 21.41 21.3 21.19 19.24 16.76 16.76
+  Variation last 7 days  (H/L) :  2.86 5.39 2.38 6.73 4.93 1.69 3.68
+  Volume last 7 days (100K): 16.99 10.22 9.23 34.22 17.58 12.54 14.34
+  Volume MA3 last 7 days (100K): 48.1 44.92 36.44 53.68 61.03 64.34 44.46
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.96 0.96 0.96 0.96 0.87
+  Support S0 S1 S2 S3 : 101.0 99.0 93.0 92.3
+  Resistance R0 R1 R2 R3 : 110.0 111.2 114.4 114.8
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 8.18 %  Resistance R0 R1 (%) : 0.0 1.09
+  MA30 (%) : 3.21 %  MA50 (%) : 3.33
+  Stop loss : 106.1 3.55 %  Take profit: 117.80000000000001 7.09 %
+  Actual price Close/Low/High/Open: 110.0 106.1 110.0 107.5
+  Recommended price range:  101.0 106.05
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 436, '-1': 20, '1': 12}) symbol:  VIC
+***************************************************************
+ Early breakout signal trading  1 days before  2021-02-18 00:00:00 ^VNINDEX
+  Volume/volume(MA15) ratio:  0.92
+  RSI indicator:  59.433971432764345
+  Trading value (billion VND/million USD):  722031.39  MA30 : 819781.4
+  Money flow in last 5 days:  597116.26 754542.84 579556.49 656520.51 722031.39
+  Relative strength RSW:  29.091588166111734
+  Side ways status last 5 days:  False False True True False
+  Price max 3M/6M/9M/12M:  1194.2 1194.2 1194.2 1194.2
+  PCT_Change last 7 days: 3.32 0.08 1.32 -3.88 2.93 3.66 1.61
+  Variation last 7 days max/min (H/L):  20.29 20.29 20.29 20.29 19.19 17.77 17.77
+  Variation last 7 days  (H/L) :  2.8 1.73 1.32 4.83 3.33 2.51 2.24
+  Volume last 7 days (100K): 7031.75 5234.06 5298.7 6966.0 5198.14 5680.32 6148.19
+  Volume MA3 last 7 days (100K): 19401.24 18291.96 17564.51 17498.76 17462.84 17844.46 17026.66
+  Ratio vs max H3D/H4D/3M/6M/9M/12M/all_time: 1.02 1.02 0.98 0.98 0.98 0.98 0.98
+  Support S0 S1 S2 S3 : 1083.1801 1035.51 1023.94 1003.08
+  Resistance R0 R1 R2 R3 : 1174.38 1194.2 nan nan
+  Loss/gain T+1/T+2/T+3/T+4 : nan nan nan nan
+  Back test T+5 : T+10: nan nan nan nan nan nan
+  Support S0 (%) : 7.77 %  Resistance R0 R1 (%) : 0.0 1.69
+  MA30 (%) : 3.42 %  MA50 (%) : 5.94
+  Stop loss : 1148.66 2.19 %  Take profit: 1225.8200000000002 4.38 %
+  Actual price Close/Low/High/Open: 1174.38 1148.66 1174.38 1157.1
+  Recommended price range:  1083.1801 1137.34
+  OVER 5% FROM SUPPORT! RISK
+----------------------------------------------------------------
+Back test result: Counter({'0': 434, '1': 24, '-1': 10}) symbol:  ^VNINDEX
+***************************************************************

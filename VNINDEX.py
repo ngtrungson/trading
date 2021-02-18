@@ -667,10 +667,10 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-2-17"
+    end_date = "2021-2-18"
     start_date = "2019-4-6"
-    ticker = ['^VNINDEX']
-    # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'SidewayBreakout') 
+    ticker = 'DGC'
+    # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
     watchlist =['VCB','PVD','KDC','HDG','NT2','FRT','HPG','QNS']
     
     # canslim_strategy(ticker = 'PNJ', start = start_date , end = end_date, update = False,  source ="cp68")
@@ -686,8 +686,8 @@ if __name__ == "__main__":
     # CHON CO PHIEU SIDEWAY
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
     
-    #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIA
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'EarlyBreakout')
+    #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIAl
+    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'EarlySignal')
     
     
     #CHON CO PHIEU CO DIEM MUA BUNG NO KHOI LUONG
