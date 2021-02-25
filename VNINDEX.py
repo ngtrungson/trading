@@ -4,16 +4,19 @@ Created on Fri Dec  8 14:35:57 2017
 
 @author: sonng
 """
-import datetime
+# import datetime
+from datetime import datetime
 from finance_util import get_info_stock_cp68_mobile, get_data, get_RSI, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
-                         get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta,get_info_stock
-from strategy import process_data, momentum_strategy,  short_selling, hung_canslim, mean_reversion
+                         get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta
+from strategy import process_data, momentum_strategy,  hung_canslim
 # from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 # from machine_learning import price_predictions, ML_strategy
 import pandas as pd
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import sys
+import time
+import os
 import warnings
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
@@ -232,14 +235,20 @@ def analysis_trading(tickers, start, end, update = False, nbdays = 15, source = 
 #    canslim_symbol = df.index.tolist()
 #    
 #    tickers = canslim_symbol
-    
+    # result = pd.DataFrame([['Ticker', 'Advise']])
+    result = pd.DataFrame(columns =['Ticker', 'Advise'])
+    result = result.set_index('Ticker')
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
         try:
 #            ninja_trading(ticker, start, end, realtime = update, source = source)
 #            hedgefund_trading(ticker, start, end, realtime = update, source = source)
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 5, typetrade = 'MarkM_tickers')#           
-            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = nbdays, typetrade = trade)
+             res = hung_canslim(ticker, start, end, realtime = update, source = source, ndays = nbdays, typetrade = trade)
+             
+             if len(res) > 1:
+                 # result = result.append([res])
+                 result.loc[res[0]] = res[1]
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -248,6 +257,7 @@ def analysis_trading(tickers, start, end, update = False, nbdays = 15, source = 
             print (e)
             print("Error in reading symbol: ", ticker)
             pass
+    return result
 
 def canslim_strategy(ticker, start, end, update = False, source = "cp68"):               
     df = momentum_strategy(ticker, start, end, realtime = update, source = source)#
@@ -628,12 +638,13 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
    
     return df_result
     
+# from IPython.display import clear_output
 
     
 if __name__ == "__main__":
-    import sys
-    old_stdout = sys.stdout
-    sys.stdout=open("logging.txt","w")
+    # import sys
+    # old_stdout = sys.stdout
+    # sys.stdout=open("logging.txt","w")
     # GTVT, Logistics: GMD, VSC, PVT, HVN, VJC
     # Dau khi: PVD, PVS, GAS, PLX
     # Che tao, trang suc: PNJ
@@ -667,7 +678,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-2-18"
+    end_date = "2021-2-25"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -686,9 +697,46 @@ if __name__ == "__main__":
     # CHON CO PHIEU SIDEWAY
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'SidewayBreakout')
     
-    #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIAl
-    analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 1, source ="cp68", trade = 'EarlySignal')
-    
+    #CHON CO PHIEU CO EARLY BREAKOUT KHOI NEN GIA
+    # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'EarlySignal')
+    t0 = time.time()
+    trade_type = ['EarlySignal','Bottom','SidewayBreakout']
+    idx = 0 # EarlySignal
+    realtime = True
+    t1 = 9*60 + 30   
+    t2 = 11*60 + 30   
+    t3 = 13*60 + 0  
+    t4 = 14*60 + 45
+    while True:  
+        # clear_output(wait=True)
+        trade_time = datetime.now()
+        t = trade_time.hour*60 + trade_time.minute
+        if (t >= t1 and t <= t2) or (t >= t3 and t <= t4) and realtime:
+            os.system('cls')
+            print('TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
+            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source ="cp68", trade = trade_type[idx])
+            print("WAIT FOR 4 MINUTES ............................",time.asctime(time.localtime(time.time())))
+            print(res)
+            time.sleep(240.0 - ((time.time() - t0) % 240.0))
+        elif t < t1 and realtime:
+            waittime = t1 - t
+            print("WAIT FOR {} MINUTES ............................".format(waittime))
+            time.sleep(waittime*60 - ((time.time() - t0) % (waittime*60)))
+        elif t2 < t and t < t3 and realtime:
+            waittime = t3 - t
+            print("WAIT FOR {} MINUTES ............................".format(waittime))
+            time.sleep(waittime*60 - ((time.time() - t0) % (waittime*60)))
+        elif t > t4 and realtime:
+             print('STOCK MARKET CLOSED. SEE YOU NEXT DAY OR USING OFFLINE MODE!.....')
+             break
+        else:            
+            os.system('cls')
+            print('OFF LINE TRADING SIGNAL ............!')
+            print('TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
+            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source ="cp68", trade = trade_type[idx])
+            print(res)            
+            break
+        
     
     #CHON CO PHIEU CO DIEM MUA BUNG NO KHOI LUONG
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = 3, source ="cp68", trade = 'LongShortTrend')
@@ -706,11 +754,11 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = True, source = 'cp68')
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
 #    
 
-    sys.stdout = old_stdout
+    # sys.stdout = old_stdout
     

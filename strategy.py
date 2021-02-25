@@ -252,71 +252,89 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     hm_days = ndays
 
     back_test = False
+    res = []
     for i in range(1,hm_days+1):
         if (df['Long'].iloc[-i] & (typetrade == 'Long')):
                 print(" Canslim trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
-                print_statistic(df, i)
+                output = print_statistic(df, i)
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
-        
+                res.append(ticker)
+                res.append(output)
         if (df['LongShortTrend'].iloc[-i] & (typetrade == 'LongShortTrend')):
                 print(" Short trend trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
-                print_statistic(df, i)
+                output = print_statistic(df, i)
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
 
         if (df['Sideway'].iloc[-i] & (typetrade == 'Sideway')):
                 print(" Sideway trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
-                print_statistic(df, i)
+                output = print_statistic(df, i)
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
 
         if (df['EarlySignal'].iloc[-i] & (typetrade == 'EarlySignal')):
                 print(" Early breakout signal trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
-                print_statistic(df, i)
+                output = print_statistic(df, i)
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
 
         if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
                 print(" Mark Minervini trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
 #                print(ticker)  
                 back_test = True
-                print_statistic(df, i)
+                output = print_statistic(df, i)
                 if (market != None):
-                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                   get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
 
         if (df['Bottom'].iloc[-i] & (typetrade == 'Bottom')):
                 print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print_statistic(df, i)
+                output = print_statistic(df, i)
                 back_test = True
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
 ##   
 
         if (df['SidewayBreakout'].iloc[-i] & (typetrade == 'SidewayBreakout')):
                 print(" Sideway filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print_statistic(df, i)
+                output = print_statistic(df, i)
                 back_test = True
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
    
         if (df['Short'].iloc[-i] & (typetrade == 'Short')):
                 print(" Short selling canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print_statistic(df, i)
+                output = print_statistic(df, i)
                 back_test = True
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
         
         if (df['Breakout'].iloc[-i] & (typetrade == 'Breakout')):
                 print(" Breakout canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
-                print_statistic(df, i)
+                output = print_statistic(df, i)
                 back_test = True
                 if (market != None):
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
    
     
 #    back_test = True
@@ -325,7 +343,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     if back_test:
         run_backtest(df, ticker, trade = typetrade)
 #     
-    return df
+    return res
 
 
 def momentum_strategy(ticker, start, end, realtime = False, source = "cp68", market = None):
@@ -858,11 +876,15 @@ def print_statistic(df, i):
     print('  Stop loss :', stoploss, sl_pct, '%  Take profit:', target, tp_pct, '%')  
     print('  Actual price Close/Low/High/Open:', df['Close'].iloc[-i], df['Low'].iloc[-i], df['High'].iloc[-i], df['Open'].iloc[-i])
     print('  Recommended price range: ', S0, round(S0*1.05,2))
+    output = ''
     if ((df['Close'].iloc[-i] >= S0) & (df['Close'].iloc[-i] <=round(S0*1.05,2))):
         print('  BUY SIGNAL')
+        output = 'BUY SIGNAL'
     else:
         print('  OVER 5% FROM SUPPORT! RISK')
+        output = 'OVER 5% FROM SUPPORT! RISK'
     print('----------------------------------------------------------------')
+    return output
    
 
 def ninja_trading(ticker, start, end, realtime = False, source = "cp68"):
