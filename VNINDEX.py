@@ -678,7 +678,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-2-25"
+    end_date = "2021-2-26"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -720,18 +720,18 @@ if __name__ == "__main__":
             time.sleep(240.0 - ((time.time() - t0) % 240.0))
         elif t < t1 and realtime:
             waittime = t1 - t
-            print("WAIT FOR {} MINUTES ............................".format(waittime))
+            print("WAIT FOR {} MINUTES FROM NOW {} OR COME BACK LATER...".format(waittime,trade_time))
             time.sleep(waittime*60 - ((time.time() - t0) % (waittime*60)))
         elif t2 < t and t < t3 and realtime:
             waittime = t3 - t
             print("WAIT FOR {} MINUTES ............................".format(waittime))
             time.sleep(waittime*60 - ((time.time() - t0) % (waittime*60)))
         elif t > t4 and realtime:
-             print('STOCK MARKET CLOSED. SEE YOU NEXT DAY OR USING OFFLINE MODE!.....')
+             print('STOCK MARKET CLOSED. SEE YOU NEXT DAY OR USING OFFLINE MODE!...')
              break
         else:            
             os.system('cls')
-            print('OFF LINE TRADING SIGNAL ............!')
+            print('OFF-LINE TRADING SIGNAL ............!')
             print('TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
             res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source ="cp68", trade = trade_type[idx])
             print(res)            
