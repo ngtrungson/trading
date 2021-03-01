@@ -678,7 +678,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-2-26"
+    end_date = "2021-3-1"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -716,7 +716,7 @@ if __name__ == "__main__":
             print('TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
             res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source ="cp68", trade = trade_type[idx])
             print("WAIT FOR 4 MINUTES ............................",time.asctime(time.localtime(time.time())))
-            print(res)
+            print(res.to_string())
             time.sleep(240.0 - ((time.time() - t0) % 240.0))
         elif t < t1 and realtime:
             waittime = t1 - t
@@ -734,7 +734,7 @@ if __name__ == "__main__":
             print('OFF-LINE TRADING SIGNAL ............!')
             print('TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
             res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source ="cp68", trade = trade_type[idx])
-            print(res)            
+            print(res.to_string())            
             break
         
     
