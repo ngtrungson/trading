@@ -678,7 +678,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-3-1"
+    end_date = "2021-3-2"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -703,7 +703,7 @@ if __name__ == "__main__":
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
     realtime = True
-    t1 = 9*60 + 30   
+    t1 = 9*60 + 20   
     t2 = 11*60 + 30   
     t3 = 13*60 + 0  
     t4 = 14*60 + 45
@@ -727,7 +727,10 @@ if __name__ == "__main__":
             print("WAIT FOR {} MINUTES ............................".format(waittime))
             time.sleep(waittime*60 - ((time.time() - t0) % (waittime*60)))
         elif t > t4 and realtime:
-             print('STOCK MARKET CLOSED. SEE YOU NEXT DAY OR USING OFFLINE MODE!...')
+             print('STOCK MARKET CLOSED. SEE YOU NEXT DAY OR USING OFFLINE MODE!')
+             print('LAST-MINUTE TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
+             res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source ="cp68", trade = trade_type[idx])
+             print(res.to_string())     
              break
         else:            
             os.system('cls')
