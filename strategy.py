@@ -566,7 +566,17 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
         df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
                                   'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume', 'TOTAL VALUES': 'Values'})
         df = df.set_index('Date')
+    
         
+    if source == "amibroker":
+        file_path = symbol_to_path(ticker, base_dir = source)
+        df = pd.read_csv(file_path, index_col ="Date", parse_dates = True,  dayfirst=True,
+                     usecols = ["Date", "Open","High","Low","Close","Volume"], na_values = "nan")
+        df = df.reset_index()
+        
+        df = df.set_index('Date')
+    
+    
     if source == 'cp68':
         file_path = symbol_to_path(ticker, base_dir = source)
         df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
@@ -622,7 +632,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     # take a part of dataframe
     df = df.loc[start:end]
     
-    if (realtime & ((source == 'cp68') | (source == 'ssi'))):
+    if (realtime & ((source == 'cp68') | (source == 'ssi') | (source == 'amibroker'))):
 #        print(ticker)
         # actual_price = get_info_stock(ticker)
         actual_price = get_info_stock_cp68_mobile(ticker)

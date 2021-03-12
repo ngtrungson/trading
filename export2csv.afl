@@ -1,0 +1,36 @@
+// create folder for exporting purposes
+fmkdir( "C:\\DataExport\\" );
+ 
+// open file for writing
+// file name depends on currently processed ticker
+fh = fopen( "c:\\DataExport\\" + Name() + ".csv", "w" );
+ 
+// proceed if file handle is correct
+if ( fh )
+{
+    dt = DateTime();
+ 
+    // write header line
+    fputs( "Ticker,Date,Open,High,Low,Close,Volume\n", fh );
+ 
+    // iterate through all the bars
+ 
+    for ( i = 0; i < BarCount; i++ )
+    {
+        // write ticker name
+        fputs( Name() + "," , fh );
+ 
+        // write date/time information
+        fputs( DateTimeToStr( dt[ i ] ) + ",", fh );
+ 
+        //write quotations and go to the next line
+        qs = StrFormat( "%g,%g,%g,%g,%g\n", O[ i ], H[ i ], L[ i ], C[ i ], V[ i ] );
+        fputs( qs, fh );
+ 
+    }
+    // close file handle
+    fclose( fh );
+}
+ 
+// line required by SCAN option
+Buy = 0;

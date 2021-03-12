@@ -536,6 +536,8 @@ def symbol_to_path(symbol, base_dir="cp68"):
         fileformat = "Historical_Price_{}.csv"
     if (base_dir == "yahoo") | (base_dir == "alpha"):      
         fileformat = "{}.csv"
+    if (base_dir == "amibroker"):      
+        fileformat = "{}.csv"
         
     return os.path.join(base_dir, fileformat.format(str(symbol)))
 
