@@ -654,7 +654,7 @@ if __name__ == "__main__":
     # Duoc: DMC, DHG, IMP, DGC, CSV
     # VLXD: KSB, VCS
     
-    # symbols = getliststocks(typestock = "ALL")
+    symbols = getliststocks(typestock = "ALL")
     
 #   
 #    
@@ -680,7 +680,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-3-17"
+    end_date = "2021-3-18"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -704,7 +704,7 @@ if __name__ == "__main__":
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
-    realtime = True
+    realtime = False
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
