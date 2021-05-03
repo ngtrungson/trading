@@ -132,6 +132,186 @@ def mean_reversion(ticker, start, end, realtime = False, source = "cp68", market
         
     return df
 
+
+def crypto(ticker, start, end, realtime = False, source = "cp68", market = None , ndays = 2, typetrade = 'Long'):
+    
+    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
+    
+    df['SMA15'] = df['Close'].rolling(window=15).mean()
+    df['SMA20'] = df['Close'].rolling(window=20).mean()
+    df['SMA30'] = df['Close'].rolling(window=30).mean()
+    
+    
+    df['SMA50'] = df['Close'].rolling(window=50).mean()
+    df['SMA150'] = df['Close'].rolling(window=150).mean()
+    df['SMA200'] = df['Close'].rolling(window=200).mean()
+    
+    df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
+    
+    df['MID'] = (df['High'] + df['Low']) /2
+       
+    
+    df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
+                  (df['Close'] >= (df['High'] + df['Low'])/2)  &\
+                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
+                 ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
+                 (((df['Volume'] >= 1.3*df['VolMA15']) |(df['Volume'] > 2*250000))) &\
+                 (df['Close'] >= df['SMA30']) & ((df['Close']> df['Max6M']) | (df['Close']> df['Max3M']) |(df['Close']>= df['High4D'])) &\
+                 (df['PCT_HL'] <= 15))
+    
+    df['LongShortTrend'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] >= df['Open'])  & \
+                  (df['Close'] >= (df['High'] + df['Low'])/2)  &\
+                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
+                 ((df['Close']*df['Volume'] >= 3E6)) &\
+                 (((df['Volume'] >= 1.3*df['VolMA15']) |(df['Volume'] > 2*250000))) &\
+                 (df['Close'] >= df['SMA30']) & ((df['Close']>= df['High3D']) | (df['Close']>= df['High4D'])) &\
+                 (df['PCT_HL'] <= 30))    
+        
+    df['T4'] = ((df['Close']> df['Close'].shift(1)) & (df['Close'] > df['Close'].shift(4))  &\
+                  (df['Close'] > df['Close'].shift(2))  & (df['Close'] > df['Close'].shift(3)) &\
+                 (df['PCT_HL'] <= 50)) 
+        
+    df['MA30'] = ((df['Close']> 1.015*df['Close'].shift(1)) & (df['Close'] >= df['Open']) & (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
+                 (df['PCT_HL'] <= 50))  
+        
+    df['Sideway'] = ((df['Close']> 1.015*df['Close'].shift(1)) & (df['Close'] > df['Close'].shift(4))  &\
+                  (df['Close'] > df['Close'].shift(2))  & (df['Close'] > df['Close'].shift(3)) &\
+                  (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
+                    (df['PCT_HL'] <= 50)) 
+        
+    df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    
+    df['MarkM'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
+                  (df['Close'] > (df['High'] + df['Low'])/2)  &\
+                 (1.05*df['Close'].shift(2) >= df['Close'].shift(1)) & (df['Volume'] >= df['Volume'].shift(1)) &\
+                 ((df['Close']*df['Volume'] >= 3E6)) & (df['RSI'] >=50) &\
+                 (((df['Volume'] >= 1.3*df['VolMA30']) |(df['Volume'] > 2*250000))) &\
+                 ((df['Close'] >= df['SMA50']) & (df['SMA50']>= df['SMA150']) & (df['SMA150']>= df['SMA200']) & \
+                 (df['Close']>= 1.25*df['Min12M']) & (df['Close']>= 0.75*df['Max12M']) &\
+                 (df['PCT_HL'] <= 15)))
+   
+    df['MarkM_tickers'] = (((df['Close'] >= df['SMA50']) & (df['SMA50']>= df['SMA150']) & (df['SMA150']>= df['SMA200']) & \
+                 (df['Close']>= 1.25*df['Min12M']) & (df['Close']>= 0.75*df['Max12M'])))
+    
+    df['Breakout'] = ((df['Close']*df['Volume'] >= 3E6) & (df['ValueMA30']> 1E6) &\
+                  (df['Close'] > 1.02*df['Close'].shift(1))  & (df['Close'] > df['Open']) &\
+                 (df['PCT_HL'] < 15) & (df['Volume'] >= 1.3*df['VolMA30']) & \
+                 (df['High15D'] > 1.05*df['Low15D'])  & \
+                 ((df['Close'] > df['SMA30']) & (df['Close']>= df['High15D'])))
+    
+    df['EarlySignal'] = ((df['Close'] >= 1.01* df['Close'].shift(1))  &\
+                         (df['Close'].shift(1) < 1.05* df['Close'].shift(2)) & (df['RSI'] >=50) & \
+                      (df['RSI'] > df['RSI'].shift(1)) & (df['Volume'] >= 0.5*df['VolMA15']))
+  
+    df['SidewayBreakout'] = (((df['Close']-df['Low5D'])/df['Low5D'] <=0.1) & (df['Close'] > df['SMA30'])  &\
+                            (df['Max5D'] < 1.07* df['Min5D']) & (df['Max10D'] < 1.07* df['Min10D']))
+  
+
+    df['Bottom'] = ((df['Close'] > df['Open']) & (df['Close']*df['Volume'] > 1E7) & 
+#                  ((df['RSI'] < 31) | ((df['RSI'].shift(1) < df['RSI']) & df['RSI'].shift(1) < 31)) & 
+                  ((df['RSI'] < 31) | (df['RSI'].shift(1) < 31)) & (df['RSI'].shift(1) < df['RSI']) &
+                  ((df['ROC4'].shift(1) <-10)| (df['ROC'].shift(1) <-10)))
+    
+                 
+    df['Short'] =  ((df['Close'] < df['SMA50']) | (df['Close'] < 0.96*df['Close'].shift(1))  \
+                    | ((df['Close'] < 0.97*df['Close'].shift(1)) & (df['Volume'] > df['VolMA30'])) \
+                    | ((df['Close'] < df['Close'].shift(1)) & (df['Close'].shift(1) < df['Close'].shift(2)))   \
+                    | ((df['Close'] >= 1.01*df['Close'].shift(1)) & (1.02*df['Close'].shift(1) >= df['Close'])) & (df['Volume'] >= 1.5*df['VolMA30']))
+    
+    df['Signal'] = 1* (df['LongShortTrend'] | df['Long']) + -1*df['Short']
+    hm_days = ndays
+
+    back_test = False
+    res = []
+    for i in range(1,hm_days+1):
+        if (df['Long'].iloc[-i] & (typetrade == 'Long')):
+                print(" Crypto trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+                back_test = True
+                output = print_statistic(df, i)
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
+        if (df['LongShortTrend'].iloc[-i] & (typetrade == 'LongShortTrend')):
+                print(" Short trend trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+                back_test = True
+                output = print_statistic(df, i)
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
+
+        if (df['Sideway'].iloc[-i] & (typetrade == 'Sideway')):
+                print(" Sideway trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+                back_test = True
+                output = print_statistic(df, i)
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
+
+        if (df['EarlySignal'].iloc[-i] & (typetrade == 'EarlySignal')):
+                print(" Early breakout signal trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+                back_test = True
+                output = print_statistic(df, i)
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
+
+        if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
+                print(" Mark Minervini trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
+#                print(ticker)  
+                back_test = True
+                output = print_statistic(df, i)
+                if (market != None):
+                   get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
+
+        if (df['Bottom'].iloc[-i] & (typetrade == 'Bottom')):
+                print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                output = print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
+##   
+
+        if (df['SidewayBreakout'].iloc[-i] & (typetrade == 'SidewayBreakout')):
+                print(" Sideway filter ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                output = print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
+   
+        if (df['Short'].iloc[-i] & (typetrade == 'Short')):
+                print(" Short selling canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                output = print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
+        
+        if (df['Breakout'].iloc[-i] & (typetrade == 'Breakout')):
+                print(" Breakout canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
+                output = print_statistic(df, i)
+                back_test = True
+                if (market != None):
+                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
+                res.append(ticker)
+                res.append(output)
+
+    if back_test:
+        run_backtest(df, ticker, trade = typetrade)
+#     
+    return res
+
+
 def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market = None , ndays = 2, typetrade = 'Long'):
     
     df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
