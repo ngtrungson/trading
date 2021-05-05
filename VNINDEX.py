@@ -236,7 +236,7 @@ def analysis_trading(tickers, start, end, update = False, nbdays = 15, source = 
 #    
 #    tickers = canslim_symbol
     # result = pd.DataFrame([['Ticker', 'Advise']])
-    result = pd.DataFrame(columns =['Ticker', 'Advise'])
+    result = pd.DataFrame(columns =['Ticker', 'Advise','PCT'])
     result = result.set_index('Ticker')
     for ticker in tickers:
 #        print(" Analysing ..." , ticker)
@@ -248,7 +248,7 @@ def analysis_trading(tickers, start, end, update = False, nbdays = 15, source = 
              
              if len(res) > 1:
                  # result = result.append([res])
-                 result.loc[res[0]] = res[1]
+                 result.loc[res[0]] = [res[1], 100*res[2]]
 #            hung_canslim(ticker, start, end, realtime = update, source = source, ndays = 3, typetrade = 'Short')
 #            mean_reversion(ticker, start, end, realtime = update, source = source)
 #            bollinger_bands(ticker, start, end, realtime = update, source = source)
@@ -680,7 +680,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-4-22"
+    end_date = "2021-5-5"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -703,9 +703,9 @@ if __name__ == "__main__":
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'EarlySignal')
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
-    idx = 1 # EarlySignal
+    idx = 0 # EarlySignal
     realtime = True
-    datasource = "cp68"
+    datasource = "amibroker"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
     t3 = 13*60 + 0  

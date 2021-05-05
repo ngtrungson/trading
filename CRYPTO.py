@@ -20,14 +20,15 @@ def getliststocks(typestock = "CRYPTO"):
     symbols = sorted(symbols)    
     return symbols
   
-def analysis_trading(tickers, start, end, update = False, nbdays = 15, source = "cp68", trade = 'Long'):
-    result = pd.DataFrame(columns =['Ticker', 'Advise'])
+def analysis_trading(tickers, start, end, update = False, nbdays = 1, source = "cp68", trade = 'Long'):
+    result = pd.DataFrame(columns =['Ticker', 'Advise','PCT'])
     result = result.set_index('Ticker')
     for ticker in tickers:            
         try:
              res = crypto(ticker, start, end, realtime = update, source = source, ndays = nbdays, typetrade = trade)
              if len(res) > 1:
-                 result.loc[res[0]] = res[1]
+                 result.loc[res[0]] = [res[1], 100*res[2]]
+                 # print(res[2], type(res[2]))
         except Exception as e:
             print (e)
             print("Error in reading symbol: ", ticker)
@@ -36,7 +37,7 @@ def analysis_trading(tickers, start, end, update = False, nbdays = 15, source = 
 
     
 if __name__ == "__main__":#
-    end_date =   "2021-5-4"
+    end_date =   "2021-5-6"
     start_date = "2020-5-3"    
     symbols = getliststocks(typestock = "CRYPTO")
     # get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)

@@ -220,7 +220,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
     
     df['Signal'] = 1* (df['LongShortTrend'] | df['Long']) + -1*df['Short']
     hm_days = ndays
-
+    df['PCT'] = df['Close'].pct_change()
     back_test = False
     res = []
     for i in range(1,hm_days+1):
@@ -232,6 +232,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
         if (df['LongShortTrend'].iloc[-i] & (typetrade == 'LongShortTrend')):
                 print(" Short trend trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
@@ -240,6 +241,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 
         if (df['Sideway'].iloc[-i] & (typetrade == 'Sideway')):
                 print(" Sideway trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
@@ -249,6 +251,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 
         if (df['EarlySignal'].iloc[-i] & (typetrade == 'EarlySignal')):
                 print(" Early breakout signal trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
@@ -258,6 +261,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 
         if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
                 print(" Mark Minervini trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
@@ -268,6 +272,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 
         if (df['Bottom'].iloc[-i] & (typetrade == 'Bottom')):
                 print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -277,6 +282,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 ##   
 
         if (df['SidewayBreakout'].iloc[-i] & (typetrade == 'SidewayBreakout')):
@@ -287,6 +293,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
    
         if (df['Short'].iloc[-i] & (typetrade == 'Short')):
                 print(" Short selling canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -296,6 +303,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
         
         if (df['Breakout'].iloc[-i] & (typetrade == 'Breakout')):
                 print(" Breakout canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -305,6 +313,7 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 
     if back_test:
         run_backtest(df, ticker, trade = typetrade)
@@ -430,7 +439,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     
     df['Signal'] = 1* (df['LongShortTrend'] | df['Long']) + -1*df['Short']
     hm_days = ndays
-
+    df['PCT'] = df['Close'].pct_change()
     back_test = False
     res = []
     for i in range(1,hm_days+1):
@@ -442,6 +451,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
         if (df['LongShortTrend'].iloc[-i] & (typetrade == 'LongShortTrend')):
                 print(" Short trend trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
@@ -450,6 +460,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 
         if (df['Sideway'].iloc[-i] & (typetrade == 'Sideway')):
                 print(" Sideway trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
@@ -459,6 +470,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 
         if (df['EarlySignal'].iloc[-i] & (typetrade == 'EarlySignal')):
                 print(" Early breakout signal trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
@@ -468,6 +480,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 
         if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
                 print(" Mark Minervini trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
@@ -487,6 +500,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
 ##   
 
         if (df['SidewayBreakout'].iloc[-i] & (typetrade == 'SidewayBreakout')):
@@ -506,6 +520,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
         
         if (df['Breakout'].iloc[-i] & (typetrade == 'Breakout')):
                 print(" Breakout canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -515,6 +530,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
    
     
 #    back_test = True
