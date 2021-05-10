@@ -785,7 +785,18 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     if source == 'alpha':
         if realtime: 
             ts = TimeSeries(key='9ODDY4H8J5P847TA', output_format='pandas')
-            df, _ = ts.get_daily(symbol=ticker, outputsize='full')
+            
+            cryptos = ['ETH-USD','ZEC-USD', 'BNB-USD','EOS-USD', 'ETC-USD', 'DASH-USD', 'XLM-USD',
+                   'LINK-USD', 'LTC-USD', 'UNI3-USD', 'XRP-USD', 'ADA-USD','NEO-USD','DASH-USD',
+                   'BCH-USD','MIOTA-USD', 'TRX-USD', 'XTZ-USD','DOGE-USD']   
+            
+            if ticker in cryptos:
+                sym = ticker[0:3]
+                df, _ = ts.get_daily(symbol=sym, outputsize='full')
+            else:
+                df, _ = ts.get_daily(symbol=ticker, outputsize='full')
+            
+            
             df = df.reset_index()
             df = df.rename(columns = {'date': 'Date', "1. open": 'Open', '2. high': 'High',
                                       '3. low': 'Low','4. close' : 'Close', '5. volume': 'Volume'})
