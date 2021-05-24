@@ -566,10 +566,15 @@ def get_data(symbols, dates, benchmark = '^VNINDEX', colname = '<CloseFixed>', r
         symbols = [benchmark] + symbols
         
     for symbol in symbols:
-        file_path = symbol_to_path(symbol)
-        df_temp = pd.read_csv(file_path, parse_dates=True, index_col="<DTYYYYMMDD>",
+        file_path = symbol_to_path(symbol, base_dir = source)
+        if source == 'cp68':
+            df_temp = pd.read_csv(file_path, parse_dates=True, index_col="<DTYYYYMMDD>",
             usecols=["<DTYYYYMMDD>", colname], na_values=["nan"])
-        df_temp = df_temp.rename(columns={"<DTYYYYMMDD>": "Date", colname: symbol})        
+            df_temp = df_temp.rename(columns={"<DTYYYYMMDD>": "Date", colname: symbol})  
+        if source == 'yahoo':
+            df_temp = pd.read_csv(file_path, index_col='Date',
+                parse_dates=True, usecols=['Date', colname], na_values=['nan'])
+            df_temp = df_temp.rename(columns={colname: symbol})
           
         df_final = df_final.join(df_temp)
         if symbol == benchmark:  # drop dates SPY did not trade
