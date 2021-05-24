@@ -37,7 +37,7 @@ def analysis_trading(tickers, start, end, update = False, nbdays = 1, source = "
 
     
 if __name__ == "__main__":#
-    end_date =   "2021-5-6"
+    end_date =   "2021-5-25"
     start_date = "2020-5-3"    
     symbols = getliststocks(typestock = "CRYPTO")
     # get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
