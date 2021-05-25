@@ -15,8 +15,9 @@ def getliststocks(typestock = "CRYPTO"):
     if typestock == "CRYPTO":
         symbols = ['ETH-USD','ZEC-USD', 'BNB-USD','EOS-USD', 'ETC-USD', 'DASH-USD', 'XLM-USD',
                    'LINK-USD', 'LTC-USD', 'UNI3-USD', 'XRP-USD', 'ADA-USD','NEO-USD','DASH-USD',
-                   'BCH-USD','MIOTA-USD', 'TRX-USD', 'XTZ-USD','DOGE-USD','MATIC-USD','SOL1-USD','ATOM1-USD','COMP-USD',
-                   'DOT1-USD']    
+                   'BCH-USD','MIOTA-USD', 'TRX-USD', 'XTZ-USD','DOGE-USD','MATIC-USD','SOL1-USD',
+                   'ATOM1-USD','COMP-USD',
+                   'DOT1-USD','BTC-USD']    
     symbols = pd.unique(symbols).tolist()
     symbols = sorted(symbols)    
     return symbols
@@ -89,7 +90,7 @@ def passive_strategy(start_date, end_date, market = None, symbols = None, realti
 
     
 if __name__ == "__main__":#
-    end_date =   "2021-5-24"
+    end_date =   "2021-5-26"
     start_date = "2020-5-3"    
     symbols = getliststocks(typestock = "CRYPTO")
     # get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
@@ -106,6 +107,8 @@ if __name__ == "__main__":#
     realtime = not True
     if not realtime:
         get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
+        df_result, df_data = passive_strategy(start_date, end_date, market = None, symbols = symbols, realtime = False, source = "yahoo")
+       
     datasource = "yahoo"
     
     
