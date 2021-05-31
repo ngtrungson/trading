@@ -16,8 +16,8 @@ def getliststocks(typestock = "CRYPTO"):
         symbols = ['ETH-USD','ZEC-USD', 'BNB-USD','EOS-USD', 'ETC-USD', 'DASH-USD', 'XLM-USD',
                    'LINK-USD', 'LTC-USD', 'UNI3-USD', 'XRP-USD', 'ADA-USD','NEO-USD','DASH-USD',
                    'BCH-USD','MIOTA-USD', 'TRX-USD', 'XTZ-USD','DOGE-USD','MATIC-USD','SOL1-USD',
-                   'ATOM1-USD','COMP-USD',
-                   'DOT1-USD','BTC-USD']    
+                   'ATOM1-USD','COMP-USD','VET-USD','THETA-USD','FIL-USD','AAVE-USD',
+                   'XMR-USD','AVAX-USD', 'DOT1-USD','BTC-USD']    
     symbols = pd.unique(symbols).tolist()
     symbols = sorted(symbols)    
     return symbols
@@ -59,7 +59,7 @@ def passive_strategy(start_date, end_date, market = None, symbols = None, realti
     df_result['Ticker'] = symbols
     df_result['Close'] = df_data[symbols].iloc[-1,:].values
     df_result['PCT_C'] = 100*(df_data[symbols].iloc[-1,:].values - df_data[symbols].iloc[0,:].values)/df_data[symbols].iloc[0,:].values
-    df_result['Volume'] = df_volume[symbols].iloc[-1,:].values
+    df_result['Volume'] = df_volume[symbols].iloc[-1,:].values + df_volume[symbols].iloc[-2,:].values
 
     df_result['Value'] = df_result['Close'] * df_result['Volume']   
 
@@ -90,7 +90,7 @@ def passive_strategy(start_date, end_date, market = None, symbols = None, realti
 
     
 if __name__ == "__main__":#
-    end_date =   "2021-5-26"
+    end_date =   "2021-5-28"
     start_date = "2020-5-3"    
     symbols = getliststocks(typestock = "CRYPTO")
     # get_data_from_web(tickers = symbols, start = start_date, end = end_date, source ='yahoo', redownload = True)
