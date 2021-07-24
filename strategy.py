@@ -460,6 +460,8 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(ticker)
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])
+                
         if (df['LongShortTrend'].iloc[-i] & (typetrade == 'LongShortTrend')):
                 print(" Short trend trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
@@ -469,6 +471,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(ticker)
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])
 
         if (df['Sideway'].iloc[-i] & (typetrade == 'Sideway')):
                 print(" Sideway trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
@@ -479,6 +482,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(ticker)
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])
 
         if (df['EarlySignal'].iloc[-i] & (typetrade == 'EarlySignal')):
                 print(" Early breakout signal trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
@@ -489,6 +493,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(ticker)
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])
 
         if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
                 print(" Mark Minervini trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
@@ -499,6 +504,8 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                    get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])
 
         if (df['Bottom'].iloc[-i] & (typetrade == 'Bottom')):
                 print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -509,6 +516,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(ticker)
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])
 ##   
 
         if (df['SidewayBreakout'].iloc[-i] & (typetrade == 'SidewayBreakout')):
@@ -519,6 +527,8 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     get_statistic_index(i, start, end, update = False, source = "cp68", exchange = market)
                 res.append(ticker)
                 res.append(output)
+                res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])
    
         if (df['Short'].iloc[-i] & (typetrade == 'Short')):
                 print(" Short selling canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -529,6 +539,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(ticker)
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])
         
         if (df['Breakout'].iloc[-i] & (typetrade == 'Breakout')):
                 print(" Breakout canslim ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
@@ -539,6 +550,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(ticker)
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])
    
     
 #    back_test = True

@@ -226,7 +226,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_2501.csv')
+    data.to_csv('fundemental_stocks_all_2007.csv')
     
     
     return tickers
@@ -898,15 +898,15 @@ if __name__ == "__main__":
 #     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
 #                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
      
-     symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA']
+     symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA','API','NTP']
     
-     symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG',
+     symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG', "AGG", "HTN", "TIP",
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                  "HT1",   "LPB",
+                  "HT1",   "LPB", "HSG", "DVP", "TPB","C32","TCL", "TV2",
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
-                "IJC",  "KBC",  "KDH",
+                "IJC",  "KBC",  "KDH", "VND",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE",   "CVT",
@@ -916,7 +916,7 @@ if __name__ == "__main__":
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'VPB','VRE',  "HDB",  "ACB",
                 'NTL', 'AST', 'VHM',  'TCB', 
-                'DHC', 'TDM', 'DCM', 'LCG',
+                'DHC', 'TDM', 'DCM', 'LCG', "VIX",
                    'SZL',  'TNA','GVR', 'GIL', 'BFC', 'SZC', 'DMC',
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
     
@@ -934,9 +934,9 @@ if __name__ == "__main__":
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
-     tickers = save_and_analyse_vnindex_tickers()
+     # tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_2501.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_2007.csv', parse_dates=True, index_col=0)
       # data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
       # data['EPS_Price'] = data['EPS']/data['Close']/1000
      data['Value'] = data['Close']* data['MeanVol_10D']
