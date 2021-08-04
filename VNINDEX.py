@@ -120,27 +120,29 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA','API','NTP']
+    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','NTP' ,'VND']
     
     symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG', "AGG", "HTN", "TIP",
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
-                "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
+                "FCN",  'FMC', "FPT", "GAS", "GMD",  
                   "HT1",   "LPB", "HSG", "DVP", "TPB","C32","TCL", "TV2",
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
-                "IJC",  "KBC",  "KDH", "VND",
+                "IJC",  "KBC",  "KDH",
                "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE",   "CVT",
                 "SJS","STB", "SSI", "SBT", "SAB", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                   'GEX', "VIB",
+                   'GEX', "VIB", 'HAH', 'SMC','HAH','ITD','OCB','FTS','PTB',
                 'TCM',  'AAA',  'HVN', 'VGC',
                 'VPB','VRE',  "HDB",  "ACB",
                 'NTL', 'AST', 'VHM',  'TCB', 
                 'DHC', 'TDM', 'DCM', 'LCG', "VIX",
-                   'SZL',  'TNA','GVR', 'GIL', 'BFC', 'SZC', 'DMC',
-                'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
+                   'SZL', 'GVR', 'GIL', 'BFC', 'SZC', 
+                'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','CRE','PET','DGC']
+    
+    # 'SMC','HAH','ITD','OCB','FTS','PTB'
     
     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
                      'VEA', 'NTC'] 
@@ -680,7 +682,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-8-2"
+    end_date = "2021-8-4"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -704,7 +706,7 @@ if __name__ == "__main__":
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
-    realtime = True
+    realtime = not True
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
@@ -767,4 +769,10 @@ if __name__ == "__main__":
 #    
 
     # sys.stdout = old_stdout
+    
+    # tickers = getliststocks(typestock = "TICKER")
+    # textfile = open("WL.txt", "w")
+    # for ticker in tickers:
+    #     textfile.write(ticker + "\n")
+    # textfile.close()
     
