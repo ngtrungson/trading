@@ -122,20 +122,20 @@ def getliststocks(typestock = "^VNINDEX"):
     
     symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','NTP' ,'VND']
     
-    symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG', "AGG", "HTN", "TIP",
+    symbolsVNI = [ 'ANV',  "BWE",  'CMG', "AGG", "HTN", "TIP",
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
                 "FCN",  'FMC', "FPT", "GAS", "GMD",  
-                  "HT1",   "LPB", "HSG", "DVP", "TPB","C32","TCL", "TV2",
+                  "HT1",   "LPB", "HSG", "DVP", "TPB","TCL", "TV2",
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
                 "IJC",  "KBC",  "KDH",
-               "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
+               "MBB", "MSN", "MWG",  "NLG",  "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
-                "PPC",  "REE",   "CVT",
-                "SJS","STB", "SSI", "SBT", "SAB", 
+                "PPC",  "REE",
+                "SJS","STB", "SSI", "SBT", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                    'GEX', "VIB", 'HAH', 'SMC','HAH','ITD','OCB','FTS','PTB',
-                'TCM',  'AAA',  'HVN', 'VGC',
+                'TCM',  'AAA',  'VGC',
                 'VPB','VRE',  "HDB",  "ACB",
                 'NTL', 'AST', 'VHM',  'TCB', 
                 'DHC', 'TDM', 'DCM', 'LCG', "VIX",
@@ -144,8 +144,7 @@ def getliststocks(typestock = "^VNINDEX"):
     
     # 'SMC','HAH','ITD','OCB','FTS','PTB'
     
-    symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
-                     'VEA', 'NTC'] 
+    symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP','VEA'] 
    
 #    symbolsHNX = ['TNG', 'NVB',  'L14',  
 #                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
@@ -481,9 +480,9 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None, 
     # df_result['CPM'] = cpm[symbols]
     # df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)    
     df_result ['Volatility'] = df_data[symbols].pct_change().std() 
-    # alpha_beta = analysis_alpha_beta(df_data, symbols, market)
-    # df_result['Alpha'] = alpha_beta['Alpha']
-    # df_result['Beta'] = alpha_beta['Beta']
+    alpha_beta = analysis_alpha_beta(df_data, symbols, market)
+    df_result['Alpha'] = alpha_beta['Alpha']
+    df_result['Beta'] = alpha_beta['Beta']
     df_result ['PCT_3D'] = df_data[symbols].pct_change().iloc[-4,:].values*100
     df_result ['PCT_2D'] = df_data[symbols].pct_change().iloc[-3,:].values*100
     df_result ['PCT_1D'] = df_data[symbols].pct_change().iloc[-2,:].values*100
@@ -509,6 +508,9 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None, 
     df_result ['RSW1M'] = relative_strength1M.iloc[-1,:].values
     df_result ['RSW2M'] = relative_strength2M.iloc[-1,:].values
     df_result['RSI'] = df_rsi[symbols].iloc[-1,:].values
+    rsi_change = df_rsi[symbols].pct_change()
+    df_result['RSI_1D'] = rsi_change.iloc[-1,:].values*100
+    df_result['RSI_2D'] = rsi_change.iloc[-2,:].values*100
     
     marketVNI = df_data[symbols].pct_change() 
     advances = marketVNI[marketVNI > 0] 
@@ -712,7 +714,8 @@ if __name__ == "__main__":
     t2 = 11*60 + 30   
     t3 = 13*60 + 0  
     t4 = 14*60 + 45
-    while True:  
+    trading = False
+    while trading:  
         # clear_output(wait=True)
         trade_time = datetime.now()
         t = trade_time.hour*60 + trade_time.minute
@@ -762,7 +765,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
