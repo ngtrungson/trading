@@ -411,7 +411,7 @@ def analysis_VN30(start_date, end_date):
 
 
 
-def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None, realtime = True, source = 'cp68'):
+def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None, realtime = False, source = 'cp68'):
 
     if symbols == None:
         symbols = getliststocks(typestock = market)
@@ -558,8 +558,8 @@ def active_strategy(start_date, end_date, update = False, source = "cp68", marke
 def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
    
-    start0 = "2015-1-2"
-    end0 = "2017-1-2"
+    start0 = "2018-1-2"
+    end0 = "2019-1-2"
     allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start0, ed = end0,
             syms = symbols,  benchmark = bench, gen_plot = True)
     print ("Optimize start Date:", start0)
@@ -568,8 +568,8 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     print ("Optimize average Daily Return:", adr)
     print ("Optimize cumulative Return:", cr)
     print(" -----------------------------------------------------")
-    start_date_list = ["2017-1-3", "2017-7-3"]
-    end_date_list = ["2017-7-2",  "2018-4-1"]
+    start_date_list = ["2019-1-3", "2019-7-3"]
+    end_date_list = ["2019-7-2",  "2020-4-1"]
     for start, end in zip(start_date_list, end_date_list):    
         
         cr, adr, sddr, sr  = compute_portfolio(sd = start, ed = end,
@@ -593,8 +593,8 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     
     # Out of sample testing optimisation algorithm
     
-    end_date = "2018-9-27"
-    start_date = "2018-4-2"
+    end_date = "2021-8-6"
+    start_date = "2020-4-2"
     
     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
             syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
@@ -605,7 +605,7 @@ def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
     print ("Average Daily Return:", adr)
     print ("Cumulative Return:", cr)  
     # Assess the portfolio
-    investment = 60E6
+    investment = 600E6
     df_result = pd.DataFrame(index = symbols)    
     df_result['Opt allocs'] = allocations
     df_result['Cash'] = allocations * investment
@@ -658,7 +658,7 @@ if __name__ == "__main__":
     # Duoc: DMC, DHG, IMP, DGC, CSV
     # VLXD: KSB, VCS
     
-    # symbols = getliststocks(typestock = "ALL")
+    # symbols = getliststocks(typestock = "^VNINDEX")
     
 #   
 #    
@@ -670,9 +670,9 @@ if __name__ == "__main__":
 
 #    analysis_trading(symbols, start = "2017-3-1" , end = "2018-4-11", update = False, source = "cp68")
 
-
+    # rebalancing_porfolio(symbols, bench = '^VNINDEX')
     
-#    VNI_result, VNI_data  = passive_strategy(start_date = "2017-3-26" , end_date = "2018-4-24", market= "^VNINDEX")
+    # VNI_result, VNI_data, _  = passive_strategy(start_date = "2019-4-6" , end_date = "2021-8-6", market= "^VNINDEX")
     
 
 ###    plot_canslim_trading(ticker, canslim)
@@ -684,7 +684,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-8-6"
+    end_date = "2021-8-9"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -708,13 +708,13 @@ if __name__ == "__main__":
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
-    realtime = not True
+    realtime = True
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
     t3 = 13*60 + 0  
     t4 = 14*60 + 45
-    trading = False
+    trading = True
     while trading:  
         # clear_output(wait=True)
         trade_time = datetime.now()
@@ -765,7 +765,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)
