@@ -684,7 +684,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-8-19"
+    end_date = "2021-8-20"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -714,7 +714,7 @@ if __name__ == "__main__":
     t2 = 11*60 + 30   
     t3 = 13*60 + 0  
     t4 = 14*60 + 45
-    trading = True
+    trading = not True
     while trading:  
         # clear_output(wait=True)
         trade_time = datetime.now()
