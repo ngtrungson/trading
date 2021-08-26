@@ -131,7 +131,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 "IJC",  "KBC",  "KDH",
                "MBB", "MSN", "MWG",  "NLG",  "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
-                "PPC",  "REE",
+                "PPC",  "REE", "NKG", 
                 "SJS","STB", "SSI", "SBT", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                    'GEX', "VIB", 'HAH', 'SMC','HAH','ITD','OCB','FTS','PTB',
@@ -684,7 +684,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-8-24"
+    end_date = "2021-8-25"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -707,14 +707,14 @@ if __name__ == "__main__":
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'EarlySignal')
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
-    idx = 1 # EarlySignal
-    realtime = not True
+    idx = 0 # EarlySignal
+    realtime = True
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
     t3 = 13*60 + 0  
     t4 = 14*60 + 45
-    trading = not True
+    trading = True
     while trading:  
         # clear_output(wait=True)
         trade_time = datetime.now()
@@ -765,7 +765,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)

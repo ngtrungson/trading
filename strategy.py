@@ -796,10 +796,10 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     if source == 'cp68':
         file_path = symbol_to_path(ticker, base_dir = source)
         df = pd.read_csv(file_path, index_col ="<DTYYYYMMDD>", parse_dates = True, 
-                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>", "<VolumeDeal>","<VolumeFB>", "<VolumeFS>"], na_values = "nan")
+                     usecols = ["<DTYYYYMMDD>", "<OpenFixed>","<HighFixed>","<LowFixed>","<CloseFixed>","<Volume>"], na_values = "nan")
         df = df.reset_index()
         df = df.rename(columns = {'<DTYYYYMMDD>': 'Date', "<OpenFixed>": 'Open', '<HighFixed>': 'High',
-                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume', '<VolumeDeal>':'Deal', '<VolumeFB>': 'FB', '<VolumeFS>': 'FS'})
+                                  '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
         df = df.set_index('Date')
     
     if source == 'alpha':
@@ -851,7 +851,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
             df = df.set_index('Date')
         
     # columns order for backtrader type
-    columnsOrder=["Open","High","Low","Close", "Volume", "OpenInterest", "FB", "FS"]
+    columnsOrder=["Open","High","Low","Close", "Volume"]
     # change the index by new index
     df = df.reindex(columns = columnsOrder)  
     # change date index to increasing order
@@ -871,10 +871,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
                         'High' : actual_price['High'].iloc[-1], 
                         'Low' : actual_price['Low'].iloc[-1],
                         'Close' : actual_price['Close'].iloc[-1],
-                        'Volume' : actual_price['Volume'].iloc[-1],
-                        'OpenInterest': np.nan,
-                        'FB': np.nan,
-                        'FS': np.nan})
+                        'Volume' : actual_price['Volume'].iloc[-1]})
         df = df.reset_index()
         df = df.rename(columns = {'index': 'Date'}) 
         df = df.set_index('Date')
