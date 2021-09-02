@@ -661,8 +661,8 @@ if __name__ == "__main__":
     # symbols = getliststocks(typestock = "^VNINDEX")
     
 #   
-#    
-    # symbols = get_csv_data(source = "ssi")
+    symbols = None
+    # symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -684,7 +684,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-8-25"
+    end_date = "2021-9-1"
     start_date = "2019-4-6"
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
@@ -708,13 +708,13 @@ if __name__ == "__main__":
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
-    realtime = True
+    realtime = not True
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
     t3 = 13*60 + 0  
     t4 = 14*60 + 45
-    trading = True
+    trading = True if symbols == None else False
     while trading:  
         # clear_output(wait=True)
         trade_time = datetime.now()
@@ -731,6 +731,9 @@ if __name__ == "__main__":
             print("WAIT FOR {} MINUTES FROM NOW {} OR COME BACK LATER...".format(waittime,trade_time))
             time.sleep(waittime*60 - ((time.time() - t0) % (waittime*60)))
         elif t2 < t and t < t3 and realtime:
+            print('TRADING SYSTEM SIGNAL DURING BREAK...............',time.asctime(time.localtime(time.time())))
+            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source =datasource, trade = trade_type[idx])
+            print(res.to_string())   
             waittime = t3 - t
             print("WAIT FOR {} MINUTES ............................".format(waittime))
             time.sleep(waittime*60 - ((time.time() - t0) % (waittime*60)))
