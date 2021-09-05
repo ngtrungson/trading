@@ -120,7 +120,7 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','NTP' ,'VND']
+    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','NTP','IDC' ]
     
     symbolsVNI = [ 'ANV',  "BWE",  'CMG', "AGG", "HTN", "TIP",
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
@@ -131,12 +131,12 @@ def getliststocks(typestock = "^VNINDEX"):
                 "IJC",  "KBC",  "KDH",
                "MBB", "MSN", "MWG",  "NLG",  "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
-                "PPC",  "REE", "NKG", 
+                "PPC",  "REE", "NKG", 'ILB',
                 "SJS","STB", "SSI", "SBT", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                    'GEX', "VIB", 'HAH', 'SMC','HAH','ITD','OCB','FTS','PTB',
                 'TCM',  'AAA',  'VGC',
-                'VPB','VRE',  "HDB",  "ACB",
+                'VPB','VRE',  "HDB",  "ACB", 'BCG' ,'VND',
                 'NTL', 'AST', 'VHM',  'TCB', 
                 'DHC', 'TDM', 'DCM', 'LCG', "VIX",
                    'SZL', 'GVR', 'GIL', 'BFC', 'SZC', 
@@ -425,8 +425,8 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None, 
     fill_missing_values(df_data)
     
     df_volume = get_data(symbols, dates, benchmark = market, colname = '<Volume>', realtime = realtime, source = source)  # get data for each symbol
-    df_high = get_data(symbols, dates, benchmark = market, colname = '<High>', realtime = realtime, source = source)
-    df_low = get_data(symbols, dates, benchmark = market, colname = '<Low>', realtime = realtime, source = source)
+    df_high = get_data(symbols, dates, benchmark = market, colname = '<HighFixed>', realtime = realtime, source = source)
+    df_low = get_data(symbols, dates, benchmark = market, colname = '<LowFixed>', realtime = realtime, source = source)
     df_rsi = get_RSI(symbols, df_data)
 #    covariance = numpy.cov(asset , SPY)[0][1]  
 #    variance = numpy.var(asset)
@@ -662,6 +662,7 @@ if __name__ == "__main__":
     
 #   
     symbols = None
+     
     # symbols = get_csv_data(source = "cp68")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
@@ -686,6 +687,8 @@ if __name__ == "__main__":
     ticker = ['CTR','VGI','BWE','TDM']
     end_date = "2021-9-1"
     start_date = "2019-4-6"
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
+    
     ticker = 'DGC'
     # canslim = hung_canslim(ticker, start_date, end_date, realtime = False,  source ="cp68", ndays = 1, typetrade = 'EarlyBreakout') 
     watchlist =['VCB','PVD','KDC','HDG','NT2','FRT','HPG','QNS']
@@ -715,6 +718,7 @@ if __name__ == "__main__":
     t3 = 13*60 + 0  
     t4 = 14*60 + 45
     trading = True if symbols == None else False
+    # trading = False
     while trading:  
         # clear_output(wait=True)
         trade_time = datetime.now()
