@@ -663,7 +663,7 @@ if __name__ == "__main__":
 #   
     symbols = None
      
-    # symbols = get_csv_data(source = "cp68")
+    # symbols = get_csv_data(source = "ssi")
 #    symbols = get_csv_data()
 #    symbols = get_stocks_highcpm(download = False, source ="cp68")
     
@@ -685,7 +685,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-9-6"
+    end_date = "2021-9-7"
     start_date = "2019-4-6"
     # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
