@@ -440,10 +440,15 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
 #    df['Short'] = ((df['Close']< df['Low'].shift(1)) & (df['Close']< df['Low'].shift(2)) & (df['Close']< df['Low'].shift(3)) & (df['Close']< df['Low'].shift(4)))  | \
 #                 (df['Max10D'] > 1.15* df['Close'])
                  
-    df['Short'] =  ((df['Close'] < df['SMA50']) | (df['Close'] < 0.96*df['Close'].shift(1))  \
-                    | ((df['Close'] < 0.97*df['Close'].shift(1)) & (df['Volume'] > df['VolMA30'])) \
+    df['Short'] =  ((df['Close'] < df['SMA30']) | (df['Close'] < 0.96*df['Close'].shift(1))  \
+                    | ((df['Close'] < 0.98*df['Close'].shift(1)) & (df['Volume'] > df['VolMA30'])) \
                     | ((df['Close'] < df['Close'].shift(1)) & (df['Close'].shift(1) < df['Close'].shift(2)))   \
                     | ((df['Close'] >= 1.01*df['Close'].shift(1)) & (1.02*df['Close'].shift(1) >= df['Close'])) & (df['Volume'] >= 1.5*df['VolMA30']))
+    
+    df['SmallSell'] =  (df['Close'] < 0.98*df['Close'].shift(1)) & (df['Close'] >= 0.965*df['Close'].shift(1)) & (df['Volume'] >= 1.2*df['VolMA30'])
+        
+    df['BigSell'] =    ((df['Close'] < 0.965*df['Close'].shift(1)) & ((df['Close'] > 0.9*df['Close'].shift(1)))  & (df['Volume'] >= df['VolMA30']))  
+                     
     
     df['Signal'] = 1* (df['LongShortTrend'] | df['Long']) + -1*df['Short']
     hm_days = ndays
@@ -461,7 +466,10 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
                 res.append(df['Close'].iloc[-i])
-                
+        
+            
+        
+        
         if (df['LongShortTrend'].iloc[-i] & (typetrade == 'LongShortTrend')):
                 print(" Short trend trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
@@ -494,6 +502,22 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
                 res.append(df['Close'].iloc[-i])
+                
+        if (df['SmallSell'].iloc[-i]):
+                print(" Small sell trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)                
+                output = 'SMALL SELL'
+                res.append(ticker)
+                res.append(output)
+                res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])  
+                
+        if (df['BigSell'].iloc[-i]):
+                print(" Big sell trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)                
+                output = 'BIG SELL'
+                res.append(ticker)
+                res.append(output)
+                res.append(df['PCT'].iloc[-i])
+                res.append(df['Close'].iloc[-i])           
 
         if (df['MarkM'].iloc[-i] & (typetrade == 'MarkM')):
                 print(" Mark Minervini trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
