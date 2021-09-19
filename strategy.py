@@ -446,6 +446,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                     | ((df['Close'] >= 1.01*df['Close'].shift(1)) & (1.02*df['Close'].shift(1) >= df['Close'])) & (df['Volume'] >= 1.5*df['VolMA30']))
     
     df['SmallSell'] =  (df['Close'] < 0.98*df['Close'].shift(1)) & (df['Close'] >= 0.965*df['Close'].shift(1)) & (df['Volume'] >= 1.2*df['VolMA30'])
+                      
         
     df['BigSell'] =    ((df['Close'] < 0.965*df['Close'].shift(1)) & ((df['Close'] > 0.9*df['Close'].shift(1)))  & (df['Volume'] >= df['VolMA30']))  
                      
