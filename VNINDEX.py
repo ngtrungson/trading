@@ -685,7 +685,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-9-22"
+    end_date = "2021-9-23"
     start_date = "2019-4-6"
     # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
@@ -710,7 +710,7 @@ if __name__ == "__main__":
     # analysis_trading(tickers = None, start = start_date , end = end_date, update = True, nbdays = 1, source ="cp68", trade = 'EarlySignal')
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
-    idx = 2 # EarlySignal
+    idx = 0 # EarlySignal
     realtime = True
     datasource = "cp68"
     t1 = 9*60 + 20   
