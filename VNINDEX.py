@@ -120,7 +120,7 @@ def getliststocks(typestock = "^VNINDEX"):
                    'VIC', 'VJC', 'VNM', 'VPB','VRE']
     
     
-    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','NTP','IDC' ]
+    symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHS', 'PLC','NTP','IDC' ]
     
     symbolsVNI = [ 'ANV',  "BWE",  'CMG', "AGG", "HTN", "TIP",
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
@@ -139,7 +139,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 'VPB','VRE',  "HDB",  "ACB", 'BCG' ,'VND',
                 'NTL', 'AST', 'VHM',  'TCB', 
                 'DHC', 'TDM', 'DCM', 'LCG', "VIX",
-                   'SZL', 'GVR', 'GIL', 'BFC', 'SZC', 
+                   'SZL', 'GVR', 'GIL', 'BFC', 'SZC', 'SHB',
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','CRE','PET','DGC']
     
     # 'SMC','HAH','ITD','OCB','FTS','PTB'
@@ -685,7 +685,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2021-10-8"
+    end_date = "2021-10-11"
     start_date = "2019-4-6"
     # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
@@ -711,7 +711,7 @@ if __name__ == "__main__":
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
-    realtime = not True
+    realtime = True
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
