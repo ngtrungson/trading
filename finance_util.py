@@ -226,7 +226,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_2007.csv')
+    data.to_csv('fundemental_stocks_all_1711.csv')
     
     
     return tickers
@@ -898,30 +898,31 @@ if __name__ == "__main__":
 #     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
 #                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
      
-     symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHB','SHS', 'PLC','SRA','API','NTP']
+     symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHS', 'PLC','NTP','IDC' ]
     
-     symbolsVNI = [ 'CII', 'ANV',  "BWE",     'CMG', "AGG", "HTN", "TIP",
+     symbolsVNI = [ 'ANV',  "BWE",  'CMG', "AGG", "HTN", "TIP",
                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
-                "FCN",  'FMC', "FPT", "GAS", "GMD", "GTN", 
-                  "HT1",   "LPB", "HSG", "DVP", "TPB","C32","TCL", "TV2",
+                "FCN",  'FMC', "FPT", "GAS", "GMD",  
+                  "HT1",   "LPB", "HSG", "DVP", "TPB","TCL", "TV2",
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
-                "IJC",  "KBC",  "KDH", "VND",
-               "MBB", "MSN", "MWG",  "NLG", "NT2", "NVL",
+                "IJC",  "KBC",  "KDH",
+               "MBB", "MSN", "MWG",  "NLG",  "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
-                "PPC",  "REE",   "CVT",
-                "SJS","STB", "SSI", "SBT", "SAB", 
+                "PPC",  "REE", "NKG", 'ILB',
+                "SJS","STB", "SSI", "SBT", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                   'GEX', "VIB",
-                'TCM',  'AAA',  'HVN', 'VGC',
-                'VPB','VRE',  "HDB",  "ACB",
+                   'GEX', "VIB", 'HAH', 'SMC','HAH','ITD','OCB','FTS','PTB',
+                'TCM',  'AAA',  'VGC',
+                'VPB','VRE',  "HDB",  "ACB", 'BCG' ,'VND',
                 'NTL', 'AST', 'VHM',  'TCB', 
                 'DHC', 'TDM', 'DCM', 'LCG', "VIX",
-                   'SZL',  'TNA','GVR', 'GIL', 'BFC', 'SZC', 'DMC',
-                'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','HBC','CRE','PET','DGC']
+                   'SZL', 'GVR', 'GIL', 'BFC', 'SZC', 'SHB',
+                'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','CRE','PET','DGC']
     
-     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP',
-                     'VEA', 'NTC'] 
+    # 'SMC','HAH','ITD','OCB','FTS','PTB'
+    
+     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP','VEA'] 
     
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
@@ -934,9 +935,9 @@ if __name__ == "__main__":
 #    
 #    data.to_csv('fundemental_stocksVN.csv')
     
-     # tickers = save_and_analyse_vnindex_tickers()
+     tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_2007.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_1711.csv', parse_dates=True, index_col=0)
       # data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
       # data['EPS_Price'] = data['EPS']/data['Close']/1000
      data['Value'] = data['Close']* data['MeanVol_10D']
