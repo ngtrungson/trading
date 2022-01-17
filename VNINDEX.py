@@ -128,7 +128,7 @@ def getliststocks(typestock = "^VNINDEX"):
                 "FCN",  'FMC', "FPT", "GAS", "GMD",  
                   "HT1",   "LPB", "HSG", "DVP", "TPB","TCL", "TV2",
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
-                "IJC",  "KBC",  "KDH", 'CII', '',
+                "IJC",  "KBC",  "KDH", 'CII', 
                "MBB", "MSN", "MWG",  "NLG",  "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
                 "PPC",  "REE", "NKG", 'ILB',
@@ -686,7 +686,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2022-1-12"
+    end_date = "2022-1-17"
     start_date = "2019-4-6"
     # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
@@ -712,7 +712,7 @@ if __name__ == "__main__":
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
-    realtime = not True
+    realtime = True
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
