@@ -128,10 +128,10 @@ def getliststocks(typestock = "^VNINDEX"):
                 "FCN",  'FMC', "FPT", "GAS", "GMD",  
                   "HT1",   "LPB", "HSG", "DVP", "TPB","TCL", "TV2",
                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
-                "IJC",  "KBC",  "KDH", 'CII', '',
+                "IJC",  "KBC",  "KDH", 'CII', 
                "MBB", "MSN", "MWG",  "NLG",  "NVL",
                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
-                "PPC",  "REE", "NKG", 'ILB',
+                "PPC",  "REE", "NKG", 'ILB', 'DHA',
                 "SJS","STB", "SSI", "SBT", 
                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
                    'GEX', "VIB", 'HAH', 'SMC','HAH','ITD','OCB','FTS','PTB',
@@ -139,12 +139,12 @@ def getliststocks(typestock = "^VNINDEX"):
                 'VPB','VRE',  "HDB",  "ACB", 'BCG' ,'VND', 'SKG',
                 'NTL', 'AST', 'VHM',  'TCB', 'ITA',
                 'DHC', 'TDM', 'DCM', 'LCG', "VIX",
-                   'SZL', 'GVR', 'GIL', 'BFC', 'SZC', 'SHB',
+                   'SZL', 'GVR', 'GIL', 'BFC', 'SZC', 'SHB', 'HHV',
                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','CRE','PET','DGC']
     
     # 'SMC','HAH','ITD','OCB','FTS','PTB'
     
-    symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP','VEA','VGT','SNZ','C4G','G36','PXL','HHV'] 
+    symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP','VEA','VGT','SNZ','C4G','G36','PXL'] 
    
 #    symbolsHNX = ['TNG', 'NVB',  'L14',  
 #                  'ACB',  'CEO', 'DBC',  'MBS', 'NDN', 'PVI', 'PVB',
@@ -686,7 +686,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2022-1-12"
+    end_date = "2022-1-28"
     start_date = "2019-4-6"
     # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
