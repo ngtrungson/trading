@@ -686,7 +686,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2022-3-15"
+    end_date = "2022-5-27"
     start_date = "2019-4-6"
     # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
@@ -712,7 +712,7 @@ if __name__ == "__main__":
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
-    realtime = not True
+    realtime = True
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
@@ -720,6 +720,7 @@ if __name__ == "__main__":
     t4 = 14*60 + 45
     trading = True if symbols == None else False
     # trading = False
+    nlastdays = 1
     while trading:  
         # clear_output(wait=True)
         trade_time = datetime.now()
@@ -727,17 +728,19 @@ if __name__ == "__main__":
         if (t >= t1 and t <= t2) or (t >= t3 and t <= t4) and realtime:
             os.system('cls')
             print('TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
-            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source =datasource, trade = trade_type[idx])
+            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = nlastdays, source =datasource, trade = trade_type[idx])
             print("WAIT FOR 4 MINUTES ............................",time.asctime(time.localtime(time.time())))
             print(res.to_string())
             time.sleep(240.0 - ((time.time() - t0) % 240.0))
         elif t < t1 and realtime:
             waittime = t1 - t
             print("WAIT FOR {} MINUTES FROM NOW {} OR COME BACK LATER...".format(waittime,trade_time))
+            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = False, nbdays = nlastdays, source =datasource, trade = trade_type[idx])
+            print(res.to_string())
             time.sleep(waittime*60 - ((time.time() - t0) % (waittime*60)))
         elif t2 < t and t < t3 and realtime:
             print('TRADING SYSTEM SIGNAL DURING BREAK...............',time.asctime(time.localtime(time.time())))
-            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source =datasource, trade = trade_type[idx])
+            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = nlastdays, source =datasource, trade = trade_type[idx])
             print(res.to_string())   
             waittime = t3 - t
             print("WAIT FOR {} MINUTES ............................".format(waittime))
@@ -745,14 +748,14 @@ if __name__ == "__main__":
         elif t > t4 and realtime:
              print('STOCK MARKET CLOSED. SEE YOU NEXT DAY OR USING OFFLINE MODE!')
              print('LAST-MINUTE TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
-             res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source =datasource, trade = trade_type[idx])
+             res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = nlastdays, source =datasource, trade = trade_type[idx])
              print(res.to_string())     
              break
         else:            
             os.system('cls')
             print('OFF-LINE TRADING SIGNAL ............!')
             print('TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
-            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = 1, source =datasource, trade = trade_type[idx])
+            res = analysis_trading(tickers = None, start = start_date , end = end_date, update = realtime, nbdays = nlastdays, source =datasource, trade = trade_type[idx])
             print(res.to_string())            
             break
         
@@ -773,7 +776,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = realtime, source = datasource)
+    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = realtime, source = datasource)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)

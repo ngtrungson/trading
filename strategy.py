@@ -468,9 +468,6 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(df['PCT'].iloc[-i])
                 res.append(df['Close'].iloc[-i])
         
-            
-        
-        
         if (df['LongShortTrend'].iloc[-i] & (typetrade == 'LongShortTrend')):
                 print(" Short trend trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)  
                 back_test = True
@@ -532,7 +529,7 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(df['PCT'].iloc[-i])
                 res.append(df['Close'].iloc[-i])
 
-        if (df['Bottom'].iloc[-i] & (typetrade == 'Bottom')):
+        if (df['Bottom'].iloc[-i]):
                 print(" Bottom trading ", str(i), "days before ", df.iloc[-i].name ,  ticker)   
                 output = print_statistic(df, i)
                 back_test = True
