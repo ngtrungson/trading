@@ -7,7 +7,7 @@ Created on Fri Dec  8 14:35:57 2017
 # import datetime
 from datetime import datetime
 from finance_util import get_info_stock_cp68_mobile, get_data, get_RSI, fill_missing_values, optimize_portfolio, compute_portfolio, plot_normalized_data, \
-                         get_data_from_cophieu68_openwebsite, get_data_from_SSI_website, analysis_alpha_beta
+                         get_data_from_cophieu68_openwebsite, get_data_from_SSI_website
 from strategy import process_data, momentum_strategy,  hung_canslim
 # from plot_strategy import plot_hedgefund_trading, plot_ninja_trading, plot_trading_weekly,plot_shortselling_trading, plot_canslim_trading
 # from machine_learning import price_predictions, ML_strategy
@@ -555,92 +555,92 @@ def active_strategy(start_date, end_date, update = False, source = "cp68", marke
             print("Error in reading symbol: ", ticker)
             pass
 
-def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
+# def rebalancing_porfolio(symbols = None, bench = '^VNINDEX'):
 
    
-    start0 = "2018-1-2"
-    end0 = "2019-1-2"
-    allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start0, ed = end0,
-            syms = symbols,  benchmark = bench, gen_plot = True)
-    print ("Optimize start Date:", start0)
-    print ("Optimize end Date:", end0) 
-    print ("Optimize volatility (stdev of daily returns):", sddr)
-    print ("Optimize average Daily Return:", adr)
-    print ("Optimize cumulative Return:", cr)
-    print(" -----------------------------------------------------")
-    start_date_list = ["2019-1-3", "2019-7-3"]
-    end_date_list = ["2019-7-2",  "2020-4-1"]
-    for start, end in zip(start_date_list, end_date_list):    
+#     start0 = "2018-1-2"
+#     end0 = "2019-1-2"
+#     allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start0, ed = end0,
+#             syms = symbols,  benchmark = bench, gen_plot = True)
+#     print ("Optimize start Date:", start0)
+#     print ("Optimize end Date:", end0) 
+#     print ("Optimize volatility (stdev of daily returns):", sddr)
+#     print ("Optimize average Daily Return:", adr)
+#     print ("Optimize cumulative Return:", cr)
+#     print(" -----------------------------------------------------")
+#     start_date_list = ["2019-1-3", "2019-7-3"]
+#     end_date_list = ["2019-7-2",  "2020-4-1"]
+#     for start, end in zip(start_date_list, end_date_list):    
         
-        cr, adr, sddr, sr  = compute_portfolio(sd = start, ed = end,
-            syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
-        print ("Start Date:", start)
-        print ("End Date:", end) 
-        print ("Volatility (stdev of daily returns):", sddr)
-        print ("Average Daily Return:", adr)
-        print ("Cumulative Return:", cr)  
-        print(" -----------------------------------------------------")
-        allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start, ed = end,
-            syms = symbols,  benchmark = bench, gen_plot = False)
-        print ("Optimize volatility (stdev of daily returns):", sddr)
-        print ("Optimize average Daily Return:", adr)
-        print ("Optimize cumulative Return:", cr)
-        print(" -----------------------------------------------------")
+#         cr, adr, sddr, sr  = compute_portfolio(sd = start, ed = end,
+#             syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
+#         print ("Start Date:", start)
+#         print ("End Date:", end) 
+#         print ("Volatility (stdev of daily returns):", sddr)
+#         print ("Average Daily Return:", adr)
+#         print ("Cumulative Return:", cr)  
+#         print(" -----------------------------------------------------")
+#         allocations, cr, adr, sddr, sr  = optimize_portfolio(sd = start, ed = end,
+#             syms = symbols,  benchmark = bench, gen_plot = False)
+#         print ("Optimize volatility (stdev of daily returns):", sddr)
+#         print ("Optimize average Daily Return:", adr)
+#         print ("Optimize cumulative Return:", cr)
+#         print(" -----------------------------------------------------")
         
     
     
     
     
-    # Out of sample testing optimisation algorithm
+#     # Out of sample testing optimisation algorithm
     
-    end_date = "2021-8-6"
-    start_date = "2020-4-2"
+#     end_date = "2021-8-6"
+#     start_date = "2020-4-2"
     
-    cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
-            syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
-    print("....................... Out of sample performance .................")
-    print ("Start Date:", start_date)
-    print ("End Date:", end_date) 
-    print ("Volatility (stdev of daily returns):", sddr)
-    print ("Average Daily Return:", adr)
-    print ("Cumulative Return:", cr)  
-    # Assess the portfolio
-    investment = 600E6
-    df_result = pd.DataFrame(index = symbols)    
-    df_result['Opt allocs'] = allocations
-    df_result['Cash'] = allocations * investment
+#     cr, adr, sddr, sr  = compute_portfolio(sd = start_date, ed = end_date,
+#             syms = symbols, allocs = allocations, benchmark = bench, gen_plot = True)
+#     print("....................... Out of sample performance .................")
+#     print ("Start Date:", start_date)
+#     print ("End Date:", end_date) 
+#     print ("Volatility (stdev of daily returns):", sddr)
+#     print ("Average Daily Return:", adr)
+#     print ("Cumulative Return:", cr)  
+#     # Assess the portfolio
+#     investment = 600E6
+#     df_result = pd.DataFrame(index = symbols)    
+#     df_result['Opt allocs'] = allocations
+#     df_result['Cash'] = allocations * investment
 
-    dates = pd.date_range(start_date, end_date)  # date range as index
-    df_data = get_data(symbols, dates, benchmark = bench)  # get data for each symbol
+#     dates = pd.date_range(start_date, end_date)  # date range as index
+#     df_data = get_data(symbols, dates, benchmark = bench)  # get data for each symbol
     
    
-    df_high = get_data(symbols, dates, benchmark = bench, colname = '<High>')
-    df_low = get_data(symbols, dates, benchmark = bench, colname = '<Low>')
+#     df_high = get_data(symbols, dates, benchmark = bench, colname = '<High>')
+#     df_low = get_data(symbols, dates, benchmark = bench, colname = '<Low>')
     
-    max_high = pd.Series(df_high.max(), name = 'MaxHigh')
-    min_low = pd.Series(df_low.min(), name = 'MinLow')
-    cpm = pd.Series(max_high/min_low, name = 'CPM')
-    volatility = df_data[symbols].pct_change().std()  
+#     max_high = pd.Series(df_high.max(), name = 'MaxHigh')
+#     min_low = pd.Series(df_low.min(), name = 'MinLow')
+#     cpm = pd.Series(max_high/min_low, name = 'CPM')
+#     volatility = df_data[symbols].pct_change().std()  
     
-    # Fill missing values
+#     # Fill missing values
             
-    df_result['Close'] = df_data[symbols].iloc[-1,:].values    
-    df_result['CPM'] = cpm[symbols]
-    df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
-    df_result ['Volatility'] = volatility
+#     df_result['Close'] = df_data[symbols].iloc[-1,:].values    
+#     df_result['CPM'] = cpm[symbols]
+#     df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
+#     df_result ['Volatility'] = volatility
     
-    alpha_beta = analysis_alpha_beta(df_data, symbols, market = bench)
-    df_result['Alpha'] = alpha_beta['Alpha']
-    df_result['Beta'] = alpha_beta['Beta']
+#     alpha_beta = analysis_alpha_beta(df_data, symbols, market = bench)
+#     df_result['Alpha'] = alpha_beta['Alpha']
+#     df_result['Beta'] = alpha_beta['Beta']
     
-    relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
-                     + 20*df_data[symbols].pct_change(periods = 126).fillna(0) \
-                     + 20*df_data[symbols].pct_change(periods = 189).fillna(0) \
-                     + 20*df_data[symbols].pct_change(periods = 252).fillna(0)    
+#     relative_strength = 40*df_data[symbols].pct_change(periods = 63).fillna(0) \
+#                      + 20*df_data[symbols].pct_change(periods = 126).fillna(0) \
+#                      + 20*df_data[symbols].pct_change(periods = 189).fillna(0) \
+#                      + 20*df_data[symbols].pct_change(periods = 252).fillna(0)    
     
-    df_result ['RSW'] = relative_strength.iloc[-1,:].values
+#     df_result ['RSW'] = relative_strength.iloc[-1,:].values
    
-    return df_result
+#     return df_result
     
 # from IPython.display import clear_output
 
@@ -686,7 +686,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2022-5-27"
+    end_date = "2023-1-3"
     start_date = "2019-4-6"
     # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
@@ -712,7 +712,7 @@ if __name__ == "__main__":
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
-    realtime = True
+    realtime = not True
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   

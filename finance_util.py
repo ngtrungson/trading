@@ -15,8 +15,8 @@ import requests
 import webbrowser
 import datetime as dt
 import scipy.optimize as spo
-from statsmodels import regression
-import statsmodels.api as sm
+# from statsmodels import regression
+# import statsmodels.api as sm
 
 from alpha_vantage.timeseries import TimeSeries
 from pandas_datareader import data as pdr
@@ -617,40 +617,40 @@ def get_RSI(symbols, df):
     fill_missing_values(df_final)    
     return df_final
 
-def linreg(x,y):
-    # We add a constant so that we can also fit an intercept (alpha) to the model
-    # This just adds a column of 1s to our data
-    x = sm.add_constant(x)
-    model = regression.linear_model.OLS(y,x).fit()
-    # Remove the constant now that we're done
-    x = x[:, 1]
-    return model.params[0], model.params[1]
+# def linreg(x,y):
+#     # We add a constant so that we can also fit an intercept (alpha) to the model
+#     # This just adds a column of 1s to our data
+#     x = sm.add_constant(x)
+#     model = regression.linear_model.OLS(y,x).fit()
+#     # Remove the constant now that we're done
+#     x = x[:, 1]
+#     return model.params[0], model.params[1]
 
 #alpha, beta = linreg(X,Y)
 
-def analysis_alpha_beta(df_data, symbols, market = '^VNINDEX'):
-    df_result = pd.DataFrame(columns= ['Ticker', 'Alpha', 'Beta'])
+# def analysis_alpha_beta(df_data, symbols, market = '^VNINDEX'):
+#     df_result = pd.DataFrame(columns= ['Ticker', 'Alpha', 'Beta'])
     
-    for ticker in symbols:       
-        alpha, beta = compute_alpha_beta(df = df_data, symbol = ticker, index = market)    
-        df_result =  df_result.append({'Ticker':ticker, 'Alpha': alpha, 'Beta': beta},ignore_index = True)
+#     for ticker in symbols:       
+#         alpha, beta = compute_alpha_beta(df = df_data, symbol = ticker, index = market)    
+#         df_result =  df_result.append({'Ticker':ticker, 'Alpha': alpha, 'Beta': beta},ignore_index = True)
    
-    df_result = df_result.set_index('Ticker')
-    return df_result
+#     df_result = df_result.set_index('Ticker')
+#     return df_result
         
     
 
-def compute_alpha_beta(df, symbol = 'BVH', index = '^VNINDEX'):
-#    covariance = np.cov(df[symbol] , df[index])[0][1] 
-#    variance = np.var(df[index])
-#    beta = covariance / variance 
-    r_a = df[symbol].pct_change()[1:]   
-    r_b = df[index].pct_change()[1:]
-    X = r_b.values # Get just the values, ignore the timestamps
-    Y = r_a.values
-    alpha, beta = linreg(X,Y)
+# def compute_alpha_beta(df, symbol = 'BVH', index = '^VNINDEX'):
+# #    covariance = np.cov(df[symbol] , df[index])[0][1] 
+# #    variance = np.var(df[index])
+# #    beta = covariance / variance 
+#     r_a = df[symbol].pct_change()[1:]   
+#     r_b = df[index].pct_change()[1:]
+#     X = r_b.values # Get just the values, ignore the timestamps
+#     Y = r_a.values
+#     alpha, beta = linreg(X,Y)
     
-    return alpha, beta
+#     return alpha, beta
 
 def compute_daily_returns(df):
     """Compute and return the daily return values."""    
