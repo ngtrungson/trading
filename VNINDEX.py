@@ -480,9 +480,9 @@ def passive_strategy(start_date, end_date, market = "^VNINDEX", symbols = None, 
     # df_result['CPM'] = cpm[symbols]
     # df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)    
     df_result ['Volatility'] = df_data[symbols].pct_change().std() 
-    alpha_beta = analysis_alpha_beta(df_data, symbols, market)
-    df_result['Alpha'] = alpha_beta['Alpha']
-    df_result['Beta'] = alpha_beta['Beta']
+    # alpha_beta = analysis_alpha_beta(df_data, symbols, market)
+    # df_result['Alpha'] = alpha_beta['Alpha']
+    # df_result['Beta'] = alpha_beta['Beta']
     df_result ['PCT_3D'] = df_data[symbols].pct_change().iloc[-4,:].values*100
     df_result ['PCT_2D'] = df_data[symbols].pct_change().iloc[-3,:].values*100
     df_result ['PCT_1D'] = df_data[symbols].pct_change().iloc[-2,:].values*100
@@ -686,7 +686,7 @@ if __name__ == "__main__":
 #              'MSR', 'MCH', 'TVB', 'TBD']
 
     ticker = ['CTR','VGI','BWE','TDM']
-    end_date = "2023-1-3"
+    end_date = "2023-6-16"
     start_date = "2019-4-6"
     # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = False, source = 'cp68')
     
@@ -712,7 +712,7 @@ if __name__ == "__main__":
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
-    realtime = not True
+    realtime = True
     datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
@@ -724,7 +724,7 @@ if __name__ == "__main__":
     while trading:  
         # clear_output(wait=True)
         trade_time = datetime.now()
-        t = trade_time.hour*60 + trade_time.minute
+        t = trade_time.hour*60 + trade_time.minute        
         if (t >= t1 and t <= t2) or (t >= t3 and t <= t4) and realtime:
             os.system('cls')
             print('TRADING SYSTEM SIGNAL...............',time.asctime(time.localtime(time.time())))
@@ -776,7 +776,7 @@ if __name__ == "__main__":
 #    
 #    my_portfolio()
     # portfolio_management()
-    stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = realtime, source = datasource)
+    # stock_all, market_all = analysis_stocks(start_date = start_date, end_date = end_date, realtime = realtime, source = datasource)
     
 #    hsx_res, hsx_data, hsx_market = passive_strategy(start_date = start_date, end_date = end_date, market = "^VNINDEX")
 #    stockVN30 = analysis_VN30(start_date = start_date, end_date = end_date)

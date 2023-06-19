@@ -203,7 +203,7 @@ def get_data_trading(symbol, start, end):
 ################################# Get data from website ################################################
 
 def save_and_analyse_vnindex_tickers():
-    resp = requests.get('http://www.cophieu68.vn/export.php')
+    resp = requests.get('https://www.cophieu68.vn/export.php')
     soup = bs.BeautifulSoup(resp.text, 'lxml')
     table = soup.find('table', {'width': '100%','cellpadding' : '4', 'border' : '0'})
     tickers = []
@@ -226,7 +226,7 @@ def save_and_analyse_vnindex_tickers():
     
         
     data = fundemental_analysis(tickers)
-    data.to_csv('fundemental_stocks_all_1711.csv')
+    data.to_csv('fundemental_stocks_all_0706.csv')
     
     
     return tickers
@@ -244,7 +244,10 @@ def fundemental_analysis(tickers):
         print(ticker)
         try:
             df_temp = get_info_stock(ticker)
-            df = df.append(df_temp)
+            if (len(df) == 0):
+                df = pd.DataFrame(df_temp, index = [0])   
+            else:       
+                df.loc[len(df)] = df_temp
         except Exception as e:
             print(" Error in symbol : ", ticker) 
             print(e)
@@ -257,15 +260,7 @@ def get_info_stock_bsc(ticker):
     url = 'https://www.bsc.com.vn/Companies/Overview/{}'.format(ticker)   
     resp = requests.get(url, verify =False)
     # print(resp.text)
-    soup = bs.BeautifulSoup(resp.text, 'lxml') 
-    
-    df = pd.DataFrame(columns = ['Ticker',
-                             'Close',
-                             'Close_1D',
-                             'Open',
-                             'Low',
-                             'High', 
-                             'Volume'])
+    soup = bs.BeautifulSoup(resp.text, 'lxml')  
    
         # print(line)
     # print(soup)
@@ -281,14 +276,14 @@ def get_info_stock_bsc(ticker):
     close1D = close - float(line2[1]) 
 
     
-    df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+    df = {'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
                         'Close': close,
                         'Close_1D' : close1D,
                           'Open' : close1D,
                           'Low' : low,
                           'High': high, 
                           'Volume': volume,                       
-                          }, ignore_index = True)
+                          }
   
     return df  
 
@@ -296,16 +291,8 @@ def get_info_stock_ssi(ticker):
     url = 'https://ivt.ssi.com.vn/CorporateSnapshot.aspx?ticket={}'.format(ticker)   
     resp = requests.get(url, verify =False)
     # print(resp.text)
-    soup = bs.BeautifulSoup(resp.text, 'lxml') 
+    soup = bs.BeautifulSoup(resp.text, 'lxml')     
     
-    df = pd.DataFrame(columns = ['Ticker',
-                             'Close',
-                             'Close_1D',
-                             'Open',
-                             'Low',
-                             'High', 
-                             'Volume'])
-   
         # print(line)
     # print(soup)
     tables = soup.find_all('table')
@@ -322,14 +309,14 @@ def get_info_stock_ssi(ticker):
     close1D = close - float(line2[0]) 
 
     
-    df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+    df = {'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
                         'Close': close,
                         'Close_1D' : close1D,
                           'Open' : open0D,
                           'Low' : low,
                           'High': high, 
                           'Volume': volume,                       
-                          }, ignore_index = True)
+                          }
   
     return df  
 
@@ -338,15 +325,7 @@ def get_info_stock_vssc(ticker):
     url = 'http://ra.vcsc.com.vn/?lang=vi-VN&ticker={}'.format(ticker)  
     resp = requests.get(url)
     # print(resp.text)
-    soup = bs.BeautifulSoup(resp.text, 'lxml') 
-    
-    df = pd.DataFrame(columns = ['Ticker',
-                             'Close',
-                             'Close_1D',
-                             'Open',
-                             'Low',
-                             'High', 
-                             'Volume'])
+    soup = bs.BeautifulSoup(resp.text, 'lxml')     
    
     value_number = []
     data = soup.find('div', {'class':'home-block2'}).stripped_strings
@@ -362,14 +341,14 @@ def get_info_stock_vssc(ticker):
     close = value_number[4]/1000.0 
     volume = value_number[5]
     
-    df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+    df = {'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
                         'Close': close,
                         'Close_1D' : close1D,
                           'Open' : open0D,
                           'Low' : low,
                           'High': high, 
                           'Volume': volume,                       
-                          }, ignore_index = True)
+                          }
   
     return df  
 
@@ -384,29 +363,6 @@ def get_info_stock(ticker):
     resp = requests.get(url, verify =False)
     # print(resp.text)
     soup = bs.BeautifulSoup(resp.text, 'lxml') 
-    
-    df = pd.DataFrame(columns = ['Ticker',
-                             'Close',
-                             'Close_1D',
-                             'Open',
-                             'Low',
-                             'High', 
-                             'Volume',
-                             'MeanVol_13W', 
-                             'MeanVol_10D',
-                             'High52W', 
-                             'Low52W', 
-                             'EPS', 
-                             'PE',
-                             'Market capital', 
-                             'Float', 
-                             'BookValue', 
-                             'Beta', 
-                             'ROE', 
-                             'EPS_52W',
-                             'CPM', 'FVQ','Exchange'])
-   
-   
 
     value_number = []
     stockexchange = 'HSX'
@@ -431,7 +387,7 @@ def get_info_stock(ticker):
 #        print(line) 
 #    print(value_number)   
     
-    df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+    df = {'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
                         'Close': value_number[0],
                         'Close_1D' : value_number[1],
                          'Open' : value_number[2],
@@ -452,7 +408,7 @@ def get_info_stock(ticker):
                          'EPS_52W' : value_number[17],
                          'CPM': value_number[8]/value_number[9],
                          'FVQ': value_number[13]/value_number[6]*1E6,
-                         'Exchange': stockexchange}, ignore_index = True)
+                         'Exchange': stockexchange}
   
     return df 
 
@@ -472,13 +428,13 @@ def get_info_stock_cp68_mobile(ticker):
     url = 'https://m.cophieu68.vn/snapshot.php?id={}&s_search=Go'.format(ticker)
     resp = requests.get(url, verify =False)
     soup = bs.BeautifulSoup(resp.text, 'lxml') 
-    df = pd.DataFrame(columns = ['Ticker',
-                             'Close',
-                             'Close_1D',
-                             'Open',
-                             'Low',
-                             'High', 
-                             'Volume'])
+    # df = pd.DataFrame(columns = ['Ticker',
+    #                          'Close',
+    #                          'Close_1D',
+    #                          'Open',
+    #                          'Low',
+    #                          'High', 
+    #                          'Volume'])
    
         # print(line)
    
@@ -503,15 +459,22 @@ def get_info_stock_cp68_mobile(ticker):
     value_number.append(float(data[2][1].replace(',',''))) # high
     value_number.append(float(data[3][1].replace(',',''))) # low
     value_number.append(float(data[4][1].replace(',',''))) # volume
-    
-    df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
-                        'Close': value_number[0],
-                        'Close_1D' : value_number[1],
-                         'Open' : value_number[2],
-                         'Low' : value_number[4],
-                         'High': value_number[3], 
-                         'Volume': value_number[5],                       
-                         }, ignore_index = True)
+    df = {'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+            'Close': value_number[0],
+            'Close_1D' : value_number[1],
+            'Open' : value_number[2],
+            'Low' : value_number[4],
+            'High': value_number[3], 
+            'Volume': value_number[5],  }
+    # df = pd.DataFrame(data, index=[0])
+    # df = df.append({'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+    #                     'Close': value_number[0],
+    #                     'Close_1D' : value_number[1],
+    #                      'Open' : value_number[2],
+    #                      'Low' : value_number[4],
+    #                      'High': value_number[3], 
+    #                      'Volume': value_number[5],                       
+    #                      }, ignore_index = True)
   
     return df  
  
@@ -591,16 +554,16 @@ def get_data(symbols, dates, benchmark = '^VNINDEX', colname = '<CloseFixed>', r
             today = datetime.datetime.today()
             next_date = today
             if colname == '<Volume>':
-                today_data.append(actual_price['Volume'].iloc[-1])
+                today_data.append(actual_price['Volume'])
                 # df_temp.loc[next_date] = ({symbol : actual_price['Volume'].iloc[-1]})
             elif colname == '<High>':
-                today_data.append(actual_price['High'].iloc[-1])
+                today_data.append(actual_price['High'])
                 # df_temp.loc[next_date] = ({symbol : actual_price['High'].iloc[-1]})
             elif colname == '<Low>':
-                today_data.append(actual_price['Low'].iloc[-1])
+                today_data.append(actual_price['Low'])
                 # df_temp.loc[next_date] = ({symbol : actual_price['Low'].iloc[-1]})
             else:
-                today_data.append(actual_price['Close'].iloc[-1])
+                today_data.append(actual_price['Close'])
                 # df_temp.loc[next_date] = ({symbol : actual_price['Close'].iloc[-1]})
             # print(df_temp.loc[next_date])  
         df_final.loc[next_date] = today_data
@@ -898,31 +861,31 @@ if __name__ == "__main__":
 #     symbolsUPCOM = ['TBD', 'LPB', 'QNS',   'ART',  'ACV',  "SWC", "NTC","DVN", 'HVN', 'HPI','IDC',  'MSR', 
 #                    'VGT','TVN','TVB','TIS','VIB','DRI', 'POW', 'BSR','MCH']
      
-     symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHS', 'PLC','NTP','IDC' ]
-    
+     symbolsHNX = ['NDN','PVS','VCG','VCS', 'TNG','SHS', 'PLC','NTP','IDC','IDV' ]
+     
      symbolsVNI = [ 'ANV',  "BWE",  'CMG', "AGG", "HTN", "TIP",
-                   "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
-               "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
-                "FCN",  'FMC', "FPT", "GAS", "GMD",  
-                  "HT1",   "LPB", "HSG", "DVP", "TPB","TCL", "TV2",
-                "HDG", "HCM", "HPG", 'LHG', 'HDC',
-                "IJC",  "KBC",  "KDH",
-               "MBB", "MSN", "MWG",  "NLG",  "NVL",
-                "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
-                "PPC",  "REE", "NKG", 'ILB',
-                "SJS","STB", "SSI", "SBT", 
-                "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
-                   'GEX', "VIB", 'HAH', 'SMC','HAH','ITD','OCB','FTS','PTB',
-                'TCM',  'AAA',  'VGC',
-                'VPB','VRE',  "HDB",  "ACB", 'BCG' ,'VND',
-                'NTL', 'AST', 'VHM',  'TCB', 
-                'DHC', 'TDM', 'DCM', 'LCG', "VIX",
-                   'SZL', 'GVR', 'GIL', 'BFC', 'SZC', 'SHB',
-                'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','CRE','PET','DGC']
-    
-    # 'SMC','HAH','ITD','OCB','FTS','PTB'
-    
-     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP','VEA'] 
+                    "BID", "BMI", "BMP", "BVH",  "CTD", "CSV", "CTG", 'D2D',
+                "DHG",  "DPM",  "DRC", "DXG", 'DGW', 'DBC',
+                 "FCN",  'FMC', "FPT", "GAS", "GMD",  
+                   "HT1",   "LPB", "HSG", "DVP", "TPB","TCL", "TV2",
+                 "HDG", "HCM", "HPG", 'LHG', 'HDC',
+                 "IJC",  "KBC",  "KDH", 'CII', 
+                "MBB", "MSN", "MWG",  "NLG",  "NVL",
+                 "PVT","PVD","PHR","PDR", "PNJ",  "PC1",   "PLX",
+                 "PPC",  "REE", "NKG", 'ILB', 'DHA',
+                 "SJS","STB", "SSI", "SBT", 
+                 "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", 
+                    'GEX', "VIB", 'HAH', 'SMC','HAH','ITD','OCB','FTS','PTB',
+                 'TCM',  'AAA',  'VGC', 'DPG', 'BCM', 'KHG', 'SCR','ELC',
+                 'VPB','VRE',  "HDB",  "ACB", 'BCG' ,'VND', 'SKG',
+                 'NTL', 'AST', 'VHM',  'TCB', 'ITA',
+                 'DHC', 'TDM', 'DCM', 'LCG', "VIX",
+                    'SZL', 'GVR', 'GIL', 'BFC', 'SZC', 'SHB', 'HHV',
+                 'IMP', 'MSH', 'POW','TCH','VCI','DIG','KSB','FRT','CRE','PET','DGC']
+     
+     # 'SMC','HAH','ITD','OCB','FTS','PTB'
+     
+     symbolsUPCOM = ['QNS',  'ACV','VGI','CTR','VTP','VEA','VGT','SNZ','C4G','G36','PXL'] 
     
      
      symbols = symbolsVNI + symbolsHNX +  symbolsUPCOM
@@ -937,7 +900,7 @@ if __name__ == "__main__":
     
      tickers = save_and_analyse_vnindex_tickers()
     
-     data = pd.read_csv('fundemental_stocks_all_1711.csv', parse_dates=True, index_col=0)
+     data = pd.read_csv('fundemental_stocks_all_0706.csv', parse_dates=True, index_col=0)
       # data['Diff_Price'] = data['Close'] - data['EPS']*data['PE']/1000
       # data['EPS_Price'] = data['EPS']/data['Close']/1000
      data['Value'] = data['Close']* data['MeanVol_10D']

@@ -889,11 +889,11 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
         # actual_price = get_info_stock_bsc(ticker)
         today = datetime.datetime.today()
         next_date = today
-        df.loc[next_date] = ({ 'Open' : actual_price['Open'].iloc[-1],
-                        'High' : actual_price['High'].iloc[-1], 
-                        'Low' : actual_price['Low'].iloc[-1],
-                        'Close' : actual_price['Close'].iloc[-1],
-                        'Volume' : actual_price['Volume'].iloc[-1]})
+        df.loc[next_date] = ({ 'Open' : actual_price['Open'],
+                        'High' : actual_price['High'], 
+                        'Low' : actual_price['Low'],
+                        'Close' : actual_price['Close'],
+                        'Volume' : actual_price['Volume']})
         df = df.reset_index()
         df = df.rename(columns = {'index': 'Date'}) 
         df = df.set_index('Date')
