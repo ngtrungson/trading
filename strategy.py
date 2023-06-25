@@ -4,19 +4,155 @@ Created on Sun Feb 11 08:47:17 2018
 
 @author: sonng
 """
-from finance_util import symbol_to_path, get_info_stock, get_info_stock_cp68_mobile, get_info_stock_bsc
+
 import numpy as np
 import pandas as pd
 import talib
-import datetime
 from collections import Counter
-import yfinance as yf
+import os
+import bs4 as bs
+import requests
+from datetime import datetime, timedelta   
 
-from pandas_datareader import data as pdr
-from alpha_vantage.timeseries import TimeSeries
+# API request config for SSI API endpoints
+headers = {
+        'Connection': 'keep-alive',
+        'sec-ch-ua': '"Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98"',
+        'DNT': '1',
+        'sec-ch-ua-mobile': '?0',
+        'X-Fiin-Key': 'KEY',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-Fiin-User-ID': 'ID',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36',
+        'X-Fiin-Seed': 'SEED',
+        'sec-ch-ua-platform': 'Windows',
+        'Origin': 'https://iboard.ssi.com.vn',
+        'Sec-Fetch-Site': 'same-site',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Dest': 'empty',
+        'Referer': 'https://iboard.ssi.com.vn/',
+        'Accept-Language': 'en-US,en;q=0.9,vi-VN;q=0.8,vi;q=0.7'
+        }
 
-yf.pdr_override()
+entrade_headers = {
+  'authority': 'services.entrade.com.vn',
+  'accept': 'application/json, text/plain, */*',
+  'accept-language': 'en-US,en;q=0.9',
+  'dnt': '1',
+  'origin': 'https://banggia.dnse.com.vn',
+  'referer': 'https://banggia.dnse.com.vn/',
+  'sec-ch-ua': '"Edge";v="114", "Chromium";v="114", "Not=A?Brand";v="24"',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua-platform': '"Windows"',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'cross-site',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1788.0'
+}
 
+def api_request(url, headers=headers):
+    r = requests.get(url, headers).json()
+    return r
+
+## STOCK LISTING
+
+
+
+## STOCK TRADING HISTORICAL DATA
+
+def stock_historical_data (symbol, start_date='2023-06-01', end_date='2023-06-17', resolution='1D', headers=entrade_headers): # DNSE source (will be published on vnstock)
+    """
+    Get historical price data from entrade.com.vn
+    Parameters:
+        symbol (str): ticker of the stock
+        from_date (str): start date of the historical price data
+        to_date (str): end date of the historical price data
+        resolution (str): resolution of the historical price data. Default is '1D' (daily), other options are '1' (1 minute), 15 (15 minutes), 30 (30 minutes), '1H' (hourly)
+        headers (dict): headers of the request
+    Returns:
+        :obj:`pandas.DataFrame`:
+        | time | open | high | low | close | volume |
+        | ----------- | ---- | ---- | --- | ----- | ------ |
+        | YYYY-mm-dd  | xxxx | xxxx | xxx | xxxxx | xxxxxx |
+    """
+    # convert from_date, to_date to timestamp
+    from_timestamp = int(datetime.strptime(start_date, '%Y-%m-%d').timestamp())
+    to_timestamp = int(datetime.strptime(end_date, '%Y-%m-%d').timestamp())
+    url = f"https://services.entrade.com.vn/chart-api/v2/ohlcs/stock?from={from_timestamp}&to={to_timestamp}&symbol={symbol}&resolution={resolution}"
+    response = requests.request("GET", url, headers=headers).json()
+    df = pd.DataFrame(response)
+    df['t'] = pd.to_datetime(df['t'], unit='s') # convert timestamp to datetime
+    df = df.rename(columns={'t': 'time', 'o': 'open', 'h': 'high', 'l': 'low', 'c': 'close', 'v': 'volume'}).drop(columns=['nextTime'])
+    df['time'] = df['time'].dt.tz_localize('UTC').dt.tz_convert('Asia/Ho_Chi_Minh')
+    return df
+
+# TRADING INTELLIGENT
+today_val = datetime.now()
+
+def today():
+    today = today_val.strftime('%Y-%m-%d')
+    return today
+
+def isfloat(value):
+  try:
+    float(value)
+    return True
+  except ValueError:
+    return False
+
+
+def tableDataText(table):       
+    rows = []
+    trs = table.find_all('tr')
+    headerow = [td.get_text(strip=True) for td in trs[0].find_all('th')] # header row
+    if headerow: # if there is a header row include first
+        rows.append(headerow)
+        trs = trs[1:]
+    for tr in trs: # for every table row
+        rows.append([td.get_text(strip=True) for td in tr.find_all('td')]) # data row
+    return rows   
+
+def symbol_to_path(symbol, base_dir="cp68"):
+    """Return CSV file path given ticker symbol."""
+    if base_dir == "cp68":
+        fileformat = "excel_{}.csv" 
+    if (base_dir == "amibroker"):      
+        fileformat = "{}.csv"
+        
+    return os.path.join(base_dir, fileformat.format(str(symbol)))
+
+def get_info_stock_cp68_mobile(ticker):
+    
+    url = 'https://m.cophieu68.vn/snapshot.php?id={}&s_search=Go'.format(ticker)
+    resp = requests.get(url, verify =False)
+    soup = bs.BeautifulSoup(resp.text, 'lxml') 
+    
+    # hard coding for Close, Close_1D, Open, High, Low, Volume   
+    value_number = []
+    for line in soup.find(id="stockname_close").stripped_strings:
+        line =  line.replace(',','')
+        if isfloat(line): 
+            value_number.append(float(line))
+        
+    tables = soup.find_all('table')
+    
+    data = tableDataText(tables[2])
+    
+    value_number.append(float(data[0][1].replace(',',''))) # close
+    value_number.append(float(data[1][1].replace(',',''))) # close-1D
+    value_number.append(float(data[2][1].replace(',',''))) # high
+    value_number.append(float(data[3][1].replace(',',''))) # low
+    value_number.append(float(data[4][1].replace(',',''))) # volume
+    df = {'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+            'Close': value_number[0],
+            'Close_1D' : value_number[1],
+            'Open' : value_number[2],
+            'Low' : value_number[4],
+            'High': value_number[3], 
+            'Volume': value_number[5],  }  
+    return df  
+ 
 def run_backtest(df, ticker, trade = 'Long'):
     if (trade == 'Long'):
         df['Buy'] = df['Long']
@@ -331,7 +467,8 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
 
 def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market = None , ndays = 2, typetrade = 'Long'):
     
-    df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
+    if ((source == 'cp68') | (source == 'amibroker') | (source == 'ssi')):
+        df = process_data(ticker = ticker, start = start, end = end, realtime = realtime, source = source)
     
     
     df['SMA15'] = df['Close'].rolling(window=15).mean()
@@ -342,36 +479,11 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
     df['SMA50'] = df['Close'].rolling(window=50).mean()
     df['SMA150'] = df['Close'].rolling(window=150).mean()
     df['SMA200'] = df['Close'].rolling(window=200).mean()
-    
-#    n_fast = 12
-#    n_slow = 26
-#    nema = 9
-#    df['MACD_12_26'], df['MACDSign9'], _ = compute_MACD(df, n_fast, n_slow, nema)
-    
-    
+
     
     df['Max10D'] = df['Close'].shift(1).rolling(window = 10).max()
     
-    
-    
     df['MID'] = (df['High'] + df['Low']) /2
-#    print('Max 120 days :', max_120)
-#    & (df['Close'] > (df['High'] + df['Low'])/2)
-    # df['Volume'] > df['Volume'].shift(1)
-    
-#    
-#     HHV(C,5) <1.055* LLV(C,5)
-#    AND C * V >= 3000000 
-#    AND C*V < 500000000
-#    
-#    
-#    AND MA(V,30)>=50000
-#    AND Ref(V,-5)>=50000
-#    AND Ref(V,-10)>=50000
-#    AND Ref(V,-20)>=50000
-#    AND RSI(14)>=40
-   
-    
     
     df['Long'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
                   (df['Close'] >= (df['High'] + df['Low'])/2)  &\
@@ -572,12 +684,8 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                 res.append(ticker)
                 res.append(output)
                 res.append(df['PCT'].iloc[-i])
-                res.append(df['Close'].iloc[-i])
-   
-    
-#    back_test = True
-#    if back_test == False:
-#        back_test = df['Buy'].sum() > 0 
+                res.append(df['Close'].iloc[-i])   
+
     if back_test:
         run_backtest(df, ticker, trade = typetrade)
 #     
@@ -794,17 +902,6 @@ def short_selling(ticker, start, end, realtime = False, source = "cp68", market 
     return df    
                 
 def process_data(ticker, start, end, realtime = False, source = "cp68"):
-    
-#    print(source)
-    if source == "ssi":
-        file_path = symbol_to_path(ticker, base_dir = source)
-        df = pd.read_csv(file_path, index_col ="DATE", parse_dates = True,  dayfirst=True,
-                     usecols = ["DATE", "OPEN","CLOSE","HIGHEST","LOWEST","TOTAL VOLUMN", "TOTAL VALUES"], na_values = "nan")
-        df = df.reset_index()
-        df = df.rename(columns = {'DATE': 'Date', "OPEN": 'Open', 'HIGHEST': 'High',
-                                  'LOWEST': 'Low','CLOSE' : 'Close', 'TOTAL VOLUMN': 'Volume', 'TOTAL VALUES': 'Values'})
-        df = df.set_index('Date')
-    
         
     if source == "amibroker":
         file_path = symbol_to_path(ticker, base_dir = source)
@@ -824,53 +921,14 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
                                   '<LowFixed>': 'Low','<CloseFixed>' : 'Close', '<Volume>': 'Volume'})
         df = df.set_index('Date')
     
-    if source == 'alpha':
-        if realtime: 
-            ts = TimeSeries(key='9ODDY4H8J5P847TA', output_format='pandas')
-            
-            cryptos = ['ETH-USD','ZEC-USD', 'BNB-USD','EOS-USD', 'ETC-USD', 'DASH-USD', 'XLM-USD',
-                   'LINK-USD', 'LTC-USD', 'UNI3-USD', 'XRP-USD', 'ADA-USD','NEO-USD','DASH-USD',
-                   'BCH-USD','MIOTA-USD', 'TRX-USD', 'XTZ-USD','DOGE-USD']   
-            
-            if ticker in cryptos:
-                sym = ticker[0:3]
-                df, _ = ts.get_daily(symbol=sym, outputsize='full')
-            else:
-                df, _ = ts.get_daily(symbol=ticker, outputsize='full')
-            
-            
-            df = df.reset_index()
-            df = df.rename(columns = {'date': 'Date', "1. open": 'Open', '2. high': 'High',
-                                      '3. low': 'Low','4. close' : 'Close', '5. volume': 'Volume'})
-           
-            df = df.set_index('Date')
-        else:
-            
-            file_path = symbol_to_path(ticker, base_dir = source)
-            df = pd.read_csv(file_path, index_col ="date", parse_dates = True, 
-                         usecols = ["date", "1. open", "2. high","3. low","4. close", "5. volume"], na_values = "nan")
-            df = df.reset_index()
-            df = df.rename(columns = {'date': 'Date', "1. open": 'Open', '2. high': 'High',
-                                      '3. low': 'Low','4. close' : 'Close', '5. volume': 'Volume'})
-           
-            df = df.set_index('Date')
-#    if (source == 'yahoo'):
-#        file_path = symbol_to_path(ticker, base_dir = source)
-#        df = pd.read_csv(file_path, index_col ="Date", parse_dates = True,  
-#                     usecols = ["Date", "Open", "High","Low","Close", "Volume"], na_values = "nan")
-#        df = df.reset_index()
-#        df = df.set_index('Date')
+    if source == 'ssi':        
+        end_data = datetime.now().strftime('%Y-%m-%d') 
+        df = stock_historical_data(ticker, start, end_data, "1D")  
+        df = df.rename(columns = {'time': 'Date', 'open': 'Open', 'high': 'High',
+                                  'low': 'Low','close' : 'Close', 'volume': 'Volume'})
+        df = df.set_index('Date')
         
-    if (source == 'yahoo'):
-        if realtime:          
-#            df = yf.download(ticker, start, end)
-            df = pdr.get_data_yahoo(ticker, start=start, end=end,  as_panel = False) 
-        else:            
-            file_path = symbol_to_path(ticker, base_dir = source)
-            df = pd.read_csv(file_path, index_col ="Date", parse_dates = True,  
-                         usecols = ["Date", "Open", "High","Low","Close", "Volume"], na_values = "nan")
-            df = df.reset_index()
-            df = df.set_index('Date')
+            
         
     # columns order for backtrader type
     columnsOrder=["Open","High","Low","Close", "Volume"]
@@ -881,14 +939,21 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     # take a part of dataframe
     df = df.loc[start:end]
     
-    if (realtime & ((source == 'cp68') | (source == 'ssi') | (source == 'amibroker'))):
+    last_day = df.index[-1].strftime('%Y-%m-%d')
+    if (datetime.strptime(last_day, '%Y-%m-%d') == datetime.strptime(end, '%Y-%m-%d')):
+        realtime = False     
+    
+    last_xd = (datetime.now() - timedelta(1)).strftime('%Y-%m-%d')     
+    if (datetime.strptime(last_xd, '%Y-%m-%d') > datetime.strptime(end, '%Y-%m-%d')):
+        realtime = False
+    
+    if (realtime & ((source == 'cp68') | (source == 'amibroker') | (source == 'ssi'))):
 #        print(ticker)
         # actual_price = get_info_stock(ticker)
         actual_price = get_info_stock_cp68_mobile(ticker)
         # print(actual_price)
         # actual_price = get_info_stock_bsc(ticker)
-        today = datetime.datetime.today()
-        next_date = today
+        next_date = datetime.now().strftime('%Y-%m-%d') 
         df.loc[next_date] = ({ 'Open' : actual_price['Open'],
                         'High' : actual_price['High'], 
                         'Low' : actual_price['Low'],
@@ -896,7 +961,7 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
                         'Volume' : actual_price['Volume']})
         df = df.reset_index()
         df = df.rename(columns = {'index': 'Date'}) 
-        df = df.set_index('Date')
+        df = df.set_index('Date')        
         
     df['VolMA30'] = df['Volume'].rolling(window = 30, center = False).mean()
     df['VolMA15'] = df['Volume'].rolling(window = 15, center = False).mean()
