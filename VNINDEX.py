@@ -148,8 +148,9 @@ if __name__ == "__main__":
     # export_watchlist()
 #   
     symbols = None     
-    # symbols = get_csv_data(source = "cp68")    
-    end_date = "2023-6-23"
+    # symbols = get_csv_data(source = "cp68")   
+     
+    end_date = "2023-6-28"
     start_date = "2021-4-6"
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']

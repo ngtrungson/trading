@@ -152,6 +152,38 @@ def get_info_stock_cp68_mobile(ticker):
             'High': value_number[3], 
             'Volume': value_number[5],  }  
     return df  
+
+def get_info_stock_bsc(ticker):
+    url = 'https://www.bsc.com.vn/Companies/Overview/{}'.format(ticker)   
+    resp = requests.get(url, verify =False)
+    # print(resp.text)
+    soup = bs.BeautifulSoup(resp.text, 'lxml')  
+   
+        # print(line)
+    # print(soup)
+    tables = soup.find_all('table')
+    data = tableDataText(tables[0])
+    line2 = data[2][1].replace('(','').replace(')','').replace('/',' ').replace(',','.').split()
+    line3 = data[3][1].replace(',','.').replace('-','').split()
+    line4 = data[4][1].replace('.','')
+    volume = float(line4)
+    low = float(line3[0])
+    high = float(line3[1])
+    close = float(line2[0])
+    close1D = close - float(line2[1]) 
+
+    
+    df = {'Ticker':ticker, ## Getting Only The Stock Name, not 'json'
+                        'Close': close,
+                        'Close_1D' : close1D,
+                          'Open' : close1D,
+                          'Low' : low,
+                          'High': high, 
+                          'Volume': volume,                       
+                          }
+  
+    return df 
+
  
 def run_backtest(df, ticker, trade = 'Long'):
     if (trade == 'Long'):
@@ -950,9 +982,11 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     if (realtime & ((source == 'cp68') | (source == 'amibroker') | (source == 'ssi'))):
 #        print(ticker)
         # actual_price = get_info_stock(ticker)
-        actual_price = get_info_stock_cp68_mobile(ticker)
-        # print(actual_price)
-        # actual_price = get_info_stock_bsc(ticker)
+        try:
+            actual_price = get_info_stock_cp68_mobile(ticker)
+        except:
+            actual_price = get_info_stock_bsc(ticker)
+            
         next_date = datetime.now().strftime('%Y-%m-%d') 
         df.loc[next_date] = ({ 'Open' : actual_price['Open'],
                         'High' : actual_price['High'], 
@@ -1658,4 +1692,8 @@ def compute_MACD(df, n_fast, n_slow, nema = 9):
     
 #    MACD, MACDsign, MACDdiff = talib.MACD(df['Close'].values, fastperiod=n_fast, slowperiod= n_slow, signalperiod=nema)
     return MACD, MACDsign, MACDdiff
+
+if __name__ == "__main__":
+    df = get_info_stock_bsc("GMD")
+    print(df)
 
