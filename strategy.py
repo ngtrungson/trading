@@ -7,7 +7,6 @@ Created on Sun Feb 11 08:47:17 2018
 
 import numpy as np
 import pandas as pd
-import talib
 from collections import Counter
 import os
 import bs4 as bs
@@ -55,7 +54,98 @@ def api_request(url, headers=headers):
     r = requests.get(url, headers).json()
     return r
 
+def fill_missing_values(df_data):
+    """Fill missing values in data frame, in place."""
+    ##########################################################
+    df_data.fillna(method ="ffill", inplace = True)
+    df_data.fillna(method ="backfill", inplace = True)
+    pass  
 ## STOCK LISTING
+
+# Returns RSI values
+def rsi(close, timeperiod = 14):
+    
+    close_delta = close.diff()
+
+    # Make two series: one for lower closes and one for higher closes
+    up = close_delta.clip(lower=0)
+    down = -1 * close_delta.clip(upper=0)
+    
+    ma_up = up.ewm(com = timeperiod - 1, adjust=True, min_periods = timeperiod).mean()
+    ma_down = down.ewm(com = timeperiod - 1, adjust=True, min_periods = timeperiod).mean()
+
+    rsi = ma_up / ma_down
+    rsi = 100 - (100/(1 + rsi))    
+    return rsi
+
+
+def roc(close, timeperiod):
+    difference = close.diff(timeperiod)
+    nprev_values = close.shift(timeperiod)
+    roc = (difference / nprev_values) * 100    
+    return roc
+
+def get_data(symbols, dates, benchmark = '^VNINDEX', colname = '<CloseFixed>', realtime = False, source ='cp68'):
+    """Read stock data (adjusted close) for given symbols from CSV files."""
+    df_final = pd.DataFrame(index=dates)
+    if (benchmark not in symbols) and isinstance(benchmark, str):  # add SPY for reference, if absent
+        symbols = [benchmark] + symbols
+        
+    for symbol in symbols:
+        file_path = symbol_to_path(symbol, base_dir = source)
+        if source == 'cp68':
+            df_temp = pd.read_csv(file_path, parse_dates=True, index_col="<DTYYYYMMDD>",
+            usecols=["<DTYYYYMMDD>", colname], na_values=["nan"])
+            df_temp = df_temp.rename(columns={"<DTYYYYMMDD>": "Date", colname: symbol})  
+        if source == 'yahoo':
+            df_temp = pd.read_csv(file_path, index_col='Date',
+                parse_dates=True, usecols=['Date', colname], na_values=['nan'])
+            df_temp = df_temp.rename(columns={colname: symbol})
+          
+        df_final = df_final.join(df_temp)
+        if symbol == benchmark:  # drop dates SPY did not trade
+            df_final = df_final.dropna(subset=[benchmark])
+            
+#    fill_missing_values(df_final)
+    
+        
+    if (realtime & ((source == 'cp68') | (source == 'ssi'))):
+        today_data = []
+        for symbol in symbols:
+            actual_price = get_info_stock_cp68_mobile(symbol)
+            # actual_price = get_info_stock_bsc(ticker)
+            today = datetime.datetime.today()
+            next_date = today
+            if colname == '<Volume>':
+                today_data.append(actual_price['Volume'])
+                # df_temp.loc[next_date] = ({symbol : actual_price['Volume'].iloc[-1]})
+            elif colname == '<High>':
+                today_data.append(actual_price['High'])
+                # df_temp.loc[next_date] = ({symbol : actual_price['High'].iloc[-1]})
+            elif colname == '<Low>':
+                today_data.append(actual_price['Low'])
+                # df_temp.loc[next_date] = ({symbol : actual_price['Low'].iloc[-1]})
+            else:
+                today_data.append(actual_price['Close'])
+                # df_temp.loc[next_date] = ({symbol : actual_price['Close'].iloc[-1]})
+            # print(df_temp.loc[next_date])  
+        df_final.loc[next_date] = today_data
+    
+    return df_final
+
+
+
+def get_RSI(symbols, df):
+    """Read stock data (adjusted close) for given symbols from CSV files."""
+    df_final = pd.DataFrame(index=df.index)   
+    for symbol in symbols:
+        try:
+            import talib
+            df_final[symbol] = talib.RSI(df[symbol].values, timeperiod = 14) 
+        except:
+            df_final[symbol] = rsi(df[symbol], timeperiod = 14) 
+    fill_missing_values(df_final)    
+    return df_final
 
 
 
@@ -346,8 +436,11 @@ def crypto(ticker, start, end, realtime = False, source = "cp68", market = None 
                   (df['Close'] > df['Close'].shift(2))  & (df['Close'] > df['Close'].shift(3)) &\
                   (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
                     (df['PCT_HL'] <= 50)) 
-        
-    df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    try:   
+        import talib
+        df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    except:
+        df['ROC4'] = roc(df['Close'], timeperiod = 4)
     
     df['MarkM'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
                   (df['Close'] > (df['High'] + df['Low'])/2)  &\
@@ -545,7 +638,11 @@ def hung_canslim(ticker, start, end, realtime = False, source = "cp68", market =
                   (df['Close']*df['Volume'] >= 3E6) & (df['Close'] >= df['SMA30'])  & ((df['Close'] - df['SMA30'])/df['SMA30'] <= 0.05) &\
                     (df['PCT_HL'] <= 50)) 
         
-    df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    try:   
+        import talib
+        df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    except:
+        df['ROC4'] = roc(df['Close'], timeperiod = 4)
     
     df['MarkM'] = ((df['Close']> 1.02*df['Close'].shift(1)) & (df['Close'] > df['Open'])  & \
                   (df['Close'] > (df['High'] + df['Low'])/2)  &\
@@ -756,7 +853,11 @@ def momentum_strategy(ticker, start, end, realtime = False, source = "cp68", mar
     
     # df['Long4D'] = ((df['Close'] > df['High'].shift(1)) & (df['High'].shift(1) > df['High'].shift(2)) & (df['High'].shift(2) > df['High'].shift(3)))
     
-    df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    try:   
+        import talib
+        df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    except:
+        df['ROC4'] = roc(df['Close'], timeperiod = 4)
         
    
     df['Bottom'] = ((df['Close'] > df['Open']) & (df['Close']*df['Volume'] > 1E7) & 
@@ -817,7 +918,11 @@ def canslim_usstock(ticker, start, end, realtime = False, source = "cp68", marke
 #                 (df['High15D'] > 1.05*df['Low15D'])  & \
 #                 ((df['Close'] > df['SMA30']) & (df['Close']> df['High15D'])))
     
-    df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    try:   
+        import talib
+        df['ROC4'] = talib.ROC(df['Close'].values, timeperiod = 4)
+    except:
+        df['ROC4'] = roc(df['Close'], timeperiod = 4)
     
 
   
@@ -1016,8 +1121,15 @@ def process_data(ticker, start, end, realtime = False, source = "cp68"):
     df['Value'] = df['Volume']*df['Close']   
     df['ValueMA30'] = df['Value'].rolling(window = 30, center = False).mean()
    
-    df['RSI'] = talib.RSI(df['Close'].values, timeperiod = 14)
-    df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 3)
+    
+    try:   
+        import talib
+        df['ROC'] = talib.ROC(df['Close'].values, timeperiod = 3)
+        df['RSI'] = talib.RSI(df['Close'].values, timeperiod = 14)
+    except:
+        df['ROC'] = roc(df['Close'], timeperiod = 3)
+        df['RSI'] = rsi(df['Close'], timeperiod = 14)
+    
 #    df['RSW'] = 0.4* talib.ROC(df['Close'].values, timeperiod = 65) + \
 #    0.3* talib.ROC(df['Close'].values, timeperiod = 130) + \
 #    0.3*talib.ROC(df['Close'].values, timeperiod = 260)
@@ -1692,6 +1804,26 @@ def compute_MACD(df, n_fast, n_slow, nema = 9):
     
 #    MACD, MACDsign, MACDdiff = talib.MACD(df['Close'].values, fastperiod=n_fast, slowperiod= n_slow, signalperiod=nema)
     return MACD, MACDsign, MACDdiff
+
+def compute_RSI(close, timeperiod=14):
+        # Create two copies of the Closing price Series
+    change_up = close.copy()
+    change_down = close.copy()
+    
+    # 
+    change_up[change_up<0] = 0
+    change_down[change_down>0] = 0
+    
+    # Verify that we did not make any mistakes
+    close.equals(change_up+change_down)
+    
+    # Calculate the rolling average of average up and average down
+    avg_up = change_up.rolling(timeperiod).mean()
+    avg_down = change_down.rolling(timeperiod).mean().abs()
+    rsi = 100 * avg_up / (avg_up + avg_down)
+    return rsi
+
+
 
 if __name__ == "__main__":
     df = get_info_stock_bsc("GMD")
