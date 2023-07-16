@@ -294,13 +294,13 @@ if __name__ == "__main__":
     symbols = None     
     # symbols = get_csv_data(source = "cp68")   
      
-    end_date = "2023-7-6"
+    end_date = "2023-7-17"
     start_date = "2021-4-6"
     t0 = time.time()
     trade_type = ['EarlySignal','Bottom','SidewayBreakout']
     idx = 0 # EarlySignal
     realtime = True
-    datasource = "ssi"
+    datasource = "cp68"
     t1 = 9*60 + 20   
     t2 = 11*60 + 30   
     t3 = 13*60 + 0  
