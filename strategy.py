@@ -778,7 +778,7 @@ def crypto(ticker, start, end, realtime=False, source="cp68", market=None, ndays
 
 def hung_canslim(ticker, start, end, realtime=False, source="cp68", market=None, ndays=2, typetrade='Long'):
 
-    if ((source == 'cp68') | (source == 'amibroker') | (source == 'ssi') | (source == 'cafef')):
+    if ((source == 'cp68') | (source == 'amibroker') | (source == 'vci') | (source == 'tcbs')):
         df = process_data(ticker=ticker, start=start, end=end,
                           realtime=realtime, source=source)
 
@@ -1234,6 +1234,758 @@ def short_selling(ticker, start, end, realtime=False, source="cp68", market=None
 
     return df
 
+import json
+
+
+
+DEFAULT_HEADERS = {
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.9,vi-VN;q=0.8,vi;q=0.7',
+    'Connection': 'keep-alive',
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'same-site',
+    'DNT': '1',
+    'Pragma': 'no-cache',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-ch-ua-mobile': '?0',
+}
+
+
+BROWSER_PROFILES = {
+    "chrome": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+    },
+    "safari": {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_2_1) AppleWebKit/605.1.15 Version/16.3 Safari/605.1.15",
+    },
+    "coccoc": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:110.0) Gecko/20100101 Firefox/110.0 CocCocBrowser/123.0",
+    },
+    "firefox": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0",
+    },
+    "brave": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Brave/120.0.0.0 Safari/537.36",
+    },
+    "vivaldi": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Vivaldi/6.2.3105.58 Safari/537.36",
+    },
+}
+
+
+HEADERS_MAPPING_SOURCE = {
+    'SSI': {'Referer': 'https://iboard.ssi.com.vn', 'Origin': 'https://iboard.ssi.com.vn'},
+    'VND': {'Referer': 'https://dchart.vndirect.com.vn', 'Origin': 'https://dchart.vndirect.com.vn'},
+    'TCBS': {'Referer': 'https://tcinvest.tcbs.com.vn/', 'Origin': 'https://tcinvest.tcbs.com.vn/'},
+    'VCI': {'Referer': 'https://trading.vietcap.com.vn/', 'Origin': 'https://trading.vietcap.com.vn/'},
+    'MSN': {'Referer': 'https://www.msn.com/', 'Origin': 'https://www.msn.com/'},
+    'FMARKET': {'Referer': 'https://fmarket.vn/', 'Origin': 'https://fmarket.vn/'},
+    'SJC': {'Referer': 'https://sjc.com.vn/bieu-do-gia-vang', 'Origin': 'https://sjc.com.vn'},
+}
+import random
+
+
+DESKTOP_BROWSERS = {
+    "chrome": {
+        "windows": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+        ),
+        "macos": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) " # Using a common recent macOS version
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+        ),
+    },
+    "firefox": {
+        "windows": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) "
+            "Gecko/20100101 Firefox/137.0"
+        ),
+        "macos": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) " # Using a common recent macOS version and latest Firefox
+            "Gecko/20100101 Firefox/138.0"
+        ),
+    },
+    "edge": {
+        "windows": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.3240.50"
+        ),
+    },
+    "opera": {
+        "windows": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 OPR/117.0.0.0" # Based on Chromium 132 and Opera 117
+        ),
+        "macos": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) " # Using a common recent macOS version
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 OPR/118.0.0.0" # Based on Chromium 136 and Opera 118
+        ),
+    },
+    "brave": {
+        "windows": (
+             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Brave/1.77.101" # Using Chromium 136 and Brave 1.77
+        ),
+        "macos": (
+             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) " # Using a common recent macOS version
+             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Brave/1.77.101" # Using Chromium 136 and Brave 1.77
+        ),
+    },
+    "vivaldi": {
+        "windows": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Vivaldi/7.2" # Using Chromium 136 and Vivaldi 7.2
+        ),
+    },
+    "coccoc": {
+        "windows": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 CocCoc/136.0.0.0" # Assuming Chromium 136 base for latest Coc Coc Windows
+        ),
+    },
+    "safari": {
+        "macos": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) " # Using a common recent macOS version
+            "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.6 Safari/605.1.15" # Using Safari 17.6
+        ),
+    },
+}
+
+MOBILE_BROWSERS = {
+    "chrome": {
+        "android": (
+            "Mozilla/5.0 (Linux; Android 13; Pixel 7) " # Keeping a common recent Android device
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.60 Mobile Safari/537.36" # Using Chrome 136.0.7103.60
+        ),
+    },
+    "safari": {
+        "ios": (
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) " # Using a recent iOS version
+            "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1" # Assuming Safari version aligns with iOS or latest found
+        ),
+    },
+    "samsung": {
+        "android": (
+            "Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-G991B) " # Keeping a common recent Samsung device
+            "AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/21.0 Chrome/110.0.5481.154 Mobile Safari/537.36" # Using Samsung Browser 21 and Chrome 110 (based on search result)
+        ),
+    },
+    "opera": {
+        "android": (
+            "Mozilla/5.0 (Linux; Android 13; M2102J20SG) " # Keeping a common recent Android device
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36 OPR/76.2.4027.73374" # Using Chromium 136 and Opera 76
+        ),
+    },
+    "coccoc": {
+        "android": (
+            "Mozilla/5.0 (Linux; Android 13; Redmi Note 12) " # Keeping a common recent Android device
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36 CocCocBrowser/137.0.258" # Using Chrome 137 and CocCocBrowser 137.0.258
+        ),
+    },
+    "firefox": {
+        "android": "Mozilla/5.0 (Android 13; Mobile; rv:137.0) Gecko/137.0 Firefox/137.0", # Using Firefox 137
+    },
+}
+
+# Combine all browser profiles
+USER_AGENTS = {}
+
+for browser_dict in [DESKTOP_BROWSERS, MOBILE_BROWSERS]:
+    for browser, platforms in browser_dict.items():
+        if browser not in USER_AGENTS:
+            USER_AGENTS[browser] = {}
+        USER_AGENTS[browser].update(platforms)
+
+def list_all_profiles():
+    print("Available browser/platform combinations:")
+    for browser, platforms in USER_AGENTS.items():
+        for platform in platforms:
+            print(f"- {browser:10} | {platform:10}")
+
+
+def get_headers(
+    data_source = 'SSI',
+    random_agent = True,
+    browser = 'chrome',
+    platform = 'windows') :
+    """
+    Generate browser-like headers with optional referer/origin and realistic User-Agent.
+
+    Args:
+        data_source (str): Predefined data source (e.g., 'SSI', 'VND').
+        random_agent (bool): Whether to use a random browser/platform User-Agent.
+        browser (str): Browser name to simulate if not random.
+        platform (str): Platform name to simulate if not random.
+
+    Returns:
+        dict: HTTP headers with realistic settings.
+    """
+    ref_origin = HEADERS_MAPPING_SOURCE.get(data_source.upper(), {})
+    referer = ref_origin.get("Referer", "")
+    origin = ref_origin.get("Origin", "")
+
+    # Determine browser/platform
+    if random_agent:
+        browser = random.choice(list(USER_AGENTS.keys()))
+        platform = random.choice(list(USER_AGENTS[browser].keys()))
+
+    ua = USER_AGENTS.get(browser.lower(), {}).get(platform.lower())
+
+    if not ua:
+        # Fallback to first available platform under chrome or first browser available
+        ua = USER_AGENTS.get("chrome", {}).get("windows")
+        if not ua:
+            # As a last resort, pick any user agent
+            for b in USER_AGENTS.values():
+                if isinstance(b, dict):
+                    ua = next(iter(b.values()))
+                    break
+
+    headers = DEFAULT_HEADERS.copy()
+    headers["User-Agent"] = ua
+    if referer:
+        headers["Referer"] = referer
+    if origin:
+        headers["Origin"] = origin
+    return headers
+
+
+def send_request(
+    url,
+    headers,
+    method = "GET",
+    params = None,
+    payload = None,
+    timeout = 30):
+    """
+    Centralized function for making API requests with consistent error handling.
+    
+    Supports sending payload as either a raw string or as a JSON object (provided as a dict). 
+    For JSON payloads, the function will automatically serialize the dictionary.
+
+    Args:
+        url (str): The URL of the API endpoint.
+        headers (Dict[str, str]): HTTP request headers.
+        method (str, optional): HTTP method ("GET" or "POST"). Defaults to "GET".
+        params (Optional[Dict], optional): Query parameters for GET requests. Defaults to None.
+        payload (Optional[Union[Dict, str]], optional): 
+            The request payload. Can be a dictionary (for JSON payload) or a raw string. Defaults to None.
+        show_log (bool, optional): Flag to enable logging for the request details. Defaults to False.
+        timeout (int, optional): Timeout in seconds for the HTTP request. Defaults to 30.
+    
+    Returns:
+        Dict[str, Any]: The JSON-decoded response from the API.
+    
+    Raises:
+        ConnectionError: If the API request fails or returns a non-200 status code.
+        ValueError: If payload is provided in an unsupported type.
+    """
+    
+
+    try:
+        if method.upper() == "GET":
+            response = requests.get(url, headers=headers, params=params, timeout=timeout)
+        else:  # POST method
+            # If payload is provided, determine if it's a dict (to be serialized as JSON) or a raw string.
+            if payload is not None:
+                if isinstance(payload, dict):
+                    # Serialize dictionary to JSON formatted string.
+                    data_arg = json.dumps(payload)
+                elif isinstance(payload, str):
+                    # Use the raw payload as is.
+                    data_arg = payload
+                else:
+                    raise ValueError("Payload must be either a dictionary or a raw string.")
+            else:
+                data_arg = None
+
+            response = requests.post(url, headers=headers, data=data_arg, timeout=timeout)
+
+        # Check if the response status code is 200 (OK)
+        if response.status_code != 200:
+            raise ConnectionError(
+                f"Failed to fetch data: {response.status_code} - {response.reason}"
+            )
+
+        data = response.json()
+
+        return data
+    except requests.exceptions.RequestException as e:
+        error_msg = f"API request failed: {str(e)}"        
+        raise ConnectionError(error_msg)
+
+
+def intraday_to_df(
+    data,
+    column_map,
+    dtype_map,
+    symbol,
+    asset_type,
+    source) :
+    """
+    Convert intraday trading data to standardized DataFrame format,
+    cleaning numeric strings (thousands separators, commas) and logging parse failures.
+    """
+    # --- empty case ---
+    if not data:
+        empty = pd.DataFrame(columns=list(column_map.values()))
+        empty.attrs['symbol'] = symbol
+        empty.category = asset_type
+        empty.source = source
+        return empty
+
+    # --- build raw DF ---
+    df = pd.DataFrame(data)
+
+    # --- select & rename ---
+    cols = [c for c in column_map if c in df.columns]
+    df = df[cols]
+    df.rename(columns={c: column_map[c] for c in cols}, inplace=True)
+
+    # --- cleaning + parsing numeric columns ---
+    numeric_cols = [
+        col for col, dt in dtype_map.items()
+        if col in df.columns and dt.startswith(("int", "float"))
+    ]
+
+
+
+def intradayVCI(symbol, page_size =100, last_time=None, to_df=True, show_log=False):
+        """
+        Truy xuất dữ liệu khớp lệnh của mã chứng khoán bất kỳ từ nguồn dữ liệu VCI
+
+        Tham số:
+            - page_size (tùy chọn): Số lượng dữ liệu trả về trong một lần request. Mặc định là 100. 
+            - last_time (tùy chọn): Thời gian cắt dữ liệu, dùng để lấy dữ liệu sau thời gian cắt. Mặc định là None.
+            - to_df (tùy chọn): Chuyển đổi dữ liệu lịch sử trả về dưới dạng DataFrame. Mặc định là True.
+            - show_log (tùy chọn): Hiển thị thông tin log giúp debug dễ dàng. Mặc định là False.
+        """
+        
+
+        _TRADING_URL = 'https://trading.vietcap.com.vn/api/'
+        _INTRADAY_URL = 'market-watch'
+        
+        _INTRADAY_MAP = {
+                'truncTime':'time',
+                'matchPrice':'price',
+                'matchVol':'volume',
+                'matchType':'match_type',
+                'id':'id'
+                }
+
+        _INTRADAY_DTYPE = {
+                    "time": "datetime64[ns]",
+                    "price": "float64",
+                    "volume": "int64",
+                    "match_type": "str",
+                    "id": "str"
+                }
+        
+        
+        url = f'{_TRADING_URL}{_INTRADAY_URL}/LEData/getAll'
+        payload = {
+            "symbol": symbol,
+            "limit": page_size,
+            "truncTime": last_time
+        }
+
+        # Fetch data using the send_request utility
+        data = send_request(
+            url=url, 
+            headers=get_headers(data_source="VCI", random_agent=False), 
+            method="POST", 
+            payload=payload
+        )
+
+        # Transform data using intraday_to_df utility
+        df = intraday_to_df(
+            data=data, 
+            column_map=_INTRADAY_MAP, 
+            dtype_map=_INTRADAY_DTYPE, 
+            symbol=symbol, 
+            asset_type='index', 
+            source="VCI"
+        )
+
+        if to_df:
+            return df
+        else:
+            return df.to_json(orient='records')
+        
+        
+
+def ohlc_to_df(data, column_map, dtype_map,
+              asset_type, symbol, source, interval = "1D",
+              floating = 2, resample_map = None):
+    """Convert OHLC data from any source to standardized DataFrame format."""
+    if not data:
+        raise ValueError("Input data is empty or not provided.")
+        
+    # Handle different data source formats
+    if source == 'TCBS':
+        # TCBS data is already a list of dictionaries
+        df = pd.DataFrame(data)
+        # Apply column mapping directly through rename
+        df.rename(columns=column_map, inplace=True)
+    else:
+        # VCI and other sources
+        # Select and rename columns using dictionary comprehension
+        columns_of_interest = {key: column_map[key] for key in column_map.keys() if key in data}
+        df = pd.DataFrame(data)[columns_of_interest.keys()].rename(columns=column_map)
+    
+    # Ensure all required columns exist
+    required_columns = ['time', 'open', 'high', 'low', 'close', 'volume']
+    missing_columns = [col for col in required_columns if col not in df.columns]
+    if missing_columns:
+        raise ValueError(f"Missing required columns: {missing_columns}. Available columns: {df.columns.tolist()}")
+    
+    # Standard column order
+    df = df[['time', 'open', 'high', 'low', 'close', 'volume']]
+    
+    # Time conversion - handle different formats based on source
+    if 'time' in df.columns:
+        if source == 'VCI':
+            # VCI uses integer timestamps
+            df['time'] = pd.to_datetime(df['time'].astype(int), unit='s').dt.tz_localize('UTC')
+            df['time'] = df['time'].dt.tz_convert('Asia/Ho_Chi_Minh')
+        else:
+            # TCBS and others might use string formats
+            df['time'] = pd.to_datetime(df['time'], errors='coerce')
+    
+    # Price scaling for non-index/derivative assets
+    if asset_type not in ["index", "derivative"]:
+        df[["open", "high", "low", "close"]] = df[["open", "high", "low", "close"]].div(1000)
+    
+    # Round price columns
+    df[["open", "high", "low", "close"]] = df[["open", "high", "low", "close"]].round(floating)
+    
+    # Resample if needed
+    if resample_map and interval not in ["1m", "1H", "1D"]:
+        df = df.set_index('time').resample(resample_map[interval]).agg({
+            'open': 'first',
+            'high': 'max',
+            'low': 'min',
+            'close': 'last',
+            'volume': 'sum'
+        }).reset_index()
+    
+    # Apply data types
+    for col, dtype in dtype_map.items():
+        if col in df.columns:
+            if dtype == "datetime64[ns]" and hasattr(df[col], 'dt') and df[col].dt.tz is not None:
+                df[col] = df[col].dt.tz_localize(None)  # Remove timezone info
+                if interval == "1D":
+                    df[col] = df[col].dt.date
+            df[col] = df[col].astype(dtype)
+    
+    # Add metadata
+    df.name = symbol
+    df.category = asset_type
+    df.source = source
+    
+    return df
+
+
+def historyVCI(symbol, start, end=None, interval="1D", 
+                to_df=True, show_log=False, count_back=None, floating=2) :
+        """
+        Tải lịch sử giá của mã chứng khoán từ nguồn dữ liệu VCI.
+
+        Tham số:
+            - start (bắt buộc): thời gian bắt đầu lấy dữ liệu, có thể là ngày dạng string kiểu "YYYY-MM-DD" hoặc "YYYY-MM-DD HH:MM:SS".
+            - end (tùy chọn): thời gian kết thúc lấy dữ liệu. Mặc định là None, chương trình tự động lấy thời điểm hiện tại.
+            - interval (tùy chọn): Khung thời gian trích xuất dữ liệu giá lịch sử. Giá trị nhận: 1m, 5m, 15m, 30m, 1H, 1D, 1W, 1M. Mặc định là "1D".
+            - to_df (tùy chọn): Chuyển đổi dữ liệu lịch sử trả về dưới dạng DataFrame. Mặc định là True. Đặt là False để trả về dạng JSON.
+            - show_log (tùy chọn): Hiển thị thông tin log giúp debug dễ dàng. Mặc định là False.
+            - count_back (tùy chọn): Số lượng dữ liệu trả về từ thời điểm cuối.
+            - floating (tùy chọn): Số chữ số thập phân cho giá. Mặc định là 2.
+        """
+        
+
+        start_time = datetime.strptime(start, "%Y-%m-%d")
+        
+        # Calculate end timestamp
+        if end is not None:
+            end_time = datetime.strptime(end, "%Y-%m-%d") + pd.Timedelta(days=1)
+            if start_time > end_time:
+                raise ValueError("Thời gian bắt đầu không thể lớn hơn thời gian kết thúc.")
+            end_stamp = int(end_time.timestamp())
+        else:
+            end_stamp = int((datetime.now() + pd.Timedelta(days=1)).timestamp())
+            
+        _INTERVAL_MAP = {'1m' : 'ONE_MINUTE',
+            '5m' : 'ONE_MINUTE',
+            '15m' : 'ONE_MINUTE',
+            '30m' : 'ONE_MINUTE',
+            '1H' : 'ONE_HOUR',
+            '1D' : 'ONE_DAY',
+            '1W' : 'ONE_DAY',
+            '1M' : 'ONE_DAY'
+            }
+        _TRADING_URL = 'https://trading.vietcap.com.vn/api/'
+        _CHART_URL = 'chart/OHLCChart/gap'
+        start_stamp = int(start_time.timestamp())
+        interval_value = _INTERVAL_MAP[interval]
+
+        # Prepare request
+        url = _TRADING_URL + _CHART_URL
+        payload = {
+            "timeFrame": interval_value,
+            "symbols": [symbol],
+            "from": start_stamp,
+            "to": end_stamp
+        }
+
+        # Use the send_request utility from api_client
+        json_data = send_request(
+            url=url, 
+            headers=get_headers(data_source="VCI", random_agent=False), 
+            method="POST", 
+            payload=payload
+        )
+
+        if not json_data:
+            raise ValueError("Không tìm thấy dữ liệu. Vui lòng kiểm tra lại mã chứng khoán hoặc thời gian truy xuất.")
+        _OHLC_MAP = {
+                't': 'time',
+                'o': 'open',
+                'h': 'high',
+                'l': 'low',
+                'c': 'close',
+                'v': 'volume',
+            }
+            
+        # Pandas data type mapping for history price data
+        _OHLC_DTYPE = {
+            "time": "datetime64[ns]",  # Convert timestamps to datetime
+            "open": "float64",
+            "high": "float64",
+            "low": "float64",
+            "close": "float64",
+            "volume": "int64",
+        }
+        _RESAMPLE_MAP = {
+            '5m' : '5min',
+            '15m' : '15min',
+            '30m' : '30min',
+            '1W' : '1W',
+            '1M' : 'M'
+        }
+
+        # Use the ohlc_to_df utility from data_transform
+        df = ohlc_to_df(
+            data=json_data[0], 
+            column_map=_OHLC_MAP, 
+            dtype_map=_OHLC_DTYPE, 
+            asset_type='index', 
+            symbol=symbol, 
+            source="VCI", 
+            interval=interval, 
+            floating=floating,
+            resample_map=_RESAMPLE_MAP
+        )
+
+        if count_back is not None:
+            df = df.tail(count_back)
+
+        if to_df:
+            return df
+        else:
+            return df.to_json(orient='records')
+
+def historyTCBS(symbol, start, end = None, interval = "1D", 
+        to_df = True, show_log = False, count_back = 365,
+        asset_type = None, _skip_long_check = False):
+    """
+    Tham số:
+        - start (bắt buộc): thời gian bắt đầu lấy dữ liệu, có thể là ngày dạng string kiểu "YYYY-MM-DD".
+        - end (tùy chọn): thời gian kết thúc lấy dữ liệu. Mặc định là None (ngày hiện tại).
+        - interval (tùy chọn): Khung thời gian trích xuất dữ liệu giá lịch sử (1m, 5m, 15m, 30m, 1H, 1D, 1W, 1M).
+        - to_df (tùy chọn): Chuyển đổi dữ liệu trả về dưới dạng DataFrame (True) hoặc JSON (False).
+        - show_log (tùy chọn): Hiển thị thông tin log giúp debug dễ dàng.
+        - count_back (tùy chọn): Số lượng dữ liệu trả về từ thời điểm cuối. Mặc định là 365.
+        - asset_type (tùy chọn): Loại tài sản (stock, index, derivative). Mặc định là None (tự xác định).
+        - _skip_long_check (tùy chọn): Bỏ qua kiểm tra thời gian dài để tránh đệ quy vô hạn. Mặc định là False.
+    """
+    
+    if count_back is None:
+        count_back = 365
+
+    if asset_type is None:
+        asset_type = 'index'
+
+    # calculate days between start and end
+    start_time = datetime.strptime(start, "%Y-%m-%d")
+    end_time = datetime.strptime(end, "%Y-%m-%d")
+
+    # validate if the end date is not earlier than the start date
+    if end_time < start_time:
+        raise ValueError("Thời gian kết thúc không thể sớm hơn thời gian bắt đầu.")
+
+    days = (end_time - start_time).days
+
+    # Only check for long date ranges if not explicitly skipped
+    if not _skip_long_check and days > 365:
+        return _long_historyTCBS(symbol, start, end, show_log, asset_type)
+    else:
+        if end is None:
+            end_stamp = int(datetime.now().timestamp())
+        else:
+            end_stamp = int(end_time.timestamp())
+
+        if interval in ["1D", "1W", "1M"]:
+            end_point = "bars-long-term"
+        elif interval in ["1m", "5m", "15m", "30m", "1H"]:
+            end_point = "bars"
+        _INTERVAL_MAP = {'1m' : 'ONE_MINUTE',
+            '5m' : 'ONE_MINUTE',
+            '15m' : 'ONE_MINUTE',
+            '30m' : 'ONE_MINUTE',
+            '1H' : 'ONE_HOUR',
+            '1D' : 'ONE_DAY',
+            '1W' : 'ONE_DAY',
+            '1M' : 'ONE_DAY'
+            }
+        # translate the interval to TCBS format
+        interval_value = _INTERVAL_MAP[interval]
+        _BASE_URL = 'https://apipubaws.tcbs.com.vn'
+        _STOCKS_URL = 'stock-insight'
+        # Construct the URL for fetching data
+        url = f"{_BASE_URL}/{_STOCKS_URL}/v2/stock/{end_point}?resolution={interval_value}&ticker={symbol}&type={asset_type}&to={end_stamp}&countBack={count_back}"
+
+        if interval_value in ["1", "5", "15", "30", "60"]:
+            # replace 'bars-long-term' with 'bars' in the url
+            url = url.replace("bars-long-term", "bars")
+
+        
+
+        # Send a GET request to fetch the data
+        response = requests.get(url, headers=get_headers(data_source="TCBS", random_agent=False))
+
+        if response.status_code != 200:
+            raise ConnectionError(f"Tải dữ liệu không thành công: {response.status_code} - {response.reason}")
+
+        json_data = response.json()['data']
+
+        
+        df = _as_df(json_data, asset_type)
+
+    df.attrs['symbol'] = symbol
+    df.category = asset_type
+    df.source = 'TCBS'
+    
+    if to_df:
+        return df
+    else:
+        # convert df to json format 
+        json_data = df.to_json(orient='records')
+        return json_data
+    
+def _as_df(symbol, history_data, asset_type, floating = 2):
+    """
+    Backward compatibility method that delegates to shared data_transform utility
+    """
+    
+    _OHLC_MAP = {
+    'tradingDate': 'time',
+    'open': 'open',
+    'high': 'high',
+    'low': 'low',
+    'close': 'close',
+    'volume': 'volume',
+    }
+    
+    
+    # Pandas data type mapping for history price data
+    _OHLC_DTYPE = {
+        "time": "datetime64[ns]",  # Convert timestamps to datetime
+        "open": "float64",
+        "high": "float64",
+        "low": "float64",
+        "close": "float64",
+        "volume": "int64",
+    }
+    # Use the shared transformation utility
+    return ohlc_to_df(
+        data=history_data,
+        column_map=_OHLC_MAP,
+        dtype_map=_OHLC_DTYPE,
+        asset_type=asset_type,
+        symbol=symbol,
+        source='TCBS',
+        interval="1D"  # Default for long history
+    )
+
+
+def _long_historyTCBS(symbol, start, end, show_log = False, 
+                    asset_type = None, _skip_long_check = True) :
+        """
+        Truy xuất dữ liệu lịch sử dài hạn từ TCBS cho khung thời gian ngày
+        """
+        from datetime import timedelta
+        
+        start_date = datetime.strptime(start, "%Y-%m-%d")
+        end_date = datetime.strptime(end, "%Y-%m-%d")
+        
+        combined_data = []
+        current_start = start_date
+        
+        # Process each year chunk moving forward from start date
+        while current_start <= end_date:
+            try:
+                # Calculate end date for this chunk (either next year or final end date)
+                next_year_date = datetime(current_start.year + 1, current_start.month, 1)
+                year_end = min(
+                    next_year_date - timedelta(days=1),
+                    end_date
+                )
+                
+                # Format dates as strings
+                year_start_str = current_start.strftime("%Y-%m-%d")
+                year_end_str = year_end.strftime("%Y-%m-%d")
+                
+                
+                
+                # Fetch data for this year chunk - pass the _skip_long_check parameter
+                try:
+                    data = historyTCBS(symbol,
+                        start=year_start_str, 
+                        end=year_end_str, 
+                        interval="1D", 
+                        to_df=True, 
+                        show_log=show_log, 
+                        asset_type=asset_type,
+                        _skip_long_check=True
+                    )
+                    combined_data.append(data)
+                except Exception as e:
+                    print(f"Dữ liệu không tồn tại từ {year_start_str} đến {year_end_str}: {e}")
+                
+                # Move to next year's start (use the first day of the next month to avoid leap year issues)
+                current_start = next_year_date
+                
+            except Exception as e:
+                print(f"Error processing year chunk: {str(e)}")
+                # Move forward by a year even if an error occurs
+                current_start = datetime(current_start.year + 1, current_start.month, 1)
+        
+        # If no data was found, raise an error
+        if not combined_data:
+            raise ValueError(f"Không tìm thấy dữ liệu cho {symbol} từ {start} đến {end}")
+        
+        # Combine all chunks
+        df = pd.concat(combined_data, ignore_index=True)
+        
+        # Filter to ensure we only get data in the requested range
+        df = df[(df['time'] >= start) & (df['time'] <= end)]
+        
+        return df
+
+
 
 def PriceHistory(ticker, len=252*4):
     d = requests.get(
@@ -1273,19 +2025,23 @@ def process_data(ticker, start, end, realtime=False, source="cp68"):
                                 '<LowFixed>': 'Low', '<CloseFixed>': 'Close', '<Volume>': 'Volume'})
         df = df.set_index('Date')
 
-    if source == 'ssi':
+    if source == 'vci':
         end_data = datetime.now().strftime('%Y-%m-%d')
-        df = stock_historical_data(ticker, start, end_data, "1D")
+       
+        df = historyVCI(ticker, start, end= end_data)
         df = df.rename(columns={'time': 'Date', 'open': 'Open', 'high': 'High',
                                 'low': 'Low', 'close': 'Close', 'volume': 'Volume'})
         df = df.set_index('Date')
 
-    if source == 'cafef':
+    if source == 'tcbs':
         end_data = datetime.now().strftime('%Y-%m-%d')
-        df = PriceHistoryPeriod(ticker, start, end)
+        df = historyTCBS(ticker, start, end= end_data)
         df = df.rename(columns={'GiaMoCua': 'Open', 'GiaCaoNhat': 'High',
                                 'GiaThapNhat': 'Low', 'GiaDongCua': 'Close', 'KhoiLuongKhopLenh': 'Volume'})
         df = df.set_index('Date')
+        
+        
+        
 
     # columns order for backtrader type
     columnsOrder = ["Open", "High", "Low", "Close", "Volume"]

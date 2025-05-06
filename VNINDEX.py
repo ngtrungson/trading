@@ -67,28 +67,28 @@ def getliststocks(typestock="^VNINDEX"):
                    'REE', 'ROS', 'SAB', 'SBT', 'SSI', 'STB', 'TCB', 'VCB', 'VHM',
                    'VIC', 'VJC', 'VNM', 'VPB', 'VRE']
 
-    symbolsHNX = ['IDC', 'IDV', 'NTP', 'PVS',  'PLC', 'SHS', 'TNG',  'VCS']
+    symbolsHNX = ['IDC', 'IDV', 'NTP', 'PVS',  'PLC', 'SHS', 'TNG',  'VCS', 'CDN','VNR']
 
-    symbolsVNI = ['ANV',  'AAA', "ACB", 'AST',
-                  'BCG', "BWE",  "BID", "BMI", "BMP", "BVH", 'BFC', 'BCM', 'BSI',
+    symbolsVNI = ['ANV',  "ACB", 'AST','ABT',
+                  "BWE",  "BID", "BMI", "BMP", "BVH", 'BFC', 'BCM', 'BSI',
                   'CMG', "CTD", "CSV", "CTG", 'CII', 'CTS', 'CTR',
-                  'DPG', 'D2D', 'DGW', 'DBC', "DHG",  "DPM",  "DRC", "DXG",  "DVP", 'DHA', 'DCM', 'DIG', 'DGC', 'DHC',
-                  'ELC', 'FRT', "FCN",  'FMC', "FPT", 'FTS',
-                  "GAS", "GMD", 'GVR', 'GIL', 'GEX',
+                  'D2D', 'DGW', 'DBC', "DHG",  "DPM",  "DRC", "DVP", 'DHA', 'DCM', 'DSE', 'DGC', 'DHC',
+                  'FRT', "FCN",  'FMC', "FPT", 'FTS',
+                  "GAS", "GMD", 'GVR', 'GIL', 'GEX','GEE',
                   "HSG",  'HHV', "HDG", "HCM", "HPG",  'HDC', 'HAH', "HDB",
                   'IMP', "IJC", 'ILB',  'ITD',
-                  "KBC",  "KDH", 'KHG', 'KSB',
+                  "KBC",  "KDH", 'KSB',
                   'LHG', 'LCG', "LPB",
                   "MBB", "MSN", "MWG",  'MSH', 'MBS',
                   "NLG", 'NTL', "NKG", 'NCT', 'OCB',
-                  "PVT", "PVD", "PHR", "PDR", "PNJ",  "PC1",   "PLX", "PPC", 'PTB', 'PVP', 'POW', 'PET',
-                  "REE", "SJS", "STB", "SSI", "SBT", 'SMC',  'SKG', 'SZL', 'SZC', 'SHB',
-                  "TIP", "TPB", "TCL", "TV2", 'TDM', 'TCM',  'TCB', 'TCH',
+                  "PVT", "PVD", "PHR", "PNJ",  "PC1",   "PLX", "PPC", 'PTB', 'PVP', 'POW', 'PET','PVP',
+                  "REE", "SJS", "STB", "SSI", "SBT",  'SKG', 'SZL', 'SZC', 'SHB', 'SGN',
+                  "TIP", "TCL", 'TDM', 'TCM',  'TCB', 'TNH', 'TYA',
                   "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VIB", 'VGC', 'VPB', 'VRE', 'VND',
-                  'VHM',  "VIX", 'VCI', 'VTP', 'VCG']
+                  'VHM',  'VCI', 'VTP', 'VCG']
 
-    symbolsUPCOM = ['QNS',  'ACV', 'VGI', 'PPH',
-                    'PHP', 'VEA', 'VGT', 'SNZ', 'C4G']
+    symbolsUPCOM = ['QNS',  'ACV', 'VGI', 'PPH', 'DRI','VLB','PAP', 'PDV',
+                    'PHP', 'VEA', 'VGT', 'SNZ', 'C4G','VLB','SAS']
 
     if typestock == "ALL":
         symbols = benchmark + symbolsVNI + symbolsHNX + symbolsUPCOM
@@ -303,18 +303,18 @@ if __name__ == "__main__":
     # orig_stdout = sys.stdout
     # sys.stdout = open("logging.txt","w")
 
-    # export_watchlist()
+    export_watchlist()
     #
     symbols = None
     # symbols = get_csv_data(source="cp68")
 
-    end_date = "2024-10-9"
-    start_date = "2021-4-6"
+    end_date = "2025-5-6"
+    start_date = "2021-9-6"
     t0 = time.time()
     trade_type = {'EarlySignal', 'Bottom', 'SidewayBreakout'}
     trademethod = 'EarlySignal'  # EarlySignal
     realtime = True
-    datasource = "ssi"  # "cafef"
+    datasource = "vci"  # "vci" , "tcbs
     t1 = 9*60 + 20
     t2 = 11*60 + 30
     t3 = 13*60 + 0
