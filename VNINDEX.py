@@ -13,11 +13,45 @@ import sys
 import time
 import os
 import warnings
+from statsmodels import regression
+import statsmodels.api as sm
+
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
 
 import webbrowser
 import holidays
+
+def analysis_alpha_beta(df_data, symbols, market = '^VNINDEX'):
+    df_result = pd.DataFrame(columns= ['Ticker', 'Alpha', 'Beta'])
+    
+    for ticker in symbols:       
+        alpha, beta = compute_alpha_beta(df = df_data, symbol = ticker, index = market)    
+        df_result =  df_result._append({'Ticker':ticker, 'Alpha': alpha, 'Beta': beta},ignore_index = True)
+        
+    df_result = df_result.set_index('Ticker')
+    return df_result
+        
+def linreg(x,y):
+    # We add a constant so that we can also fit an intercept (alpha) to the model
+    # This just adds a column of 1s to our data
+    x = sm.add_constant(x)
+    model = regression.linear_model.OLS(y,x).fit()
+    # Remove the constant now that we're done
+    x = x[:, 1]
+    return model.params[0], model.params[1]    
+
+def compute_alpha_beta(df, symbol = 'BVH', index = '^VNINDEX'):
+#    covariance = np.cov(df[symbol] , df[index])[0][1] 
+#    variance = np.var(df[index])
+#    beta = covariance / variance 
+    r_a = df[symbol].pct_change()[1:]   
+    r_b = df[index].pct_change()[1:]
+    X = r_b.values # Get just the values, ignore the timestamps
+    Y = r_a.values
+    alpha, beta = linreg(X,Y)
+    
+    return alpha, beta
 
 
 def get_data_from_cophieu68_openwebsite(tickers):
@@ -70,24 +104,24 @@ def getliststocks(typestock="^VNINDEX"):
     symbolsHNX = ['IDC', 'IDV', 'NTP', 'PVS',  'PLC', 'SHS', 'TNG',  'VCS', 'CDN','VNR']
 
     symbolsVNI = ['ANV',  "ACB", 'AST','ABT',
-                  "BWE",  "BID", "BMI", "BMP", "BVH", 'BFC', 'BCM', 'BSI',
-                  'CMG', "CTD", "CSV", "CTG", 'CII', 'CTS', 'CTR',
+                  "BWE",  "BID", "BMI", "BMP", "BVH", 'BFC', 'BCM', 'BSI', 'BIC',
+                  'CMG', "CTD", "CSV", "CTG", 'CII', 'CTS', 'CTR', 'CTI',
                   'D2D', 'DGW', 'DBC', "DHG",  "DPM",  "DRC", "DVP", 'DHA', 'DCM', 'DSE', 'DGC', 'DHC',
                   'FRT', "FCN",  'FMC', "FPT", 'FTS',
                   "GAS", "GMD", 'GVR', 'GIL', 'GEX','GEE',
-                  "HSG",  'HHV', "HDG", "HCM", "HPG",  'HDC', 'HAH', "HDB",
+                  "HSG",  'HHV', "HDG", "HCM", "HPG",  'HDC', 'HAH', "HDB", 'HTI',
                   'IMP', "IJC", 'ILB',  'ITD',
                   "KBC",  "KDH", 'KSB',
                   'LHG', 'LCG', "LPB",
                   "MBB", "MSN", "MWG",  'MSH', 'MBS',
                   "NLG", 'NTL', "NKG", 'NCT', 'OCB',
-                  "PVT", "PVD", "PHR", "PNJ",  "PC1",   "PLX", "PPC", 'PTB', 'PVP', 'POW', 'PET','PVP',
+                  "PVT", "PVD", "PHR", "PNJ",  "PC1",   "PLX", "PPC", 'PTB', 'PVP', 'POW', 'PET','PVP','PGV',
                   "REE", "SJS", "STB", "SSI", "SBT",  'SKG', 'SZL', 'SZC', 'SHB', 'SGN',
                   "TIP", "TCL", 'TDM', 'TCM',  'TCB', 'TNH', 'TYA',
-                  "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VIB", 'VGC', 'VPB', 'VRE', 'VND',
+                  "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VIB", 'VGC', 'VPB', 'VRE', 'VND','VCP',
                   'VHM',  'VCI', 'VTP', 'VCG']
 
-    symbolsUPCOM = ['QNS',  'ACV', 'VGI', 'PPH', 'DRI','VLB','PAP', 'PDV',
+    symbolsUPCOM = ['QNS',  'ACV', 'VGI', 'PPH', 'DRI','VLB','PAP', 'PDV','NTC',
                     'PHP', 'VEA', 'VGT', 'SNZ', 'C4G','VLB','SAS']
 
     if typestock == "ALL":
@@ -218,9 +252,9 @@ def passive_strategy(start_date, end_date, market="VNINDEX", symbols=None, realt
     # df_result['CPM'] = cpm[symbols]
     # df_result['Shares'] = round(df_result['Cash']/df_result['Close'].values/1000,0)
     df_result['Volatility'] = df_data[symbols].pct_change().std()
-    # alpha_beta = analysis_alpha_beta(df_data, symbols, market)
-    # df_result['Alpha'] = alpha_beta['Alpha']
-    # df_result['Beta'] = alpha_beta['Beta']
+    alpha_beta = analysis_alpha_beta(df_data, symbols, market)
+    df_result['Alpha'] = alpha_beta['Alpha']
+    df_result['Beta'] = alpha_beta['Beta']
     df_result['PCT_3D'] = df_data[symbols].pct_change().iloc[-4, :].values*100
     df_result['PCT_2D'] = df_data[symbols].pct_change().iloc[-3, :].values*100
     df_result['PCT_1D'] = df_data[symbols].pct_change().iloc[-2, :].values*100
@@ -240,11 +274,14 @@ def passive_strategy(start_date, end_date, market="VNINDEX", symbols=None, realt
 
     relative_strength1M = 100*df_data[symbols].pct_change(periods=21).fillna(0)
     relative_strength2M = 100*df_data[symbols].pct_change(periods=42).fillna(0)
-
+    relative_strength3M = 100*df_data[symbols].pct_change(periods=63).fillna(0)
+    relative_strength4M = 100*df_data[symbols].pct_change(periods=84).fillna(0)
     df_result['RSW'] = relative_strength.iloc[-1, :].values
 
     df_result['RSW1M'] = relative_strength1M.iloc[-1, :].values
     df_result['RSW2M'] = relative_strength2M.iloc[-1, :].values
+    df_result['RSW3M'] = relative_strength3M.iloc[-1, :].values
+    df_result['RSW4M'] = relative_strength4M.iloc[-1, :].values
     df_result['RSI'] = df_rsi[symbols].iloc[-1, :].values
     rsi_change = df_rsi[symbols].pct_change()
     df_result['RSI_1D'] = rsi_change.iloc[-1, :].values*100
@@ -303,12 +340,13 @@ if __name__ == "__main__":
     # orig_stdout = sys.stdout
     # sys.stdout = open("logging.txt","w")
 
-    export_watchlist()
+    # export_watchlist()
     #
     symbols = None
     # symbols = get_csv_data(source="cp68")
 
-    end_date = "2025-5-6"
+
+    end_date = "2026-2-10"
     start_date = "2021-9-6"
     t0 = time.time()
     trade_type = {'EarlySignal', 'Bottom', 'SidewayBreakout'}
@@ -319,7 +357,9 @@ if __name__ == "__main__":
     t2 = 11*60 + 30
     t3 = 13*60 + 0
     t4 = 14*60 + 45
-    trading = True if (symbols == None or datasource == "ssi") else False
+    trading = True if (symbols == None or datasource == "vci") else False
+    
+    # trading = False
 
     nlastdays = 1
     today = date.today().strftime('%Y-%m-%d')

@@ -778,7 +778,8 @@ def crypto(ticker, start, end, realtime=False, source="cp68", market=None, ndays
 
 def hung_canslim(ticker, start, end, realtime=False, source="cp68", market=None, ndays=2, typetrade='Long'):
 
-    if ((source == 'cp68') | (source == 'amibroker') | (source == 'vci') | (source == 'tcbs')):
+    if ((source == 'cp68') | (source == 'amibroker') | (source == 'vci') | (source == 'tcbs')
+        |(source == 'ssi') | (source == 'cafef')):
         df = process_data(ticker=ticker, start=start, end=end,
                           realtime=realtime, source=source)
 
@@ -2032,6 +2033,13 @@ def process_data(ticker, start, end, realtime=False, source="cp68"):
         df = df.rename(columns={'time': 'Date', 'open': 'Open', 'high': 'High',
                                 'low': 'Low', 'close': 'Close', 'volume': 'Volume'})
         df = df.set_index('Date')
+    
+    if source == 'ssi':
+        end_data = datetime.now().strftime('%Y-%m-%d')
+        df = stock_historical_data(ticker, start, end_data, "1D")
+        df = df.rename(columns={'time': 'Date', 'open': 'Open', 'high': 'High',
+                                'low': 'Low', 'close': 'Close', 'volume': 'Volume'})
+        df = df.set_index('Date')
 
     if source == 'tcbs':
         end_data = datetime.now().strftime('%Y-%m-%d')
@@ -2040,7 +2048,12 @@ def process_data(ticker, start, end, realtime=False, source="cp68"):
                                 'GiaThapNhat': 'Low', 'GiaDongCua': 'Close', 'KhoiLuongKhopLenh': 'Volume'})
         df = df.set_index('Date')
         
-        
+    if source == 'cafef':
+        end_data = datetime.now().strftime('%Y-%m-%d')
+        df = PriceHistoryPeriod(ticker, start, end)
+        df = df.rename(columns={'GiaMoCua': 'Open', 'GiaCaoNhat': 'High',
+                                'GiaThapNhat': 'Low', 'GiaDongCua': 'Close', 'KhoiLuongKhopLenh': 'Volume'})
+        df = df.set_index('Date')
         
 
     # columns order for backtrader type
