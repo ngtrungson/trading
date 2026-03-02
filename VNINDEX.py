@@ -27,7 +27,8 @@ def analysis_alpha_beta(df_data, symbols, market = '^VNINDEX'):
     
     for ticker in symbols:       
         alpha, beta = compute_alpha_beta(df = df_data, symbol = ticker, index = market)    
-        df_result =  df_result._append({'Ticker':ticker, 'Alpha': alpha, 'Beta': beta},ignore_index = True)
+        new_row = pd.DataFrame([{    'Ticker': ticker,    'Alpha': alpha,    'Beta': beta}])
+        df_result = pd.concat([df_result, new_row], ignore_index=True)
         
     df_result = df_result.set_index('Ticker')
     return df_result
@@ -101,7 +102,7 @@ def getliststocks(typestock="^VNINDEX"):
                    'REE', 'ROS', 'SAB', 'SBT', 'SSI', 'STB', 'TCB', 'VCB', 'VHM',
                    'VIC', 'VJC', 'VNM', 'VPB', 'VRE']
 
-    symbolsHNX = ['IDC', 'IDV', 'NTP', 'PVS',  'PLC', 'SHS', 'TNG',  'VCS', 'CDN','VNR']
+    symbolsHNX = ['IDC', 'IDV', 'NTP', 'PVS',  'PLC', 'SHS', 'TNG',  'VCS', 'CDN','VNR', 'LHC']
 
     symbolsVNI = ['ANV',  "ACB", 'AST','ABT',
                   "BWE",  "BID", "BMI", "BMP", "BVH", 'BFC', 'BCM', 'BSI', 'BIC',
@@ -109,17 +110,17 @@ def getliststocks(typestock="^VNINDEX"):
                   'D2D', 'DGW', 'DBC', "DHG",  "DPM",  "DRC", "DVP", 'DHA', 'DCM', 'DSE', 'DGC', 'DHC',
                   'FRT', "FCN",  'FMC', "FPT", 'FTS',
                   "GAS", "GMD", 'GVR', 'GIL', 'GEX','GEE',
-                  "HSG",  'HHV', "HDG", "HCM", "HPG",  'HDC', 'HAH', "HDB", 'HTI',
-                  'IMP', "IJC", 'ILB',  'ITD',
+                  "HSG",  'HHV', "HDG", "HCM", "HPG",  'HDC', 'HAH', "HDB", 'HTI','HPA',
+                  'IMP', "IJC", 'ILB',  'ITD', 
                   "KBC",  "KDH", 'KSB',
-                  'LHG', 'LCG', "LPB",
-                  "MBB", "MSN", "MWG",  'MSH', 'MBS',
+                  'LHG', 'LCG', "LPB", 'LBM',
+                  "MBB", "MSN", "MWG",  'MSH', 'MBS','MCH',
                   "NLG", 'NTL', "NKG", 'NCT', 'OCB',
                   "PVT", "PVD", "PHR", "PNJ",  "PC1",   "PLX", "PPC", 'PTB', 'PVP', 'POW', 'PET','PVP','PGV',
                   "REE", "SJS", "STB", "SSI", "SBT",  'SKG', 'SZL', 'SZC', 'SHB', 'SGN',
-                  "TIP", "TCL", 'TDM', 'TCM',  'TCB', 'TNH', 'TYA',
+                  "TIP", "TCL", 'TDM', 'TCM',  'TCB', 'TNH', 'TYA','TCX',
                   "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VIB", 'VGC', 'VPB', 'VRE', 'VND','VCP',
-                  'VHM',  'VCI', 'VTP', 'VCG']
+                  'VHM',  'VCI', 'VTP', 'VCG', 'VCK','VPX', 'VPL']
 
     symbolsUPCOM = ['QNS',  'ACV', 'VGI', 'PPH', 'DRI','VLB','PAP', 'PDV','NTC',
                     'PHP', 'VEA', 'VGT', 'SNZ', 'C4G','VLB','SAS']
@@ -139,7 +140,7 @@ def getliststocks(typestock="^VNINDEX"):
     if typestock == "VN30":
         symbols = symbolsVN30
 #    symbols =  high_cpm
-    symbols = pd.unique(symbols).tolist()
+    symbols = pd.unique(pd.Series(symbols)).tolist()
     symbols = sorted(symbols)
     return symbols
 
@@ -340,13 +341,13 @@ if __name__ == "__main__":
     # orig_stdout = sys.stdout
     # sys.stdout = open("logging.txt","w")
 
-    # export_watchlist()
+    export_watchlist()
     #
     symbols = None
     # symbols = get_csv_data(source="cp68")
 
 
-    end_date = "2026-2-10"
+    end_date = "2026-3-2"
     start_date = "2021-9-6"
     t0 = time.time()
     trade_type = {'EarlySignal', 'Bottom', 'SidewayBreakout'}

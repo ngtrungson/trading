@@ -59,8 +59,8 @@ def api_request(url, headers=headers):
 def fill_missing_values(df_data):
     """Fill missing values in data frame, in place."""
     ##########################################################
-    df_data.fillna(method="ffill", inplace=True)
-    df_data.fillna(method="backfill", inplace=True)
+    df_data.ffill( inplace=True)
+    df_data.bfill(inplace=True)
     pass
 # STOCK LISTING
 
@@ -1206,7 +1206,7 @@ def short_selling(ticker, start, end, realtime=False, source="cp68", market=None
     df['Divergence'] = np.where(
         (df['MACD_3_6'] > df['MACDSign369']), df['MACD_3_6'], np.nan)
 
-    df['Divergence'].fillna(method="ffill", inplace=True)
+    df['Divergence'].ffill(inplace=True)
 
     df['SHORT_SELL'] = df['CONTEXT'] & (df['Divergence'] < df['Divergence'].shift(1)) &\
         (df['MACD_3_6'] < df['MACD_3_6'].shift(1)) & (df['Close'] < df['Open']) &\
@@ -2176,15 +2176,15 @@ def process_data(ticker, start, end, realtime=False, source="cp68"):
     df['Support'] = np.where((df['Close'] >= df['Close'].shift(1)) & (
         df['Close'].shift(2) >= df['Close'].shift(1)), df['Close'].shift(1), np.nan)
 
-    df['Support'].fillna(method="backfill", inplace=True)
-    df['Support'].fillna(method="ffill", inplace=True)
+    df['Support'].bfill(inplace=True)
+    df['Support'].ffill( inplace=True)
 
     # df['Resistance'] = np.where((df['High'].shift(1) >= df['High']) & (df['High'].shift(2) <= df['High'].shift(1)), df['High'].shift(1), np.nan)
     df['Resistance'] = np.where((df['Close'].shift(1) >= df['Close']) & (
         df['Close'].shift(2) <= df['Close'].shift(1)), df['Close'].shift(1), np.nan)
 
-    df['Resistance'].fillna(method="backfill", inplace=True)
-    df['Resistance'].fillna(method="ffill", inplace=True)
+    df['Resistance'].bfill(inplace=True)
+    df['Resistance'].ffill( inplace=True)
     return df
 
 
@@ -2197,38 +2197,53 @@ def compute_support_resistance(df, i):
     R2 = np.nan
     R3 = np.nan
 
-    support = df['Support'][:-i]
+    support = df['Support'][:-i].dropna()
     S0 = min(support.iloc[-i], df['Close'].iloc[-i-1], df['Low'].iloc[-i])
     ind = 1
 
     while ((support.iloc[-ind] >= S0) & (ind < len(support))):
         ind = ind + 1
+        
+    # while (ind < len(support)) and (not pd.isna(support.iloc[-ind])) and (support.iloc[-ind] >= S0):
+    #     ind += 1
     if (ind < len(support)):
         S1 = support.iloc[-ind]
 
     while ((support.iloc[-ind] >= S1) & (ind < len(support))):
         ind = ind + 1
+    # while (ind < len(support)) and (not pd.isna(support.iloc[-ind])) and (support.iloc[-ind] >= S1):
+    #     ind += 1
     if (ind < len(support)):
         S2 = support.iloc[-ind]
-
+   
     while ((support.iloc[-ind] >= S2) & (ind < len(support))):
         ind = ind + 1
+    # while (ind < len(support)) and (not pd.isna(support.iloc[-ind])) and (support.iloc[-ind] >= S2):
+    #      ind += 1
     if (ind < len(support)):
         S3 = support.iloc[-ind]
 
-    resistance = df['Resistance'][:-i]
+    resistance = df['Resistance'][:-i].dropna()
     R0 = max(resistance.iloc[-i], df['Close'].iloc[-i-1], df['High'].iloc[-i])
     ind = 1
 
     while ((resistance.iloc[-ind] <= R0) & (ind < len(resistance))):
         ind = ind + 1
+    
+    # while (ind < len(resistance)) and (not pd.isna(resistance.iloc[-ind])) and (resistance.iloc[-ind] <= R0):
+    #     ind += 1
     if (ind < len(resistance)):
         R1 = resistance.iloc[-ind]
 
     while ((resistance.iloc[-ind] <= R1) & (ind < len(resistance))):
         ind = ind + 1
+    # while (ind < len(resistance)) and (not pd.isna(resistance.iloc[-ind])) and (resistance.iloc[-ind] <= R1):
+    #     ind += 1
     if (ind < len(resistance)):
         R2 = resistance.iloc[-ind]
+        
+    # while (ind < len(resistance)) and (not pd.isna(resistance.iloc[-ind])) and (resistance.iloc[-ind] <= R2):
+    #     ind += 1
     while ((resistance.iloc[-ind] <= R2) & (ind < len(resistance))):
         ind = ind + 1
     if (ind < len(resistance)):

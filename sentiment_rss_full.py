@@ -1,278 +1,417 @@
-import os
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Vietnamese stock sentiment from multiple websites via RSS.
+
+Outputs:
+- out/articles_sentiment.csv
+- out/summary_by_ticker.csv
+- out/source_stats.csv
+"""
+
 import argparse
-import feedparser
-import trafilatura
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.express as px
-
+import os
+import re
+import unicodedata
 from datetime import datetime, timedelta, timezone
-from transformers import pipeline
-from langdetect import detect
-from tqdm import tqdm
+from typing import Dict, List, Optional, Set
 
-# ------------------------------
-# Danh sách 100 mã HSX (cập nhật từ HOSE)
-# ------------------------------
-HSX_TICKERS = [
-    "ACB","ANV","BCM","BID","BMP","BVH","CMG","CNG","CTD","CTG",
-    "DHG","DIG","DPM","DRC","DXG","EIB","FPT","GAS","GMD","GVR",
-    "HAG","HAH","HBC","HCM","HPG","HSG","HT1","HVN","IDI","IMP",
-    "KBC","KDC","KDH","LPB","MBB","MSN","MWG","NKG","NLG","NVB",
-    "OCB","PAC","PAN","PET","PGD","PHR","PLX","PNJ","POW","PVD",
-    "PVT","REE","ROS","SAB","SAM","SAV","SBT","SCR","SHB","SHI",
-    "SSI","STB","SZC","TCB","TDH","TPB","VCB","VCI","VGC","VHM",
-    "VIB","VIC","VID","VJC","VND","VNG","VNL","VNM","VPB","VPI",
-    "VPS","VRC","VRE","VSH","VSI","YEG","HAP","NT2","QCG","TCH",
-    "GEX","FCN","VHG","HTN","DRH","ASM","AAA","DBC","NVL","HPX"
+import feedparser
+import pandas as pd
+import trafilatura
+from langdetect import LangDetectException, detect
+from transformers import pipeline
+
+# Multi-website RSS list (general + business + finance)
+FEEDS = [
+    "https://vnexpress.net/rss/kinh-doanh.rss",
+    "https://vnexpress.net/rss/tin-moi-nhat.rss",
+    "https://tuoitre.vn/rss/kinh-doanh.rss",
+    "https://tuoitre.vn/rss.htm",
+    "https://thanhnien.vn/rss/kinh-doanh.rss",
+    "https://thanhnien.vn/rss/home.rss",
+    "https://vietnamnet.vn/rss/kinh-doanh.rss",
+    "https://vietnamnet.vn/rss/home.rss",
+    "https://laodong.vn/rss/home.rss",
+    "https://dantri.com.vn/rss/home.rss",
+    "https://cafef.vn/trang-chu.rss",
+    "https://cafebiz.vn/rss.chn",
+    "https://vietstock.vn/rss/home.rss",
+    "https://ndh.vn/rss/home.rss",
+    "https://vneconomy.vn/feed",
+    "https://vir.com.vn/rss/",
+    "https://baodautu.vn/rss/",
+    "https://www.tinnhanhchungkhoan.vn/rss/",
+    "https://nhipcaudautu.vn/rss/",
+    "https://tapchitaichinh.vn/rss/tin-tuc.rss",
+    "https://thoibaonganhang.vn/rss/home.rss",
+    "https://thoibaotaichinhvietnam.vn/rss/home.rss",
+    "https://haiquanonline.com.vn/rss/home.rss",
+    "https://congthuong.vn/rss/home.rss",
+    "https://www.vietnambiz.vn/kinh-doanh.rss",
+    "https://bnews.vn/rss",
+    "https://nld.com.vn/kinh-te.rss",
+    "https://vtv.vn/kinh-te.rss",
+    "https://vov.vn/rss",
+    "https://baomoi.com/rss/general.rss",
+    "https://theleader.vn/rss/trang-chu.rss",
+    "https://saigontimes.vn/feed/",
+    "https://vietnamfinance.vn/rss.htm",
+    "https://forbesvietnam.com.vn/feed/",
+    "https://www.hsc.com.vn/feed/",
+    "https://www.mbs.com.vn/feed/",
+    "https://www.ssi.com.vn/rss",
+    "https://yuanta.com.vn/feed/",
+    "https://www.vcbs.com.vn/News/Feed",
+    "https://www.bsc.com.vn/Feed",
 ]
 
+VI_STOCK_KEYWORDS = [
+    "chung khoan",
+    "co phieu",
+    "vn-index",
+    "vnindex",
+    "hnx-index",
+    "upcom",
+    "thi truong",
+    "nha dau tu",
+    "niem yet",
+    "loi nhuan",
+    "doanh thu",
+    "ket qua kinh doanh",
+    "co tuc",
+    "trai phieu",
+]
 
-HSX_TICKERS = ['IDC', 'IDV', 'NTP', 'PVS',  'PLC', 'SHS', 'TNG',  'VCS', 'CDN','VNR',
-               'ANV',  "ACB", 'AST','ABT',
-              "BWE",  "BID", "BMI", "BMP", "BVH", 'BFC', 'BCM', 'BSI', 'BIC',
-              'CMG', "CTD", "CSV", "CTG", 'CII', 'CTS', 'CTR', 'CTI',
-              'D2D', 'DGW', 'DBC', "DHG",  "DPM",  "DRC", "DVP", 'DHA', 'DCM', 'DSE', 'DGC', 'DHC',
-              'FRT', "FCN",  'FMC', "FPT", 'FTS',
-              "GAS", "GMD", 'GVR', 'GIL', 'GEX','GEE',
-              "HSG",  'HHV', "HDG", "HCM", "HPG",  'HDC', 'HAH', "HDB", 'HTI',
-              'IMP', "IJC", 'ILB',  'ITD',
-              "KBC",  "KDH", 'KSB',
-              'LHG', 'LCG', "LPB",
-              "MBB", "MSN", "MWG",  'MSH', 'MBS',
-              "NLG", 'NTL', "NKG", 'NCT', 'OCB',
-              "PVT", "PVD", "PHR", "PNJ",  "PC1",   "PLX", "PPC", 'PTB', 'PVP', 'POW', 'PET','PVP','PGV',
-              "REE", "SJS", "STB", "SSI", "SBT",  'SKG', 'SZL', 'SZC', 'SHB', 'SGN',
-              "TIP", "TCL", 'TDM', 'TCM',  'TCB', 'TNH', 'TYA',
-              "VNM", "VHC", "VIC", "VCB", "VSC", "VJC", "VIB", 'VGC', 'VPB', 'VRE', 'VND','VCP',
-              'VHM',  'VCI', 'VTP', 'VCG',
-              'QNS',  'ACV', 'VGI', 'PPH', 'DRI','VLB','PAP', 'PDV','NTC',
-                'PHP', 'VEA', 'VGT', 'SNZ', 'C4G','VLB','SAS']
+POSITIVE_WORDS = {
+    "tang", "tang truong", "but pha", "dot bien", "lac quan", "vuot dinh", "mua rong",
+    "ke hoach cao", "hoan thanh", "ky luc", "tot", "tich cuc", "hoi phuc", "nang hang",
+    "mo rong", "gia tang", "ky vong", "kha quan", "dong tien vao", "kiem soat tot",
+}
 
-# ------------------------------
-# Crawl RSS
-# ------------------------------
-def crawl_rss(feeds, days_back=3, max_per_feed=50):
+NEGATIVE_WORDS = {
+    "giam", "lao doc", "sut giam", "thua lo", "lo", "bi phat", "dieu tra", "canh bao",
+    "huy niem yet", "cat lo", "ban rong", "rui ro", "xau", "tieu cuc", "ap luc ban",
+    "dong bang", "suy yeu", "giam sau", "bi ban thao", "mat thanh khoan", "pha day",
+}
+
+VI_TICKERS = {
+    "ACB", "ANV", "AST", "BID", "BMI", "BMP", "BSI", "BVH", "BWE", "CMG",
+    "CTD", "CTG", "CTR", "DBC", "DCM", "DGC", "DGW", "DHG", "DPM", "DRC",
+    "DXG", "FCN", "FPT", "FRT", "FTS", "GAS", "GEX", "GMD", "GVR", "HAG",
+    "HAH", "HCM", "HDB", "HDG", "HPG", "HSG", "KBC", "KDH", "LPB", "MBB",
+    "MSN", "MWG", "NKG", "NLG", "OCB", "PAN", "PC1", "PDR", "PET", "PLX",
+    "PNJ", "POW", "PVD", "PVT", "REE", "SAB", "SHB", "SSI", "STB", "TCB",
+    "TPB", "VCB", "VCG", "VCI", "VGC", "VHC", "VHM", "VIB", "VIC", "VJC",
+    "VND", "VNM", "VPB", "VRE",
+}
+
+LABEL_MAP = {
+    "LABEL_0": "negative",
+    "LABEL_1": "neutral",
+    "LABEL_2": "positive",
+}
+
+TICKER_RE = re.compile(r"(?<![A-Z0-9])[A-Z]{3,5}(?![A-Z0-9])")
+SENTENCE_SPLIT_RE = re.compile(r"(?<=[\.\!\?\n])\s+")
+
+
+def strip_vietnamese_marks(text: str) -> str:
+    normalized = unicodedata.normalize("NFD", text)
+    stripped = "".join(ch for ch in normalized if unicodedata.category(ch) != "Mn")
+    return stripped.replace("đ", "d").replace("Đ", "D")
+
+
+def normalize_text(text: str) -> str:
+    lowered = text.lower()
+    no_marks = strip_vietnamese_marks(lowered)
+    return re.sub(r"\s+", " ", no_marks).strip()
+
+
+def is_vi_stock_article(text: str) -> bool:
+    normalized = normalize_text(text)
+    return any(keyword in normalized for keyword in VI_STOCK_KEYWORDS)
+
+
+def lexicon_sentiment_score(text: str) -> float:
+    normalized = normalize_text(text)
+    pos = sum(1 for w in POSITIVE_WORDS if w in normalized)
+    neg = sum(1 for w in NEGATIVE_WORDS if w in normalized)
+    total = pos + neg
+    if total == 0:
+        return 0.0
+    # Bounded to [-1, 1]
+    return (pos - neg) / total
+
+
+def parse_entry_time(entry) -> datetime:
+    if hasattr(entry, "published_parsed") and entry.published_parsed:
+        return datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
+    if hasattr(entry, "updated_parsed") and entry.updated_parsed:
+        return datetime(*entry.updated_parsed[:6], tzinfo=timezone.utc)
+    return datetime.now(timezone.utc)
+
+
+def detect_tickers(text: str, allowed: Set[str]) -> List[str]:
+    found = set(TICKER_RE.findall(text.upper()))
+    return sorted(found & allowed)
+
+
+def split_sentences(text: str) -> List[str]:
+    parts = SENTENCE_SPLIT_RE.split(text)
+    return [p.strip() for p in parts if p and p.strip()]
+
+
+def pick_ticker_context(content: str, ticker: str, max_sentences: int = 6) -> str:
+    sentences = split_sentences(content)
+    if not sentences:
+        return content[:1200]
+
+    ticker_upper = ticker.upper()
+    keyword_hits = []
+    normalized_keywords = {normalize_text(k) for k in VI_STOCK_KEYWORDS}
+
+    for sentence in sentences:
+        up = sentence.upper()
+        if ticker_upper not in up:
+            continue
+        score = 1
+        normalized_sentence = normalize_text(sentence)
+        if any(k in normalized_sentence for k in normalized_keywords):
+            score += 1
+        if any(w in normalized_sentence for w in POSITIVE_WORDS):
+            score += 1
+        if any(w in normalized_sentence for w in NEGATIVE_WORDS):
+            score += 1
+        keyword_hits.append((score, sentence))
+
+    if not keyword_hits:
+        return content[:1200]
+
+    keyword_hits.sort(key=lambda x: x[0], reverse=True)
+    selected = [sent for _, sent in keyword_hits[:max_sentences]]
+    return "\n".join(selected)[:1200]
+
+
+def fetch_article_text(url: str) -> str:
+    raw = trafilatura.fetch_url(url)
+    if not raw:
+        return ""
+    extracted = trafilatura.extract(raw, include_comments=False, include_tables=False)
+    return extracted or ""
+
+
+def crawl_feeds(feeds: List[str], days_back: int, max_per_feed: int) -> pd.DataFrame:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days_back)
-    rows = []
-    for url in feeds:
+    rows: List[Dict[str, str]] = []
+    seen_links: Set[str] = set()
+
+    for feed_url in feeds:
         try:
-            d = feedparser.parse(url)
-            for entry in d.entries[:max_per_feed]:
-                if hasattr(entry, "published_parsed") and entry.published_parsed:
-                    published = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
-                else:
-                    published = datetime.now(timezone.utc)
+            parsed = feedparser.parse(feed_url)
+            for entry in parsed.entries[:max_per_feed]:
+                link = entry.get("link", "").strip()
+                if not link or link in seen_links:
+                    continue
+                published = parse_entry_time(entry)
                 if published < cutoff:
                     continue
-                link = entry.link
-                downloaded = trafilatura.fetch_url(link)
-                if not downloaded:
-                    continue
-                text = trafilatura.extract(downloaded)
+                title = entry.get("title", "")
+                summary = entry.get("summary", "")
+                text = fetch_article_text(link)
                 if not text:
-                    continue
-                rows.append({
-                    "title": entry.title,
-                    "published": published,
-                    "link": link,
-                    "text": text
-                })
-        except Exception as e:
-            print(f"⚠️ Error parsing {url}: {e}")
+                    text = f"{title}\n{summary}"
+                rows.append(
+                    {
+                        "title": title,
+                        "summary": summary,
+                        "text": text,
+                        "link": link,
+                        "published": published.isoformat(),
+                        "source_feed": feed_url,
+                    }
+                )
+                seen_links.add(link)
+        except Exception as exc:
+            print(f"[WARN] cannot parse feed {feed_url}: {exc}")
+
     return pd.DataFrame(rows)
 
-# ------------------------------
-# Detect ticker in text
-# ------------------------------
-def detect_tickers(text, tickers=HSX_TICKERS):
-    found = [t for t in tickers if f" {t} " in text.upper()]
-    return list(set(found))
 
-# ------------------------------
-# Sentiment pipeline
-# ------------------------------
 def build_sentiment_pipeline():
-    return pipeline("sentiment-analysis", model="cardiffnlp/twitter-xlm-roberta-base-sentiment", tokenizer="cardiffnlp/twitter-xlm-roberta-base-sentiment", use_fast=False)
+    return pipeline(
+        "sentiment-analysis",
+        model="cardiffnlp/twitter-xlm-roberta-base-sentiment",
+        tokenizer="cardiffnlp/twitter-xlm-roberta-base-sentiment",
+    )
 
-# ------------------------------
-# Analyze sentiment
-# ------------------------------
-def analyze(df, sentiment_model):
-    results = []
-    for _, row in tqdm(df.iterrows(), total=len(df)):
-        try:
-            txt = row["text"]
-            if detect(txt) != "vi":
-                continue
-            tickers = detect_tickers(txt)
-            if not tickers:
-                continue
-            sent = sentiment_model(txt[:512])[0]
-            label = sent["label"].lower()
-            score = sent["score"]
-            for t in tickers:
-                results.append({
-                    "ticker": t,
+
+def detect_language(text: str) -> Optional[str]:
+    try:
+        return detect(text)
+    except LangDetectException:
+        return None
+
+
+def extract_score_map(prediction_output) -> Dict[str, float]:
+    # Handles transformers outputs across versions:
+    # - [{"label":"LABEL_0","score":...}, ...]
+    # - [[{"label":"LABEL_0","score":...}, ...]]
+    if isinstance(prediction_output, list) and prediction_output:
+        first = prediction_output[0]
+        if isinstance(first, list):
+            prediction_output = first
+    if not isinstance(prediction_output, list):
+        return {}
+    return {item.get("label", ""): float(item.get("score", 0.0)) for item in prediction_output if isinstance(item, dict)}
+
+
+def analyze_articles(
+    df: pd.DataFrame,
+    sentiment_model,
+    allowed_tickers: Set[str],
+    pos_threshold: float,
+    neg_threshold: float,
+    lexicon_weight: float,
+) -> pd.DataFrame:
+    results: List[Dict[str, str]] = []
+    for row in df.itertuples(index=False):
+        content = f"{row.title}\n{row.summary}\n{row.text}"
+        if not is_vi_stock_article(content):
+            continue
+
+        lang = detect_language(content[:1000])
+        if lang not in (None, "vi"):
+            continue
+
+        tickers = detect_tickers(content, allowed_tickers)
+        if not tickers:
+            continue
+
+        for ticker in tickers:
+            context_text = pick_ticker_context(content, ticker)
+            scored = sentiment_model(context_text[:512], top_k=None)
+            score_map = extract_score_map(scored)
+
+            neg = score_map.get("LABEL_0", 0.0)
+            neu = score_map.get("LABEL_1", 0.0)
+            pos = score_map.get("LABEL_2", 0.0)
+
+            model_score = pos - neg
+            lex_score = lexicon_sentiment_score(context_text)
+            model_weight = max(0.0, 1.0 - lexicon_weight)
+            final_score = model_weight * model_score + lexicon_weight * lex_score
+
+            if final_score >= pos_threshold:
+                label = "positive"
+            elif final_score <= neg_threshold:
+                label = "negative"
+            else:
+                label = "neutral"
+
+            results.append(
+                {
+                    "ticker": ticker,
                     "label": label,
-                    "score": score,
-                    "published": row["published"],
-                    "link": row["link"]
-                })
-        except Exception as e:
-            print(f"⚠️ Sentiment error: {e}")
+                    "score": final_score,
+                    "model_score": model_score,
+                    "lexicon_score": lex_score,
+                    "p_pos": pos,
+                    "p_neu": neu,
+                    "p_neg": neg,
+                    "title": row.title,
+                    "published": row.published,
+                    "link": row.link,
+                    "source_feed": row.source_feed,
+                    "context_text": context_text,
+                }
+            )
+
     return pd.DataFrame(results)
 
-# ------------------------------
-# Dashboard
-# ------------------------------
-def visualize_dashboard(dash_df, outdir="out"):
+
+def summarize_by_ticker(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(
+            columns=["ticker", "positive", "neutral", "negative", "articles", "avg_score", "net_mentions"]
+        )
+
+    grouped = df.groupby(["ticker", "label"]).size().unstack(fill_value=0)
+    for label in ("positive", "neutral", "negative"):
+        if label not in grouped.columns:
+            grouped[label] = 0
+    grouped["articles"] = grouped["positive"] + grouped["neutral"] + grouped["negative"]
+    score_mean = df.groupby("ticker")["score"].mean().rename("avg_score")
+    result = grouped.join(score_mean).reset_index()
+    result["net_mentions"] = result["positive"] - result["negative"]
+    return result.sort_values(["articles", "avg_score"], ascending=[False, False])
+
+
+def summarize_by_source(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return pd.DataFrame(columns=["source_feed", "articles"])
+    return df.groupby("source_feed").size().rename("articles").sort_values(ascending=False).reset_index()
+
+
+def save_outputs(raw_df: pd.DataFrame, summary_df: pd.DataFrame, source_df: pd.DataFrame, outdir: str) -> None:
     os.makedirs(outdir, exist_ok=True)
-    if len(dash_df) == 0:
-        print("⚠️ Dashboard rỗng, không có dữ liệu để vẽ.")
-        return
+    raw_df.to_csv(os.path.join(outdir, "articles_sentiment.csv"), index=False, encoding="utf-8-sig")
+    summary_df.to_csv(os.path.join(outdir, "summary_by_ticker.csv"), index=False, encoding="utf-8-sig")
+    source_df.to_csv(os.path.join(outdir, "source_stats.csv"), index=False, encoding="utf-8-sig")
 
-    # --- Heatmap ---
-    heatmap_data = dash_df.melt(
-        id_vars=["ticker"],
-        value_vars=["positive","neutral","negative"],
-        var_name="sentiment",
-        value_name="count"
-    )
 
-    plt.figure(figsize=(12,8))
-    pivot = heatmap_data.pivot(index="ticker", columns="sentiment", values="count").fillna(0)
-    sns.heatmap(pivot, annot=True, fmt="g", cmap="RdYlGn")
-    plt.title("Heatmap Sentiment theo mã cổ phiếu")
-    plt.tight_layout()
-    plt.savefig(f"{outdir}/sentiment_heatmap.png", dpi=200)
-    plt.close()
+def parse_args():
+    parser = argparse.ArgumentParser(description="Vietnamese stock sentiment analysis from many RSS websites.")
+    parser.add_argument("--days-back", type=int, default=3, help="Only keep articles from the last N days.")
+    parser.add_argument("--max-per-feed", type=int, default=50, help="Maximum entries per feed.")
+    parser.add_argument("--outdir", type=str, default="out", help="Output folder.")
+    parser.add_argument("--tickers-file", type=str, default="", help="Optional text file with one ticker per line.")
+    parser.add_argument("--pos-threshold", type=float, default=0.08, help="Min score to classify positive.")
+    parser.add_argument("--neg-threshold", type=float, default=-0.08, help="Max score to classify negative.")
+    parser.add_argument("--lexicon-weight", type=float, default=0.25, help="Weight of lexicon score in final score [0..1].")
+    return parser.parse_args()
 
-    # --- Pie chart ---
-    total_pos = dash_df["positive"].sum()
-    total_neu = dash_df["neutral"].sum()
-    total_neg = dash_df["negative"].sum()
-    plt.figure(figsize=(6,6))
-    plt.pie([total_pos, total_neu, total_neg],
-            labels=["Positive","Neutral","Negative"],
-            autopct='%1.1f%%',
-            colors=["#2ecc71","#f1c40f","#e74c3c"])
-    plt.title("Tỉ lệ sentiment toàn bộ bài báo")
-    plt.savefig(f"{outdir}/sentiment_pie.png", dpi=200)
-    plt.close()
 
-    # --- Plotly interactive ---
-    fig = px.bar(
-        dash_df.sort_values("articles", ascending=False).head(20),
-        x="ticker", y=["positive","neutral","negative"],
-        title="Top 20 mã được nhắc nhiều nhất và sentiment",
-        barmode="stack"
-    )
-    fig.write_html(f"{outdir}/sentiment_dashboard.html")
-    print(f"📊 Dashboard đã xuất ra thư mục {outdir}")
+def load_tickers(extra_file: str) -> Set[str]:
+    tickers = set(VI_TICKERS)
+    if extra_file and os.path.exists(extra_file):
+        with open(extra_file, "r", encoding="utf-8") as handle:
+            for line in handle:
+                value = line.strip().upper()
+                if re.fullmatch(r"[A-Z]{3,5}", value):
+                    tickers.add(value)
+    return tickers
 
-# ------------------------------
-# Main
-# ------------------------------
+
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--days-back", type=int, default=3)
-    parser.add_argument("--max-per-feed", type=int, default=30)
-    parser.add_argument("--outdir", type=str, default="out")
-    args = parser.parse_args()
+    args = parse_args()
+    tickers = load_tickers(args.tickers_file)
 
-    feeds = [
-        # National general news
-        "https://vnexpress.net/rss/tin-moi-nhat.rss",
-        "https://vnexpress.net/rss/kinh-doanh.rss",
-        "https://tuoitre.vn/rss.htm",
-        "https://thanhnien.vn/rss/home.rss",
-        "https://vietnamnet.vn/rss/home.rss",
-        "https://zingnews.vn/rss.html",
-        "https://laodong.vn/rss/home.rss",
-        "https://dantri.com.vn/rss/home.rss",
-        "https://nhandan.vn/rss/home.rss",
-        "https://baomoi.com/rss/general.rss",
-        "https://vtv.vn/kinh-te.rss",
-        "https://vov.vn/rss",
+    print("[1/4] Crawling RSS feeds...")
+    crawled = crawl_feeds(FEEDS, args.days_back, args.max_per_feed)
+    print(f"Collected {len(crawled)} articles.")
 
-        # Business/finance core
-        "https://cafef.vn/trang-chu.rss",
-        "https://cafebiz.vn/rss.chn",
-        "https://vietstock.vn/rss/home.rss",
-        "https://s.cafef.vn/rss/",
-        "https://ndh.vn/rss/home.rss",
-        "https://vneconomy.vn/feed",
-        "https://vir.com.vn/rss/",
-        "https://baodautu.vn/rss/",
-        "https://www.tinnhanhchungkhoan.vn/rss/",
-        "https://nhipcaudautu.vn/rss/",
-        "https://tapchitaichinh.vn/rss/tin-tuc.rss",
-        "https://thoibaonganhang.vn/rss/home.rss",
-        "https://thoibaotaichinhvietnam.vn/rss/home.rss",
-        "https://haiquanonline.com.vn/rss/home.rss",
-        "https://bnews.vn/rss",
-        "https://www.vietnambiz.vn/kinh-doanh.rss",
-        "https://congthuong.vn/rss/home.rss",
-
-        # Securities companies / research (where RSS offered)
-        "https://www.hsc.com.vn/feed/",
-        "https://miraeasset.com.vn/feed/",
-        "https://kisvn.vn/feed/",
-        "https://www.mbs.com.vn/feed/",
-        "https://www.ssi.com.vn/rss",
-        "https://yuanta.com.vn/feed/",
-        "https://www.vcbs.com.vn/News/Feed",
-        "https://www.bsc.com.vn/Feed",
-
-        # English-language Vietnam business
-        "https://e.vnexpress.net/rss/business.rss",
-        "https://vietnamnews.vn/rss/economy.rss",
-        "https://tuoitrenews.vn/rss",
-        "https://vir.com.vn/rss/",
-        "https://saigontimes.com.vn/en/feed/",
-
-        # Specialized / magazines
-        "https://theleader.vn/rss/trang-chu.rss",
-        "https://doanhnhan.vn/rss",
-        "https://doanhnhansaigon.vn/rss",
-        "https://thuongtruong.com.vn/rss",
-        "https://thuonghieucongluan.com.vn/rss/home.rss",
-        "https://saigontimes.vn/feed/",
-        "https://vietnamfinance.vn/rss.htm",
-        "https://forbesvietnam.com.vn/feed/",
-        
-
-        # International wires referencing Vietnam (optional)
-        "https://feeds.reuters.com/reuters/businessNews",
-        "https://www.bloomberg.com/feeds/podcasts.xml",
-        "https://www.ft.com/?format=rss",
-    ]
-
-    print("📥 Crawling RSS...")
-    df = crawl_rss(feeds, args.days_back, args.max_per_feed)
-    print(f"✅ Collected {len(df)} articles")
-
-    print("🤖 Loading sentiment model...")
+    print("[2/4] Loading sentiment model...")
     sentiment_model = build_sentiment_pipeline()
 
-    print("🔎 Analyzing sentiment...")
-    res = analyze(df, sentiment_model)
-    res.to_csv(f"{args.outdir}/raw_results.csv", index=False)
+    print("[3/4] Running sentiment analysis...")
+    lexicon_weight = min(max(args.lexicon_weight, 0.0), 1.0)
+    raw_results = analyze_articles(
+        crawled,
+        sentiment_model,
+        tickers,
+        args.pos_threshold,
+        args.neg_threshold,
+        lexicon_weight,
+    )
+    print(f"Scored {len(raw_results)} ticker-level sentiment rows.")
 
-    # --- Aggregate by ticker ---
-    if len(res) > 0:
-        dash = res.groupby(["ticker","label"]).size().unstack(fill_value=0)
-        for col in ["positive","neutral","negative"]:
-            if col not in dash.columns:
-                dash[col] = 0
-        dash["articles"] = dash.sum(axis=1)
-        dash = dash.reset_index()
-        dash.to_csv(f"{args.outdir}/summary_by_ticker.csv", index=False)
-        visualize_dashboard(dash, args.outdir)
-    else:
-        print("⚠️ Không có kết quả sentiment hợp lệ.")
+    print("[4/4] Saving outputs...")
+    summary_results = summarize_by_ticker(raw_results)
+    source_results = summarize_by_source(raw_results)
+    save_outputs(raw_results, summary_results, source_results, args.outdir)
+    print(f"Done. Files are in: {args.outdir}")
+
 
 if __name__ == "__main__":
     main()
